@@ -73,7 +73,7 @@ export const navItems: NavData[] = [
     icon: 'fa fa-user',
     children: [
       {
-        name: 'Customers',
+        name: 'Customer',
         url: '/customers/customer',
         icon: 'fa fa-user'
       }
