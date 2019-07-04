@@ -10,17 +10,8 @@ const routes: Routes = [
       title: 'Sales'
     },
     children: [
-      {
-        path: '',
-        redirectTo: 'orders'
-      },
-      {
-        path: 'orders',
-        component: SearchOrderComponent,
-        data: {
-          title: 'Orders'
-        }
-      },
+      { path: '', redirectTo: 'orders' },
+      { path: 'orders', component: SearchOrderComponent, data: { title: 'Orders' } },
     ]
   }
 ];
