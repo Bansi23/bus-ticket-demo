@@ -11,7 +11,7 @@ const routes: Routes = [
     },
     children: [
       { path: '', redirectTo: 'product' },
-      { path: 'product', component: SearchProductComponent, data: { title: 'product' } },
+      { path: 'product', component: SearchProductComponent, data: { title: 'Product' } },
     ]
   }
 ];

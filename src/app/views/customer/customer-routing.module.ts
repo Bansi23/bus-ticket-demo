@@ -11,7 +11,7 @@ const routes: Routes = [
     },
     children: [
       { path: '', redirectTo: 'customer' },
-      { path: 'customer', component: SearchCustomerComponent, data: { title: 'customer' } },
+      { path: 'customer', component: SearchCustomerComponent, data: { title: 'Customer' } },
     ]
   }
 ];
