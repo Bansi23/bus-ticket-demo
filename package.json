@@ -19,12 +19,12 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --port 1994",
+    "start": "ng serve --port 8000",
     "build": "ng build --prod --aot --buildOptimizer --commonChunk --vendorChunk --optimization --progress",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
-  },
+  }, 
   "private": true,
   "dependencies": {
     "@angular/animations": "^8.0.2",
