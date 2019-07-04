@@ -2,43 +2,111 @@
     <div class="card">
         <div class="card-header">
             <strong>Order</strong>
-            <!-- <small>Form</small> -->
         </div>
         <div class="card-body">
-            <div class="col-sm-12">
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label for="company">Company</label>
-                        <input type="text" class="form-control" id="company" placeholder="Enter your company name">
-                    </div>
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label for="city">Start Date</label>
+                    <input type="text" class="form-control">
                 </div>
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label for="vat">VAT</label>
-                        <input type="text" class="form-control" id="vat" placeholder="PL1234567890">
-                    </div>
+                <div class="form-group col-sm-6">
+                    <label for="postal-code">Vender</label>
+                    <select class="form-control">
+                        <select class="form-control">
+                            <option *ngFor="let venderRec of lstvender">{{venderRec._vender}}</option>
+                        </select>
+                    </select>
                 </div>
             </div>
 
-            <div class="form-group">
-                <label for="street">Street</label>
-                <input type="text" class="form-control" id="street" placeholder="Enter street name">
-            </div>
             <div class="row">
-                <div class="form-group col-sm-8">
-                    <label for="city">City</label>
-                    <input type="text" class="form-control" id="city" placeholder="Enter your city">
+                <div class="form-group col-sm-6">
+                    <label for="city">End Date</label>
+                    <input type="text" class="form-control">
                 </div>
-                <div class="form-group col-sm-4">
-                    <label for="postal-code">Postal Code</label>
-                    <input type="text" class="form-control" id="postal-code" placeholder="Postal Code">
+                <div class="form-group col-sm-6">
+                    <label for="postal-code">Billing Mobile No.</label>
+                    <input type="text" class="form-control">
                 </div>
             </div>
-            <!--/.row-->
-            <div class="form-group">
-                <label for="country">Country</label>
-                <input type="text" class="form-control" id="country" placeholder="Country name">
+
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label for="city">Product</label>
+                    <input type="text" class="form-control">
+                </div>
+                <div class="form-group col-sm-6">
+                    <label for="postal-code">Billing Email Address</label>
+                    <input type="email" class="form-control">
+                </div>
             </div>
+
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label for="city">Order Status</label>
+                    <select class="form-control">
+                        <option *ngFor="let OrderStatus of lstOrderStatus">
+                            {{OrderStatus.order_status}}</option>
+                    </select>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label for="postal-code">Billing Last Name</label>
+                    <input type="email" class="form-control">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label for="city">Payment Status</label>
+
+
+                    <select class="form-control">
+                            <option *ngFor="let paymentStatus of lstPaymentStatus">
+                                {{paymentStatus.payment_status}}</option>
+                        </select>
+                        
+                </div>
+                <div class="form-group col-sm-6">
+                    <label for="postal-code">Billing Country</label>
+                    <select class="form-control">
+                        <option value="1">India</option>
+                        <option value="2">USA</option>
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label for="city">Shipping Status</label>
+                    <select class="form-control">
+                        <option *ngFor="let shippingStatus of lstShippingStatus">{{shippingStatus.shipping_status}}
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label for="postal-code">Payment Method</label>
+                    <select class="form-control">
+                        <option *ngFor="let paymentMethod of lstpaymentMethod">{{paymentMethod.payment_method}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label for="city">Order Note</label>
+                    <input type="text" class="form-control">
+                </div>
+                <div class="form-group col-sm-6 ">
+                    <label for="city">Go directly to Order #</label>
+                    <input type="number" class="form-control">
+                </div>
+            </div>
+
+           
+               <button class="btn btn-info text-center text-white center-block">Search</button>
+       
         </div>
     </div>
 </div>
