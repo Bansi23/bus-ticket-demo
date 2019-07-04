@@ -46,7 +46,7 @@ export class MockService {
   }
   vender() {
     return [
-      { "id": 1, '_vender': 'Vender 1' },
+      { "id": 1, 'vender': 'Vender 1' },
       { "id": 2, 'vender': 'vender 2' },
 
     ]

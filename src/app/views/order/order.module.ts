@@ -3,13 +3,22 @@ import { CommonModule } from '@angular/common';
 
 import { OrderRoutingModule } from './order-routing.module';
 import { SearchOrderComponent } from './search-order/search-order.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MyDatePickerModule } from 'mydatepicker';
+import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
+
 
 
 @NgModule({
   declarations: [SearchOrderComponent],
   imports: [
     CommonModule,
-    OrderRoutingModule
+    OrderRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MyDatePickerModule,
+    AngularMultiSelectModule
+
   ]
 })
 export class OrderModule { }

@@ -4,109 +4,124 @@
             <strong>Order</strong>
         </div>
         <div class="card-body">
-            <div class="row">
-                <div class="form-group col-sm-6">
-                    <label for="city">Start Date</label>
-                    <input type="text" class="form-control">
-                </div>
-                <div class="form-group col-sm-6">
-                    <label for="postal-code">Vender</label>
-                    <select class="form-control">
-                        <select class="form-control">
-                            <option *ngFor="let venderRec of lstvender">{{venderRec._vender}}</option>
+            <form [formGroup]="searchOrder">
+                <div class="row">
+                    <div class="form-group col-sm-6">
+                        <label>Start Date</label>
+                        <input type="text" class="form-control" formControlName="sdate">
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label for="postal-code">Vender</label>
+
+                        <select class="form-control" formControlName="venderRec">
+                            <option *ngFor="let venderRec of lstvender" [ngValue]="venderRec">{{venderRec.vender}}
+                            </option>
                         </select>
-                    </select>
-                </div>
-            </div>
 
-            <div class="row">
-                <div class="form-group col-sm-6">
-                    <label for="city">End Date</label>
-                    <input type="text" class="form-control">
+                    </div>
                 </div>
-                <div class="form-group col-sm-6">
-                    <label for="postal-code">Billing Mobile No.</label>
-                    <input type="text" class="form-control">
-                </div>
-            </div>
 
-            <div class="row">
-                <div class="form-group col-sm-6">
-                    <label for="city">Product</label>
-                    <input type="text" class="form-control">
+                <div class="row">
+                    <div class="form-group col-sm-6">
+                        <label>End Date</label>
+                        <input type="text" class="form-control" formControlName="edate">
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label>Billing Mobile No.</label>
+                        <input type="text" class="form-control" formControlName="mono">
+                    </div>
                 </div>
-                <div class="form-group col-sm-6">
-                    <label for="postal-code">Billing Email Address</label>
-                    <input type="email" class="form-control">
+
+                <div class="row">
+                    <div class="form-group col-sm-6">
+                        <label>Product</label>
+                        <input type="text" class="form-control" formControlName="productnm">
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label>Billing Email Address</label>
+                        <input type="email" class="form-control" formControlName="mail">
+                    </div>
                 </div>
-            </div>
 
-            <div class="row">
-                <div class="form-group col-sm-6">
-                    <label for="city">Order Status</label>
-                    <select class="form-control">
-                        <option *ngFor="let OrderStatus of lstOrderStatus">
-                            {{OrderStatus.order_status}}</option>
-                    </select>
+                <div class="row">
+                    <div class="form-group col-sm-6">
+                        <label>Order Status</label>
+                        <!-- <select class="form-control" formControlName="orderstatus">
+                            <option *ngFor="let OrderStatus of lstOrderStatus" [ngValue]="OrderStatus">
+                                {{OrderStatus.order_status}}</option>
+                        </select> -->
+                        <angular2-multiselect  [data]="lstOrderStatus" [(ngModel)]="selectedItems"
+                            class="form-control" [settings]="dropdownSettings" (onSelect)="onItemSelect($event)"
+                            (onDeSelect)="onItemSelect($event)" (onSelectAll)="onItemSelect($event)"
+                            (onDeSelectAll)="onItemSelect($event)">
+                            <ng-container *ngIf="lstOrderStatus?.length == selectedItems?.length">
+                                <c-badge>
+                                    <ng-template let-item="item">
+                                        <label style="margin: 0px; padding-right: 5px;">All</label>
+                                    </ng-template>
+                                </c-badge>
+                            </ng-container>
+                        </angular2-multiselect>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label>Billing Last Name</label>
+                        <input type="email" class="form-control" formControlName="billinAdd">
+                    </div>
                 </div>
-                <div class="form-group col-sm-6">
-                    <label for="postal-code">Billing Last Name</label>
-                    <input type="email" class="form-control">
-                </div>
-            </div>
 
-            <div class="row">
-                <div class="form-group col-sm-6">
-                    <label for="city">Payment Status</label>
+                <div class="row">
+                    <div class="form-group col-sm-6">
+                        <label for="city">Payment Status</label>
 
 
-                    <select class="form-control">
-                            <option *ngFor="let paymentStatus of lstPaymentStatus">
+                        <select class="form-control" formControlName="paymentStatus">
+                            <option *ngFor="let paymentStatus of lstPaymentStatus" [ngValue]="paymentStatus">
                                 {{paymentStatus.payment_status}}</option>
                         </select>
-                        
+
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label for="postal-code">Billing Country</label>
+                        <select class="form-control" formControlName="country">
+                            <option value="1">India</option>
+                            <option value="2">USA</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="form-group col-sm-6">
-                    <label for="postal-code">Billing Country</label>
-                    <select class="form-control">
-                        <option value="1">India</option>
-                        <option value="2">USA</option>
-                    </select>
-                </div>
-            </div>
 
 
-            <div class="row">
-                <div class="form-group col-sm-6">
-                    <label for="city">Shipping Status</label>
-                    <select class="form-control">
-                        <option *ngFor="let shippingStatus of lstShippingStatus">{{shippingStatus.shipping_status}}
-                        </option>
-                    </select>
+                <div class="row">
+                    <div class="form-group col-sm-6">
+                        <label for="city">Shipping Status</label>
+                        <select class="form-control" formControlName="shippingStatus">
+                            <option *ngFor="let shippingStatus of lstShippingStatus" [ngValue]="shippingStatus">
+                                {{shippingStatus.shipping_status}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label for="postal-code">Payment Method</label>
+                        <select class="form-control" formControlName="paymentMethod">
+                            <option *ngFor="let paymentMethod of lstpaymentMethod" [ngValue]="paymentMethod">
+                                {{paymentMethod.payment_method}}
+                            </option>
+                        </select>
+                    </div>
                 </div>
-                <div class="form-group col-sm-6">
-                    <label for="postal-code">Payment Method</label>
-                    <select class="form-control">
-                        <option *ngFor="let paymentMethod of lstpaymentMethod">{{paymentMethod.payment_method}}
-                        </option>
-                    </select>
-                </div>
-            </div>
 
-            <div class="row">
-                <div class="form-group col-sm-6">
-                    <label for="city">Order Note</label>
-                    <input type="text" class="form-control">
+                <div class="row">
+                    <div class="form-group col-sm-6">
+                        <label for="city">Order Note</label>
+                        <input type="text" class="form-control" formControlName="ordernote">
+                    </div>
+                    <div class="form-group col-sm-6 ">
+                        <label for="city">Go directly to Order #</label>
+                        <input type="number" formControlName="orderno" class="form-control">
+                    </div>
                 </div>
-                <div class="form-group col-sm-6 ">
-                    <label for="city">Go directly to Order #</label>
-                    <input type="number" class="form-control">
-                </div>
-            </div>
+                <button class="btn btn-info text-center text-white center-block">Search</button>
 
-           
-               <button class="btn btn-info text-center text-white center-block">Search</button>
-       
+            </form>
         </div>
     </div>
 </div>
