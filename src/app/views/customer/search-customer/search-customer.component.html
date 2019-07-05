@@ -14,7 +14,7 @@
         <div class="card-header">
             <strong>Customers</strong>
             <div class="pull-right">
-                <a class="btn bg-blue">
+                <a class="btn bg-blue" (click)="gotoAddCustomer()">
                     <i class="fa fa-plus-square">
                     </i>
                     Add new
@@ -27,13 +27,13 @@
                     <div class="form-group col-sm-6">
                         <label for="email">Email</label>
                         <input type="email" class="form-control">
-                    </div>
+                    </div>      
                     <div class="form-group col-sm-6">
                         <label for="company">Company</label>
                         <input type="text" class="form-control">
                     </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="form-group col-sm-6">
                         <label for="first name">First name</label>
@@ -50,15 +50,76 @@
                         <input type="text" class="form-control">
                     </div>
                     <div class="form-group col-sm-6">
-                        <select name="" id="">
-                            
-                        </select>
+                        <!-- <select name="" id="">
+
+                        </select> -->
+                        <label for="customer roles">Customer roles</label>
+                        <!-- <angular2-multiselect [data]="lstCustomerRoles" [(ngModel)]="selectedItems" 
+                        [settings]="dropdownSettings" 
+                        (onSelect)="onItemSelect($event)" 
+                        (onDeSelect)="OnItemDeSelect($event)"
+                        (onSelectAll)="onSelectAll($event)"
+                        (onDeSelectAll)="onDeSelectAll($event)"></angular2-multiselect> -->
+
+                    </div>
+                </div>
+                <div class="row">
+                    <label for="date of birth">Date of birth</label>
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <select name="" id="" class="form-control">
+                                    <option value="0">Month</option>
+                                    <option value="" *ngFor="let m of lstCustDOBMonth; let i=index">{{m.month}}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <select name="" id="" class="form-control">
+                                    <option value="0">Day</option>
+                                    <option value="" *ngFor="let d of lstCustDOBDay; let i=index">{{d.day}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-7 col-md-offset-5" >
+                        <button type="button" class="btn btn-primary btn-search">
+                            <i class="fa fa-search"></i>
+                            Search
+                        </button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
-</div>
+
+    <div class="row">
+        <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                            <div class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Email</th>
+                                            <th>Name</th>
+                                            <th>Custmer roles</th>
+                                            <th>Company name</th>
+                                            <th>Active</th>
+                                            <th>Created on</th>
+                                            <th>Last activity</th>
+                                            <th>Edit</th>
+                                        </tr>
+                                    </thead>
+                                </div>  
+                    </div>
+                </div>
+        </div>
+    </div>
+    
+ </div>
+
 
 
 <!-- <div class="content">
