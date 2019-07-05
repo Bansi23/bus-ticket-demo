@@ -5,6 +5,8 @@ import { CustomerRoutingModule } from './customer-routing.module';
 import { SearchCustomerComponent } from './search-customer/search-customer.component';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { FormsModule } from '@angular/forms';
+import { MyDatePickerModule } from 'mydatepicker';
+
 
 @NgModule({
   declarations: [SearchCustomerComponent],
@@ -12,7 +14,10 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     CustomerRoutingModule,
     AngularMultiSelectModule,
-    FormsModule
+    FormsModule,
+    MyDatePickerModule,
+    
+
   ]
 })
 export class CustomerModule { }

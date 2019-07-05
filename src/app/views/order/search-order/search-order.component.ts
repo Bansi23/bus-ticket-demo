@@ -17,30 +17,53 @@ export class SearchOrderComponent implements OnInit {
   lstpaymentMethod: any = [];
   searchOrder: FormGroup;
   selectedItems: any = [];
-
   //#endregion
+
+  //dropdown static Data
+  dropdownSettings = {
+    singleSelection: false,
+    text: "Select Activity",
+    selectAllText: 'Select All',
+    unSelectAllText: 'UnSelect All',
+    enableSearchFilter: true,
+    classes: "myclass custom-class",
+    badgeShowLimit: 1,
+    maxHeight: 200
+  };
 
   //#region form group
-  fbSearchOrder() {
-    this.searchOrder = this.fb.group({
-      sdate: [''],
-      venderRec: [''],
-      edate: [''],
-      mono: [''],
-      productnm: [''],
-      mail: [''],
-      orderstatus: [''],
-      billinAdd: [''],
-      paymentStatus: [''],
-      country: [''],
-      shippingStatus: [''],
-      paymentMethod: [''],
-      ordernote: [''],
-      orderno: [''],
-    });
-  }
+  // fbSearchOrder() {
+  //   this.searchOrder = this.fb.group({
+  //     sdate: [''],
+  //     venderRec: [''],
+  //     edate: [''],
+  //     mono: [''],
+  //     productnm: [''],
+  //     mail: [''],
+  //     orderstatus: [''],
+  //     billinAdd: [''],
+  //     paymentStatus: [''],
+  //     country: [''],
+  //     shippingStatus: [''],
+  //     paymentMethod: [''],
+  //     ordernote: [''],
+  //     orderno: [''],
+  //   });
+  // }
   //#endregion
 
+
+  GetRecord() {
+      this._cS.API_GET(this._cS.getOrderList())
+        .subscribe(response => {
+          if (response) {
+            this.selectedItems = this.filterType.map(x => { return { id: x.id, itemName: x.itemName } });
+            this.lstdiaryData = [];
+            this.data = response;
+            this.onItemSelect();
+          }
+        })
+  }
 
   onItemSelect(item?: any) {
     // const selectedData = this.selectedItems.map((x: { itemName: any; }) => { return x.itemName });
@@ -52,6 +75,18 @@ export class SearchOrderComponent implements OnInit {
     // });
   }
 
+  hideDropdownNumbers() {
+    const drpClass = <HTMLElement>document.querySelector('.countplaceholder');
+    if (drpClass) {
+      if (this.lstOrderStatus.length == this.selectedItems.length) {
+        drpClass.style.display = 'none';
+      } else {
+        drpClass.style.display = 'block';
+      }
+    };
+  };
+
+
   constructor(private _cS: CommonService, private __mD: MockService, private fb: FormBuilder) { }
 
   ngOnInit() {
@@ -60,9 +95,12 @@ export class SearchOrderComponent implements OnInit {
     this.lstShippingStatus = this.__mD.shippingStatus();
     this.lstvender = this.__mD.vender();
     this.lstpaymentMethod = this.__mD.paymentMethod();
-    this.fbSearchOrder();
+    // this.fbSearchOrder();
     this.lstOrderStatus.map(x => {
       this.selectedItems.push(x);
     });
+    setTimeout(() => {
+      this.hideDropdownNumbers();
+    }, 100);
   }
 }
