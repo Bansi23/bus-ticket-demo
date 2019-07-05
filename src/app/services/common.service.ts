@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, throwError, forkJoin } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 
@@ -14,69 +14,33 @@ export class CommonService {
 
   // #region API METHODS
   /** Get API Method.
-   * @param Url - Just pass url after /api/. Predefine url will take from environment   
+   * @param url - Just pass url after /api/. Predefine url will take from environment   
   */
-  API_GET(Url, Options?): Observable<any> {
-    if (navigator.onLine) {
-      return this._httpClient.get<any>(`${environment.apiURL}${Url}`, Options)
-        .pipe(map(res => {
-          return res;
-        }), catchError(err => {
-          return throwError(err);
-        }));
-    }
+
+  API_GET(url: string): Observable<any> {
+    let hd: HttpHeaders = new HttpHeaders({
+      'Authorization': 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYmYiOjE1NjE0NTQxNDUsImV4cCI6MTg3NjgxNDE0NSwiaXNzIjoiaHR0cDovL25vcC5zYXR2YS5zb2x1dGlvbnMiLCJhdWQiOlsiaHR0cDovL25vcC5zYXR2YS5zb2x1dGlvbnMvcmVzb3VyY2VzIiwibm9wX2FwaSJdLCJjbGllbnRfaWQiOiJhNTBkY2I0MS1lODgzLTQ5YWItOGM3NS02ZTU5MzI1MTIzNTciLCJzdWIiOiJhNTBkY2I0MS1lODgzLTQ5YWItOGM3NS02ZTU5MzI1MTIzNTcgIiwiYXV0aF90aW1lIjoxNTYxNDUzOTI0LCJpZHAiOiJsb2NhbCIsInNjb3BlIjpbIm5vcF9hcGkiLCJvZmZsaW5lX2FjY2VzcyJdLCJhbXIiOlsicHdkIl19.m0z531w-lClGHBgLo82xMeUHRny17jM0QMr3eDs4nZWB48EVTFhPFzve786FsxdsxiPqE5rytsMQWXA7ByXe9N4cZFNnl7wpE1dCjOvS02c8H0AfNVdMkiJOGILRmbpHRKuWj8O0IjhWlwdll8-7nhRCJ7x6GBqx1Aj6RdceUKuma0qRFuqIcCBOuoKovPRHQ5AQ6yPZd-DIZE0Wu5KmChnwCfwIjs3CmJsepClOCF16T5UcsEKZq8409GXw2I070MKVbRBNQBvNCjf6OOtLFhCXUCExZXx4BJSohHcX4bP-qyBhQI-ZPcCxIIhKikHsZJkVyklzAQ19cUtrnnrxzQ',
+    });
+    return this._httpClient.get(`${url}`, { headers: hd }).pipe(map(res => {
+      setTimeout(() => {
+      }, 500);
+      return res;
+    }, catchError(err => {
+      if (err.status == 401) {
+        // this.router.navigateByUrl('/login');
+      }
+      else if (err.status == 400) {
+      }
+      return throwError(err);
+    })));
   };
-
-  /** To do multiple GET call at same time and get result once all done the API response.
-   * @param URL_Array Contain array of urls, Like ['www.gmail.com', 'www.gmail.com'].
-   * @param Options Give HTTP options Like http headers.
-   */
-
-
-  // API_GET_Join(URL_Array, Options?): Observable<any> {
-  //   if (navigator.onLine) {
-  //     let observableBatch = [];
-  //     URL_Array.forEach((url) => {
-  //       observableBatch.push(this._httpClient.get<any>(`${environment.apiURL}${url}`, Options)
-  //         .pipe(map(res => {
-  //           return res;
-  //         }), catchError(err => {
-  //           return throwError(err);
-  //         })));
-  //     });
-  //     return forkJoin(observableBatch);
-  //   }
-  // };
-
-  /** Post API Method.
-   * @param Url - Just pass url after /api/. Predefine url will take from environment
-   * @param Body - Pass body parameter in json. Ex : { id : 1, name : Shashikant, occupation : Angular Developer}
-  */
-
-
-
-  // API_POST(Url, Body, Options?): Observable<any> {
-  //   if (navigator.onLine) {
-  //     //this.displayLoader(true);
-  //     return this._httpClient.post<any>(`${environment.apiURL}${Url}`, Body, Options)
-  //       .pipe(map(res => {
-  //         //this.displayLoader(false);
-  //         return res;
-  //       }), catchError(err => {
-  //         // this.displayLoader(false);
-  //         return throwError(err);
-  //       }));
-  //   } else {
-  //     // this.displayToast(2, internetMessage);
-  //     // return empty();
-  //   };
-  // };
 
 
   /** Delete API Method.
    * @param Url - Just pass url after /api/. Predefine url will take from environment
   */
 
+  
   // API_DELETE(Url): Observable<any> {
   //   if (navigator.onLine) {
   //     //this.displayLoader(true);
@@ -89,10 +53,24 @@ export class CommonService {
   //         return throwError(err);
   //       }));
   //   } else {
-  //     // this.displayToast(2, internetMessage);
-  //     // return empty();
   //   };
   // };
+
+
+  // #endregion
+
+  // #region All URLs
+  getOrderList() {
+    return `orders`;
+  }
+
+  getProductList() {
+    return `products`;
+  }
+
+  getCustomerList() {
+    return `customers`;
+  }
 
   // #endregion
   constructor(public _router: Router, public _httpClient: HttpClient) { }

@@ -53,6 +53,18 @@ export class SearchOrderComponent implements OnInit {
   //#endregion
 
 
+  GetRecord() {
+      this._cS.API_GET(this._cS.getOrderList())
+        .subscribe(response => {
+          if (response) {
+            this.selectedItems = this.filterType.map(x => { return { id: x.id, itemName: x.itemName } });
+            this.lstdiaryData = [];
+            this.data = response;
+            this.onItemSelect();
+          }
+        })
+  }
+
   onItemSelect(item?: any) {
     // const selectedData = this.selectedItems.map((x: { itemName: any; }) => { return x.itemName });
     // var filtered = this.data.filter(
@@ -73,6 +85,7 @@ export class SearchOrderComponent implements OnInit {
       }
     };
   };
+
 
   constructor(private _cS: CommonService, private __mD: MockService, private fb: FormBuilder) { }
 
