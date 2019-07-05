@@ -192,10 +192,16 @@
                         </td>
                         <td>{{lstorder.id}}</td>
                         <td>{{lstorder.order_total}}</td>
-                        <td><button class="btn btn-default btn-sm"> <i class="fa fa-eye"></i> View </button></td>
+                        <td><button class="btn btn-default btn-sm" (click)="ViewData(lstorder)"> <i
+                                    class="fa fa-eye"></i> View
+                            </button></td>
                     </tr>
                     <tr>
-                        <td colspan="4" *ngIf="(lstOrderData).length == 0" class="alert">No matching record Found</td>
+                        <td colspan="7"></td>
+                        <td>{{finalTotal}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="8" *ngIf="(lstOrderData).length == 0" class="alert">No matching record Found</td>
                     </tr>
                 </tbody>
             </table>

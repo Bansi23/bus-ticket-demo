@@ -28,6 +28,7 @@ export class SearchOrderComponent implements OnInit {
   pageIndex: number = 1;
   pageSize: number = 10;
   selectAll: boolean = false;
+  finalTotal: any;
   //#endregion
 
   //dropdown static Data
@@ -193,6 +194,10 @@ export class SearchOrderComponent implements OnInit {
     });
   }
 
+  ViewData(index) {
+    console.log(index);
+  }
+
   constructor(private _cS: CommonService, private __mD: MockService, private fb: FormBuilder) { }
 
   ngOnInit() {
@@ -224,8 +229,7 @@ export class SearchOrderComponent implements OnInit {
       this.hidePaymentDropDownNumbers();
       this.hideshippingDropDownNumbers();
     }, 100);
-    this.lstOrderData.map(x => {
-      x.select = '';
-    });
+    this.lstOrderData.map(x => { x.select = '' });
+    this.finalTotal = this.lstOrderData.map(o => o.order_total).reduce((a, c) => a + c, 0);
   }
 }
