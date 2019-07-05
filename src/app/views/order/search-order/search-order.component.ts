@@ -18,6 +18,8 @@ export class SearchOrderComponent implements OnInit {
   searchOrder: FormGroup;
   selectedItems: any = [];
   lstOrderData: any = [];
+  pageIndex: number = 1;
+  pageSize: number = 10;
   //#endregion
 
   //dropdown static Data
@@ -64,8 +66,12 @@ export class SearchOrderComponent implements OnInit {
           this.data = response;
           this.onItemSelect();
         }
-      })
+      });
   }
+  pageChanged(value) {
+    this.pageIndex = +value;
+    this.onItemSelect()
+  };
 
   onItemSelect(item?: any) {
     const selectedData = this.selectedItems.map((x: { itemName: any; }) => { return x.itemName });

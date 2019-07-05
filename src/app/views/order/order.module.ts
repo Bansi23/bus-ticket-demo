@@ -6,6 +6,7 @@ import { SearchOrderComponent } from './search-order/search-order.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MyDatePickerModule } from 'mydatepicker';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 
@@ -17,7 +18,8 @@ import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
     FormsModule,
     ReactiveFormsModule,
     MyDatePickerModule,
-    AngularMultiSelectModule
+    AngularMultiSelectModule,
+    NgxPaginationModule
 
   ]
 })
