@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonService } from '../../../services/common.service';
 
 @Component({
   selector: 'app-search-product',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchProductComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _cS: CommonService) { }
 
   ngOnInit() {
   }
