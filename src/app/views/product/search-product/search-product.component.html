@@ -1,1 +1,97 @@
-<p>search-product works!</p>
+<div class="col-sm-12">
+    <div class="card">
+        <div class="card-header">
+            <div class="pull-left">
+                <strong>
+                    <h3>Product</h3>
+                </strong>
+            </div>
+            <div class="pull-right">
+                <button class="btn btn-primary text-white" (click)="addProduct()"><i class="fa fa-plus">Add New</i></button>&nbsp;
+                <button class="btn btn-danger text-white"><i class="fa fa-trash">Delete (selected)</i></button>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label>Product Name</label>
+                    <input type="text" class="form-control">
+                </div>
+                <div class="form-group col-sm-6">
+                    <label>Warehouse</label>
+                    <select class="form-control">
+                        <option *ngFor="let w of lstWarehouse" [value]="w.id">
+                            {{w.name}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label>Category</label>
+                    <select class="form-control">
+                        <option *ngFor="let w of lstWarehouse" [value]="w.id">{{w.name}}
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label>Product Type</label>
+                    <select class="form-control">
+                        <option *ngFor="let p of lstProductType" [value]="p.id">
+                            {{p.name}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label>Search Sub Categories?</label>
+                    <input type="checkbox">
+                </div>
+                <div class="form-group col-sm-6">
+                    <label>Published</label>
+                    <select class="form-control">
+                        <option *ngFor="let p of lstPublised" [value]="p.id">{{p.name}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label>Manufacturer</label>
+                    <select class="form-control">
+                        <option *ngFor="let w of lstWarehouse" [value]="w.id">{{w.name}}
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label>Vendor</label>
+                    <select class="form-control">
+                        <option *ngFor="let v of lstVendor" [value]="v.id">
+                            {{v.name}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label>Go directly to product SKU</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="SKU">
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-primary">Go</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-info text-center text-white center-block pull-right"><i
+                    class="fa fa-search">Search</i></button>
+        </div>
+    </div>
+</div>
+
+<app-product-list></app-product-list>

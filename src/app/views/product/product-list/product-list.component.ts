@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonService } from '../../../services/common.service';
 
 @Component({
   selector: 'app-product-list',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductListComponent implements OnInit {
 
-  constructor() { }
+  tableHeader: any = [' ', 'picture', 'product name', 'sku', 'price', 'stock quantity', 'product type', 'published', 'action'];
+  lstproduct: any = [];
+
+  constructor(private _cS: CommonService) { }
 
   ngOnInit() {
+    this._cS.API_GET(this._cS.URL_getProductList())
+      .subscribe(res => {
+        console.log('res:', res)
+      });
   }
 
 }

@@ -1,1 +1,23 @@
-<p>product-list works!</p>
+<div class="col-sm-12">
+    <div class="card">
+        <div class="card-header">
+            <strong>Product List</strong>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox"></th>
+                        <th *ngFor="let h of tableHeader">{{h | titlecase}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

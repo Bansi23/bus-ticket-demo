@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./product-tabs.component.scss']
 })
 export class ProductTabsComponent implements OnInit {
-
+  title: any = 'Add a new product';
   constructor() { }
 
   ngOnInit() {
