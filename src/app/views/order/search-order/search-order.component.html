@@ -198,17 +198,20 @@
                     </tr>
                     <tr>
                         <td colspan="7"></td>
-                        <td>{{finalTotal}}</td>
+                        <td>${{finalTotal}}</td>
                     </tr>
                     <tr>
                         <td colspan="8" *ngIf="(lstOrderData).length == 0" class="alert">No matching record Found</td>
+                        <button class="btn btn-default btn-sm" (click)="ViewData(lstorder)"> <i class="fa fa-eye"></i>
+                            View
+                        </button>
                     </tr>
                 </tbody>
             </table>
             <div class="row">
                 <div class="col-md-2 col-12">
                     <div class="total-count--table">
-                        <span>{{"Total :" }} {{ lstOrderData.length }}</span>
+                        <span>{{"Total :" }}{{ lstOrderData.length }}</span>
                     </div>
                 </div>
                 <div class="col-md-8 col-12" *ngIf="(lstOrderData).length > 0">

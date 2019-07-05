@@ -4,6 +4,7 @@ import { MockService } from '../../../services/mock.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { IMyDpOptions } from 'mydatepicker';
 import { environment } from '../../../../environments/environment';
+import { Router } from '@angular/router';
 
 const emailPattern = environment.emailPattern;
 @Component({
@@ -196,9 +197,18 @@ export class SearchOrderComponent implements OnInit {
 
   ViewData(index) {
     console.log(index);
+    this._router.navigateByUrl('/sales/viewrecord');
+    // this._cS.API_GET(this._cS.getOrderId(index)).subscribe(res => {
+    //   if (res) {
+    //     console.log('res', res)
+    //   }
+    //   else {
+    //     alert('check your internet connection')
+    //   }
+    // });
   }
 
-  constructor(private _cS: CommonService, private __mD: MockService, private fb: FormBuilder) { }
+  constructor(private _cS: CommonService, private __mD: MockService, private fb: FormBuilder, private _router: Router) { }
 
   ngOnInit() {
     this.GetRecord();
