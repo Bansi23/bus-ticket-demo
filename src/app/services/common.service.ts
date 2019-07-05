@@ -36,10 +36,14 @@ export class CommonService {
   // #endregion
 
   // #region All URLs
+  //#region order module api Urls
   getOrderList() {
     return environment.apiURL + `orders`;
   }
-
+  getOrderId(id: number) {
+    return environment.apiURL + `orders/${id}`;
+  }
+  // #endregion
   getProductList() {
     return environment.apiURL + `products`;
   }
