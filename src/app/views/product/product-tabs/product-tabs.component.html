@@ -1,1 +1,39 @@
-<p>product-tabs works!</p>
+<div class="col-sm-12">
+    <div class="card">
+        <div class="card-header">
+            <div class="pull-left">
+                <strong>
+                    <h3>{{title}}</h3>
+                </strong>
+            </div>
+            <div class="pull-right">
+                <button class="btn btn-primary text-white" (click)="addProduct()"><i class="fa fa-save">
+                        Save</i></button>&nbsp;
+                <button class="btn btn-primary text-white"><i class="fa fa-save"> Save and Continue Edit</i></button>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="animated fadeIn">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <tabset class="tab-menu-main">
+                            <tab heading="Product Info">
+                                <app-productinfo></app-productinfo>
+                            </tab>
+                            <tab heading="Pictures">
+                                <app-pictures></app-pictures>
+                            </tab>
+                            <tab heading="Product Attributes">
+                                <app-productattributes></app-productattributes>
+                            </tab>
+                            <tab heading="Specification Attributes">
+                                <app-specificationattributes></app-specificationattributes>
+                            </tab>
+                        </tabset>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
