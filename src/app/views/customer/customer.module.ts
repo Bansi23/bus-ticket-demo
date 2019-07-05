@@ -6,10 +6,11 @@ import { SearchCustomerComponent } from './search-customer/search-customer.compo
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { FormsModule } from '@angular/forms';
 import { MyDatePickerModule } from 'mydatepicker';
+import { AddEditComponent } from './add-edit/add-edit.component';
 
 
 @NgModule({
-  declarations: [SearchCustomerComponent],
+  declarations: [SearchCustomerComponent, AddEditComponent],
   imports: [
     CommonModule,
     CustomerRoutingModule,

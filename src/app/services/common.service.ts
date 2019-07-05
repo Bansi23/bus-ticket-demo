@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 
 //const internetMessage = 'Please check your internet connection !!';
-
+const baseUrl = environment.apiURL;
 @Injectable({
   providedIn: 'root'
 })
@@ -49,5 +49,19 @@ export class CommonService {
   }
 
   // #endregion
+
+  //#region product module api Urls
+  URL_getProductList() {
+    return baseUrl + `products`;
+  }
+
+  URL_getCategoryList() {
+    return baseUrl + `categories`;
+  }
+
+  URL_getManufacturerList() {
+    return baseUrl + `manufacturers`;
+  }
+  //#endregion
   constructor(public _router: Router, public _httpClient: HttpClient) { }
 }

@@ -136,16 +136,18 @@
                         <label>Order Note</label>
                         <input type="text" class="form-control" formControlName="ordernote">
                     </div>
-                    <div class="form-group col-sm-4 ">
+                    <div class="form-group col-sm-6">
                         <label>Go directly to Order #</label>
-                        <input type="text" class="form-control" formControlName="orderno">
+                        <div class="input-group">
+                            <input type="text" class="form-control" formControlName="orderno">
+                            <span class="input-group-append">
+                                <button type="button" class="btn btn-primary">Go</button>
+                            </span>
+                        </div>
                         <span class="text-danger"
                             *ngIf="searchOrder.get('orderno').hasError('pattern') && searchOrder.get('orderno').touched">
                             Enter only digit
                         </span>
-                    </div>
-                    <div class="col-sm-2">
-                        <button class="btn btn-info text-white my-4">GO</button>
                     </div>
                 </div>
             </form>
@@ -153,72 +155,76 @@
         </div>
     </div>
 
-    <div class="card-body">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th><input type="checkbox" [(ngModel)]="selectAll" (change)="select_all()"></th>
-                    <th>Order#</th>
-                    <th>Order Status</th>
-                    <th>Payment status</th>
-                    <th>Shipping Status</th>
-                    <th>Customer</th>
-                    <th>Created on </th>
-                    <th>Order total </th>
-                    <th>View</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr
-                    *ngFor="let lstorder of lstOrderData | paginate: { itemsPerPage:pageSize , currentPage: p }; let i = index">
-                    <td> <input type="checkbox" class="mx-5" [(ngModel)]="tabledata.select"
-                            (change)="checkIfAllSelected()" [ngModelOptions]="{standalone: true}"> </td>
-                    <!-- [ngClass]="{
-                        'badge-info': lstorder.order_status == 'Processing',
-                        'badge-warning': lstorder.order_status =='Pending',
-                        'badge-success': lstorder.order_status =='Complete',
-                        'badge-danger': lstorder.order_status =='Cancelled',
-                        }" class="badge" -->
-                    <td>{{lstorder.id}}</td>
-                    <td>{{lstorder.order_status}}</td>
-                    <td>{{lstorder.payment_status}}</td>
-                    <td>{{lstorder.shipping_status}}</td>
-                    <td>{{lstorder.customer.first_name}}{{lstorder.customer.last_name}}{{lstorder.customer.email}}</td>
-                    <td>{{lstorder.id}}</td>
-                    <td>{{lstorder.order_total}}</td>
-                    <td><button class="btn btn-default btn-sm"> <i class="fa fa-eye"></i> View </button></td>
-                </tr>
-                <tr>
-                    <td colspan="4" *ngIf="(lstOrderData).length == 0" class="alert">No matching record Found</td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="row">
-            <div class="col-md-2 col-12">
-                <div class="total-count--table">
-                    <span>{{"Total :" }} {{ lstOrderData.length }}</span>
+    <div class="card">
+        <div class="card-header">
+            <strong>Order List</strong>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" [(ngModel)]="selectAll" (change)="select_all()"></th>
+                        <th>Order#</th>
+                        <th>Order Status</th>
+                        <th>Payment status</th>
+                        <th>Shipping Status</th>
+                        <th>Customer</th>
+                        <th>Created on </th>
+                        <th>Order total </th>
+                        <th>View</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr
+                        *ngFor="let lstorder of lstOrderData | paginate: { itemsPerPage:pageSize , currentPage: p }; let i = index">
+                        <td> <input type="checkbox" class="mx-5" [(ngModel)]="tabledata.select"
+                                (change)="checkIfAllSelected()" [ngModelOptions]="{standalone: true}"> </td>
+                        <td>{{lstorder.id}}</td>
+                        <td [ngClass]="{
+                            'badge-info': lstorder.order_status == 'Processing',
+                            'badge-warning': lstorder.order_status =='Pending',
+                            'badge-success': lstorder.order_status =='Complete',
+                            'badge-danger': lstorder.order_status =='Cancelled'}" class="badge">
+                            {{lstorder.order_status}}</td>
+                        <td>{{lstorder.payment_status}}</td>
+                        <td>{{lstorder.shipping_status}}</td>
+                        <td>{{lstorder.customer.first_name}}{{lstorder.customer.last_name}}{{lstorder.customer.email}}
+                        </td>
+                        <td>{{lstorder.id}}</td>
+                        <td>{{lstorder.order_total}}</td>
+                        <td><button class="btn btn-default btn-sm"> <i class="fa fa-eye"></i> View </button></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" *ngIf="(lstOrderData).length == 0" class="alert">No matching record Found</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="col-md-2 col-12">
+                    <div class="total-count--table">
+                        <span>{{"Total :" }} {{ lstOrderData.length }}</span>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-8 col-12" *ngIf="(lstOrderData).length > 0">
-                <div class="text-right pagignation-page">
-                    <pagination-controls class="pagination-sm pagination-box" (pageChange)="p = $event">
-                    </pagination-controls>
+                <div class="col-md-8 col-12" *ngIf="(lstOrderData).length > 0">
+                    <div class="text-right pagignation-page">
+                        <pagination-controls class="pagination-sm pagination-box" (pageChange)="p = $event">
+                        </pagination-controls>
+                    </div>
                 </div>
-            </div>
 
-            <div class="col-md-2 col-12" *ngIf="(lstOrderData).length > 0">
-                <div class="text-left pagignation-select">
-                    <select class="form-control" [(ngModel)]="pageSize" (change)="pageChanged($event.target.value)">
-                        <option value="10">10</option>
-                        <option value="20">20</option>
-                        <option value="30">30</option>
-                        <option value="40">40</option>
-                        <option value="50">50</option>
-                    </select>
+                <div class="col-md-2 col-12" *ngIf="(lstOrderData).length > 0">
+                    <div class="text-left pagignation-select">
+                        <select class="form-control" [(ngModel)]="pageSize" (change)="pageChanged($event.target.value)">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="40">40</option>
+                            <option value="50">50</option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
 <!--/.col-->
