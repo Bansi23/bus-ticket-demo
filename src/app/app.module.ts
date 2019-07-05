@@ -7,8 +7,7 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
-
-const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
 
@@ -41,6 +40,7 @@ import { AppRoutingModule } from './app.routing';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
+import { from } from 'rxjs';
 
 @NgModule({
   imports: [
@@ -58,6 +58,7 @@ import { ChartsModule } from 'ng2-charts';
     ChartsModule,
     HttpClientModule,
     HttpClientJsonpModule,
+    
   ],
   declarations: [
     AppComponent,

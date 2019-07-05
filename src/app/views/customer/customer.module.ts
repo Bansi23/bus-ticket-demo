@@ -8,10 +8,11 @@ import { FormsModule } from '@angular/forms';
 import { MyDatePickerModule } from 'mydatepicker';
 import { AddEditComponent } from './add-edit/add-edit.component';
 import { from } from 'rxjs';
+import { CustomerListComponent } from './customer-list/customer-list.component';
 
 
 @NgModule({
-  declarations: [SearchCustomerComponent, AddEditComponent],
+  declarations: [SearchCustomerComponent, AddEditComponent, CustomerListComponent],
   imports: [
     CommonModule,
     CustomerRoutingModule,
