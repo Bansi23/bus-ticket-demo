@@ -1,13 +1,124 @@
-<div class="col-sm-12">
+<div class="col">
     <div class="card">
         <div class="card-header">
             <strong>Add a new customer</strong> &nbsp;&nbsp;
             <i class="fa fa-arrow-circle-left"></i>
-            <a href="" style="text-decoration: none;"  routerLink="/customers" routerLinkActive="active">back to customer list</a>
+            <a href="" style="text-decoration: none;" routerLink="/customers" routerLinkActive="active">back to customer
+                list</a>
         </div>
 
         <div class="card-body">
-            
+            <div class="animated fadeIn">
+                <div class="row">
+                    <div class="col">
+                        <tabset>
+                            <tab heading="customer info">
+
+                                <div class="card">
+                                    <div class="card-body">
+                                        <form action="">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label for="email">Email</label>
+                                                    <input type="email" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label for="password">Password</label>
+                                                    <input type="password" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label for="customer roles">Customer roles</label>
+                                                    <angular2-multiselect [data]="lstCustomerRoles"
+                                                        [(ngModel)]="selectedItems" [settings]="dropdownSettings"
+                                                        (onSelect)="onItemSelect($event)"
+                                                        (onDeSelect)="OnItemDeSelect($event)"
+                                                        (onSelectAll)="onSelectAll($event)"
+                                                        (onDeSelectAll)="onDeSelectAll($event)"></angular2-multiselect>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label for="manager of vendor">Manager of vendor</label>
+                                                    <select name="" id="" class="form-control">
+                                                        <option value="" *ngFor="let m of lstManagerOfVendor">{{m.text}}
+                                                        </option>
+                                                    </select>
+                                                    <span>Note: if you have a vendor associated with this customer, then
+                                                        also ensure it is in "Vendors" customer role.</span>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label for="gender">Gender</label>
+                                                    <label for="male">
+                                                        <input type="radio" id="male" name="gender" value="male">Male
+                                                    </label>
+                                                    <label for="female">
+                                                        <input type="radio" id="female" name="gender" value="female">Female
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label for="first name">First name</label>
+                                                    <input type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label for="last name">Last name</label>
+                                                    <input type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label for="date of birth">Date of birth</label>
+                                                    <my-date-picker [options]="myDatePickerOptions">
+                                                    </my-date-picker>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label for="company name">Company name</label>
+                                                    <input type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label for="admin comment">Admin comment</label>
+                                                    <textarea class="form-control"></textarea>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+
+                            </tab>
+                            <tab heading="Profile">
+                                2. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+                                dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                                mollit anim id est laborum.
+                            </tab>
+                            <tab heading="Messages">
+                                3. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+                                dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                                mollit anim id est laborum.
+                            </tab>
+                        </tabset>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div> 

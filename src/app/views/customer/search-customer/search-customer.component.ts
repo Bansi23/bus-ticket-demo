@@ -3,7 +3,7 @@ import { MockService } from "../../../services/mock.service";
 import { from } from 'rxjs';
 import { CommonService } from '../../../services/common.service';
 import { Routes, Router } from '@angular/router';
- @Component({
+  @Component({
   selector: 'app-search-customer',
   templateUrl: './search-customer.component.html',
   styleUrls: ['./search-customer.component.scss']

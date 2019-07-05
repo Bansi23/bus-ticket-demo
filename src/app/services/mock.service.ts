@@ -364,6 +364,13 @@ export class MockService {
 
     ]
   }
+  getManagerOfVendor(){
+    return [
+      { "id" : 1, "text" : "Not a vendor"},
+      { "id" : 2, "text" : "Vendor 1"},
+      { "id" : 3, "text" : "Vendor 2"}
+    ]
+  }
   //#region product module static lists
   getWareHouseList() {
     return [
