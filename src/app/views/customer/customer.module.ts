@@ -3,8 +3,9 @@ import { CommonModule } from '@angular/common';
 
 import { CustomerRoutingModule } from './customer-routing.module';
 import { SearchCustomerComponent } from './search-customer/search-customer.component';
-import { MyDatePickerModule } from 'mydatepicker';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
+import { FormsModule } from '@angular/forms';
+import { MyDatePickerModule } from 'mydatepicker';
 
 
 @NgModule({
@@ -12,9 +13,12 @@ import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
   imports: [
     CommonModule,
     CustomerRoutingModule,
+    AngularMultiSelectModule,
+    FormsModule,
     MyDatePickerModule,
-    AngularMultiSelectModule
+    
 
   ]
 })
 export class CustomerModule { }
+

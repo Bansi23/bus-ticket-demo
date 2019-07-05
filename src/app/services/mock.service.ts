@@ -52,5 +52,15 @@ export class MockService {
     ]
   }
 
+  customerRoles(){
+    return [
+      { "id" : 1, "role" : "Administrator" },
+      { "id" : 2, "role" : "Forum Moderators"},
+      { "id" : 3, "ro;e" : "Guests"},
+      { "id" : 4, "role" : "Registered"},
+      { "id" : 5, "role" : "Vendors"}
+    ]
+  }
+
   constructor() { }
 }
