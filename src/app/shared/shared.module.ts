@@ -1,9 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { MyDatePickerModule } from 'mydatepicker';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { QuillModule } from 'ngx-quill'
+import { NgxPaginationModule} from 'ngx-pagination';
+import { from } from 'rxjs';
 
 @NgModule({
   declarations: [],
@@ -19,6 +22,8 @@ import { QuillModule } from 'ngx-quill'
     AngularMultiSelectModule,
     FormsModule,
     ReactiveFormsModule,
-  ]
+    MyDatePickerModule,
+    NgxPaginationModule
+   ],
 })
 export class SharedModule { }
