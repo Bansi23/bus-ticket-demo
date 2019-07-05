@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-tabs',
@@ -7,7 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductTabsComponent implements OnInit {
   title: any = 'Add a new product';
-  constructor() { }
+
+  backToList() {
+    this._router.navigateByUrl('/catalog/product');
+  }
+
+  constructor(private _router: Router) { }
 
   ngOnInit() {
   }

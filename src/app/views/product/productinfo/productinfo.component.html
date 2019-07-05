@@ -1,89 +1,183 @@
-<div class="col-sm-8">
-    <div class="card">
-        <div class="card-header">
-            <strong>
-                General information
-            </strong>
+<form [formGroup]="productInfoForm" class="form-validate" role="form" name="productInfo">
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="card">
+                <div class="card-header">
+                    <strong>
+                        General information
+                    </strong>
+                </div>
+                <div class="card-body">
+                    <input type="text" class="form-control" formControlName="id" hidden>
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Product Name</label>
+                            <input type="text" class="form-control" placeholder="Product Name"
+                                formControlName="productName">
+                            <span class="text-danger"
+                                *ngIf="productInfoForm.get('productName').hasError('required') && productInfoForm.get('productName').touched ">
+                                Product name is required
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Short description</label>
+                            <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control"
+                                placeholder="Short Desciption" formControlName="shortDescription"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>SKU</label>
+                            <input type="text" class="form-control" placeholder="SKU" formControlName="sku">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="card-body">
-            <!-- <form [formGroup]="productInfoForm" class="form-validate" role="form" name="productInfo"> -->
-                <div class="row">
-                    <div class="form-group col-sm-6">
-                        <label>Product Name</label>
-                        <input type="text" class="form-control">
-                    </div>
-                    <div class="form-group col-sm-6">
-                        <label>Warehouse</label>
-                        <select class="form-control">
-                            <option *ngFor="let w of lstWarehouse" [value]="w.id">
-                                {{w.name}}
-                            </option>
-                        </select>
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-header">
+                    <strong>
+                        Inventory information
+                    </strong>
+                </div>
+                <div class="card-body">
+                    <input type="text" class="form-control" formControlName="id" hidden>
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Inventory method</label>
+                            <select class="form-control" formControlName="inventoryMethod">
+                                <option *ngFor="let i of lstInvantory" [value]="i.id">
+                                    {{i.name}}
+                                </option>
+                            </select>
+                        </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="row">
-                    <div class="form-group col-sm-6">
-                        <label>Category</label>
-                        <select class="form-control">
-                            <option *ngFor="let w of lstWarehouse" [value]="w.id">{{w.name}}
-                            </option>
-                        </select>
-                    </div>
-                    <div class="form-group col-sm-6">
-                        <label>Product Type</label>
-                        <select class="form-control">
-                            <option *ngFor="let p of lstProductType" [value]="p.id">
-                                {{p.name}}
-                            </option>
-                        </select>
+            <div class="card">
+                <div class="card-header">
+                    <strong>
+                        Shipping information
+                    </strong>
+                </div>
+                <div class="card-body">
+                    <input type="text" class="form-control" formControlName="id" hidden>
+                    <div class="row">
+                        <!-- <div class="form-group">
+                            <label>Shipping enabled</label>
+                            <input type="checkbox" class="form-control" formControlName="shippingEnable"
+                                (change)="isShipping($event.target.checked)">
+                        </div> -->
+                        <div class="form-group col-sm-12">
+                            <label>Search Sub Categories?</label>
+                            <input type="checkbox" formControlName="shippingEnable" (change)="isShipping($event)">
+                            <div class="isShipping">
+                                <div class="form-group col-sm-12">
+                                    <label>Weight</label>
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" formControlName="weight">
+                                        <span class="input-group-append">
+                                            <button type="button" class="btn btn-secondary">lb(s)</button>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-sm-12">
+                                    <label>Length</label>
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" formControlName="length">
+                                        <span class="input-group-append">
+                                            <button type="button" class="btn btn-secondary">inch(es)</button>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-sm-12">
+                                    <label>Width</label>
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" formControlName="width">
+                                        <span class="input-group-append">
+                                            <button type="button" class="btn btn-secondary">inch(es)</button>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-sm-12">
+                                    <label>Height</label>
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" formControlName="height">
+                                        <span class="input-group-append">
+                                            <button type="button" class="btn btn-secondary">inch(es)</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-                <div class="row">
-                    <div class="form-group col-sm-6">
-                        <label>Search Sub Categories?</label>
-                        <input type="checkbox">
-                    </div>
-                    <div class="form-group col-sm-6">
-                        <label>Published</label>
-                        <select class="form-control">
-                            <option *ngFor="let p of lstPublised" [value]="p.id">{{p.name}}
-                            </option>
-                        </select>
-                    </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <strong>
+                        Mappings
+                    </strong>
                 </div>
-
-                <div class="row">
-                    <div class="form-group col-sm-6">
-                        <label>Manufacturer</label>
-                        <select class="form-control">
-                            <option *ngFor="let w of lstWarehouse" [value]="w.id">{{w.name}}
-                            </option>
-                        </select>
-                    </div>
-                    <div class="form-group col-sm-6">
-                        <label>Vendor</label>
-                        <select class="form-control">
-                            <option *ngFor="let v of lstVendor" [value]="v.id">
-                                {{v.name}}
-                            </option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="form-group col-sm-6">
-                        <label>Go directly to product SKU</label>
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="SKU">
-                            <span class="input-group-append">
-                                <button type="button" class="btn btn-primary">Go</button>
+                <div class="card-body">
+                    <input type="text" class="form-control" formControlName="id" hidden>
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Product Name</label>
+                            <input type="text" class="form-control" placeholder="Product Name"
+                                formControlName="productName">
+                            <span class="text-danger"
+                                *ngIf="productInfoForm.get('productName').hasError('required') && productInfoForm.get('productName').touched ">
+                                Product name is required
                             </span>
                         </div>
                     </div>
                 </div>
-            <!-- </form> -->
+            </div>
+
         </div>
     </div>
-</div>
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="card">
+                <div class="card-header">
+                    <strong>
+                        Prices
+                    </strong>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Product Name</label>
+                            <input type="text" class="form-control" placeholder="Product Name"
+                                formControlName="productName">
+                            <span class="text-danger"
+                                *ngIf="productInfoForm.get('productName').hasError('required') && productInfoForm.get('productName').touched ">
+                                Product name is required
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Short description</label>
+                            <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control"
+                                placeholder="Short Desciption" formControlName="shortDescription"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
