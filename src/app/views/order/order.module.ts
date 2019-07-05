@@ -1,12 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { OrderRoutingModule } from './order-routing.module';
 import { SearchOrderComponent } from './search-order/search-order.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MyDatePickerModule } from 'mydatepicker';
-import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
-
+import { SharedModule } from '../../shared/shared.module';
 
 
 @NgModule({
@@ -16,9 +13,7 @@ import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
     OrderRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    MyDatePickerModule,
-    AngularMultiSelectModule
-
+    SharedModule
   ]
 })
 export class OrderModule { }

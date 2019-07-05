@@ -11,7 +11,6 @@ const baseUrl = environment.apiURL;
   providedIn: 'root'
 })
 export class CommonService {
-
   // #region API METHODS
   /** Get API Method.
    * @param url - Just pass url after /api/. Predefine url will take from environment   
@@ -27,7 +26,6 @@ export class CommonService {
       return res;
     }, catchError(err => {
       if (err.status == 401) {
-        // this.router.navigateByUrl('/login');
       }
       else if (err.status == 400) {
       }
@@ -35,21 +33,19 @@ export class CommonService {
     })));
   };
 
-
   // #endregion
 
   // #region All URLs
   getOrderList() {
-    //return `orders`;
-    return environment.apiURL + `orders`
+    return environment.apiURL + `orders`;
   }
 
   getProductList() {
-    return environment.apiURL + `products`
+    return environment.apiURL + `products`;
   }
 
   getCustomerList() {
-    return environment.apiURL + `customers`
+    return environment.apiURL + `customers`;
   }
 
   // #endregion
