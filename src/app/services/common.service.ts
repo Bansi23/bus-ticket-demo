@@ -40,7 +40,7 @@ export class CommonService {
    * @param Url - Just pass url after /api/. Predefine url will take from environment
   */
 
-  
+
   // API_DELETE(Url): Observable<any> {
   //   if (navigator.onLine) {
   //     //this.displayLoader(true);
@@ -61,15 +61,16 @@ export class CommonService {
 
   // #region All URLs
   getOrderList() {
-    return `orders`;
+    //return `orders`;
+    return environment.apiURL + `orders`
   }
 
   getProductList() {
-    return `products`;
+    return environment.apiURL + `products`
   }
 
   getCustomerList() {
-    return `customers`;
+    return environment.apiURL + `customers`
   }
 
   // #endregion
