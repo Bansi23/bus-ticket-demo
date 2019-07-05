@@ -17,6 +17,7 @@ export class SearchOrderComponent implements OnInit {
   lstpaymentMethod: any = [];
   searchOrder: FormGroup;
   selectedItems: any = [];
+  lstOrderData: any = [];
   //#endregion
 
   //dropdown static Data
@@ -52,27 +53,28 @@ export class SearchOrderComponent implements OnInit {
   // }
   //#endregion
 
-
+  data: any = [];
   GetRecord() {
-      this._cS.API_GET(this._cS.getOrderList())
-        .subscribe(response => {
-          if (response) {
-            this.selectedItems = this.filterType.map(x => { return { id: x.id, itemName: x.itemName } });
-            this.lstdiaryData = [];
-            this.data = response;
-            this.onItemSelect();
-          }
-        })
+    this._cS.API_GET(this._cS.getOrderList())
+      .subscribe(response => {
+        console.log('response', response)
+        if (response) {
+          this.selectedItems = this.lstOrderStatus.map(x => { return { id: x.id, itemName: x.itemName } });
+          this.lstOrderData = [];
+          this.data = response;
+          this.onItemSelect();
+        }
+      })
   }
 
   onItemSelect(item?: any) {
-    // const selectedData = this.selectedItems.map((x: { itemName: any; }) => { return x.itemName });
-    // var filtered = this.data.filter(
-    //   function (e) { return this.indexOf(e.type) != -1; }, selectedData);
-    // this.lstdiaryData = filtered;
-    // setTimeout(() => {
-    //   this.hideDropdownNumbers();
-    // });
+    const selectedData = this.selectedItems.map((x: { itemName: any; }) => { return x.itemName });
+    var filtered = this.lstOrderData.filter(
+      function (e) { return this.indexOf(e.type) != -1; }, selectedData);
+    this.lstOrderData = filtered;
+    setTimeout(() => {
+      this.hideDropdownNumbers();
+    });
   }
 
   hideDropdownNumbers() {
@@ -90,6 +92,7 @@ export class SearchOrderComponent implements OnInit {
   constructor(private _cS: CommonService, private __mD: MockService, private fb: FormBuilder) { }
 
   ngOnInit() {
+    this.GetRecord();
     this.lstOrderStatus = this.__mD.orderStatus();
     this.lstPaymentStatus = this.__mD.paymentStatus();
     this.lstShippingStatus = this.__mD.shippingStatus();

@@ -36,27 +36,6 @@ export class CommonService {
   };
 
 
-  /** Delete API Method.
-   * @param Url - Just pass url after /api/. Predefine url will take from environment
-  */
-
-
-  // API_DELETE(Url): Observable<any> {
-  //   if (navigator.onLine) {
-  //     //this.displayLoader(true);
-  //     return this._httpClient.delete<any>(`${environment.apiURL}${Url}`)
-  //       .pipe(map(res => {
-  //         // this.displayLoader(false);
-  //         return res;
-  //       }), catchError(err => {
-  //         //this.displayLoader(false); 
-  //         return throwError(err);
-  //       }));
-  //   } else {
-  //   };
-  // };
-
-
   // #endregion
 
   // #region All URLs

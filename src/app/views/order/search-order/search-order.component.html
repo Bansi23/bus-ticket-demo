@@ -121,5 +121,51 @@
             <button class="btn btn-info text-center text-white center-block">Search</button>
         </div>
     </div>
+
+
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Order#</th>
+                    <th>Order Status</th>
+                    <th>Payment status</th>
+                    <th>Shipping Status</th>
+                    <th>Customer</th>
+                    <th>Created on </th>
+                    <th>Order total </th>
+                    <th>View</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let lstorder of lstOrderData">
+                    <td><input type="checkbox"></td>
+                    <td>{{lstorder.id}}</td>
+                    <td>{{lstorder.order_status}}</td>
+                    <td>{{lstorder.payment_status}}</td>
+                    <td>{{lstorder.shipping_status}}</td>
+                    <td>{{lstorder.customer.first_name}}{{lstorder.customer.last_name}}{{lstorder.customer.email}}</td>
+                    <td>{{lstorder.id}}</td>
+                    <td>{{lstorder.order_total}}</td>
+                    <td><button class="btn btn-dark  btn-sm"> <i class="fa fa-save"></i> </button></td>
+                </tr>
+                <tr>
+                    <td colspan="4" *ngIf="(lstOrderData).length == 0" class="alert">No matching record Found</td>
+                </tr>
+            </tbody>
+        </table>
+        <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#">Prev</a></li>
+            <li class="page-item active">
+                <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">4</a></li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul>
+    </div>
+
 </div>
 <!--/.col-->
