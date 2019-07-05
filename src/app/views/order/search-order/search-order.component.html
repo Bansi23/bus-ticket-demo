@@ -4,121 +4,152 @@
             <strong>Order</strong>
         </div>
         <div class="card-body">
-            <div class="row">
-                <div class="form-group col-sm-6">
-                    <label>Start Date</label>
-                    <input type="text" class="form-control">
-                </div>
-                <div class="form-group col-sm-6">
-                    <label for="postal-code">Vender</label>
+            <form [formGroup]="searchOrder">
+                <div class="row">
+                    <div class="form-group col-sm-6">
+                        <label>Start Date</label>
+                        <my-date-picker [options]="myDatePickerOptions" formControlName="sdate">
+                        </my-date-picker>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label for="postal-code">Vender</label>
+                        <select class="form-control" formControlName="venderRec">
+                            <option value="all">All</option>
+                            <option *ngFor="let venderRec of lstvender">{{venderRec.vender}}
+                            </option>
+                        </select>
 
-                    <select class="form-control">
-                        <option *ngFor="let venderRec of lstvender" [ngValue]="venderRec">{{venderRec.vender}}
-                        </option>
-                    </select>
-
+                    </div>
                 </div>
-            </div>
 
-            <div class="row">
-                <div class="form-group col-sm-6">
-                    <label>End Date</label>
-                    <input type="text" class="form-control">
-                </div>
-                <div class="form-group col-sm-6">
-                    <label>Billing Mobile No.</label>
-                    <input type="text" class="form-control">
-                </div>
-            </div>
+                <div class="row">
+                    <div class="form-group col-sm-6">
+                        <label>End Date</label>
+                        <my-date-picker [options]="myDatePickerOptions" formControlName="edate">
+                        </my-date-picker>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label>Billing Mobile No.</label>
+                        <input type="text" class="form-control" formControlName="mono">
 
-            <div class="row">
-                <div class="form-group col-sm-6">
-                    <label>Product</label>
-                    <input type="text" class="form-control">
-                </div>
-                <div class="form-group col-sm-6">
-                    <label>Billing Email Address</label>
-                    <input type="email" class="form-control">
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="form-group col-sm-6">
-                    <label>Order Status</label>
-                    <!-- <select class="form-control" formControlName="orderstatus">
-                            <option *ngFor="let OrderStatus of lstOrderStatus" [ngValue]="OrderStatus">
-                                {{OrderStatus.order_status}}</option>
-                    </select> -->
-                    <angular2-multiselect [data]="lstOrderStatus" [(ngModel)]="selectedItems" class="form-control"
-                        [settings]="dropdownSettings" (onSelect)="onItemSelect($event)"
-                        (onDeSelect)="onItemSelect($event)" (onSelectAll)="onItemSelect($event)"
-                        (onDeSelectAll)="onItemSelect($event)" [ngModelOptions]="{standalone: true}">
-                        <ng-container *ngIf="lstOrderStatus?.length == selectedItems?.length">
-                            <c-badge>
-                                <ng-template let-item="item">
-                                    <label style="margin: 0px; padding-right: 5px;">All</label>
-                                </ng-template>
-                            </c-badge>
-                        </ng-container>
-                    </angular2-multiselect>
-                </div>
-                <div class="form-group col-sm-6">
-                    <label>Billing Last Name</label>
-                    <input type="email" class="form-control">
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="form-group col-sm-6">
-                    <label for="city">Payment Status</label>
-
-
-                    <select class="form-control">
-                        <option *ngFor="let paymentStatus of lstPaymentStatus" [ngValue]="paymentStatus">
-                            {{paymentStatus.payment_status}}</option>
-                    </select>
+                        <span class="text-danger"
+                            *ngIf="searchOrder.get('mono').hasError('pattern') && searchOrder.get('mono').touched">
+                            Enter only digit
+                        </span>
+                    </div>
 
                 </div>
-                <div class="form-group col-sm-6">
-                    <label for="postal-code">Billing Country</label>
-                    <select class="form-control">
-                        <option value="1">India</option>
-                        <option value="2">USA</option>
-                    </select>
+
+                <div class="row">
+                    <div class="form-group col-sm-6">
+                        <label>Product</label>
+                        <input type="text" class="form-control" formControlName="productnm">
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label>Billing Email Address</label>
+                        <input type="email" class="form-control" formControlName="mail">
+                        <span class="text-danger"
+                            *ngIf="searchOrder.get('mail').hasError('pattern') && searchOrder.get('mail').touched">
+                            Enter valid Email Address
+                        </span>
+                    </div>
                 </div>
-            </div>
+
+                <div class="row">
+                    <div class="form-group col-sm-6">
+                        <label>Order Status</label>
+                        <angular2-multiselect [data]="lstOrderStatus" formControlName="orderstatus" class="form-control"
+                            [settings]="dropdownOrderStatus" (onSelect)="onItemOrderSelect($event)"
+                            (onDeSelect)="onItemOrderSelect($event)" (onSelectAll)="onItemOrderSelect($event)"
+                            (onDeSelectAll)="onItemOrderSelect($event)">
+                            <ng-container *ngIf="lstOrderStatus?.length == selectedorderItems?.length">
+                                <c-badge>
+                                    <ng-template let-item="item">
+                                        <label style="margin: 0px; padding-right: 5px;">All</label>
+                                    </ng-template>
+                                </c-badge>
+                            </ng-container>
+                        </angular2-multiselect>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label>Billing Address</label>
+                        <input type="text" class="form-control" formControlName="billingAdd">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-sm-6">
+                        <label for="city">Payment Status</label>
+
+                        <angular2-multiselect [data]="lstPaymentStatus" formControlName="paymentStatus"
+                            class="form-control" [settings]="dropdownPaymentStatus"
+                            (onSelect)="onItemPaymentSelect($event)" (onDeSelect)="onItemPaymentSelect($event)"
+                            (onSelectAll)="onItemPaymentSelect($event)" (onDeSelectAll)="onItemPaymentSelect($event)">
+                            <ng-container *ngIf="lstPaymentStatus?.length == selectedpaymentItems?.length">
+                                <c-badge>
+                                    <ng-template let-item="item">
+                                        <label style="margin: 0px; padding-right: 5px;">All</label>
+                                    </ng-template>
+                                </c-badge>
+                            </ng-container>
+                        </angular2-multiselect>
+
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label for="postal-code">Billing Country</label>
+                        <select class="form-control" formControlName="country">
+                            <option *ngFor="let country of lstCountry" [ngValue]="country">
+                                {{country.name}}</option>
+                        </select>
+                    </div>
+                </div>
 
 
-            <div class="row">
-                <div class="form-group col-sm-6">
-                    <label for="city">Shipping Status</label>
-                    <select class="form-control">
-                        <option *ngFor="let shippingStatus of lstShippingStatus" [ngValue]="shippingStatus">
-                            {{shippingStatus.shipping_status}}
-                        </option>
-                    </select>
+                <div class="row">
+                    <div class="form-group col-sm-6">
+                        <label for="city">Shipping Status</label>
+                        <angular2-multiselect [data]="lstShippingStatus" formControlName="shippingStatus"
+                            class="form-control" [settings]="dropdownShippingStatus"
+                            (onSelect)="onItemshippingSelect($event)" (onDeSelect)="onItemshippingSelect($event)"
+                            (onSelectAll)="onItemshippingSelect($event)" (onDeSelectAll)="onItemshippingSelect($event)">
+                            <ng-container *ngIf="lstShippingStatus?.length == selectedshippingItem?.length">
+                                <c-badge>
+                                    <ng-template let-item="item">
+                                        <label style="margin: 0px; padding-right: 5px;">All</label>
+                                    </ng-template>
+                                </c-badge>
+                            </ng-container>
+                        </angular2-multiselect>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label>Payment Method</label>
+                        <select class="form-control" formControlName="paymentMethod">
+                            <option *ngFor="let paymentMethod of lstpaymentMethod" [ngValue]="paymentMethod">
+                                {{paymentMethod.payment_method}}
+                            </option>
+                        </select>
+                    </div>
                 </div>
-                <div class="form-group col-sm-6">
-                    <label for="postal-code">Payment Method</label>
-                    <select class="form-control">
-                        <option *ngFor="let paymentMethod of lstpaymentMethod" [ngValue]="paymentMethod">
-                            {{paymentMethod.payment_method}}
-                        </option>
-                    </select>
-                </div>
-            </div>
 
-            <div class="row">
-                <div class="form-group col-sm-6">
-                    <label for="city">Order Note</label>
-                    <input type="text" class="form-control">
+                <div class="row">
+                    <div class="form-group col-sm-6">
+                        <label>Order Note</label>
+                        <input type="text" class="form-control" formControlName="ordernote">
+                    </div>
+                    <div class="form-group col-sm-4 ">
+                        <label>Go directly to Order #</label>
+                        <input type="text" class="form-control" formControlName="orderno">
+                        <span class="text-danger"
+                            *ngIf="searchOrder.get('orderno').hasError('pattern') && searchOrder.get('orderno').touched">
+                            Enter only digit
+                        </span>
+                    </div>
+                    <div class="col-sm-2">
+                        <button class="btn btn-info text-white my-4">GO</button>
+                    </div>
                 </div>
-                <div class="form-group col-sm-6 ">
-                    <label for="city">Go directly to Order #</label>
-                    <input type="number" class="form-control">
-                </div>
-            </div>
-            <button class="btn btn-info text-center text-white center-block">Search</button>
+            </form>
+            <button class="btn btn-info text-center text-white">Search</button>
         </div>
     </div>
 
@@ -126,7 +157,7 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th></th>
+                    <th><input type="checkbox" [(ngModel)]="selectAll" (change)="select_all()"></th>
                     <th>Order#</th>
                     <th>Order Status</th>
                     <th>Payment status</th>
@@ -140,8 +171,14 @@
             <tbody>
                 <tr
                     *ngFor="let lstorder of lstOrderData | paginate: { itemsPerPage:pageSize , currentPage: p }; let i = index">
-                    <td><input type=" checkbox">
-                    </td>
+                    <td> <input type="checkbox" class="mx-5" [(ngModel)]="tabledata.select"
+                            (change)="checkIfAllSelected()" [ngModelOptions]="{standalone: true}"> </td>
+                    <!-- [ngClass]="{
+                        'badge-info': lstorder.order_status == 'Processing',
+                        'badge-warning': lstorder.order_status =='Pending',
+                        'badge-success': lstorder.order_status =='Complete',
+                        'badge-danger': lstorder.order_status =='Cancelled',
+                        }" class="badge" -->
                     <td>{{lstorder.id}}</td>
                     <td>{{lstorder.order_status}}</td>
                     <td>{{lstorder.payment_status}}</td>
@@ -149,7 +186,7 @@
                     <td>{{lstorder.customer.first_name}}{{lstorder.customer.last_name}}{{lstorder.customer.email}}</td>
                     <td>{{lstorder.id}}</td>
                     <td>{{lstorder.order_total}}</td>
-                    <td><button class="btn btn-dark  btn-sm"> <i class="fa fa-save"></i> </button></td>
+                    <td><button class="btn btn-default btn-sm"> <i class="fa fa-eye"></i> View </button></td>
                 </tr>
                 <tr>
                     <td colspan="4" *ngIf="(lstOrderData).length == 0" class="alert">No matching record Found</td>

@@ -12,7 +12,10 @@ import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
   declarations: [SearchProductComponent, ProductListComponent, ProductTabsComponent],
   imports: [
     CommonModule,
-    ProductRoutingModule
+    ProductRoutingModule,
+    MyDatePickerModule,
+    AngularMultiSelectModule
+
   ]
 })
 export class ProductModule { }
