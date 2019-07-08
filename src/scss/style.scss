@@ -10,10 +10,15 @@
 //toaster css
 
 //custome css
-.isShipping {
+.isShipping,
+.associateType {
   display: none;
 }
 
 .shipping {
   display: block;
+}
+
+.left-margin {
+  margin-left: 10px;
 }

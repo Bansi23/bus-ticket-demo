@@ -14,9 +14,11 @@ import { AttributesComponent } from './productattributes/attributes/attributes/a
 import { AddnewAttributeComponent } from './productattributes/attributes/addnew-attribute/addnew-attribute.component';
 import { AttributeinfoComponent } from './productattributes/attributes/attributeinfo/attributeinfo.component';
 import { AttributeValuesComponent } from './productattributes/attributes/attribute-values/attribute-values.component';
+import { AssociateProdustListComponent } from './productattributes/attributes/associate-produst-list/associate-produst-list.component';
+import { AttributecombinationComponent } from './productattributes/attributeCombinations/attributecombination/attributecombination.component';
 
 @NgModule({
-  declarations: [SearchProductComponent, ProductListComponent, ProductTabsComponent, ProductinfoComponent, PicturesComponent, ProductattributesComponent, SpecificationattributesComponent, AttributesComponent, AddnewAttributeComponent, AttributeinfoComponent, AttributeValuesComponent],
+  declarations: [SearchProductComponent, ProductListComponent, ProductTabsComponent, ProductinfoComponent, PicturesComponent, ProductattributesComponent, SpecificationattributesComponent, AttributesComponent, AddnewAttributeComponent, AttributeinfoComponent, AttributeValuesComponent, AssociateProdustListComponent, AttributecombinationComponent],
   imports: [
     CommonModule,
     SharedModule,
