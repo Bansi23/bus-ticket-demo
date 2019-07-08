@@ -49,7 +49,6 @@
                     </strong>
                 </div>
                 <div class="card-body">
-                    <input type="text" class="form-control" formControlName="id" hidden>
                     <div class="row">
                         <div class="form-group col-sm-12">
                             <label>Inventory method</label>
@@ -132,16 +131,21 @@
                     </strong>
                 </div>
                 <div class="card-body">
-                    <input type="text" class="form-control" formControlName="id" hidden>
                     <div class="row">
                         <div class="form-group col-sm-12">
-                            <label>Product Name</label>
-                            <input type="text" class="form-control" placeholder="Product Name"
-                                formControlName="productName">
-                            <span class="text-danger"
-                                *ngIf="productInfoForm.get('productName').hasError('required') && productInfoForm.get('productName').touched ">
-                                Product name is required
-                            </span>
+                            <label>Categories</label>
+                            <angular2-multiselect [data]="lstInvantory" formControlName="categories"
+                                class="form-control" [settings]="dropdownProductStatus"
+                                (onSelect)="onProductSelect($event)" (onDeSelect)="onProductSelect($event)"
+                                (onSelectAll)="onProductSelect($event)" (onDeSelectAll)="onProductSelect($event)">
+                                <!-- <ng-container *ngIf="lstInvantory?.length == selectedorderItems?.length">
+                                    <c-badge>
+                                        <ng-template let-item="item">
+                                            <label style="margin: 0px; padding-right: 5px;">All</label>
+                                        </ng-template>
+                                    </c-badge>
+                                </ng-container> -->
+                            </angular2-multiselect>
                         </div>
                     </div>
                 </div>
@@ -159,21 +163,58 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="form-group col-sm-12">
-                            <label>Product Name</label>
-                            <input type="text" class="form-control" placeholder="Product Name"
-                                formControlName="productName">
-                            <span class="text-danger"
-                                *ngIf="productInfoForm.get('productName').hasError('required') && productInfoForm.get('productName').touched ">
-                                Product name is required
-                            </span>
+                        <div class="form-group col-sm-6">
+                            <label>Price</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" formControlName="price">
+                                <span class="input-group-append">
+                                    <button type="button" class="btn btn-secondary">USD</button>
+                                </span>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-sm-12">
-                            <label>Short description</label>
-                            <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control"
-                                placeholder="Short Desciption" formControlName="shortDescription"></textarea>
+                        <div class="form-group col-sm-6">
+                            <label>Product Cost</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" formControlName="productCost">
+                                <span class="input-group-append">
+                                    <button type="button" class="btn btn-secondary">USD</button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-6">
+                            <label>Discounts</label>
+                            <angular2-multiselect [data]="lstInvantory" formControlName="discount" class="form-control"
+                                [settings]="dropdownProductStatus" (onSelect)="onProductSelect($event)"
+                                (onDeSelect)="onProductSelect($event)" (onSelectAll)="onProductSelect($event)"
+                                (onDeSelectAll)="onProductSelect($event)">
+                                <!-- <ng-container *ngIf="lstInvantory?.length == selectedorderItems?.length">
+                                    <c-badge>
+                                        <ng-template let-item="item">
+                                            <label style="margin: 0px; padding-right: 5px;">All</label>
+                                        </ng-template>
+                                    </c-badge>
+                                </ng-container> -->
+                            </angular2-multiselect>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-6">
+                            <label>Tax exempt?</label>
+                            <input type="checkbox" formControlName="tax" (change)="isTaxExempt($event)">
+                        </div>
+                    </div>
+                    <div class="row isTax">
+                        <div class="form-group col-sm-6">
+                            <label>Tax category</label>
+                            <select class="form-control" formControlName="taxCategory">
+                                <option *ngFor="let t of lstTaxCategory" [value]="t.id">
+                                    {{t.name}}
+                                </option>
+                            </select>
                         </div>
                     </div>
                 </div>

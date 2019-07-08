@@ -1,0 +1,16 @@
+<div class="col-sm-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="form-group col-sm-12">
+                    <label>Attribute</label>
+                    <select class="form-control">
+                        <option *ngFor="let a of lstAttribute" [value]="a.id">
+                            {{a.name}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PicturesComponent implements OnInit {
 
+  tableHeader : any = ['Picture', 'Display order', 'Alt', 'Title','Action']
   constructor() { }
 
   ngOnInit() {
