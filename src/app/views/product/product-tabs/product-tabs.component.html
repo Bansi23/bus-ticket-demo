@@ -2,9 +2,13 @@
     <div class="card">
         <div class="card-header">
             <div class="pull-left">
-                <strong>
-                    <h3>{{title}}</h3>
-                </strong>
+                <div class="row">
+                    <strong>
+                        <h3>{{title}}</h3>
+                    </strong>
+                    <button class="btn btn-link" (click)="backToList()"><i
+                            class="fa fa-arrow-circle-o-left"> back to product list</i></button>
+                </div>
             </div>
             <div class="pull-right">
                 <button class="btn btn-primary text-white" (click)="addProduct()"><i class="fa fa-save">

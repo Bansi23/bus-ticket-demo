@@ -3,6 +3,8 @@ import { Routes, Router } from '@angular/router';
 import { from } from 'rxjs';
 import { MockService } from '../../../services/mock.service';
 import { CommonService } from '../../../services/common.service';
+import { FormBuilder, FormGroup, Validators, FormArray, AbstractControl, Form } from '@angular/forms';
+
 @Component({
   selector: 'app-add-edit',
   templateUrl: './add-edit.component.html',
@@ -13,13 +15,14 @@ export class AddEditComponent implements OnInit {
   lstManagerOfVendor = [];
   settings = {};
   selectedRoles = [];
+  addCustomerForm : FormGroup;
 
-  constructor(private _mS: MockService, private _cS: CommonService, private router: Router) { }
+  constructor(private _mS: MockService, private _cS: CommonService, private router: Router, private fb : FormBuilder) { }
 
   ngOnInit() {
     this.lstCustomerRoles = this._mS.customerRoles();
     this.lstManagerOfVendor = this._mS.getManagerOfVendor();
-
+    this.initAddCustomerForm();
     this.settings = {
       text: "Customer roles",
       selectAllText: 'Select All',
@@ -33,6 +36,23 @@ export class AddEditComponent implements OnInit {
       { "id": 3, "role": "Guests" },
       { "id": 4, "role": "Vendors" }];
 
+  }
+  initAddCustomerForm(){
+  this.addCustomerForm = this.fb.group({
+    custEmail : ['',Validators.required],
+    custPassword : ['',Validators.required],
+    custRoles : ['',Validators.required],
+    custManagerOfVendor : ['',Validators.required],
+    custGender : ['',Validators.required],
+    custFirstName : ['',Validators.required],
+    custLastName :['',Validators.required],
+    custDob: ['',Validators.required],
+    custCompanyName : ['',Validators.required],
+    custAdminComment : [''],
+    custIsTaxExempt : [''],
+    custNewsletter : [''],
+    custActive : ['']
+  })    
   }
  
 }
