@@ -9,10 +9,13 @@ import { OrderInfoComponent } from './order-info/order-info.component';
 import { BillingShippingComponent } from './billing-shipping/billing-shipping.component';
 import { AddProductToOrderComponent } from './add-product-to-order/add-product-to-order.component';
 import { OrderNoteComponent } from './order-note/order-note.component';
+import { AddProductComponent } from './add-product/add-product.component';
+import { EditBillingComponent } from './edit-billing/edit-billing.component';
+import { EditShippingComponent } from './edit-shipping/edit-shipping.component';
 
 
 @NgModule({
-  declarations: [SearchOrderComponent, OrdertabsComponent, OrderInfoComponent, BillingShippingComponent, AddProductToOrderComponent, OrderNoteComponent],
+  declarations: [SearchOrderComponent, OrdertabsComponent, OrderInfoComponent, BillingShippingComponent, AddProductToOrderComponent, OrderNoteComponent, AddProductComponent, EditBillingComponent, EditShippingComponent],
   imports: [
     CommonModule,
     OrderRoutingModule,
