@@ -3,6 +3,7 @@ import { MockService } from "../../../services/mock.service";
 import { from } from 'rxjs';
 import { CommonService } from '../../../services/common.service';
 import { Routes, Router } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   @Component({
   selector: 'app-search-customer',
   templateUrl: './search-customer.component.html',
@@ -10,13 +11,14 @@ import { Routes, Router } from '@angular/router';
 })
 export class SearchCustomerComponent implements OnInit {
 
-  constructor(private _mS: MockService, private _cS: CommonService, private router: Router) { }
+  constructor(private _mS: MockService, private _cS: CommonService, private router: Router, private fb : FormBuilder) { }
 
   lstCustomerRoles = [];
   settings = {};
   selectedRoles = [];
   lstCustDOBMonth = [];
   lstCustDOBDay = [];
+  searchCustomerForm : FormGroup;
   ngOnInit() {
 
     this.lstCustomerRoles = this._mS.customerRoles();
@@ -34,6 +36,8 @@ export class SearchCustomerComponent implements OnInit {
       { "id": 2, "role": "Forum Moderators" },
       { "id": 3, "role": "Guests" },
       { "id": 4, "role": "Vendors" }];
+
+      this.initCustomerForm();
   }
   getCustomerList() {
     this._cS.API_GET(this._cS.getCustomerList())
@@ -47,4 +51,20 @@ export class SearchCustomerComponent implements OnInit {
     this.router.navigateByUrl('/customers/addEdit');
   }
 
+  initCustomerForm(){
+    this.searchCustomerForm = this.fb.group({
+      custEmail : ['',Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')],
+      custCompany : [''],
+      custFirstName : [''],
+      custIPAddress : ['',Validators.pattern('/^([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})$/')],
+      custLastName : [''],
+      //custRole : [''],
+      customerDOBMonth :[''],
+      custDOBDay : ['']
+
+    })
+  }
+
 }
+
+

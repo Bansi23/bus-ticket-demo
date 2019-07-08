@@ -39,20 +39,25 @@ export class AddEditComponent implements OnInit {
   }
   initAddCustomerForm(){
   this.addCustomerForm = this.fb.group({
-    custEmail : ['',Validators.required],
-    custPassword : ['',Validators.required],
+    custEmail : ['',Validators.compose([Validators.required,Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')])],
+    custPassword : ['',Validators.compose([Validators.required,Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')])],
+    
     custRoles : ['',Validators.required],
     custManagerOfVendor : ['',Validators.required],
     custGender : ['',Validators.required],
     custFirstName : ['',Validators.required],
     custLastName :['',Validators.required],
     custDob: ['',Validators.required],
-    custCompanyName : ['',Validators.required],
+    custCompanyName : [''],
     custAdminComment : [''],
     custIsTaxExempt : [''],
-    custNewsletter : [''],
+    custNewsletter : [''],  
     custActive : ['']
   })    
+  }
+  saveAddEditForm(){
+    console.log('this.addCustomerForm:', this.addCustomerForm.value)
+    
   }
  
 }
