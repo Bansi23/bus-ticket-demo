@@ -38,20 +38,21 @@ export class CommonService {
   // #region All URLs
   //#region order module api Urls
   getOrderList() {
-    return environment.apiURL + `orders`;
+    return baseUrl + `orders`;
   }
   getOrderId(id: number) {
-    return environment.apiURL + `orders/${id}`;
+    return baseUrl + `orders/${id}`;
   }
+  getItem(id: number) {
+    return baseUrl + `orders/${id}/items`;
+  }
+
   // #endregion
-  getProductList() {
-    return environment.apiURL + `products`;
-  }
 
+  //#region customer module api Urls 
   getCustomerList() {
-    return environment.apiURL + `customers`;
+    return baseUrl + `customers`;
   }
-
   // #endregion
 
   //#region product module api Urls
@@ -71,5 +72,8 @@ export class CommonService {
     return baseUrl + `productattributes`;
   }
   //#endregion
+
+  // #endregion
+
   constructor(public _router: Router, public _httpClient: HttpClient) { }
 }

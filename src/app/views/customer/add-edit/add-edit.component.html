@@ -5,6 +5,16 @@
             <i class="fa fa-arrow-circle-left"></i>
             <a href="" style="text-decoration: none;" routerLink="/customers" routerLinkActive="active">back to customer
                 list</a>
+
+                <div class="pull-right">
+                    <button type="button" class="btn btn-primary">
+                        <i class="fa fa-save"></i>
+                        Save</button>
+                    
+                    <button type="button" class="btn btn-primary">
+                        <i class="fa fa-save"></i>
+                        Save and continue edit</button>
+                </div>
         </div>
 
         <div class="card-body">
@@ -13,10 +23,9 @@
                     <div class="col">
                         <tabset>
                             <tab heading="customer info">
-
                                 <div class="card">
                                     <div class="card-body">
-                                        <form action="">
+                                        <form [formGroup]="addCustomerForm" >
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <label for="email">Email</label>
@@ -32,12 +41,15 @@
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <label for="customer roles">Customer roles</label>
-                                                    <angular2-multiselect [data]="lstCustomerRoles"
+                                                    <!-- <angular2-multiselect [data]="lstCustomerRoles"
                                                         [(ngModel)]="selectedItems" [settings]="dropdownSettings"
                                                         (onSelect)="onItemSelect($event)"
                                                         (onDeSelect)="OnItemDeSelect($event)"
                                                         (onSelectAll)="onSelectAll($event)"
-                                                        (onDeSelectAll)="onDeSelectAll($event)"></angular2-multiselect>
+                                                        (onDeSelectAll)="onDeSelectAll($event)"></angular2-multiselect> -->
+                                                        <select class="form-control">
+                                                            <option value="" *ngFor="let r of lstCustomerRoles">{{r.role}}</option>
+                                                        </select>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -93,7 +105,26 @@
                                                     <label for="admin comment">Admin comment</label>
                                                     <textarea class="form-control"></textarea>
                                                 </div>
+                                            </div><br>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label for="">Is tax exept?</label>
+                                                    <input type="checkbox">
+                                                </div>
                                             </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label for="">Newsletter</label>
+                                                    <input type="checkbox"> <span>(Your store name)</span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label for="">Active</label>
+                                                    <input type="checkbox">
+                                                </div>
+                                            </div>
+
                                         </form>
                                     </div>
                                 </div>
