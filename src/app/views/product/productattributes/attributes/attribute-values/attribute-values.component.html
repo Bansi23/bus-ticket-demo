@@ -1,1 +1,164 @@
-<p>attribute-values works!</p>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th *ngFor="let h of tableHeader">{{h | titlecase}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="row">
+                    <button class="btn btn-primary" (click)="showValue()"><i class="fa fa-plus">Add a new
+                            value</i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div bsModal #valuesModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add a new value</h4>
+                <button type="button" class="close" (click)="valuesModal.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="attrValueForm" class="form-validate" role="form" name="attrValue">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="form-group col-sm-12">
+                                        <label>Attribute value type</label>
+                                        <select class="form-control" formControlName="valueType"
+                                            (change)="changeValueType($event.target.value)">
+                                            <option *ngFor="let a of lstAttributeValue" [value]="a.id">
+                                                {{a.name}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="associateType">
+                                    <div class="row">
+                                        <div class="form-group col-sm-6">
+                                            <label>Associated product</label>
+                                            <button class="btn btn-primary" (click)="associateProdList()">Associate a
+                                                product</button>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-sm-12">
+                                            <label>Customer enters quantity?
+                                                <input type="checkbox" formControlName="iscustEnter"
+                                                    (change)="isCustEnter($event)">
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="isCustEnter">
+                                        <div class="row">
+                                            <div class="form-group col-sm-6">
+                                                <label>Product quantity</label>
+                                                <input type="number" class="form-control" formControlName="pQuantity">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-sm-12">
+                                        <label>Name</label>
+                                        <input type="text" class="form-control" formControlName="name">
+                                        <span class="text-danger"
+                                            *ngIf="attrValueForm.get('name').hasError('required') && attrValueForm.get('name').touched ">
+                                            Name is required
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="simpleType">
+                                    <div class="row">
+                                        <div class="form-group col-sm-6">
+                                            <label>Price adjustment</label>
+                                            <input type="number" class="form-control" formControlName="priceAdj">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-sm-12">
+                                            <label>Price adjustment. Use percentage
+                                                <input type="checkbox" formControlName="isPriceAdd">
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-sm-6">
+                                            <label>Weight adjustment</label>
+                                            <input type="number" class="form-control" formControlName="weightAdj">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-sm-6">
+                                            <label>Cost</label>
+                                            <input type="number" class="form-control" formControlName="cost">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-sm-12">
+                                        <label>Is pre-selected
+                                            <input type="checkbox" formControlName="isPreSelected">
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-sm-6">
+                                        <label>Display order</label>
+                                        <input type="number" class="form-control" formControlName="displayOrder">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-sm-6">
+                                        <div class="form-group row">
+                                            <label class="col-md-3 col-form-label">Picture</label>
+                                            <div class="col-md-9 col-form-label">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" id="radio1"
+                                                        value="option1" formControlName="picture" checked="checked">
+                                                    <label class="form-check-label" for="radio1">
+                                                        No picture
+                                                    </label>
+                                                </div>
+                                                <!-- <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="radios"
+                                                        id="radio2" value="option1" formControlName="picture">
+                                                    <label class="form-check-label" for="radio2">
+                                                        No picture
+                                                    </label>
+                                                </div> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary"><i class="fa fa-save">Save</i></button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<app-associate-produst-list></app-associate-produst-list>
