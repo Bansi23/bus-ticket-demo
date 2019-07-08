@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { MockService } from '../../../../../services/mock.service';
 
 @Component({
   selector: 'app-associate-produst-list',
@@ -15,18 +16,35 @@ export class AssociateProdustListComponent implements OnInit {
 
   associateForm_fb() {
     this.associateForm = this.fb.group({
-      productName : [null],
-      productType : [null],
-      category : [null],
-      manufacturer : [null],
-      vendor : [null],
+      productName: [null],
+      productType: [null],
+      category: [null],
+      manufacturer: [null],
+      vendor: [null],
     })
   }
   //#endregion
-  constructor(private fb: FormBuilder) { }
+
+  //#region static list
+  lstProductType: any = [];
+  lstVendor: any = [];
+  getStaticList() {
+    this.lstProductType = this._mS.getProductType();
+    this.lstVendor = this._mS.getVendorList();
+    this.associateForm.patchValue({
+      productType: 0,
+      category: 0,
+      manufacturer: 0,
+      vendor: 0
+    })
+  }
+  //#endregion
+  constructor(private fb: FormBuilder,
+    private _mS: MockService) { }
 
   ngOnInit() {
     this.associateForm_fb();
+    this.getStaticList();
   }
 
 }

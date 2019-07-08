@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class AttributeValuesComponent implements OnInit {
   @ViewChild('valuesModal', { static: false }) valuesModal: ModalDirective;
-  // @ViewChild('valuesModal', {static: false}) public largeModal: ModalDirective;
+  @ViewChild('associateModal', { static: false }) public associateModal: ModalDirective;
 
   tableHeader: any = ['Attribute value type', 'Name', 'Associated product', 'Price adjustment', 'Weight adjustment', 'Is pre-selected', 'Picture', 'Display order', 'Action']
 
@@ -71,7 +71,7 @@ export class AttributeValuesComponent implements OnInit {
   }
 
   associateProdList() {
-    
+    this.associateModal.show();
   }
   //#endregion
   constructor(private _mS: MockService,

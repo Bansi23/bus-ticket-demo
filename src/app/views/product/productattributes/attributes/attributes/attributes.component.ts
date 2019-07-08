@@ -11,9 +11,9 @@ export class AttributesComponent implements OnInit {
   tableHeader: any = ['Attribute', 'Text prompt', 'Is Required', 'Control type', 'Display order', 'Validation rules', 'Condition', 'Action']
 
   addAttributes() {
-    this._router.navigateByUrl('/catalog/addnew')
+    this._router.navigateByUrl('/catalog/addnew-attribute')
   }
-  constructor( private _router : Router) { }
+  constructor(private _router: Router) { }
 
   ngOnInit() {
   }

@@ -15,7 +15,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'product', pathMatch: 'full' },
       { path: 'product', component: SearchProductComponent, data: { title: 'Product' } },
       { path: 'create', component: ProductTabsComponent, data: { title: 'Create' } },
-      { path: 'addnew', component: AddnewAttributeComponent, data: { title: 'Add New Attribute' }},
+      { path: 'addnew-attribute', component: AddnewAttributeComponent, data: { title: 'Add New Attribute' }},
     ]
   }
 ];
