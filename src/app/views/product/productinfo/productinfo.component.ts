@@ -46,13 +46,40 @@ export class ProductinfoComponent implements OnInit {
   }
   //#endregion
 
+  //#region category multi select
+  dropdownProductStatus = {
+    singleSelection: false,
+    text: "Select Order Status",
+    selectAllText: 'Select All',
+    unSelectAllText: 'UnSelect All',
+    enableSearchFilter: true,
+    classes: "myclass custom-class",
+    badgeShowLimit: 1,
+    maxHeight: 200
+  };
+  //#endregion
+
   //#region fuctions
   isShipping(ev) {
-    console.log('ev:', ev)
-    if(ev.target.checked){
-      ev.target.classList();
+    const drpClass = <HTMLElement>document.querySelector('.isShipping');
+    if (drpClass) {
+      if (ev.target.checked) {
+        drpClass.style.display = 'block';
+      } else {
+        drpClass.style.display = 'none';
+      }
     }
+  }
 
+  isTaxExempt(ev) {
+    const drpClass = <HTMLElement>document.querySelector('.isTax');
+    if (drpClass) {
+      if (!ev.target.checked) {
+        drpClass.style.display = 'block';
+      } else {
+        drpClass.style.display = 'none';
+      }
+    }
   }
   //#endregion
   constructor(private fb: FormBuilder,

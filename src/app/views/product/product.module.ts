@@ -10,9 +10,13 @@ import { ProductinfoComponent } from './productinfo/productinfo.component';
 import { PicturesComponent } from './pictures/pictures.component';
 import { ProductattributesComponent } from './productattributes/productattributes.component';
 import { SpecificationattributesComponent } from './specificationattributes/specificationattributes.component';
+import { AttributesComponent } from './productattributes/attributes/attributes/attributes.component';
+import { AddnewAttributeComponent } from './productattributes/attributes/addnew-attribute/addnew-attribute.component';
+import { AttributeinfoComponent } from './productattributes/attributes/attributeinfo/attributeinfo.component';
+import { AttributeValuesComponent } from './productattributes/attributes/attribute-values/attribute-values.component';
 
 @NgModule({
-  declarations: [SearchProductComponent, ProductListComponent, ProductTabsComponent, ProductinfoComponent, PicturesComponent, ProductattributesComponent, SpecificationattributesComponent],
+  declarations: [SearchProductComponent, ProductListComponent, ProductTabsComponent, ProductinfoComponent, PicturesComponent, ProductattributesComponent, SpecificationattributesComponent, AttributesComponent, AddnewAttributeComponent, AttributeinfoComponent, AttributeValuesComponent],
   imports: [
     CommonModule,
     SharedModule,

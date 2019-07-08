@@ -66,6 +66,10 @@ export class CommonService {
   URL_getManufacturerList() {
     return baseUrl + `manufacturers`;
   }
+
+  URL_getAttributeList() {
+    return baseUrl + `productattributes`;
+  }
   //#endregion
   constructor(public _router: Router, public _httpClient: HttpClient) { }
 }

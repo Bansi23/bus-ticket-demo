@@ -16,6 +16,7 @@ import { from } from 'rxjs';
     AngularMultiSelectModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxPaginationModule
   ],
   exports: [
     TabsModule,
