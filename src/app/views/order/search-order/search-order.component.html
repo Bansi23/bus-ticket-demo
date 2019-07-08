@@ -58,8 +58,8 @@
                 <div class="row">
                     <div class="form-group col-sm-6">
                         <label>Order Status</label>
-                        <angular2-multiselect [data]="lstOrderStatus" formControlName="orderstatus" class="form-control"
-                            [settings]="dropdownOrderStatus" (onSelect)="onItemOrderSelect($event)"
+                        <angular2-multiselect id="Activity" [data]="lstOrderStatus" formControlName = "orderstatus"
+                            class="form-control" [settings]="dropdownOrderStatus" (onSelect)="onItemOrderSelect($event)"
                             (onDeSelect)="onItemOrderSelect($event)" (onSelectAll)="onItemOrderSelect($event)"
                             (onDeSelectAll)="onItemOrderSelect($event)">
                             <ng-container *ngIf="lstOrderStatus?.length == selectedorderItems?.length">
@@ -151,7 +151,7 @@
                     </div>
                 </div>
             </form>
-            <button class="btn btn-info text-center text-white">Search</button>
+            <button class="btn btn-info text-center text-white"><i class="fa fa-search"></i> Search</button>
         </div>
     </div>
 

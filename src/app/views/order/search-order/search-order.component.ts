@@ -99,14 +99,12 @@ export class SearchOrderComponent implements OnInit {
   GetRecord() {
     this._cS.API_GET(this._cS.getOrderList())
       .subscribe(response => {
-        console.log('response', response)
         if (response) {
+          console.log('response', response);
           this.selectedorderItems = this.lstOrderStatus.map(x => { return { id: x.id, order_status: x.order_status } });
           this.selectedpaymentItems = this.lstPaymentStatus.map(x => { return { id: x.id, payment_status: x.payment_status } });
           this.selectedshippingItem = this.lstShippingStatus.map(x => { return { id: x.id, shipping_status: x.shipping_status } });
           this.lstOrderData = [];
-          this.lstpaymentMethod = [];
-          this.lstShippingStatus = [];
           this.data = response;
           this.onItemOrderSelect();
           this.onItemPaymentSelect();
@@ -121,7 +119,6 @@ export class SearchOrderComponent implements OnInit {
 
   onItemOrderSelect(item?: any) {
     const selectedData = this.selectedorderItems.map((x: { order_status: any; }) => { return x.order_status });
-    console.log(selectedData, 'selectedData')
     var filtered = this.lstOrderData.filter(
       function (e) { return this.indexOf(e.type) != -1; }, selectedData);
     this.lstOrderData = filtered;
@@ -132,9 +129,9 @@ export class SearchOrderComponent implements OnInit {
 
   onItemPaymentSelect(item?: any) {
     const selectedData = this.selectedpaymentItems.map((x: { payment_status: any; }) => { return x.payment_status });
-    var filtered = this.lstPaymentStatus.filter(
+    var filtered = this.lstOrderData.filter(
       function (e) { return this.indexOf(e.type) != -1; }, selectedData);
-    this.lstPaymentStatus = filtered;
+    this.lstOrderData = filtered;
     setTimeout(() => {
       this.hidePaymentDropDownNumbers();
     });
@@ -142,9 +139,9 @@ export class SearchOrderComponent implements OnInit {
 
   onItemshippingSelect(item?: any) {
     const selectedData = this.selectedshippingItem.map((x: { shipping_status: any; }) => { return x.shipping_status });
-    var filtered = this.lstShippingStatus.filter(
+    var filtered = this.lstOrderData.filter(
       function (e) { return this.indexOf(e.type) != -1; }, selectedData);
-    this.lstShippingStatus = filtered;
+    this.lstOrderData = filtered;
     setTimeout(() => {
       this.hideshippingDropDownNumbers();
     });
@@ -198,28 +195,17 @@ export class SearchOrderComponent implements OnInit {
   ViewData(index) {
     console.log(index);
     this._router.navigateByUrl('/sales/viewrecord');
-    // this._cS.API_GET(this._cS.getOrderId(index)).subscribe(res => {
-    //   if (res) {
-    //     console.log('res', res)
-    //   }
-    //   else {
-    //     alert('check your internet connection')
-    //   }
-    // });
   }
 
-  constructor(private _cS: CommonService, private __mD: MockService, private fb: FormBuilder, private _router: Router) { }
-
-  ngOnInit() {
-    this.GetRecord();
-    this.fbSearchOrder();
+  StaticList() {
     this.lstOrderStatus = this.__mD.orderStatus();
     this.lstPaymentStatus = this.__mD.paymentStatus();
     this.lstShippingStatus = this.__mD.shippingStatus();
     this.lstvender = this.__mD.vender();
     this.lstpaymentMethod = this.__mD.paymentMethod();
     this.lstCountry = this.__mD.countryList();
-
+  }
+  MultiselectDropData() {
     this.lstOrderStatus.map(x => {
       this.selectedorderItems.push(x);
     });
@@ -230,16 +216,23 @@ export class SearchOrderComponent implements OnInit {
     this.lstShippingStatus.map(x => {
       this.selectedshippingItem.push(x);
     });
-
     this.searchOrder.get('orderstatus').setValue(this.selectedorderItems);
     this.searchOrder.get('paymentStatus').setValue(this.selectedpaymentItems);
     this.searchOrder.get('shippingStatus').setValue(this.selectedshippingItem);
-    setTimeout(() => {
-      this.hideOrderDropDownNumbers();
-      this.hidePaymentDropDownNumbers();
-      this.hideshippingDropDownNumbers();
-    }, 100);
+  }
+
+  constructor(private _cS: CommonService, private __mD: MockService, private fb: FormBuilder, private _router: Router) { }
+
+  ngOnInit() {
+    this.fbSearchOrder();
+    this.StaticList();
+    this.MultiselectDropData();
+    this.GetRecord();
     this.lstOrderData.map(x => { x.select = '' });
     this.finalTotal = this.lstOrderData.map(o => o.order_total).reduce((a, c) => a + c, 0);
+    this.hideOrderDropDownNumbers();
+    this.hidePaymentDropDownNumbers();
+    this.hideshippingDropDownNumbers();
+
   }
 }
