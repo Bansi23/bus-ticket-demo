@@ -9,10 +9,12 @@ import { MyDatePickerModule } from 'mydatepicker';
 import { AddEditComponent } from './add-edit/add-edit.component';
 import { from } from 'rxjs';
 import { CustomerListComponent } from './customer-list/customer-list.component';
+import { CustomerOrderComponent } from './customer-order/customer-order.component';
+import { CustomerAddressComponent } from './customer-address/customer-address.component';
 
 
 @NgModule({
-  declarations: [SearchCustomerComponent, AddEditComponent, CustomerListComponent],
+  declarations: [SearchCustomerComponent, AddEditComponent, CustomerListComponent, CustomerOrderComponent, CustomerAddressComponent],
   imports: [
     CommonModule,
     CustomerRoutingModule,
