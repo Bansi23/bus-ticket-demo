@@ -9,10 +9,12 @@ import { CommonService } from '../../../services/common.service';
 export class ProductListComponent implements OnInit {
 
   tableHeader: any = [' ', 'picture', 'product name', 'sku', 'price', 'stock quantity', 'product type', 'published', 'action'];
-  lstproduct: any = [];
-
+  lstProduct: any = [];
+  pageIndex: number = 1;
+  pageSize: number = 10;
   constructor(private _cS: CommonService) { }
 
+  
   ngOnInit() {
     this._cS.API_GET(this._cS.URL_getProductList())
       .subscribe(res => {

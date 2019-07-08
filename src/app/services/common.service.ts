@@ -21,6 +21,7 @@ export class CommonService {
   API_GET(url: string): Observable<any> {
     let hd: HttpHeaders = new HttpHeaders({
       'Authorization': token,
+      'Content-Type': 'application/json',
     });
     return this._httpClient.get(`${url}`, { headers: hd }).pipe(map(res => {
       setTimeout(() => {
@@ -44,16 +45,15 @@ export class CommonService {
   getOrderId(id: number) {
     return baseUrl + `orders/${id}`;
   }
-  getItem(id: number) {
-    return baseUrl + `orders/${id}/items`;
+  // #endregion
+  getProductList() {
+    return baseUrl + `products`;
   }
 
-  // #endregion
-
-  //#region customer module api Urls 
   getCustomerList() {
     return baseUrl + `customers`;
   }
+
   // #endregion
 
   //#region product module api Urls
@@ -68,9 +68,10 @@ export class CommonService {
   URL_getManufacturerList() {
     return baseUrl + `manufacturers`;
   }
+
+  URL_getAttributeList() {
+    return baseUrl + `productattributes`;
+  }
   //#endregion
-
-  // #endregion
-
   constructor(public _router: Router, public _httpClient: HttpClient) { }
 }
