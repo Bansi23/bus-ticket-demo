@@ -10,13 +10,11 @@
                     <button type="button" class="btn btn-primary" (click)="saveAddEditForm()">
                         <i class="fa fa-save"></i>
                         Save</button>
-                    
                     <button type="button" class="btn btn-primary">
                         <i class="fa fa-save"></i>
                         Save and continue edit</button>
                 </div>
         </div>
-
         <div class="card-body">
             <div class="animated fadeIn">
                 <div class="row">
@@ -27,7 +25,7 @@
                                     <div class="card-body">
                                         <form [formGroup]="addCustomerForm" >
                                             <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-sm-6">
                                                     <label for="email">Email</label>
                                                     <input type="email" formControlName="custEmail" class="form-control">
                                                     <span class="text-danger" *ngIf="addCustomerForm.get('custEmail').hasError('required') && addCustomerForm.get('custEmail').touched">
@@ -40,7 +38,7 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-sm-6">
                                                     <label for="password">Password</label>
                                                     <input type="password" formControlName="custPassword" class="form-control">
                                                     <div class="pull-right" *ngIf="false">
@@ -55,7 +53,7 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-sm-6">
                                                     <label for="customer roles">Customer roles</label>
                                                     <!-- <angular2-multiselect [data]="lstCustomerRoles"
                                                         [(ngModel)]="selectedItems" [settings]="dropdownSettings"
@@ -73,7 +71,7 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-sm-6">
                                                     <label for="manager of vendor">Manager of vendor</label>
                                                     <select formControlName="custManagerOfVendor" class="form-control">
                                                         <option value="">Select manager of vendor</option>
@@ -89,8 +87,8 @@
                                             </div>
                                             <br>
                                             <div class="row">
-                                                <div class="col-md-6">
-                                                    <label for="gender">Gender</label>
+                                                <div class="col-sm-6">
+                                                    <label for="gender">Gender </label>
                                                     <label for="male">
                                                         <input type="radio" formControlName="custGender" id="male" name="custGender" value="male">Male
                                                     </label>
@@ -100,7 +98,7 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-sm-6">
                                                     <label for="first name">First name</label>
                                                     <input formControlName="custFirstName" type="text" class="form-control">
                                                     <span class="text-danger" *ngIf="addCustomerForm.get('custFirstName').hasError('required') && addCustomerForm.get('custFirstName').touched">
@@ -109,7 +107,7 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-sm-6">
                                                     <label for="last name">Last name</label>
                                                     <input formControlName="custLastName" type="text" class="form-control">
                                                     <span class="text-danger" *ngIf="addCustomerForm.get('custLastName').hasError('required') && addCustomerForm.get('custLastName').touched">
@@ -118,7 +116,7 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-sm-6">
                                                     <label for="date of birth">Date of birth</label>
                                                     <my-date-picker formControlName="custDob" [options]="myDatePickerOptions">
                                                     </my-date-picker>
@@ -128,7 +126,7 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-sm-6">
                                                     <label for="company name">Company name</label>
                                                     <input type="text" formControlName="custCompanyName" class="form-control">
                                                     <!-- <span class="text-danger" *ngIf="addCustomerForm.get('custCompanyName').hasError('required') && addCustomerForm.get('custCompanyName').touched">
@@ -137,27 +135,28 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-sm-6">
                                                     <label for="admin comment">Admin comment</label>
                                                     <textarea formControlName="custAdminComment" class="form-control"></textarea>
                                                 </div>
                                             </div><br>
                                             <div class="row">
-                                                <div class="col-md-6">
-                                                    <label for="">Is tax exept?</label>
-                                                    <input type="checkbox" formControlName="custIsTaxExempt">
+                                                <div class="col-sm-6">
+                                                    <label for="custIsExempt">Is tax exempt?
+                                                    <input type="checkbox" id="custIsExempt" formControlName="custIsTaxExempt">
+                                                </label>
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-6">
-                                                    <label for="">Newsletter</label>
-                                                    <input type="checkbox" formControlName="custNewsletter"> <span>(Your store name)</span>
+                                                <div class="col-sm-6">
+                                                    <label for="custNewsLetter">Newsletter</label>
+                                                    <input id="custNewsLetter" type="checkbox" formControlName="custNewsletter"> <span>(Your store name)</span>
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-6">
-                                                    <label for="">Active</label>
-                                                    <input type="checkbox" formControlName="custActive">
+                                                <div class="col-sm-6">
+                                                    <label for="active">Active</label>
+                                                    <input id="active" type="checkbox" formControlName="custActive">
                                                 </div>
                                             </div>
 
