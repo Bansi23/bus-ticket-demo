@@ -178,36 +178,37 @@
                     <tbody>
                         <tr
                             *ngFor="let lstorder of lstOrderData| paginate: { itemsPerPage:pageSize , currentPage: p }; let i = index">
-                            <td> <input type="checkbox" class="mx-5" [(ngModel)]="lstorder.select"
-                                    (change)="checkIfAllSelected()" [ngModelOptions]="{standalone: true}"> </td>
+                            <td> <input type="checkbox" [(ngModel)]="lstorder.select" (change)="checkIfAllSelected()"
+                                    [ngModelOptions]="{standalone: true}"> </td>
                             <td>{{lstorder.id}}</td>
-                            <td [ngClass]="{
-                            'badge-info': lstorder.order_status == 'Processing',
-                            'badge-warning': lstorder.order_status =='Pending',
-                            'badge-success': lstorder.order_status =='Complete',
-                            'badge-danger': lstorder.order_status =='Cancelled'}" class="badge">
-                                {{lstorder.order_status}}</td>
+                            <td><span [ngClass]="{
+                                'badge-info': lstorder.order_status == 'Processing',
+                                'badge-warning': lstorder.order_status =='Pending',
+                                'badge-success': lstorder.order_status =='Complete',
+                                'badge-danger': lstorder.order_status =='Cancelled'}" class="badge badge-box">
+                                    {{lstorder.order_status}}</span>
+                            </td>
                             <td>{{lstorder.payment_status}}</td>
                             <td>{{lstorder.shipping_status}}</td>
-                            <td>{{lstorder.customer.first_name}}{{lstorder.customer.last_name}}{{lstorder.customer.email}}
+                            <td>{{lstorder.customer.first_name}} {{lstorder.customer.last_name}}
+                                {{lstorder.customer.email}}
                             </td>
-                            <td>{{lstorder.id}}</td>
+                            <td>{{lstorder.created_on_utc | date: 'dd/mm/yyyy'}}</td>
                             <td>{{lstorder.order_total}}</td>
                             <td><button class="btn btn-default btn-sm" (click)="ViewData(lstorder)"> <i
                                         class="fa fa-eye"></i> View
                                 </button></td>
                         </tr>
                         <tr>
-                            <td colspan="7"></td>
-                            <td>${{finalTotal}}</td>
+                            <td colspan="7" class="total-amount"></td>
+                            <td> <span class="mx-2" *ngIf="finalTotal">{{finalTotal | number:'2.2-2'}} </span></td>
+                            <td></td>
+
                         </tr>
+
                         <tr>
-                            <td colspan="8" *ngIf="(lstOrderData).length == 0" class="alert">No matching record Found
+                            <td colspan="9" *ngIf="(lstOrderData).length == 0" class="alert">No matching record Found
                             </td>
-                            <button class="btn btn-default btn-sm" (click)="ViewData(lstorder)"> <i
-                                    class="fa fa-eye"></i>
-                                View
-                            </button>
                         </tr>
                     </tbody>
                 </table>
