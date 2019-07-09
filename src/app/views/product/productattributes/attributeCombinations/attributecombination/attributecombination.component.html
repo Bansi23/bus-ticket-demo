@@ -1,18 +1,20 @@
 <div class="col-sm-12">
     <div class="card">
         <div class="card-body">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th *ngFor="let h of tableHeader">{{h | titlecase}}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th *ngFor="let h of tableHeader">{{h | titlecase}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             <div class="row">
                 <button class="btn btn-primary left-margin" (click)="showCombination()"><i class="fa fa-plus">Add
                         combination</i></button>

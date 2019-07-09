@@ -5,42 +5,44 @@
                 <strong>Product List</strong>
             </div>
             <div class="card-body">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th><input type="checkbox"></th>
-                            <th *ngFor="let h of tableHeader">{{h | titlecase}}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr
-                            *ngFor="let prod of lstProduct | paginate: { itemsPerPage:pageSize , currentPage: p }; let i = index">
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                    <tfoot>
-                        <div class="col-md-8 col-12" *ngIf="(lstProduct).length > 0">
-                            <div class="text-right pagignation-page">
-                                <pagination-controls class="pagination-sm pagination-box" (pageChange)="p = $event">
-                                </pagination-controls>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox"></th>
+                                <th *ngFor="let h of tableHeader">{{h | titlecase}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr
+                                *ngFor="let prod of lstProduct | paginate: { itemsPerPage:pageSize , currentPage: p }; let i = index">
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <div class="col-md-8 col-12" *ngIf="(lstProduct).length > 0">
+                                <div class="text-right pagignation-page">
+                                    <pagination-controls class="pagination-sm pagination-box" (pageChange)="p = $event">
+                                    </pagination-controls>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="col-md-2 col-12" *ngIf="(lstProduct).length > 0">
-                            <div class="text-left pagignation-select">
-                                <select class="form-control" [(ngModel)]="pageSize"
-                                    (change)="pageChanged($event.target.value)">
-                                    <option value="10">10</option>
-                                    <option value="20">20</option>
-                                    <option value="30">30</option>
-                                    <option value="40">40</option>
-                                    <option value="50">50</option>
-                                </select>
+                            <div class="col-md-2 col-12" *ngIf="(lstProduct).length > 0">
+                                <div class="text-left pagignation-select">
+                                    <select class="form-control" [(ngModel)]="pageSize"
+                                        (change)="pageChanged($event.target.value)">
+                                        <option value="10">10</option>
+                                        <option value="20">20</option>
+                                        <option value="30">30</option>
+                                        <option value="40">40</option>
+                                        <option value="50">50</option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                    </tfoot>
-                </table>
+                        </tfoot>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
