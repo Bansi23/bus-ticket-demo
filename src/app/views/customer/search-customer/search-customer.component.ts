@@ -23,7 +23,7 @@ export class SearchCustomerComponent implements OnInit {
     this.lstCustomerRoles = this._mS.customerRoles();
     this.lstCustDOBMonth = this._mS.customerDOBMonth();
     this.lstCustDOBDay = this._mS.customerDOBDay();
-    this.getCustomerList();
+    // this.getCustomerList();
     this.settings = {
       text: "Customer roles",
       selectAllText: 'Select All',
