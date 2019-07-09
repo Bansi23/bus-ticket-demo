@@ -10,7 +10,6 @@
         <form [formGroup]="editbillingForm">
             <div class="row">
                 <div class="form-group col-sm-8">
-                    <label>First Name</label>
                     <label for="fnm">First Name<span class="text-danger"
                             *ngIf="editbillingForm.controls.fnm.errors?.required">*</span></label>
                     <input type="text" class="form-control" formControlName="fnm">

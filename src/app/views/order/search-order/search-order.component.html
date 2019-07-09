@@ -58,10 +58,10 @@
                 <div class="row">
                     <div class="form-group col-sm-6">
                         <label>Order Status</label>
-                        <angular2-multiselect id="Activity" [data]="lstOrderStatus" formControlName="orderstatus"
-                            class="form-control" [settings]="dropdownOrderStatus" (onSelect)="onItemOrderSelect($event)"
-                            (onDeSelect)="onItemOrderSelect($event)" (onSelectAll)="onItemOrderSelect($event)"
-                            (onDeSelectAll)="onItemOrderSelect($event)">
+                        <angular2-multiselect [data]="lstOrderStatus" formControlName="orderstatus"
+                            class="form-control orderNumber" [settings]="dropdownOrderStatus"
+                            (onSelect)="onItemOrderSelect($event)" (onDeSelect)="onItemOrderSelect($event)"
+                            (onSelectAll)="onItemOrderSelect($event)" (onDeSelectAll)="onItemOrderSelect($event)">
                             <ng-container *ngIf="lstOrderStatus?.length == selectedorderItems?.length">
                                 <c-badge>
                                     <ng-template let-item="item">
@@ -177,8 +177,8 @@
                     </thead>
                     <tbody>
                         <tr
-                            *ngFor="let lstorder of lstOrderData | paginate: { itemsPerPage:pageSize , currentPage: p }; let i = index">
-                            <td> <input type="checkbox" class="mx-5" [(ngModel)]="tabledata.select"
+                            *ngFor="let lstorder of lstOrderData| paginate: { itemsPerPage:pageSize , currentPage: p }; let i = index">
+                            <td> <input type="checkbox" class="mx-5" [(ngModel)]="lstorder.select"
                                     (change)="checkIfAllSelected()" [ngModelOptions]="{standalone: true}"> </td>
                             <td>{{lstorder.id}}</td>
                             <td [ngClass]="{

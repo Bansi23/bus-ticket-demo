@@ -9,13 +9,18 @@ import { CommonService } from '../../../services/common.service';
   styleUrls: ['./billing-shipping.component.scss']
 })
 export class BillingShippingComponent implements OnInit {
-
+  shippingMethod: any = "Ground";
   editRec: boolean = true;
   billingData: any[];
   EditShipMethod() {
     this.editRec = false;
   }
   cancleEdit() {
+    this.shippingMethod = "Ground";
+    this.editRec = true;
+  }
+  SaveChanges() {
+    //this.shippingMethod;
     this.editRec = true;
   }
   billingEdit() {
