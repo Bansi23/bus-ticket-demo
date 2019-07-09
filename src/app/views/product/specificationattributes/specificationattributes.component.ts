@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SpecificationattributesComponent implements OnInit {
 
+  tableHeader: any = ['Attribute', 'type', 'Value', 'Allow filtering', 'Show on product page', 'Display order', 'action'];
   constructor() { }
 
   ngOnInit() {
