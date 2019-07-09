@@ -27,14 +27,14 @@ export class SearchProductComponent implements OnInit {
   getCategoryList() {
     this._cS.API_GET(this._cS.URL_getCategoryList())
       .subscribe(res => {
-        console.log('res:', res)
+        this.lstCategory = res.categories;
       });
   }
 
   getManufacturerList() {
     this._cS.API_GET(this._cS.URL_getManufacturerList())
       .subscribe(res => {
-        console.log('res:', res)
+        this.lstManufacturer = res.manufacturers;
       });
   }
 

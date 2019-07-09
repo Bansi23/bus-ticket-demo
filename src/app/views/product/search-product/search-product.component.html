@@ -32,7 +32,7 @@
                 <div class="form-group col-sm-6">
                     <label>Category</label>
                     <select class="form-control">
-                        <option *ngFor="let w of lstWarehouse" [value]="w.id">{{w.name}}
+                        <option *ngFor="let c of lstCategory" [value]="c.id">{{c.name}}
                         </option>
                     </select>
                 </div>
@@ -64,7 +64,7 @@
                 <div class="form-group col-sm-6">
                     <label>Manufacturer</label>
                     <select class="form-control">
-                        <option *ngFor="let w of lstWarehouse" [value]="w.id">{{w.name}}
+                        <option *ngFor="let m of lstManufacturer" [value]="m.id">{{m.name}}
                         </option>
                     </select>
                 </div>
