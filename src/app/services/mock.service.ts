@@ -333,6 +333,17 @@ export class MockService {
       { "id" : 3, "text" : "Vendor 2"}
     ]
   }
+
+  setItemInStorage(key, val){
+    localStorage.setItem(key,JSON.stringify(val));
+  }
+
+  getItemFromStorage(key,val){
+    return JSON.parse(localStorage.getItem(key));
+  }
+
+
+
   //#region product module static lists
   getWareHouseList() {
     return [

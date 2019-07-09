@@ -18,8 +18,10 @@ lstCustomerRoles = [];
     this.lstCustomerRoles= this._mS.customerRoles();
   }
 
-  navigateToEditCustomer(){
-    
+  navigateToEditCustomer(cust){
+  console.log("cust",cust);
+  this._mS.setItemInStorage('customerToEdit',cust);
+      
     this.router.navigateByUrl("/customers/addEdit")
   }
   getCustomerList(){
