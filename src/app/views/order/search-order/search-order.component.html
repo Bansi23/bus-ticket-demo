@@ -58,7 +58,7 @@
                 <div class="row">
                     <div class="form-group col-sm-6">
                         <label>Order Status</label>
-                        <angular2-multiselect id="Activity" [data]="lstOrderStatus" formControlName = "orderstatus"
+                        <angular2-multiselect id="Activity" [data]="lstOrderStatus" formControlName="orderstatus"
                             class="form-control" [settings]="dropdownOrderStatus" (onSelect)="onItemOrderSelect($event)"
                             (onDeSelect)="onItemOrderSelect($event)" (onSelectAll)="onItemOrderSelect($event)"
                             (onDeSelectAll)="onItemOrderSelect($event)">
@@ -151,7 +151,7 @@
                     </div>
                 </div>
             </form>
-            <button class="btn btn-info text-center text-white"><i class="fa fa-search"></i> Search</button>
+            <button class="btn btn-info text-center text-white pull-left"><i class="fa fa-search"></i> Search</button>
         </div>
     </div>
 
@@ -160,54 +160,58 @@
             <strong>Order List</strong>
         </div>
         <div class="card-body">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th><input type="checkbox" [(ngModel)]="selectAll" (change)="select_all()"></th>
-                        <th>Order#</th>
-                        <th>Order Status</th>
-                        <th>Payment status</th>
-                        <th>Shipping Status</th>
-                        <th>Customer</th>
-                        <th>Created on </th>
-                        <th>Order total </th>
-                        <th>View</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr
-                        *ngFor="let lstorder of lstOrderData | paginate: { itemsPerPage:pageSize , currentPage: p }; let i = index">
-                        <td> <input type="checkbox" class="mx-5" [(ngModel)]="tabledata.select"
-                                (change)="checkIfAllSelected()" [ngModelOptions]="{standalone: true}"> </td>
-                        <td>{{lstorder.id}}</td>
-                        <td [ngClass]="{
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" [(ngModel)]="selectAll" (change)="select_all()"></th>
+                            <th>Order#</th>
+                            <th>Order Status</th>
+                            <th>Payment status</th>
+                            <th>Shipping Status</th>
+                            <th>Customer</th>
+                            <th>Created on </th>
+                            <th>Order total </th>
+                            <th>View</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr
+                            *ngFor="let lstorder of lstOrderData | paginate: { itemsPerPage:pageSize , currentPage: p }; let i = index">
+                            <td> <input type="checkbox" class="mx-5" [(ngModel)]="tabledata.select"
+                                    (change)="checkIfAllSelected()" [ngModelOptions]="{standalone: true}"> </td>
+                            <td>{{lstorder.id}}</td>
+                            <td [ngClass]="{
                             'badge-info': lstorder.order_status == 'Processing',
                             'badge-warning': lstorder.order_status =='Pending',
                             'badge-success': lstorder.order_status =='Complete',
                             'badge-danger': lstorder.order_status =='Cancelled'}" class="badge">
-                            {{lstorder.order_status}}</td>
-                        <td>{{lstorder.payment_status}}</td>
-                        <td>{{lstorder.shipping_status}}</td>
-                        <td>{{lstorder.customer.first_name}}{{lstorder.customer.last_name}}{{lstorder.customer.email}}
-                        </td>
-                        <td>{{lstorder.id}}</td>
-                        <td>{{lstorder.order_total}}</td>
-                        <td><button class="btn btn-default btn-sm" (click)="ViewData(lstorder)"> <i
-                                    class="fa fa-eye"></i> View
-                            </button></td>
-                    </tr>
-                    <tr>
-                        <td colspan="7"></td>
-                        <td>${{finalTotal}}</td>
-                    </tr>
-                    <tr>
-                        <td colspan="8" *ngIf="(lstOrderData).length == 0" class="alert">No matching record Found</td>
-                        <button class="btn btn-default btn-sm" (click)="ViewData(lstorder)"> <i class="fa fa-eye"></i>
-                            View
-                        </button>
-                    </tr>
-                </tbody>
-            </table>
+                                {{lstorder.order_status}}</td>
+                            <td>{{lstorder.payment_status}}</td>
+                            <td>{{lstorder.shipping_status}}</td>
+                            <td>{{lstorder.customer.first_name}}{{lstorder.customer.last_name}}{{lstorder.customer.email}}
+                            </td>
+                            <td>{{lstorder.id}}</td>
+                            <td>{{lstorder.order_total}}</td>
+                            <td><button class="btn btn-default btn-sm" (click)="ViewData(lstorder)"> <i
+                                        class="fa fa-eye"></i> View
+                                </button></td>
+                        </tr>
+                        <tr>
+                            <td colspan="7"></td>
+                            <td>${{finalTotal}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="8" *ngIf="(lstOrderData).length == 0" class="alert">No matching record Found
+                            </td>
+                            <button class="btn btn-default btn-sm" (click)="ViewData(lstorder)"> <i
+                                    class="fa fa-eye"></i>
+                                View
+                            </button>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             <div class="row">
                 <div class="col-md-2 col-12">
                     <div class="total-count--table">

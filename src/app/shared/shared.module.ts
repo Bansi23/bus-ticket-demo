@@ -4,8 +4,8 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { MyDatePickerModule } from 'mydatepicker';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { QuillModule } from 'ngx-quill'
 import { NgxPaginationModule } from 'ngx-pagination';
+import { QuillModule } from 'ngx-quill'
 import { from } from 'rxjs';
 import { ModalModule } from 'ngx-bootstrap/modal';
 
@@ -18,7 +18,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     FormsModule,
     ReactiveFormsModule,
     NgxPaginationModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    QuillModule
   ],
   exports: [
     TabsModule,
@@ -27,7 +28,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     ReactiveFormsModule,
     MyDatePickerModule,
     NgxPaginationModule,
-    ModalModule
+    ModalModule,
+    QuillModule
   ],
 })
 export class SharedModule { }
