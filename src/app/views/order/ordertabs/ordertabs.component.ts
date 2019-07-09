@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ordertabs',
@@ -8,7 +9,12 @@ import { Component, OnInit } from '@angular/core';
 export class OrdertabsComponent implements OnInit {
 
   title: any = 'Edit order details';
-  constructor() { }
+
+  backToSearchList() {
+    this._router.navigateByUrl('/sales/orders');
+  }
+  constructor(private _router: Router) { }
+
 
   ngOnInit() {
   }

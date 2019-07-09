@@ -12,7 +12,7 @@ export class ProductTabsComponent implements OnInit {
   backToList() {
     this._router.navigateByUrl('/catalog/product');
   }
-
+ 
   constructor(private _router: Router) { }
 
   ngOnInit() {

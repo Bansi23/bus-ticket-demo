@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MockService } from '../../../services/mock.service';
 
 @Component({
   selector: 'app-order-info',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrderInfoComponent implements OnInit {
 
-  constructor() { }
+  isOrder: boolean = true;
+  lstOrderStatus: any = [];
+
+  changeStatus() {
+    this.isOrder = false;
+  }
+  cancleEdit() {
+    this.isOrder = true;
+  }
+  constructor(private _mD: MockService) { }
 
   ngOnInit() {
+    this.lstOrderStatus = this._mD.orderStatus();
   }
 
 }

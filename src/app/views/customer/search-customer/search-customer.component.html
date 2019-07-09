@@ -16,7 +16,7 @@
                     <div class="form-group col-sm-6">
                         <label for="email">Email</label>
                         <input type="email" formControlName="custEmail" class="form-control">
-                    <span class="text-danger"
+                                            <span class="text-danger"
                             *ngIf="searchCustomerForm.get('custEmail').hasError('pattern') && searchCustomerForm.get('custEmail').touched">
                             Enter valid email address
                         </span>
@@ -61,28 +61,27 @@
                     </div>
                 </div>
                 <div class="row">
-
                     <div class="col-md-6">
-                        <label for="date of birth">Date of birth</label>
 
-                        <div class="col-md-12">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <select formControlName="customerDOBMonth" class="form-control">
-                                        <option value="0">Month</option>
-                                        <option value="" *ngFor="let m of lstCustDOBMonth; let i=index">{{m.month}}
-                                        </option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6">
-                                    <select formControlName="custDOBDay" class="form-control">
-                                        <option value="0">Day</option>
-                                        <option value="" *ngFor="let d of lstCustDOBDay; let i=index">{{d.day}}</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
+                        <label for="">Date of birth</label>
                     </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <select  class="form-control">
+                            <option value="0">Month</option>
+                            <option value="" *ngFor="let m of lstCustDOBMonth">
+                                {{m.month}}
+                            </option>
+                        </select>
+                     </div>
+                     <div class="col-md-3">
+                         <select class="form-control">
+                             <option value="0">Day</option>
+                             <option value="" *ngFor="let d of lstCustDOBDay">{{d.day}}</option>
+                         </select>
+                     </div>
+                    
 
                 </div> <br>
                 <div class="row">
@@ -99,7 +98,7 @@
             </form>
         </div>
     </div>
-    <app-customer-list></app-customer-list>
-
-
+    
+    
 </div>
+<app-customer-list></app-customer-list>

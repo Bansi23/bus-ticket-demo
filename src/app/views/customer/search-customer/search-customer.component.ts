@@ -39,7 +39,6 @@ export class SearchCustomerComponent implements OnInit {
 
       this.initCustomerForm();
   }
-  
   getCustomerList() {
     this._cS.API_GET(this._cS.getCustomerList())
       .subscribe(response => {
@@ -60,8 +59,8 @@ export class SearchCustomerComponent implements OnInit {
       custIPAddress : ['',Validators.pattern('/^([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})$/')],
       custLastName : [''],
       //custRole : [''],
-      customerDOBMonth :[''],
-      custDOBDay : ['']
+     custDOBMonth : [''],
+     custDOBDay : ['']
 
     })
   }

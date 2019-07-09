@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-product-to-order',
@@ -7,7 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddProductToOrderComponent implements OnInit {
 
-  constructor() { }
+  addProduct() {
+    this._router.navigateByUrl('/sales/addproduct');
+  }
+  constructor(private _router: Router) { }
 
   ngOnInit() {
   }
