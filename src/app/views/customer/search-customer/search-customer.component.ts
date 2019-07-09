@@ -20,7 +20,6 @@ export class SearchCustomerComponent implements OnInit {
   lstCustDOBDay = [];
   searchCustomerForm : FormGroup;
   ngOnInit() {
-
     this.lstCustomerRoles = this._mS.customerRoles();
     this.lstCustDOBMonth = this._mS.customerDOBMonth();
     this.lstCustDOBDay = this._mS.customerDOBDay();
