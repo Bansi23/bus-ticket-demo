@@ -16,30 +16,46 @@
                         <tbody>
                             <tr
                                 *ngFor="let prod of lstProduct | paginate: { itemsPerPage:pageSize , currentPage: p }; let i = index">
-                                <td></td>
-                                <td></td>
+                                <td><input type="checkbox"></td>
+                                <td *ngFor="let img of prod.images"><img src="{{img.src}}" width="120px" height="120px"
+                                        alt="product" /></td>
+                                <td>{{prod.name}}</td>
+                                <td>{{prod.sku}}</td>
+                                <td>{{prod.price | number : '2.1-3'}}</td>
+                                <td>{{prod.stock_quantity}}</td>
+                                <td>{{prod.product_type}}</td>
+                                <td class="fa"
+                                    [ngClass]="{'fa-check text-success': prod.published ? 'fa-close text-danger' : !prod.published}">
+                                </td>
+                                <td>
+                                    <button class="btn btn-success" (click)="editProduct(prod.id)"><i class="fa fa-edit"></i></button>
+                                </td>
                             </tr>
                         </tbody>
                         <tfoot>
-                            <div class="col-md-8 col-12" *ngIf="(lstProduct).length > 0">
-                                <div class="text-right pagignation-page">
-                                    <pagination-controls class="pagination-sm pagination-box" (pageChange)="p = $event">
-                                    </pagination-controls>
+                            <div class="row">
+                                <div class="col-md-8 col-12" *ngIf="(lstProduct).length > 0">
+                                    <div class="text-right pagignation-page">
+                                        <pagination-controls class="pagination-sm pagination-box"
+                                            (pageChange)="p = $event">
+                                        </pagination-controls>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2 col-12" *ngIf="(lstProduct).length > 0">
+                                    <div class="text-left pagignation-select">
+                                        <select class="form-control" [(ngModel)]="pageSize"
+                                            (change)="pageChanged($event.target.value)">
+                                            <option value="10">10</option>
+                                            <option value="20">20</option>
+                                            <option value="30">30</option>
+                                            <option value="40">40</option>
+                                            <option value="50">50</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="col-md-2 col-12" *ngIf="(lstProduct).length > 0">
-                                <div class="text-left pagignation-select">
-                                    <select class="form-control" [(ngModel)]="pageSize"
-                                        (change)="pageChanged($event.target.value)">
-                                        <option value="10">10</option>
-                                        <option value="20">20</option>
-                                        <option value="30">30</option>
-                                        <option value="40">40</option>
-                                        <option value="50">50</option>
-                                    </select>
-                                </div>
-                            </div>
                         </tfoot>
                     </table>
                 </div>

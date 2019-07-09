@@ -95,20 +95,19 @@ export class SearchOrderComponent implements OnInit {
   }
   //#endregion
 
-  data: any = [];
   GetRecord() {
     this._cS.API_GET(this._cS.getOrderList())
-      .subscribe(response => {
-        if (response) {
-          console.log('response', response);
+      .subscribe(res => {
+        if (res) {
+          console.log('response', res);
           this.selectedorderItems = this.lstOrderStatus.map(x => { return { id: x.id, order_status: x.order_status } });
           this.selectedpaymentItems = this.lstPaymentStatus.map(x => { return { id: x.id, payment_status: x.payment_status } });
           this.selectedshippingItem = this.lstShippingStatus.map(x => { return { id: x.id, shipping_status: x.shipping_status } });
-          this.lstOrderData = [];
-          this.data = response;
-          this.onItemOrderSelect();
-          this.onItemPaymentSelect();
-          this.onItemshippingSelect();
+          this.lstOrderData = res.orders;
+          this.finalTotal = this.lstOrderData.map(o => o.order_total).reduce((a, c) => a + c, 0);
+          // this.onItemOrderSelect();
+          // this.onItemPaymentSelect();
+          // this.onItemshippingSelect();
         }
       });
   }
@@ -229,7 +228,6 @@ export class SearchOrderComponent implements OnInit {
     this.MultiselectDropData();
     this.GetRecord();
     this.lstOrderData.map(x => { x.select = '' });
-    this.finalTotal = this.lstOrderData.map(o => o.order_total).reduce((a, c) => a + c, 0);
     this.hideOrderDropDownNumbers();
     this.hidePaymentDropDownNumbers();
     this.hideshippingDropDownNumbers();
