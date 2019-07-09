@@ -39,11 +39,7 @@ export class SearchCustomerComponent implements OnInit {
 
       this.initCustomerForm();
   }
-<<<<<<< HEAD
-
-=======
   
->>>>>>> 4fba850da2f2c6b7f79e397a11bea036793043db
   getCustomerList() {
     this._cS.API_GET(this._cS.getCustomerList())
       .subscribe(response => {
