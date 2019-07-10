@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 export class OrdertabsComponent implements OnInit {
 
   title: any = 'Edit order details';
+  index: any;
 
   backToSearchList() {
     this._router.navigateByUrl('/sales/orders');
@@ -17,5 +18,6 @@ export class OrdertabsComponent implements OnInit {
 
 
   ngOnInit() {
+    this.index = localStorage.getItem('index');
   }
 }

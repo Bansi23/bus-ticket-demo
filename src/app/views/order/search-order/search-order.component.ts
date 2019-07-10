@@ -80,7 +80,7 @@ export class SearchOrderComponent implements OnInit {
       sdate: [''],
       venderRec: [''],
       edate: [''],
-      mono: ['', Validators.pattern('[0-9]\\d{0,15}')],
+      phone_number: ['', Validators.pattern('[0-9]\\d{0,15}')],
       productnm: [''],
       mail: ['', Validators.pattern(emailPattern)],
       orderstatus: [''],
@@ -99,84 +99,52 @@ export class SearchOrderComponent implements OnInit {
     this._cS.API_GET(this._cS.getOrderList())
       .subscribe(res => {
         if (res) {
-          console.log('response', res);
-          this.selectedorderItems = this.lstOrderStatus.map(x => { return { id: x.id, order_status: x.order_status } });
-          this.selectedpaymentItems = this.lstPaymentStatus.map(x => { return { id: x.id, payment_status: x.payment_status } });
-          this.selectedshippingItem = this.lstShippingStatus.map(x => { return { id: x.id, shipping_status: x.shipping_status } });
           this.lstOrderData = res.orders;
           this.finalTotal = this.lstOrderData.map(o => o.order_total).reduce((a, c) => a + c, 0);
-          // this.onItemOrderSelect();
-          // this.onItemPaymentSelect();
-          // this.onItemshippingSelect();
         }
+        this.onItemOrderSelect();
+        this.onItemPaymentSelect();
+        this.onItemshippingSelect();
       });
   }
+
   pageChanged(value) {
     this.pageIndex = +value;
     this.onItemOrderSelect()
   };
 
+  filteredOrder: any;
+  filteredPayment: any;
+  filteredShipping: any;
   onItemOrderSelect(item?: any) {
-    const selectedData = this.selectedorderItems.map((x: { order_status: any; }) => { return x.order_status });
-    var filtered = this.lstOrderData.filter(
-      function (e) { return this.indexOf(e.type) != -1; }, selectedData);
-    this.lstOrderData = filtered;
-    setTimeout(() => {
-      this.hideOrderDropDownNumbers();
-    });
+    let FormVal = this.searchOrder.value.orderStatus;
+    console.log('FormVal', FormVal)
+    const selectedData = this.selectedorderItems.map((x: { itemName: any; }) => { return x.itemName });
+    console.log('selectedData', selectedData)
+    this.filteredOrder = this.lstOrderData.filter(
+      function (e) { return this.indexOf(e.order_status) != -1; }, selectedData);
   }
 
   onItemPaymentSelect(item?: any) {
-    const selectedData = this.selectedpaymentItems.map((x: { payment_status: any; }) => { return x.payment_status });
-    var filtered = this.lstOrderData.filter(
-      function (e) { return this.indexOf(e.type) != -1; }, selectedData);
-    this.lstOrderData = filtered;
-    setTimeout(() => {
-      this.hidePaymentDropDownNumbers();
-    });
+    const selectedData = this.selectedpaymentItems.map((x: { itemName: any; }) => { return x.itemName });
+    this.filteredPayment = this.lstOrderData.filter(
+      function (e) { return this.indexOf(e.payment_status) != -1; }, selectedData);
   }
 
   onItemshippingSelect(item?: any) {
-    const selectedData = this.selectedshippingItem.map((x: { shipping_status: any; }) => { return x.shipping_status });
-    var filtered = this.lstOrderData.filter(
-      function (e) { return this.indexOf(e.type) != -1; }, selectedData);
-    this.lstOrderData = filtered;
-    setTimeout(() => {
-      this.hideshippingDropDownNumbers();
-    });
+    const selectedData = this.selectedshippingItem.map((x: { itemName: any; }) => { return x.itemName });
+    this.filteredShipping = this.lstOrderData.filter(
+      function (e) { return this.indexOf(e.shipping_status) != -1; }, selectedData);
   }
 
-  hideOrderDropDownNumbers() {
-    const drpClass = <HTMLElement>document.querySelector('.countplaceholder');
-    if (drpClass) {
-      if (this.lstOrderStatus.length == this.selectedorderItems.length) {
-        drpClass.style.display = 'none';
-      } else {
-        drpClass.style.display = 'block';
-      }
-    }
-  }
-
-  hidePaymentDropDownNumbers() {
-    const drpClass = <HTMLElement>document.querySelector('.countplaceholder');
-    if (drpClass) {
-      if (this.lstPaymentStatus.length == this.selectedpaymentItems.length) {
-        drpClass.style.display = 'none';
-      } else {
-        drpClass.style.display = 'block';
-      }
-    }
-  }
-
-  hideshippingDropDownNumbers() {
-    const drpClass = <HTMLElement>document.querySelector('.countplaceholder');
-    if (drpClass) {
-      if (this.lstShippingStatus.length == this.selectedshippingItem.length) {
-        drpClass.style.display = 'none';
-      } else {
-        drpClass.style.display = 'block';
-      }
-    }
+  searchRecord() {
+    let FormVal = this.searchOrder.value;
+    this.onItemOrderSelect();
+    this.onItemPaymentSelect();
+    this.onItemshippingSelect();
+    this.lstOrderData = this.filteredOrder;
+    this.lstOrderData = this.filteredPayment;
+    this.lstOrderData = this.filteredShipping;
   }
 
 
@@ -193,6 +161,7 @@ export class SearchOrderComponent implements OnInit {
 
   ViewData(index) {
     console.log(index);
+    localStorage.setItem('index', JSON.stringify(index));
     this._router.navigateByUrl('/sales/viewrecord');
   }
 
@@ -228,9 +197,9 @@ export class SearchOrderComponent implements OnInit {
     this.MultiselectDropData();
     this.GetRecord();
     this.lstOrderData.map(x => { x.select = '' });
-    this.hideOrderDropDownNumbers();
-    this.hidePaymentDropDownNumbers();
-    this.hideshippingDropDownNumbers();
+    // this.hideOrderDropDownNumbers();
+    // this.hidePaymentDropDownNumbers();
+    // this.hideshippingDropDownNumbers();
 
   }
 }
