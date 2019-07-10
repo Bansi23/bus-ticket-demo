@@ -4,27 +4,26 @@ import { from } from 'rxjs';
 import { CommonService } from '../../../services/common.service';
 import { Routes, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-  @Component({
+@Component({
   selector: 'app-search-customer',
   templateUrl: './search-customer.component.html',
   styleUrls: ['./search-customer.component.scss']
 })
 export class SearchCustomerComponent implements OnInit {
 
-  constructor(private _mS: MockService, private _cS: CommonService, private router: Router, private fb : FormBuilder) { }
+  constructor(private _mS: MockService, private _cS: CommonService, private router: Router, private fb: FormBuilder) { }
 
   lstCustomerRoles = [];
   settings = {};
   selectedRoles = [];
   lstCustDOBMonth = [];
   lstCustDOBDay = [];
-  searchCustomerForm : FormGroup;
+  searchCustomerForm: FormGroup;
   ngOnInit() {
-
     this.lstCustomerRoles = this._mS.customerRoles();
     this.lstCustDOBMonth = this._mS.customerDOBMonth();
     this.lstCustDOBDay = this._mS.customerDOBDay();
-    this.getCustomerList();
+    // this.getCustomerList();
     this.settings = {
       text: "Customer roles",
       selectAllText: 'Select All',
@@ -37,8 +36,9 @@ export class SearchCustomerComponent implements OnInit {
       { "id": 3, "role": "Guests" },
       { "id": 4, "role": "Vendors" }];
 
-      this.initCustomerForm();
+    this.initCustomerForm();
   }
+
   getCustomerList() {
     this._cS.API_GET(this._cS.getCustomerList())
       .subscribe(response => {
@@ -51,18 +51,27 @@ export class SearchCustomerComponent implements OnInit {
     this.router.navigateByUrl('/customers/addEdit');
   }
 
-  initCustomerForm(){
+  initCustomerForm() {
     this.searchCustomerForm = this.fb.group({
-      custEmail : ['',Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')],
-      custCompany : [''],
-      custFirstName : [''],
-      custIPAddress : ['',Validators.pattern('/^([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})$/')],
-      custLastName : [''],
+      custEmail: ['', Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')],
+      custCompany: [''],
+      custFirstName: [''],
+      custIPAddress: ['', Validators.pattern('/^([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})$/')],
+      custLastName: [''],
       //custRole : [''],
-     custDOBMonth : [''],
-     custDOBDay : ['']
+      custDOBMonth: [''],
+      custDOBDay: ['']
 
     })
+  }
+  searchRecords(){
+    if(this.searchCustomerForm.valid){
+
+      console.log('this.searchCustomerForm.value:', this.searchCustomerForm.value)
+    }else{
+
+    }
+    
   }
 
 }
