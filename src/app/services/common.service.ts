@@ -54,6 +54,10 @@ export class CommonService {
     return baseUrl + `customers`;
   }
 
+  getParticularCustomer(custId){
+    return baseUrl + `customers/${custId}`
+  }
+
   // #endregion
 
   //#region product module api Urls

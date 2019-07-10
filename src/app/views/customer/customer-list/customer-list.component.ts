@@ -19,20 +19,20 @@ lstCustomerRoles = [];
   }
 
   navigateToEditCustomer(cust){
-  console.log("cust",cust);
-  this._mS.setItemInStorage('customerToEdit',cust);
+  console.log("cust",cust.id);  
+   this._mS.setItemInStorage('customerToEdit',cust);
       
-    this.router.navigateByUrl("/customers/addEdit")
+    // this.router.navigateByUrl('/customers/addEdit', {id : cust.id});
+    this.router.navigate(['/customers/addEdit'], {queryParams : {id : cust.id}});
   }
   getCustomerList(){
      this._cS.API_GET(this._cS.getCustomerList())
     .subscribe(response => {
 
       console.log("res",response);
-      
-      
        for(let i=0;i<response.customers.length;i++){
         const data = {
+          id : response.customers[i].id,
           email : response.customers[i].email,
           name : response.customers[i].first_name +" "+ response.customers[i].last_name,
           customerRole : response.customers[i].role_ids,
