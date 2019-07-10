@@ -39,8 +39,8 @@ export class CommonService {
 
   // #region All URLs
   //#region order module api Urls
-  getOrderList() {
-    return baseUrl + `orders`;
+  getOrderList(limit, page) {
+    return baseUrl + `orders?limit=${limit}&page=${page}`;
   }
   getOrderId(id: number) {
     return baseUrl + `orders/${id}`;
