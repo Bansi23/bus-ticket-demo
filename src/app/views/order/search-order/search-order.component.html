@@ -92,7 +92,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table">
+                <table class="table table-bordered">
                     <thead>
                         <tr>
                             <th><input type="checkbox" [(ngModel)]="selectAll" (change)="select_all()"></th>
@@ -126,7 +126,7 @@
                             </td>
                             <td>{{lstorder.created_on_utc | date: 'dd/mm/yyyy'}}</td>
                             <td>{{lstorder.order_total}}</td>
-                            <td><button class="btn btn-default btn-sm" (click)="ViewData(lstorder.id)"> <i
+                            <td><button class="btn btn-info btn-sm" (click)="ViewData(lstorder.id)"> <i
                                         class="fa fa-eye"></i> View
                                 </button></td>
                         </tr>
@@ -144,10 +144,10 @@
                     </tbody>
                 </table>
             </div>
-            <div class="row">
+            <div class="row" *ngIf="totalRecord">
                 <div class="col-md-2 col-12">
                     <div class="total-count--table">
-                        <span>{{"Total :" }}{{ lstOrderData.length }}</span>
+                        <span> Total Number of Records :{{totalRecord}}</span>
                     </div>
                 </div>
                 <div class="col-md-8 col-12" *ngIf="(lstOrderData).length > 0">

@@ -4,7 +4,7 @@
         <button class="btn btn-link" (click)="backToSearchList()"><i class="fa fa-arrow-circle-o-left"> back to
                 View Order</i></button>
     </div>
-    <div class="card-body">
+    <!-- <div class="card-body">
         <form [formGroup]="searchProduct">
             <div class="row">
                 <div class="form-group col-sm-8">
@@ -43,10 +43,9 @@
                     </select>
                 </div>
             </div>
-
         </form>
         <button class="btn btn-info text-center text-white pull-left"><i class="fa fa-search"></i> Search</button>
-    </div>
+    </div> -->
 </div>
 
 <div class="card">
@@ -66,7 +65,8 @@
             <tbody>
                 <tr
                     *ngFor="let lstproduct of lstProductData| paginate: { itemsPerPage:pageSize , currentPage: p }; let i = index">
-                    <td> <input type="button" class="mx-5"> </td>
+                    <td><button class="btn btn-info text-white" (click)="SelectProduct(lstproduct.id)">Select</button>
+                    </td>
                     <td>{{lstproduct.id}}</td>
                     <td>{{lstproduct.name}}</td>
                     <td>{{lstproduct.sku}}</td>
@@ -74,14 +74,21 @@
             </tbody>
         </table>
         <div class="row">
-            <div class="col-md-8 col-12">
+
+            <div class="col-md-2 col-12">
+                <div class="total-count--table">
+                    <span> Total Number of Records :{{countProduct}}</span>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-12" *ngIf="(lstProductData).length > 0">
                 <div class="text-right pagignation-page">
                     <pagination-controls class="pagination-sm pagination-box" (pageChange)="p = $event">
                     </pagination-controls>
                 </div>
             </div>
 
-            <div class="col-md-2 col-12">
+            <div class="col-md-2 col-12" *ngIf="(lstProductData).length > 0">
                 <div class="text-left pagignation-select">
                     <select class="form-control" [(ngModel)]="pageSize" (change)="pageChanged($event.target.value)">
                         <option value="10">10</option>
@@ -91,6 +98,9 @@
                         <option value="50">50</option>
                     </select>
                 </div>
+            </div>
+            <div class="col-md-2" *ngIf="(lstProductData).length > 0">
+                <p>items per page</p>
             </div>
         </div>
     </div>

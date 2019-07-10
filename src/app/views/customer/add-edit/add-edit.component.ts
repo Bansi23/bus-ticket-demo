@@ -16,37 +16,32 @@ export class AddEditComponent implements OnInit {
   lstManagerOfVendor = [];
   settings = {};
   selectedRoles = [];
-  addCustomerForm : FormGroup;
-  dataToSet : any;
-  custId : any;
-  customer ;
-  constructor(private _mS: MockService, private _cS: CommonService, private router: Router, private fb : FormBuilder, private route:ActivatedRoute) { }
+  addCustomerForm: FormGroup;
+  dataToSet: any;
+  custId: any;
+  customer;
+  constructor(private _mS: MockService, private _cS: CommonService, private router: Router, private fb: FormBuilder, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.lstCustomerRoles = this._mS.customerRoles();
     this.lstManagerOfVendor = this._mS.getManagerOfVendor();
     this.initAddCustomerForm();
- 
-    this.route
-    .queryParams
-    .subscribe(params => {
-        
-       this.custId = params['id']
-    });   
-    
-    if(this.custId){
-    
+
+    this.route.queryParams.subscribe(params => {
+      this.custId = params['id']
+    });
+    if (this.custId) {
       this._cS.API_GET(this._cS.getParticularCustomer(this.custId))
-      .subscribe(response =>{
-        this.customer = response.customers[0];
-        console.log('this.customer:', this.customer)
-        this.setValuesInForm();
-       })
+        .subscribe(response => {
+          this.customer = response.customers[0];
+          console.log('this.customer:', this.customer)
+          this.setValuesInForm();
+        })
       console.log('this.customer:', this.customer)
-    }else{
+    } else {
 
     }
-     this.settings = {
+    this.settings = {
       text: "Customer roles",
       selectAllText: 'Select All',
       unSelectAllText: 'UnSelect All',
@@ -58,55 +53,42 @@ export class AddEditComponent implements OnInit {
       { "id": 2, "role": "Forum Moderators" },
       { "id": 3, "role": "Guests" },
       { "id": 4, "role": "Vendors" }];
-
-      // if(this._mS.getItemFromStorage('customerToEdit')){
-      //   this.dataToSet = this._mS.getItemFromStorage('customerToEdit')
-      //   console.log('this.dataToSet:', this.dataToSet)
-      //   this.setValuesInForm();      
-      // }else{
-      //   alert("no")
-      // }
-
   }
-  initAddCustomerForm(){
-  this.addCustomerForm = this.fb.group({
-    custEmail : ['',Validators.compose([Validators.required,Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')])],
-    custPassword : ['',Validators.compose([Validators.required,Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')])],
-    
-    custRoles : ['',Validators.required],
-    custManagerOfVendor : ['',Validators.required],
-    custGender : ['',Validators.required],
-    custFirstName : ['',Validators.required],
-    custLastName :['',Validators.required],
-    custDob: ['',Validators.required],
-    custCompanyName : [''],
-    custAdminComment : [''],
-    custIsTaxExempt : [''],
-    custNewsletter : [''],  
-    custActive : ['']
-  })    
+  initAddCustomerForm() {
+    this.addCustomerForm = this.fb.group({
+      custEmail: ['', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')])],
+      custPassword: ['', Validators.compose([Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')])],
+
+      custRoles: ['', Validators.required],
+      custManagerOfVendor: ['', Validators.required],
+      custGender: ['', Validators.required],
+      custFirstName: ['', Validators.required],
+      custLastName: ['', Validators.required],
+      custDob: ['', Validators.required],
+      custCompanyName: [''],
+      custAdminComment: [''],
+      custIsTaxExempt: [''],
+      custNewsletter: [''],
+      custActive: ['']
+    })
   }
-  setValuesInForm(){
+  setValuesInForm() {
 
     this.addCustomerForm.patchValue({
-      custEmail : this.customer.email,
-      // custPassword : this.dataToSet.
-      // custRoles : this.dataToSet.customerRole,
-      //manager of vendor
-      custGender : this.customer.gender,
-      custFirstName : this.customer.first_name,
-      custLastName : this.customer.last_name,
-      custDob : this.customer.date_of_birth,
-      //company name
-      custAdminComment : this.customer.admin_comment,
-      custIsTaxExempt : this.customer.is_tax_exempt
+      custEmail: this.customer.email,
+      custGender: this.customer.gender,
+      custFirstName: this.customer.first_name,
+      custLastName: this.customer.last_name,
+      custDob: this.customer.date_of_birth,
+      custAdminComment: this.customer.admin_comment,
+      custIsTaxExempt: this.customer.is_tax_exempt
 
 
     })
   }
-  saveAddEditForm(){
+  saveAddEditForm() {
     console.log('this.addCustomerForm:', this.addCustomerForm.value)
-    
+
   }
- 
+
 }

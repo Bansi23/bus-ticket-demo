@@ -45,6 +45,13 @@ export class CommonService {
   getOrderId(id: number) {
     return baseUrl + `orders/${id}`;
   }
+
+  getOrderItem(orderId) {
+    return baseUrl + `orders/${orderId}/items`;
+  }
+  getCountItem() {
+    return baseUrl + `orders/count`;
+  }
   // #endregion
   getProductList() {
     return baseUrl + `products`;
@@ -54,7 +61,7 @@ export class CommonService {
     return baseUrl + `customers`;
   }
 
-  getParticularCustomer(custId){
+  getParticularCustomer(custId) {
     return baseUrl + `customers/${custId}`
   }
 
@@ -75,6 +82,9 @@ export class CommonService {
 
   URL_getAttributeList() {
     return baseUrl + `productattributes`;
+  }
+  URL_getProductCount() {
+    return baseUrl + `products/count`;
   }
   //#endregion
   constructor(public _router: Router, public _httpClient: HttpClient) { }

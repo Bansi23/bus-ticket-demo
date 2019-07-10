@@ -5,6 +5,7 @@ import { OrdertabsComponent } from './ordertabs/ordertabs.component';
 import { AddProductComponent } from './add-product/add-product.component';
 import { EditBillingComponent } from './edit-billing/edit-billing.component';
 import { EditShippingComponent } from './edit-shipping/edit-shipping.component';
+import { SelectAddProductComponent } from './select-add-product/select-add-product.component';
 
 
 const routes: Routes = [
@@ -31,7 +32,7 @@ const routes: Routes = [
       { path: 'viewrecord', component: OrdertabsComponent, data: { title: 'View Record' } },
       { path: 'addproduct', component: AddProductComponent, data: { title: 'Add Product' } },
       { path: 'editbilling', component: EditBillingComponent, data: { title: 'Edit Billing Address' } },
-      { path: 'editshipping', component: EditShippingComponent, data: { title: 'Edit Shipping Address' } },
+      { path: 'selectproduct', component: SelectAddProductComponent, data: { title: 'Add Product to order' } },
     ]
   }
 ];

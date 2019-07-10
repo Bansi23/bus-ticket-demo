@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MockService } from '../../../services/mock.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { CommonService } from '../../../services/common.service';
 
 @Component({
@@ -12,6 +12,7 @@ export class BillingShippingComponent implements OnInit {
   shippingMethod: any = "Ground";
   editRec: boolean = true;
   viewRecord: any = [];
+  orderId: any;
   EditShipMethod() {
     this.editRec = false;
   }
@@ -23,27 +24,30 @@ export class BillingShippingComponent implements OnInit {
     this.editRec = true;
   }
 
+  billingEdit(id, billingid) {
+    this._router.navigate(['/sales/editbilling'], { queryParams: { id: id, billingid: billingid } });
 
-  billingEdit() {
-    this._router.navigateByUrl('/sales/editbilling');
   }
-  shippingEdit() {
-    this._router.navigateByUrl('/sales/editbilling');
+  shippingEdit(id, shippingid) {
+    this._router.navigate(['/sales/editbilling'], { queryParams: { id: id, shippingid: shippingid } });
   }
-  getRecord(id) {
-    this._cS.API_GET(this._cS.getOrderId(id))
-      .subscribe(response => {
-        if (response) {
-          console.log('response', response)
-          this.viewRecord = response.orders;
-        }
-      });
+  getRecord() {
+    this._route.queryParams.subscribe(params => {
+      this.orderId = params['id']
+    });
+    if (this.orderId) {
+      this._cS.API_GET(this._cS.getOrderId(this.orderId))
+        .subscribe(response => {
+          if (response) {
+            this.viewRecord = response.orders;
+          }
+        });
+    }
   }
 
   ngOnInit() {
-    const index = localStorage.getItem('index');
-    this.getRecord(index);
+    this.getRecord();
   }
 
-  constructor(private _router: Router, private _cS: CommonService) { }
+  constructor(private _router: Router, private _cS: CommonService, private _route: ActivatedRoute) { }
 }

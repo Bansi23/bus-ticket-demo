@@ -30,6 +30,7 @@ export class SearchOrderComponent implements OnInit {
   pageSize: number = 10;
   selectAll: boolean = false;
   finalTotal: any;
+  totalRecord: any;
   //#endregion
 
   //dropdown static Data
@@ -108,10 +109,20 @@ export class SearchOrderComponent implements OnInit {
       });
   }
 
+  GetCountRecord() {
+    this._cS.API_GET(this._cS.getCountItem())
+      .subscribe(res => {
+        if (res) {
+          console.log(res)
+          this.totalRecord = res.count;
+        }
+      });
+  }
+
   pageChanged(value) {
     this.pageIndex = +value;
     this.onItemOrderSelect()
-    // this.GetRecord(this.pageIndex, this.pageSize);
+    //this.GetRecord(this.pageSize, this.pageIndex);
   };
 
   filteredOrder: any;
@@ -162,8 +173,7 @@ export class SearchOrderComponent implements OnInit {
 
   ViewData(index) {
     console.log(index);
-    localStorage.setItem('index', JSON.stringify(index));
-    this._router.navigateByUrl('/sales/viewrecord');
+    this._router.navigate(['/sales/viewrecord'], { queryParams: { id: index } });
   }
 
   StaticList() {
@@ -196,14 +206,11 @@ export class SearchOrderComponent implements OnInit {
     this.fbSearchOrder();
     this.StaticList();
     this.MultiselectDropData();
-    console.log(this.pageIndex, 'this.pageIndex');
-    console.log(this.pageSize, 'this.pageSize');
+    this.GetCountRecord();
 
-    this.GetRecord(this.pageIndex, this.pageSize);
+    this.GetRecord(this.pageSize, this.pageIndex);
     this.lstOrderData.map(x => { x.select = '' });
-    // this.hideOrderDropDownNumbers();
-    // this.hidePaymentDropDownNumbers();
-    // this.hideshippingDropDownNumbers();
+
 
   }
 }

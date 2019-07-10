@@ -12,10 +12,11 @@ import { OrderNoteComponent } from './order-note/order-note.component';
 import { AddProductComponent } from './add-product/add-product.component';
 import { EditBillingComponent } from './edit-billing/edit-billing.component';
 import { EditShippingComponent } from './edit-shipping/edit-shipping.component';
+import { SelectAddProductComponent } from './select-add-product/select-add-product.component';
 
 
 @NgModule({
-  declarations: [SearchOrderComponent, OrdertabsComponent, OrderInfoComponent, BillingShippingComponent, AddProductToOrderComponent, OrderNoteComponent, AddProductComponent, EditBillingComponent, EditShippingComponent],
+  declarations: [SearchOrderComponent, OrdertabsComponent, OrderInfoComponent, BillingShippingComponent, AddProductToOrderComponent, OrderNoteComponent, AddProductComponent, EditBillingComponent, EditShippingComponent, SelectAddProductComponent],
   imports: [
     CommonModule,
     OrderRoutingModule,

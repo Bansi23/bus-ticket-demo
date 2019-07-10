@@ -9,44 +9,39 @@ import { CommonService } from '../../../services/common.service';
   styleUrls: ['./customer-list.component.scss']
 })
 export class CustomerListComponent implements OnInit {
-lstcustomers = [];
-lstCustomerRoles = [];
-  constructor(private router : Router,private _mS: MockService, private _cS: CommonService) { }
+  lstcustomers = [];
+  lstCustomerRoles = [];
+  constructor(private router: Router, private _mS: MockService, private _cS: CommonService) { }
 
   ngOnInit() {
     this.getCustomerList();
-    this.lstCustomerRoles= this._mS.customerRoles();
+    this.lstCustomerRoles = this._mS.customerRoles();
   }
 
-  navigateToEditCustomer(cust){
-  console.log("cust",cust.id);  
-   this._mS.setItemInStorage('customerToEdit',cust);
-      
-    // this.router.navigateByUrl('/customers/addEdit', {id : cust.id});
-    this.router.navigate(['/customers/addEdit'], {queryParams : {id : cust.id}});
+  navigateToEditCustomer(cust) {
+    this._mS.setItemInStorage('customerToEdit', cust);
+    this.router.navigate(['/customers/addEdit'], { queryParams: { id: cust.id } });
   }
-  getCustomerList(){
-     this._cS.API_GET(this._cS.getCustomerList())
-    .subscribe(response => {
+  getCustomerList() {
+    this._cS.API_GET(this._cS.getCustomerList())
+      .subscribe(response => {
 
-      console.log("res",response);
-       for(let i=0;i<response.customers.length;i++){
-        const data = {
-          id : response.customers[i].id,
-          email : response.customers[i].email,
-          name : response.customers[i].first_name +" "+ response.customers[i].last_name,
-          customerRole : response.customers[i].role_ids,
-          //customer role is remaining
-          //company is remaining
-          active : response.customers[i].active,
-          createdOn : response.customers[i].created_on_utc,
-          lastActivity : response.customers[i].last_activity_date_utc
+        console.log("res", response);
+        for (let i = 0; i < response.customers.length; i++) {
+          const data = {
+            id: response.customers[i].id,
+            email: response.customers[i].email,
+            name: response.customers[i].first_name + " " + response.customers[i].last_name,
+            customerRole: response.customers[i].role_ids,
+            active: response.customers[i].active,
+            createdOn: response.customers[i].created_on_utc,
+            lastActivity: response.customers[i].last_activity_date_utc
+          }
+          this.lstcustomers.push(data);
+          console.log('data:', this.lstcustomers)
         }
-        this.lstcustomers.push(data);
-        console.log('data:', this.lstcustomers)
-       }
-     })
+      })
 
-   }
+  }
 
 }
