@@ -18,16 +18,20 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>asd@gmail.com</td>
-                            <td>Virendra</td>
-                            <td>customer role</td>
-                            <td>company name</td>
-                            <td><i class="fa fa-check"></i></td>
-                            <td>date</td>
-                            <td>last activity</td>
+                        <tr *ngFor="let c of lstcustomers">
+                            <td>{{c.email}}</td>
+                            <td>{{c.name}}</td>
                             <td>
-                                <a class="btn btn-secondary" (click)="navigateToEditCustomer()">
+                                <span *ngFor="let cr of c.customerRole; let i=index">
+                                        {{lstCustomerRoles[i+1].role}},
+                                </span>
+                            </td>
+                            <td></td>
+                            <td><i class="fa fa-check"></i></td>
+                            <td>{{c.createdOn | date : 'medium'}}</td>
+                            <td>{{c.lastActivity | date : 'medium'}}</td>
+                            <td>
+                                <a class="btn btn-secondary" (click)="navigateToEditCustomer(c)">
                                     <i class="fa fa-pencil"></i>
                                     Edit</a>
                             </td>

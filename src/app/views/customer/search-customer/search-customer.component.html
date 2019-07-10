@@ -71,14 +71,14 @@
                         <select  class="form-control">
                             <option value="0">Month</option>
                             <option value="" *ngFor="let m of lstCustDOBMonth">
-                                {{m.month}}
+                                {{m.text}}
                             </option>
                         </select>
                      </div>
                      <div class="col-md-3">
                          <select class="form-control">
                              <option value="0">Day</option>
-                             <option value="" *ngFor="let d of lstCustDOBDay">{{d.day}}</option>
+                             <option value="" *ngFor="let d of lstCustDOBDay">{{d.text}}</option>
                          </select>
                      </div>
                     
@@ -88,7 +88,7 @@
                     <div class="col">
                         <div style="text-align: center;">
 
-                            <button type="button" class="btn btn-primary btn-search">
+                            <button type="button" (click)="searchRecords()" class="btn btn-primary btn-search">
                                 <i class="fa fa-search"></i>
                                 Search
                             </button>

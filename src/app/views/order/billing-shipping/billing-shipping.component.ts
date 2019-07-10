@@ -11,7 +11,7 @@ import { CommonService } from '../../../services/common.service';
 export class BillingShippingComponent implements OnInit {
   shippingMethod: any = "Ground";
   editRec: boolean = true;
-  billingData: any[];
+  viewRecord: any = [];
   EditShipMethod() {
     this.editRec = false;
   }
@@ -20,9 +20,10 @@ export class BillingShippingComponent implements OnInit {
     this.editRec = true;
   }
   SaveChanges() {
-    //this.shippingMethod;
     this.editRec = true;
   }
+
+
   billingEdit() {
     this._router.navigateByUrl('/sales/editbilling');
   }
@@ -33,14 +34,15 @@ export class BillingShippingComponent implements OnInit {
     this._cS.API_GET(this._cS.getOrderId(id))
       .subscribe(response => {
         if (response) {
-          console.log('response', response);
-          this.billingData = response.orders;
+          console.log('response', response)
+          this.viewRecord = response.orders;
         }
       });
   }
 
   ngOnInit() {
-
+    const index = localStorage.getItem('index');
+    this.getRecord(index);
   }
 
   constructor(private _router: Router, private _cS: CommonService) { }

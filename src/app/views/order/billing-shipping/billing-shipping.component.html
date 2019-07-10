@@ -1,159 +1,164 @@
-<div class="card card-default">
-    <div class="card-body">
-        <div class="row">
-            <div class="col-md-6">
-                <table class="table table-hover table-bordered table-striped" style="max-width: 500px;">
-                    <tbody>
-                        <tr>
-                            <th colspan="2" class="bg-dark">
-                                <strong>Billing address</strong>
-                            </th>
-                        </tr>
-                        <tr>
-                            <td> Full name</td>
-                            <td>virendra maheta</td>
-                        </tr>
-                        <tr>
-                            <td> Email</td>
-                            <td>virendra@gmail.com</td>
-                        </tr>
-                        <tr>
-                            <td>Phone</td>
-                            <td>2323232322</td>
-                        </tr>
-                        <tr>
-                            <td>Fax</td>
-                            <td> 12312313 </td>
-                        </tr>
-                        <tr>
-                            <td> Company</td>
-                            <td> asd</td>
-                        </tr>
-                        <tr>
-                            <td> Address 1</td>
-                            <td> Ganesh Meridian </td>
-                        </tr>
-                        <tr>
-                            <td>Address 2</td>
-                            <td> Satva Solutions</td>
-                        </tr>
-                        <tr>
-                            <td> City</td>
-                            <td>Ahmedabad</td>
-                        </tr>
-                        <tr>
-                            <td>State / province</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td> Zip / postal code</td>
-                            <td>360005</td>
-                        </tr>
-                        <tr>
-                            <td>Country </td>
-                            <td>India</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <button class="btn btn-primary" (click)="billingEdit()">Edit</button>
+<ng-container *ngFor="let billingData of viewRecord; let i=index">
+    <div class="card card-default">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <table class="table table-hover table-bordered table-striped" style="max-width: 500px;">
+                        <tbody>
+                            <tr>
+                                <th colspan="2" class="bg-dark">
+                                    <strong>Billing address</strong>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td> Full name</td>
+                                <td>{{billingData.billing_address.first_name}} {{billingData.billing_address.last_name}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> Email</td>
+                                <td>{{billingData.billing_address.email}}</td>
+                            </tr>
+                            <tr>
+                                <td>Phone</td>
+                                <td>{{billingData.billing_address.phone_number}}</td>
+                            </tr>
+                            <tr>
+                                <td>Fax</td>
+                                <td>{{billingData.billing_address.fax_number}}</td>
+                            </tr>
+                            <tr>
+                                <td> Company</td>
+                                <td> {{billingData.billing_address.company}}</td>
+                            </tr>
+                            <tr>
+                                <td> Address 1</td>
+                                <td> {{billingData.billing_address.address1}} </td>
+                            </tr>
+                            <tr>
+                                <td>Address 2</td>
+                                <td> {{billingData.billing_address.address2}}</td>
+                            </tr>
+                            <tr>
+                                <td> City</td>
+                                <td> {{billingData.billing_address.city}}</td>
+                            </tr>
+                            <tr>
+                                <td>State / province</td>
+                                <td>{{billingData.billing_address.state_province_id}}</td>
+                            </tr>
+                            <tr>
+                                <td> Zip / postal code</td>
+                                <td>{{billingData.billing_address.zip_postal_code}}</td>
+                            </tr>
+                            <tr>
+                                <td>Country </td>
+                                <td>{{billingData.billing_address.country}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button class="btn btn-primary" (click)="billingEdit()">Edit</button>
 
-            </div>
-            <div class="col-md-6">
-                <table class="table table-hover table-bordered  table-striped" style="max-width: 500px;">
-                    <tbody>
-                        <tr>
-                            <th colspan="2" class="bg-dark">
-                                <strong>Shipping address</strong>
-                            </th>
-                        </tr>
-                        <tr>
-                            <td>Full name</td>
-                            <td>virendra maheta</td>
-                        </tr>
-                        <tr>
-                            <td>Email</td>
-                            <td> virendra@gmail.com</td>
-                        </tr>
-                        <tr>
-                            <td>Phone </td>
-                            <td>2323232322</td>
-                        </tr>
-                        <tr>
-                            <td>Fax</td>
-                            <td>12312313</td>
-                        </tr>
-                        <tr>
-                            <td>Company</td>
-                            <td>asd</td>
-                        </tr>
-                        <tr>
-                            <td>Address 1</td>
-                            <td> Ganesh Meridian</td>
-                        </tr>
-                        <tr>
-                            <td> Address 2</td>
-                            <td>Satva Solutions</td>
-                        </tr>
-                        <tr>
-                            <td>City</td>
-                            <td>Ahmedabad</td>
-                        </tr>
-                        <tr>
-                            <td> State / province</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Zip / postal code</td>
-                            <td> 360005</td>
-                        </tr>
-                        <tr>
-                            <td>Country</td>
-                            <td>India</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <i class="fa fa-map-marker">
-                                    <a href="https://maps.google.com/maps" sty le="margin-bottom: 10px;"
-                                        target="_blank">View address on Google Maps</a></i>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <button class="btn btn-primary" (click)="shippingEdit()">Edit</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="card card-default">
-    <div class="card-body">
-        <div class="row">
-            <div class="col-md-2">
-                <b>Shipping method</b>
-            </div>
-            <div class="col-md-6" *ngIf="editRec">
-                <span>{{shippingMethod}}</span>
-                <button class="btn btn-primary mx-2" (click)="EditShipMethod()">Edit</button>
-            </div>
-
-            <div class="col-md-6" *ngIf="!editRec">
-                <div class="input-group">
-                    <input type="text" class="form-control" [(ngModel)]="shippingMethod">
-                    <span class="input-group-append">
-                        <button type="button" class="btn btn-primary" (click)="SaveChanges()">Save</button>
-                        <button type="button" class="btn btn-danger" (click)="cancleEdit()">Cancle</button>
-                    </span>
+                </div>
+                <div class="col-md-6">
+                    <table class="table table-hover table-bordered  table-striped" style="max-width: 500px;">
+                        <tbody>
+                            <tr>
+                                <th colspan="2" class="bg-dark">
+                                    <strong>Shipping address</strong>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>Full name</td>
+                                <td>{{billingData.shipping_address.first_name}}
+                                    {{billingData.shipping_address.last_name}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Email</td>
+                                <td>{{billingData.shipping_address.email}}</td>
+                            </tr>
+                            <tr>
+                                <td>Phone </td>
+                                <td>{{billingData.shipping_address.phone_number}}</td>
+                            </tr>
+                            <tr>
+                                <td>Fax</td>
+                                <td>{{billingData.shipping_address.fax_number}}</td>
+                            </tr>
+                            <tr>
+                                <td>Company</td>
+                                <td>{{billingData.shipping_address.company}}</td>
+                            </tr>
+                            <tr>
+                                <td>Address 1</td>
+                                <td> {{billingData.shipping_address.address1}}</td>
+                            </tr>
+                            <tr>
+                                <td> Address 2</td>
+                                <td>{{billingData.shipping_address.address2}}</td>
+                            </tr>
+                            <tr>
+                                <td>City</td>
+                                <td>{{billingData.shipping_address.city}}</td>
+                            </tr>
+                            <tr>
+                                <td> State / province</td>
+                                <td>{{billingData.shipping_address.state_province_id}}</td>
+                            </tr>
+                            <tr>
+                                <td>Zip / postal code</td>
+                                <td> {{billingData.shipping_address.zip_postal_code}}</td>
+                            </tr>
+                            <tr>
+                                <td>Country</td>
+                                <td>{{billingData.shipping_address.country}}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <i class="fa fa-map-marker">
+                                        <a href="https://maps.google.com/maps" sty le="margin-bottom: 10px;"
+                                            target="_blank">View address on Google Maps</a></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button class="btn btn-primary" (click)="shippingEdit()">Edit</button>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="row">
-            <div class="col-md-2">
-                <b>Shipping Status</b>
+    <div class="card card-default">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-2">
+                    <b>Shipping method</b>
+                </div>
+                <div class="col-md-6" *ngIf="editRec">
+                    <span>{{billingData.shipping_method}}</span>
+                    <button class="btn btn-primary mx-2" (click)="EditShipMethod()">Edit</button>
+                </div>
+
+                <div class="col-md-6" *ngIf="!editRec">
+                    <div class="input-group">
+                        <input type="text" class="form-control" [(ngModel)]="billingData.shipping_method">
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-primary" (click)="SaveChanges()">Save</button>
+                            <button type="button" class="btn btn-danger" (click)="cancleEdit()">Cancle</button>
+                        </span>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-10">
-                <b>Not yet shipped</b>
+
+            <div class="row">
+                <div class="col-md-2">
+                    <b>Shipping Status</b>
+                </div>
+                <div class="col-md-10">
+                    <b>{{billingData.shipping_status}}</b>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</ng-container>
