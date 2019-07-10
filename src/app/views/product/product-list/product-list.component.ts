@@ -46,7 +46,6 @@ export class ProductListComponent implements OnInit {
 
 
   editProduct(prodId) {
-    console.log('prodId:', prodId)
     localStorage.setItem('editProductId', prodId);
     this._route.snapshot.paramMap.get('id');
     this._router.navigate(['catalog/addProduct', { id: prodId }]);
