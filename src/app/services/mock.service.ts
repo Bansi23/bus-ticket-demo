@@ -338,7 +338,7 @@ export class MockService {
     localStorage.setItem(key,JSON.stringify(val));
   }
 
-  getItemFromStorage(key,val){
+  getItemFromStorage(key){
     return JSON.parse(localStorage.getItem(key));
   }
 

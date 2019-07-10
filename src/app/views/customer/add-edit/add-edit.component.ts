@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Routes, Router } from '@angular/router';
+import { Routes, Router, ActivatedRoute } from '@angular/router';
 import { from } from 'rxjs';
 import { MockService } from '../../../services/mock.service';
 import { CommonService } from '../../../services/common.service';
 import { FormBuilder, FormGroup, Validators, FormArray, AbstractControl, Form } from '@angular/forms';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-add-edit',
@@ -16,14 +17,36 @@ export class AddEditComponent implements OnInit {
   settings = {};
   selectedRoles = [];
   addCustomerForm : FormGroup;
-
-  constructor(private _mS: MockService, private _cS: CommonService, private router: Router, private fb : FormBuilder) { }
+  dataToSet : any;
+  custId : any;
+  customer ;
+  constructor(private _mS: MockService, private _cS: CommonService, private router: Router, private fb : FormBuilder, private route:ActivatedRoute) { }
 
   ngOnInit() {
     this.lstCustomerRoles = this._mS.customerRoles();
     this.lstManagerOfVendor = this._mS.getManagerOfVendor();
     this.initAddCustomerForm();
-    this.settings = {
+ 
+    this.route
+    .queryParams
+    .subscribe(params => {
+        
+       this.custId = params['id']
+    });   
+    
+    if(this.custId){
+    
+      this._cS.API_GET(this._cS.getParticularCustomer(this.custId))
+      .subscribe(response =>{
+        this.customer = response.customers[0];
+        console.log('this.customer:', this.customer)
+        this.setValuesInForm();
+       })
+      console.log('this.customer:', this.customer)
+    }else{
+
+    }
+     this.settings = {
       text: "Customer roles",
       selectAllText: 'Select All',
       unSelectAllText: 'UnSelect All',
@@ -35,6 +58,14 @@ export class AddEditComponent implements OnInit {
       { "id": 2, "role": "Forum Moderators" },
       { "id": 3, "role": "Guests" },
       { "id": 4, "role": "Vendors" }];
+
+      // if(this._mS.getItemFromStorage('customerToEdit')){
+      //   this.dataToSet = this._mS.getItemFromStorage('customerToEdit')
+      //   console.log('this.dataToSet:', this.dataToSet)
+      //   this.setValuesInForm();      
+      // }else{
+      //   alert("no")
+      // }
 
   }
   initAddCustomerForm(){
@@ -54,6 +85,24 @@ export class AddEditComponent implements OnInit {
     custNewsletter : [''],  
     custActive : ['']
   })    
+  }
+  setValuesInForm(){
+
+    this.addCustomerForm.patchValue({
+      custEmail : this.customer.email,
+      // custPassword : this.dataToSet.
+      // custRoles : this.dataToSet.customerRole,
+      //manager of vendor
+      custGender : this.customer.gender,
+      custFirstName : this.customer.first_name,
+      custLastName : this.customer.last_name,
+      custDob : this.customer.date_of_birth,
+      //company name
+      custAdminComment : this.customer.admin_comment,
+      custIsTaxExempt : this.customer.is_tax_exempt
+
+
+    })
   }
   saveAddEditForm(){
     console.log('this.addCustomerForm:', this.addCustomerForm.value)
