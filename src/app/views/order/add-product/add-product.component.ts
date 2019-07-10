@@ -49,7 +49,7 @@ export class AddProductComponent implements OnInit {
       });
   }
   getProductCount() {
-    this._cS.API_GET(this._cS.URL_getProductCount()).subscribe(res => {
+    this._cS.API_GET(this._cS.URL_getTotalRecords()).subscribe(res => {
       if (res) {
         this.countProduct = res.count;
       }
