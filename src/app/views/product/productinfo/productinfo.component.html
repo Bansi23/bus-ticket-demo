@@ -52,11 +52,17 @@
                     <div class="row">
                         <div class="form-group col-sm-12">
                             <label>Inventory method</label>
-                            <select class="form-control" formControlName="inventoryMethod">
+                            <select class="form-control" formControlName="inventoryMethod" (change)="changeInventory($event.target.value)">
                                 <option *ngFor="let i of lstInvantory" [value]="i.id">
                                     {{i.name}}
                                 </option>
                             </select>
+                        </div>
+                    </div>
+                    <div class="row" class="stockQuan">
+                        <div class="form-group col-sm-12">
+                            <label>Stock quantity</label>
+                            <input type="number" class="form-control" formControlName="stockQuantity">
                         </div>
                     </div>
                 </div>
@@ -135,10 +141,10 @@
                     <div class="row">
                         <div class="form-group col-sm-12">
                             <label>Categories</label>
-                            <angular2-multiselect [data]="lstInvantory" formControlName="categories"
-                                class="form-control" [settings]="dropdownProductStatus"
-                                (onSelect)="onProductSelect($event)" (onDeSelect)="onProductSelect($event)"
-                                (onSelectAll)="onProductSelect($event)" (onDeSelectAll)="onProductSelect($event)">
+                            <angular2-multiselect [data]="lstCategories" formControlName="categories"
+                                class="form-control" [settings]="dropdownProductCategory"
+                                (onSelect)="onProductCatSelect($event)" (onDeSelect)="onProductCatSelect($event)"
+                                (onSelectAll)="onProductCatSelect($event)" (onDeSelectAll)="onProductCatSelect($event)">
                                 <!-- <ng-container *ngIf="lstInvantory?.length == selectedorderItems?.length">
                                     <c-badge>
                                         <ng-template let-item="item">
@@ -167,11 +173,15 @@
                         <div class="form-group col-sm-6">
                             <label>Price</label>
                             <div class="input-group">
-                                <input type="number" class="form-control" formControlName="price">
+                                <input type="number" class="form-control" formControlName="price"
+                                    (keydown)="restrict($event)">
                                 <span class="input-group-append">
                                     <button type="button" class="btn btn-secondary">USD</button>
                                 </span>
                             </div>
+                            <span class="text-danger"
+                                *ngIf="productInfoForm.controls['price'].hasError('pattern') && (productInfoForm.controls['price'].dirty || productInfoForm.controls['price'].touched)">
+                                Enter valid price</span>
                         </div>
                     </div>
                     <div class="row">

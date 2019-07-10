@@ -12,10 +12,15 @@ export class ProductTabsComponent implements OnInit {
   backToList() {
     this._router.navigateByUrl('/catalog/product');
   }
- 
+
   constructor(private _router: Router) { }
 
   ngOnInit() {
+    if (localStorage.getItem('editProductId') != null) {
+      this.title = 'Edit product details';
+    } else {
+      this.title = 'Add a new product';
+    }
   }
 
 }

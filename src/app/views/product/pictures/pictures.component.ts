@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-pictures',
@@ -7,10 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PicturesComponent implements OnInit {
 
-  tableHeader : any = ['Picture', 'Display order', 'Alt', 'Title','Action']
-  constructor() { }
+  tableHeader: any = ['Picture', 'Display order', 'Alt', 'Title', 'Action']
+
+  prodPictureForm: FormGroup;
+
+  prodPictureForm_fb() {
+    this.prodPictureForm = this.fb.group({
+      picture : [null],
+      alt : [null],
+      title : [null],
+      displayOrder : [null],
+    })
+  }
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
+    this.prodPictureForm_fb();
   }
 
 }

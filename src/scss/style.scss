@@ -11,7 +11,9 @@
 
 //custome css
 .isShipping,
-.associateType {
+.associateType,
+.hideUi,
+.stockQuan {
   display: none;
 }
 
@@ -21,4 +23,8 @@
 
 .left-margin {
   margin-left: 10px;
+}
+
+.top-mrging {
+  margin-top: 10px;
 }

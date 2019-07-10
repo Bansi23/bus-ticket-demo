@@ -24,45 +24,45 @@
         </div>
     </div>
 </div>
-<!-- <form [formGroup]="productPictureForm" class="form-validate" role="form" name="productInfo"> -->
-<div class="row">
-    <div class="col-sm-12">
-        <div class="card">
-            <div class="card-header">
-                <strong>
-                    Add a new picture
-                </strong>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="form-group col-sm-12">
-                        <label>Picture</label>
-                        <input type="file" id="file-input">
-                    </div>
+<form [formGroup]="prodPictureForm" class="form-validate" role="form" name="productInfo">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <strong>
+                        Add a new picture
+                    </strong>
                 </div>
-                <div class="row">
-                    <div class="form-group col-sm-12">
-                        <label>Alt</label>
-                        <input type="text" class="form-control">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Picture</label>
+                            <input type="file" id="file-input" formControlName="picture">
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="form-group col-sm-12">
-                        <label>Title</label>
-                        <input type="text" class="form-control">
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Alt</label>
+                            <input type="text" class="form-control" formControlName="alt">
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="form-group col-sm-6">
-                        <label>Display order</label>
-                        <input type="number" class="form-control">
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label>Title</label>
+                            <input type="text" class="form-control" formControlName="title">
+                        </div>
                     </div>
-                </div>
-                <div class="row pull-right">
-                    <button class="btn btn-primary"><i class="fa fa-plus">Add Product Picture</i></button>
+                    <div class="row">
+                        <div class="form-group col-sm-6">
+                            <label>Display order</label>
+                            <input type="number" class="form-control" formControlName="displayOrder">
+                        </div>
+                    </div>
+                    <div class="row pull-right">
+                        <button class="btn btn-primary"><i class="fa fa-plus">Add Product Picture</i></button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<!-- </form> -->
+</form>

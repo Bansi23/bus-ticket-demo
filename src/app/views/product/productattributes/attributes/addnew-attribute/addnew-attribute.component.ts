@@ -8,11 +8,11 @@ import { Router } from '@angular/router';
 })
 export class AddnewAttributeComponent implements OnInit {
 
-  backToList(){
-    this._router.navigateByUrl('/catalog/create')
+  backToList() {
+    this._router.navigateByUrl('/catalog/addProduct')
   }
 
-  constructor( private _router : Router) { }
+  constructor(private _router: Router) { }
 
   ngOnInit() {
   }
