@@ -41,7 +41,7 @@ export class AddProductComponent implements OnInit {
   }
 
   getProductRecord() {
-    this._cS.API_GET(this._cS.URL_getProductList())
+    this._cS.API_GET(this._cS.URL_getProductList(this.pageSize, this.pageIndex))
       .subscribe(response => {
         if (response) {
           this.lstProductData = response.products;

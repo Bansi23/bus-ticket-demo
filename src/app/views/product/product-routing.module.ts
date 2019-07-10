@@ -14,7 +14,7 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'product', pathMatch: 'full' },
       { path: 'product', component: SearchProductComponent, data: { title: 'Product' } },
-      { path: 'create', component: ProductTabsComponent, data: { title: 'Create' } },
+      { path: 'addProduct', component: ProductTabsComponent, data: { title: 'Create' } },
       { path: 'addnew-attribute', component: AddnewAttributeComponent, data: { title: 'Add New Attribute' }},
     ]
   }

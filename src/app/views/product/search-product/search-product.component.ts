@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonService } from '../../../services/common.service';
 import { MockService } from '../../../services/mock.service';
 import { Router } from '@angular/router';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-search-product',
@@ -38,20 +39,58 @@ export class SearchProductComponent implements OnInit {
       });
   }
 
+  //#region search form
+  searchProdFrom: FormGroup;
+
+  searchProdFrom_fb() {
+    this.searchProdFrom = this.fb.group({
+      prodName: [null],
+      wareHouse: [null],
+      category: [null],
+      prodType: [null],
+      searchSubCat: [null],
+      published: [null],
+      manufacturer: [null],
+      vendor: [null],
+      sku: [null]
+    })
+  }
+
+  searchList() {
+    console.log('this.searchProdFrom.getRawValue();:', this.searchProdFrom.getRawValue())
+
+  }
+  //#endregion
+
+  //#region delete recoed
+  deleteSelected() {
+
+  }
+  //#endregion
+
   //#region add product function
   addProduct() {
-    this._router.navigateByUrl('/catalog/create');
+    this._router.navigateByUrl('/catalog/addProduct');
   }
   //#endregion
   constructor(
     private _cS: CommonService,
     private _mS: MockService,
-    private _router: Router) { }
+    private _router: Router,
+    private fb: FormBuilder) { }
 
   ngOnInit() {
+    this.searchProdFrom_fb();
+    this.searchProdFrom.patchValue({
+      wareHouse: 0,
+      category: 0,
+      published: 0,
+      prodType: 0,
+      manufacturer: 0,
+      vendor: 0,
+    })
     this.bindStaticList();
     this.getCategoryList();
     this.getManufacturerList();
   }
-
 }

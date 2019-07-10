@@ -9,16 +9,17 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th><input type="checkbox"></th>
+                                <th><input type="checkbox" [(ngModel)]="selectAll" (change)="select_all()"></th>
                                 <th *ngFor="let h of tableHeader">{{h | titlecase}}</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr
-                                *ngFor="let prod of lstProduct | paginate: { itemsPerPage:pageSize , currentPage: p }; let i = index">
-                                <td><input type="checkbox"></td>
-                                <td *ngFor="let img of prod.images"><img src="{{img.src}}" width="120px" height="120px"
-                                        alt="product" /></td>
+                                *ngFor="let prod of lstProduct | paginate: { itemsPerPage: pageSize, currentPage: pageIndex, totalItems: totalRecords }; let i=index;">
+                                <td><input type="checkbox" [(ngModel)]="prod.select" (change)="checkIfAllSelected(prod)"
+                                        [ngModelOptions]="{standalone: true}"></td>
+                                <td><img src="{{prod.images.length > 0 ? prod.images[0].src : 'assets/img/no_image.png'}}"
+                                        width="110px" height="110px" alt="product" /></td>
                                 <td>{{prod.name}}</td>
                                 <td>{{prod.sku}}</td>
                                 <td>{{prod.price | number : '2.1-3'}}</td>
@@ -28,11 +29,20 @@
                                     [ngClass]="{'fa-check text-success': prod.published ? 'fa-close text-danger' : !prod.published}">
                                 </td>
                                 <td>
-                                    <button class="btn btn-success" (click)="editProduct(prod.id)"><i class="fa fa-edit"></i></button>
+                                    <button class="btn btn-success" (click)="editProduct(prod.id)"><i
+                                            class="fa fa-edit"></i></button>
+                                    <button class="btn btn-danger left-margin" (click)="deleteProduct(prod.id)"><i
+                                            class="fa fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr class="top-mrging">
+                                <td colspan="9" *ngIf="(lstProduct).length == 0" role="alert"
+                                    class="alert alert-warning">No matching record
+                                    Found
                                 </td>
                             </tr>
                         </tbody>
-                        <tfoot>
+                        <!-- <tfoot>
                             <div class="row">
                                 <div class="col-md-8 col-12" *ngIf="(lstProduct).length > 0">
                                     <div class="text-right pagignation-page">
@@ -56,8 +66,37 @@
                                 </div>
                             </div>
 
-                        </tfoot>
+                        </tfoot> -->
                     </table>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-12">
+                        <div class="total-count--table">
+                            <span>Total number of records : {{ totalRecords}}</span>
+                            <button class="btn btn-primary" (click)="getProductList()"><i
+                                    class="fa fa-refresh"></i></button>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-12" *ngIf="(lstProduct).length > 0">
+                        <div class="text-right pagignation-page">
+                            <pagination-controls class="pagination-sm pagination-box"
+                                (pageChange)="pageChanged($event)">
+                            </pagination-controls>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-12" *ngIf="lstProduct.length > 0">
+                        <div class="text-left pagignation-select">
+                            <select class="form-control" [(ngModel)]="pageSize"
+                                (change)="changePageSize($event.target.value)">
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="30">30</option>
+                                <option value="40">40</option>
+                                <option value="50">50</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonService } from '../../../services/common.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-product-list',
@@ -8,25 +9,79 @@ import { CommonService } from '../../../services/common.service';
 })
 export class ProductListComponent implements OnInit {
 
-  tableHeader: any = [' ', 'picture', 'product name', 'sku', 'price', 'stock quantity', 'product type', 'published', 'action'];
+  tableHeader: any = ['picture', 'product name', 'sku', 'price', 'stock quantity', 'product type', 'published', 'action'];
   lstProduct: any = [];
   pageIndex: number = 1;
   pageSize: number = 10;
+  selectAll: boolean = false;
+  totalRecords: number;
+
+  pageChanged(value) {
+    this.pageIndex = +value;
+    this.getProductList();
+  };
+
+  changePageSize(value) {
+    this.pageIndex = 1;
+    this.pageSize = value;
+    this.getProductList();
+  }
 
   getProductList() {
-    this._cS.API_GET(this._cS.URL_getProductList())
+    this._cS.API_GET(this._cS.URL_getProductList(this.pageSize, this.pageIndex))
       .subscribe(res => {
         this.lstProduct = res.products;
       });
   }
 
-  editProduct(prodId) {
-     
+  getTotalRecord() {
+    this._cS.API_GET(this._cS.URL_getTotalRecords())
+      .subscribe(res => {
+        if (res) {
+          this.totalRecords = res.count;
+          this.getProductList();
+        }
+      })
   }
-  constructor(private _cS: CommonService) { }
+
+
+  editProduct(prodId) {
+    localStorage.setItem('editProductId', prodId);
+    this._route.snapshot.paramMap.get('id');
+    this._router.navigate(['catalog/addProduct', { id: prodId }]);
+  }
+
+  deleteProduct(prodId) {
+    this._cS.API_DELETE(this._cS.URL_deleteRecord(prodId))
+      .subscribe(res => {
+        if (res) {
+          if (confirm('Are you sure want to delete this record?')) {
+
+          }
+        }
+      })
+  }
+
+  select_all() {
+    for (let i = 0; i < this.lstProduct.length; i++) {
+      this.lstProduct[i].select = this.selectAll;
+    };
+  }
+
+  selectedRecord: any = [];
+  checkIfAllSelected(rec) {
+    rec.select == true;
+    if (!rec.select) {
+      this.selectAll = false;
+    }
+  }
+  constructor(private _cS: CommonService,
+    private _router: Router,
+    private _route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.getProductList();
+    this.getTotalRecord();
+    this.lstProduct.map(x => { x.select = false });
   }
 
 }
