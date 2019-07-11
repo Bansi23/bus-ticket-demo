@@ -1,239 +1,242 @@
-<form [formGroup]="productInfoForm" class="form-validate" role="form" name="productInfo">
-    <div class="row">
-        <div class="col-sm-8">
-            <div class="card">
-                <div class="card-header">
-                    <strong>
-                        General information
-                    </strong>
-                </div>
-                <div class="card-body">
-                    <input type="text" class="form-control" formControlName="id" hidden>
-                    <div class="row">
-                        <div class="form-group col-sm-12">
-                            <label>Product Name</label>
-                            <input type="text" class="form-control" placeholder="Product Name"
-                                formControlName="productName">
-                            <span class="text-danger"
-                                *ngIf="productInfoForm.get('productName').hasError('required') && productInfoForm.get('productName').touched ">
-                                Product name is required
-                            </span>
-                        </div>
+<div #infoForm>
+    <form [formGroup]="productInfoForm" class="form-validate" role="form" name="productInfo">
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="card">
+                    <div class="card-header">
+                        <strong>
+                            General information
+                        </strong>
                     </div>
-                    <div class="row">
-                        <div class="form-group col-sm-12">
-                            <label>Short description</label>
-                            <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control"
-                                placeholder="Short Desciption" formControlName="shortDescription"></textarea>
+                    <div class="card-body">
+                        <input type="text" class="form-control" formControlName="id" hidden>
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Product Name</label>
+                                <input type="text" class="form-control" placeholder="Product Name"
+                                    formControlName="productName">
+                                <span class="text-danger"
+                                    *ngIf="productInfoForm.get('productName').hasError('required') && productInfoForm.get('productName').touched ">
+                                    Product name is required
+                                </span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-sm-12">
-                            <label>Full description</label>
-                            <div id="summernote">Hello Summernote</div>
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Short description</label>
+                                <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control"
+                                    placeholder="Short Desciption" formControlName="shortDescription"></textarea>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-sm-12">
-                            <label>SKU</label>
-                            <input type="text" class="form-control" placeholder="SKU" formControlName="sku">
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Full description</label>
+                                <div id="summernote">Hello Summernote</div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="card">
-                <div class="card-header">
-                    <strong>
-                        Inventory information
-                    </strong>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="form-group col-sm-12">
-                            <label>Inventory method</label>
-                            <select class="form-control" formControlName="inventoryMethod"
-                                (change)="changeInventory($event.target.value)">
-                                <option *ngFor="let i of lstInvantory" [value]="i.id">
-                                    {{i.name}}
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row" class="stockQuan">
-                        <div class="form-group col-sm-12">
-                            <label>Stock quantity</label>
-                            <input type="number" class="form-control" formControlName="stockQuantity">
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>SKU</label>
+                                <input type="text" class="form-control" placeholder="SKU" formControlName="sku">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="col-sm-4">
+                <div class="card">
+                    <div class="card-header">
+                        <strong>
+                            Inventory information
+                        </strong>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Inventory method</label>
+                                <select class="form-control" formControlName="inventoryMethod"
+                                    (change)="changeInventory($event.target.value)">
+                                    <option *ngFor="let i of lstInvantory" [value]="i.id">
+                                        {{i.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row" class="stockQuan">
+                            <div class="form-group col-sm-12">
+                                <label>Stock quantity</label>
+                                <input type="number" class="form-control" formControlName="stockQuantity">
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="card">
-                <div class="card-header">
-                    <strong>
-                        Shipping information
-                    </strong>
-                </div>
-                <div class="card-body">
-                    <input type="text" class="form-control" formControlName="id" hidden>
-                    <div class="row">
-                        <!-- <div class="form-group">
+                <div class="card">
+                    <div class="card-header">
+                        <strong>
+                            Shipping information
+                        </strong>
+                    </div>
+                    <div class="card-body">
+                        <input type="text" class="form-control" formControlName="id" hidden>
+                        <div class="row">
+                            <!-- <div class="form-group">
                             <label>Shipping enabled</label>
                             <input type="checkbox" class="form-control" formControlName="shippingEnable"
                                 (change)="isShipping($event.target.checked)">
                         </div> -->
-                        <div class="form-group col-sm-12">
-                            <label>Search Sub Categories?
-                                <input type="checkbox" formControlName="shippingEnable"
-                                    (change)="isShipping($event.target.checked)">
-                            </label>
-                            <div class="isShipping">
-                                <div class="form-group col-sm-12">
-                                    <label>Weight</label>
-                                    <div class="input-group">
-                                        <input type="number" class="form-control" formControlName="weight">
-                                        <span class="input-group-append">
-                                            <button type="button" class="btn btn-secondary">lb(s)</button>
-                                        </span>
+                            <div class="form-group col-sm-12">
+                                <label>Search Sub Categories?
+                                    <input type="checkbox" formControlName="shippingEnable"
+                                        (change)="isShipping($event.target.checked)">
+                                </label>
+                                <div class="isShipping">
+                                    <div class="form-group col-sm-12">
+                                        <label>Weight</label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" formControlName="weight">
+                                            <span class="input-group-append">
+                                                <button type="button" class="btn btn-secondary">lb(s)</button>
+                                            </span>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="form-group col-sm-12">
-                                    <label>Length</label>
-                                    <div class="input-group">
-                                        <input type="number" class="form-control" formControlName="length">
-                                        <span class="input-group-append">
-                                            <button type="button" class="btn btn-secondary">inch(es)</button>
-                                        </span>
+                                    <div class="form-group col-sm-12">
+                                        <label>Length</label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" formControlName="length">
+                                            <span class="input-group-append">
+                                                <button type="button" class="btn btn-secondary">inch(es)</button>
+                                            </span>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="form-group col-sm-12">
-                                    <label>Width</label>
-                                    <div class="input-group">
-                                        <input type="number" class="form-control" formControlName="width">
-                                        <span class="input-group-append">
-                                            <button type="button" class="btn btn-secondary">inch(es)</button>
-                                        </span>
+                                    <div class="form-group col-sm-12">
+                                        <label>Width</label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" formControlName="width">
+                                            <span class="input-group-append">
+                                                <button type="button" class="btn btn-secondary">inch(es)</button>
+                                            </span>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="form-group col-sm-12">
-                                    <label>Height</label>
-                                    <div class="input-group">
-                                        <input type="number" class="form-control" formControlName="height">
-                                        <span class="input-group-append">
-                                            <button type="button" class="btn btn-secondary">inch(es)</button>
-                                        </span>
+                                    <div class="form-group col-sm-12">
+                                        <label>Height</label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" formControlName="height">
+                                            <span class="input-group-append">
+                                                <button type="button" class="btn btn-secondary">inch(es)</button>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="card">
-                <div class="card-header">
-                    <strong>
-                        Mappings
-                    </strong>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="form-group col-sm-12">
-                            <label>Categories</label>
-                            <angular2-multiselect [data]="lstCategories" formControlName="categories"
-                                class="form-control" [settings]="dropdownProductCategory"
-                                (onSelect)="onProductCatSelect($event)" (onDeSelect)="onProductCatSelect($event)"
-                                (onSelectAll)="onProductCatSelect($event)" (onDeSelectAll)="onProductCatSelect($event)">
-                                <!-- <ng-container *ngIf="lstInvantory?.length == selectedorderItems?.length">
+                <div class="card">
+                    <div class="card-header">
+                        <strong>
+                            Mappings
+                        </strong>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label>Categories</label>
+                                <angular2-multiselect [data]="lstCategories" formControlName="categories"
+                                    class="form-control" [settings]="dropdownProductCategory"
+                                    (onSelect)="onProductCatSelect($event)" (onDeSelect)="onProductCatSelect($event)"
+                                    (onSelectAll)="onProductCatSelect($event)"
+                                    (onDeSelectAll)="onProductCatSelect($event)">
+                                    <!-- <ng-container *ngIf="lstInvantory?.length == selectedorderItems?.length">
                                     <c-badge>
                                         <ng-template let-item="item">
                                             <label style="margin: 0px; padding-right: 5px;">All</label>
                                         </ng-template>
                                     </c-badge>
                                 </ng-container> -->
-                            </angular2-multiselect>
+                                </angular2-multiselect>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-8">
-            <div class="card">
-                <div class="card-header">
-                    <strong>
-                        Prices
-                    </strong>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="form-group col-sm-6">
-                            <label>Price</label>
-                            <div class="input-group">
-                                <input type="number" class="form-control" formControlName="price"
-                                    (keydown)="restrict($event)">
-                                <span class="input-group-append">
-                                    <button type="button" class="btn btn-secondary">USD</button>
-                                </span>
-                            </div>
-                            <span class="text-danger"
-                                *ngIf="productInfoForm.controls['price'].hasError('pattern') && (productInfoForm.controls['price'].dirty || productInfoForm.controls['price'].touched)">
-                                Enter valid price</span>
-                        </div>
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="card">
+                    <div class="card-header">
+                        <strong>
+                            Prices
+                        </strong>
                     </div>
-                    <div class="row">
-                        <div class="form-group col-sm-6">
-                            <label>Product Cost</label>
-                            <div class="input-group">
-                                <input type="number" class="form-control" formControlName="productCost">
-                                <span class="input-group-append">
-                                    <button type="button" class="btn btn-secondary">USD</button>
-                                </span>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <label>Price</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" formControlName="price"
+                                        (keydown)="restrict($event)">
+                                    <span class="input-group-append">
+                                        <button type="button" class="btn btn-secondary">USD</button>
+                                    </span>
+                                </div>
+                                <span class="text-danger"
+                                    *ngIf="productInfoForm.controls['price'].hasError('pattern') && (productInfoForm.controls['price'].dirty || productInfoForm.controls['price'].touched)">
+                                    Enter valid price</span>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-sm-6">
-                            <label>Discounts</label>
-                            <angular2-multiselect [data]="lstDiscount" formControlName="discount" class="form-control"
-                                [settings]="dropdownProductCategory" (onSelect)="onDiscountSelect($event)"
-                                (onDeSelect)="onDiscountSelect($event)" (onSelectAll)="onDiscountSelect($event)"
-                                (onDeSelectAll)="onDiscountSelect($event)">
-                                <!-- <ng-container *ngIf="lstInvantory?.length == selectedorderItems?.length">
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <label>Product Cost</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" formControlName="productCost">
+                                    <span class="input-group-append">
+                                        <button type="button" class="btn btn-secondary">USD</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <label>Discounts</label>
+                                <angular2-multiselect [data]="lstDiscount" formControlName="discount"
+                                    class="form-control" [settings]="dropdownProductDiscount"
+                                    (onSelect)="onDiscountSelect($event)" (onDeSelect)="onDiscountSelect($event)"
+                                    (onSelectAll)="onDiscountSelect($event)" (onDeSelectAll)="onDiscountSelect($event)">
+                                    <!-- <ng-container *ngIf="lstInvantory?.length == selectedorderItems?.length">
                                     <c-badge>
                                         <ng-template let-item="item">
                                             <label style="margin: 0px; padding-right: 5px;">All</label>
                                         </ng-template>
                                     </c-badge>
                                 </ng-container> -->
-                            </angular2-multiselect>
+                                </angular2-multiselect>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-sm-6">
-                            <label>Tax exempt?
-                                <input type="checkbox" formControlName="tax" (change)="isTaxExempt($event)">
-                            </label>
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <label>Tax exempt?
+                                    <input type="checkbox" formControlName="tax" (change)="isTaxExempt($event)">
+                                </label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row isTax">
-                        <div class="form-group col-sm-6">
-                            <label>Tax category</label>
-                            <select class="form-control" formControlName="taxCategory">
-                                <option *ngFor="let t of lstTaxCategory" [value]="t.id">
-                                    {{t.name}}
-                                </option>
-                            </select>
+                        <div class="row isTax">
+                            <div class="form-group col-sm-6">
+                                <label>Tax category</label>
+                                <select class="form-control" formControlName="taxCategory">
+                                    <option *ngFor="let t of lstTaxCategory" [value]="t.id">
+                                        {{t.name}}
+                                    </option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</form>
+    </form>
+</div>

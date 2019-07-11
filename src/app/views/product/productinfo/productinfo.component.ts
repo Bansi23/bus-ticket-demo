@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MockService } from '../../../services/mock.service';
 import { CommonService } from '../../../services/common.service';
+import { find } from 'rxjs/operators';
 declare var $: any;
 const productId = localStorage.getItem('editProductId');
 
@@ -12,6 +13,7 @@ const productId = localStorage.getItem('editProductId');
 })
 
 export class ProductinfoComponent implements OnInit {
+  @ViewChild('infoForm', { static: true }) infoForm: ElementRef;
 
   //#region product info form
   productInfoForm: FormGroup;
@@ -78,6 +80,16 @@ export class ProductinfoComponent implements OnInit {
     maxHeight: 200
   };
 
+  dropdownProductDiscount = {
+    singleSelection: false,
+    text: "Select Discount",
+    selectAllText: 'Select All',
+    unSelectAllText: 'UnSelect All',
+    enableSearchFilter: true,
+    classes: "myclass custom-class",
+    badgeShowLimit: 1,
+    maxHeight: 200
+  }
   lstCategories: any = [];
   selectedCategories: any = [];
   //#endregion
@@ -155,28 +167,32 @@ export class ProductinfoComponent implements OnInit {
       this._cS.API_GET(this._cS.URL_getProductById(productId))
         .subscribe(res => {
           if (res) {
-            localStorage.setItem('EditedRecord', JSON.stringify(res.products));
-            this.editedProduct = res.products
-            this.isShipping(this.editedProduct[0].is_ship_enabled);
-            this.productInfoForm.patchValue({
-              id: productId,
-              productName: this.editedProduct[0].name ? this.editedProduct[0].name : '',
-              shortDescription: this.editedProduct[0].short_description ? this.editedProduct[0].short_description : '',
-              fullDescription: this.editedProduct[0].full_description ? this.editedProduct[0].full_description : '',
-              sku: this.editedProduct[0].sku ? this.editedProduct[0].sku : '',
-              inventoryMethod: this.editedProduct[0].manage_inventory_method_id ? this.editedProduct[0].manage_inventory_method_id : 0,
-              stockQuantity: this.editedProduct[0].stock_quantity ? this.editedProduct[0].stock_quantity : 0,
-              shippingEnable: this.editedProduct[0].is_ship_enabled ? this.editedProduct[0].is_ship_enabled : true,
-              weight: this.editedProduct[0].weight ? this.editedProduct[0].weight : '',
-              length: this.editedProduct[0].length ? this.editedProduct[0].length : '',
-              width: this.editedProduct[0].width ? this.editedProduct[0].width : '',
-              height: this.editedProduct[0].height ? this.editedProduct[0].height : '',
-              // categories: this.editedProduct[0].categories ? this.editedProduct[0].categories : '',
-              price: this.editedProduct[0].price ? this.editedProduct[0].price : '',
-              productCost: this.editedProduct[0].product_cost ? this.editedProduct[0].product_cost : 0,
-              discount: this.editedProduct[0].discount_ids ? this.editedProduct[0].discount_ids : 0,
-              tax: this.editedProduct[0].is_tax_exempt ? this.editedProduct[0].is_tax_exempt : true,
-            })
+            var findId = res.products.find(x => x.id == productId);
+            console.log('findId:', findId)
+            if (findId) {
+              localStorage.setItem('EditedRecord', JSON.stringify(findId));
+              this.isShipping(findId.is_ship_enabled);
+              this.productInfoForm.patchValue({
+                id: productId,
+                productName: findId.name ? findId.name : '',
+                shortDescription: findId.short_description ? findId.short_description : '',
+                fullDescription: findId.full_description ? findId.full_description : '',
+                sku: findId.sku ? findId.sku : '',
+                inventoryMethod: findId.manage_inventory_method_id ? findId.manage_inventory_method_id : 0,
+                stockQuantity: findId.stock_quantity ? findId.stock_quantity : 0,
+                shippingEnable: findId.is_ship_enabled ? findId.is_ship_enabled : true,
+                weight: findId.weight ? findId.weight : 0,
+                length: findId.length ? findId.length : 0,
+                width: findId.width ? findId.width : 0,
+                height: findId.height ? findId.height : 0,
+                // categories: findId.categories ? findId.categories : '',
+                price: findId.price ? findId.price : '',
+                productCost: findId.product_cost ? findId.product_cost : 0,
+                discount: findId.discount_ids ? findId.discount_ids : 0,
+                tax: findId.is_tax_exempt ? findId.is_tax_exempt : true,
+              })
+            }
+
           }
         });
     }
@@ -186,7 +202,9 @@ export class ProductinfoComponent implements OnInit {
     private _mS: MockService,
     private _cS: CommonService) { }
 
+
   ngOnInit() {
+    console.log('infoForm', this.infoForm.nativeElement)
     this.productInfoForm_fb();
     this.bindStaticList();
     this.getCategoryList();
@@ -195,7 +213,7 @@ export class ProductinfoComponent implements OnInit {
       this.editRecord();
     }
     // $(document).ready(function () {
-    //   $('#summernote').summernote('code');
+    //   $('#summernote').summernote();
     // });
   }
 

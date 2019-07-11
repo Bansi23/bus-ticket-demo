@@ -42,15 +42,20 @@ export class PicturesComponent implements OnInit {
   //#region get product picture list
   getPictureList() {
     if (productId != null) {
-      this.lstPicture = editedRecord[0].images;
+      this.lstPicture = editedRecord.images;
       console.log('this.lstPicture:', this.lstPicture.length)
       this.totalRecords = this.lstPicture.length;
     }
   }
+
   //#endregion
 
-  //#region edit picture details
+  //#region edit & delete picture details
   editPicture(picId) {
+
+  }
+
+  deletePicture(picId) {
 
   }
   //#endregion
