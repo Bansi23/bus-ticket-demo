@@ -64,14 +64,13 @@ export class SearchCustomerComponent implements OnInit {
 
     })
   }
-  searchRecords(){
-    if(this.searchCustomerForm.valid){
-
+  searchRecords() {
+    if (this.searchCustomerForm.valid) {
       console.log('this.searchCustomerForm.value:', this.searchCustomerForm.value)
-    }else{
+    } else {
 
     }
-    
+
   }
 
 }

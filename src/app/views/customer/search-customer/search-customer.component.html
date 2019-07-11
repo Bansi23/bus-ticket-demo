@@ -10,8 +10,8 @@
                 </a>
             </div>
         </div>
-        <div class="card-body">
-            <form [formGroup]="searchCustomerForm">
+        <!-- <div class="card-body"> -->
+            <!-- <form [formGroup]="searchCustomerForm">
                 <div class="row">
                     <div class="form-group col-sm-6">
                         <label for="email">Email</label>
@@ -26,7 +26,6 @@
                         <input type="text" formControlName="custCompany" class="form-control">
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="form-group col-sm-6">
                         <label for="first name">First name</label>
@@ -46,11 +45,11 @@
                         <label for="last name">Last name</label>
                         <input type="text" formControlName="custLastName" class="form-control">
                     </div>
-                    <div class="form-group col-sm-6">
+                    <div class="form-group col-sm-6"> -->
                         <!-- <select formControlName="custRole" name="" id="">
 
                         </select> -->
-                        <label for="customer roles">Customer roles</label>
+                        <!-- <label for="customer roles">Customer roles</label> -->
                         <!-- <angular2-multiselect [data]="lstCustomerRoles" [(ngModel)]="selectedItems" 
                         [settings]="dropdownSettings" 
                         (onSelect)="onItemSelect($event)" 
@@ -58,7 +57,7 @@
                         (onSelectAll)="onSelectAll($event)"
                         (onDeSelectAll)="onDeSelectAll($event)"></angular2-multiselect> -->
 
-                    </div>
+                    <!-- </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
@@ -82,7 +81,6 @@
                          </select>
                      </div>
                     
-
                 </div> <br>
                 <div class="row">
                     <div class="col">
@@ -95,10 +93,8 @@
                         </div>
                     </div>
                 </div>
-            </form>
-        </div>
+            </form> -->
+            <app-customer-list></app-customer-list>
+        <!-- </div> -->
     </div>
-    
-    
 </div>
-<app-customer-list></app-customer-list>

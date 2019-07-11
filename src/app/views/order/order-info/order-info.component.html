@@ -80,7 +80,7 @@
                             <b>Customer IP address</b>
                         </div>
                         <div class="col-md-3">
-                            {{item.customer_ip}}
+                            <span>{{item.customer_ip}}</span>
                         </div>
                     </div>
                     <div class="row mt-3">
@@ -88,7 +88,7 @@
                             <b> Order subtotal </b>
                         </div>
                         <div class="col-md-3">
-                            {{item.order_subtotal_excl_tax | number:'2.2-2'}}
+                            <span> {{item.order_subtotal_excl_tax | number:'2.2-2'}} <b>excl tax</b></span>
                         </div>
                     </div>
                     <div class="row mt-3">
@@ -96,7 +96,7 @@
                             <b> Order Shipping </b>
                         </div>
                         <div class="col-md-3">
-                            {{item.order_shipping_excl_tax | number:'2.2-2'}}
+                            <span> {{item.order_shipping_excl_tax | number:'2.2-2'}} <b>excl tax</b></span>
                         </div>
                     </div>
                     <div class="row mt-3">
@@ -104,7 +104,7 @@
                             <b>Order tax </b>
                         </div>
                         <div class="col-md-3">
-                            {{item.order_shipping_excl_tax | number:'2.2-2'}}
+                            <span> {{item.order_tax | number:'2.2-2'}}</span>
                         </div>
                     </div>
 
@@ -114,7 +114,7 @@
                         </div>
                         <!--  -->
                         <div class="col-md-3">
-                            {{item.order_total | number:'2.2-2'}}
+                            <span> {{item.order_total | number:'2.2-2'}}</span>
                         </div>
                     </div>
 
@@ -123,7 +123,7 @@
                             <b>Refunded Amount</b>
                         </div>
                         <div class="col-md-3">
-                            {{item.refunded_amount | number:'2.2-2'}}
+                            <span> {{item.refunded_amount | number:'2.2-2'}}</span>
                         </div>
                     </div>
 
@@ -132,6 +132,7 @@
                             <b> Payment method </b>
                         </div>
                         <div class="col-md-3">
+                            <span> {{item.payment_method_system_name}}</span>
                         </div>
                     </div>
                 </div>
@@ -145,7 +146,14 @@
                             <b>Payment status</b>
                         </div>
                         <div class="col-md-3">
-                            {{item.payment_status}}
+                            <span> {{item.payment_status}} </span>
+                            <div *ngIf="item.payment_status =='Pending'">
+                                <button class="btn btn-primary">Mark As Paid</button>
+                            </div>
+                            <div *ngIf="item.payment_status =='Paid' || item.payment_status =='Partially refunded'">
+                                <button class="btn btn-primary mb-1">Refund (Offline)</button>
+                                <button class="btn btn-primary"> Partial refund (Offline)</button>
+                            </div>
                         </div>
                     </div>
 
@@ -154,7 +162,7 @@
                             <b>Created on</b>
                         </div>
                         <div class="col-md-3">
-                            {{item.created_on_utc}}
+                            <span> {{item.created_on_utc}}</span>
                         </div>
                     </div>
                 </div>
