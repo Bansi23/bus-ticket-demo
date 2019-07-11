@@ -11,6 +11,9 @@ import { CommonService } from '../../../services/common.service';
 export class CustomerListComponent implements OnInit {
 lstcustomers = [];
 lstCustomerRoles = [];
+totalRecords : number;
+pageIndex: number = 1;
+pageSize: number = 10;
   constructor(private router : Router,private _mS: MockService, private _cS: CommonService) { }
 
   ngOnInit() {
@@ -18,9 +21,19 @@ lstCustomerRoles = [];
     this.lstCustomerRoles= this._mS.customerRoles();
   }
 
+  pageChanged(value) {
+    this.pageIndex = +value;
+    this.getCustomerList();
+  };
+
+  changePageSize(value) {
+    this.pageIndex = 1;
+    this.pageSize = value;
+    this.getCustomerList();
+  }
   navigateToEditCustomer(cust){
   console.log("cust",cust.id);  
-   this._mS.setItemInStorage('customerToEdit',cust);
+  //  this._mS.setItemInStorage('customerToEdit',cust);
       
     // this.router.navigateByUrl('/customers/addEdit', {id : cust.id});
     this.router.navigate(['/customers/addEdit'], {queryParams : {id : cust.id}});
@@ -29,7 +42,8 @@ lstCustomerRoles = [];
      this._cS.API_GET(this._cS.getCustomerList())
     .subscribe(response => {
 
-      console.log("res",response);
+      this.totalRecords = response.count;
+      
        for(let i=0;i<response.customers.length;i++){
         const data = {
           id : response.customers[i].id,
