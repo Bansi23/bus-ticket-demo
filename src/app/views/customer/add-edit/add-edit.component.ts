@@ -66,7 +66,7 @@ export class AddEditComponent implements OnInit {
       { "id": 3, "role": "Guests" },
       { "id": 4, "role": "Vendors" }];
 
-      // if(this._mS.getItemFromStorage('customerToEdit')){
+      // if(this._mS.getItemFromStorage('customerToEdit')){ 
       //   this.dataToSet = this._mS.getItemFromStorage('customerToEdit')
       //   console.log('this.dataToSet:', this.dataToSet)
       //   this.setValuesInForm();      
@@ -136,9 +136,11 @@ export class AddEditComponent implements OnInit {
 
     // let x = this.addCustomerForm.value.custDob.jsdate;
     // console.log('x:', x)
-    // let date = this._cS.formatAMPM(x);
-    // console.log('date:', date)
+    let date = this._cS.formatAMPM();
+    console.log('date:', date)
     
+
+
     let body = {
       email : this.addCustomerForm.value.custEmail,
       password : this.addCustomerForm.value.custPassword,
