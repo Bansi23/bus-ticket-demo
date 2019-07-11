@@ -32,8 +32,7 @@ export class AddProductToOrderComponent implements OnInit {
 
 
   addProduct() {
-    console.log('this.viewRecord.id', this.viewRecord[0].id)
-    this._router.navigate(['/sales/addproduct'], { queryParams: { orderid: this.viewRecord[0].id } });
+    this._router.navigate(['/sales/addproduct'], { queryParams: { id: this.viewRecord[0].id } });
   }
   constructor(private _router: Router, private _route: ActivatedRoute, private _cS: CommonService) { }
 

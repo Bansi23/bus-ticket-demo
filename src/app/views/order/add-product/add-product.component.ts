@@ -57,6 +57,13 @@ export class AddProductComponent implements OnInit {
   }
   pageChanged(value) {
     this.pageIndex = +value;
+    this.getProductRecord();
+  };
+
+  selectedChanged(value) {
+    this.pageIndex = 1;
+    this.pageSize = +value;
+    this.getProductRecord();
   };
 
   SelectProduct(id) {

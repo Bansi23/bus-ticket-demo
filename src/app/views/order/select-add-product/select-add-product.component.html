@@ -4,4 +4,44 @@
         <button class="btn btn-link" (click)="backToSearchList()"><i class="fa fa-arrow-circle-o-left"> back to
                 View Order</i></button>
     </div>
+    <div class="card-body">
+        <form [formGroup]="AddProduct">
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label><b>Price (incl tax)</b></label>
+                    <input type="textbox" class="form-control" formControlName="priceIncl">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label>Price (excl tax) </label>
+                    <input type="textbox" class="form-control" formControlName="priceExcl">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label> Quantity</label>
+                    <input type="textbox" class="form-control" formControlName="quantity">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label>Total (incl tax) </label>
+                    <input type="textbox" class="form-control" formControlName="totalIncl">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label>Total (excl tax) </label>
+                    <input type="textbox" class="form-control" formControlName="totalExcl">
+                </div>
+            </div>
+        </form>
+        <div class="col-md-12">
+                <button class="btn btn-primary" (click)="addProducttoOrder()">ADD PRODUCT</button>
+            </div>
+    </div>
 </div>

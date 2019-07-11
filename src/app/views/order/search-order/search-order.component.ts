@@ -96,16 +96,13 @@ export class SearchOrderComponent implements OnInit {
   }
   //#endregion
 
-  GetRecord(limit, page) {
-    this._cS.API_GET(this._cS.getOrderList(limit, page))
+  GetRecord() {
+    this._cS.API_GET(this._cS.getOrderList(this.pageSize, this.pageIndex))
       .subscribe(res => {
         if (res) {
           this.lstOrderData = res.orders;
           this.finalTotal = this.lstOrderData.map(o => o.order_total).reduce((a, c) => a + c, 0);
         }
-        this.onItemOrderSelect();
-        this.onItemPaymentSelect();
-        this.onItemshippingSelect();
       });
   }
 
@@ -121,9 +118,13 @@ export class SearchOrderComponent implements OnInit {
 
   pageChanged(value) {
     this.pageIndex = +value;
-    this.onItemOrderSelect()
-    //this.GetRecord(this.pageSize, this.pageIndex);
+    this.GetRecord();
   };
+  selectedChanged(value) {
+    this.pageIndex = 1;
+    this.pageSize = +value;
+    this.GetRecord();
+  }
 
   filteredOrder: any;
   filteredPayment: any;
@@ -207,8 +208,7 @@ export class SearchOrderComponent implements OnInit {
     this.StaticList();
     this.MultiselectDropData();
     this.GetCountRecord();
-
-    this.GetRecord(this.pageSize, this.pageIndex);
+    this.GetRecord();
     this.lstOrderData.map(x => { x.select = '' });
 
 
