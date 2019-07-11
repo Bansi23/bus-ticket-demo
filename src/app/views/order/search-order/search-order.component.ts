@@ -30,6 +30,7 @@ export class SearchOrderComponent implements OnInit {
   pageSize: number = 10;
   selectAll: boolean = false;
   finalTotal: any;
+  totalRecord: any;
   //#endregion
 
   //dropdown static Data
@@ -95,24 +96,35 @@ export class SearchOrderComponent implements OnInit {
   }
   //#endregion
 
-  GetRecord(limit, page) {
-    this._cS.API_GET(this._cS.getOrderList(limit, page))
+  GetRecord() {
+    this._cS.API_GET(this._cS.getOrderList(this.pageSize, this.pageIndex))
       .subscribe(res => {
         if (res) {
           this.lstOrderData = res.orders;
           this.finalTotal = this.lstOrderData.map(o => o.order_total).reduce((a, c) => a + c, 0);
         }
-        this.onItemOrderSelect();
-        this.onItemPaymentSelect();
-        this.onItemshippingSelect();
+      });
+  }
+
+  GetCountRecord() {
+    this._cS.API_GET(this._cS.getCountItem())
+      .subscribe(res => {
+        if (res) {
+          console.log(res)
+          this.totalRecord = res.count;
+        }
       });
   }
 
   pageChanged(value) {
     this.pageIndex = +value;
-    this.onItemOrderSelect()
-    // this.GetRecord(this.pageIndex, this.pageSize);
+    this.GetRecord();
   };
+  selectedChanged(value) {
+    this.pageIndex = 1;
+    this.pageSize = +value;
+    this.GetRecord();
+  }
 
   filteredOrder: any;
   filteredPayment: any;
@@ -162,8 +174,7 @@ export class SearchOrderComponent implements OnInit {
 
   ViewData(index) {
     console.log(index);
-    localStorage.setItem('index', JSON.stringify(index));
-    this._router.navigateByUrl('/sales/viewrecord');
+    this._router.navigate(['/sales/viewrecord'], { queryParams: { id: index } });
   }
 
   StaticList() {
@@ -196,14 +207,10 @@ export class SearchOrderComponent implements OnInit {
     this.fbSearchOrder();
     this.StaticList();
     this.MultiselectDropData();
-    console.log(this.pageIndex, 'this.pageIndex');
-    console.log(this.pageSize, 'this.pageSize');
-
-    this.GetRecord(this.pageIndex, this.pageSize);
+    this.GetCountRecord();
+    this.GetRecord();
     this.lstOrderData.map(x => { x.select = '' });
-    // this.hideOrderDropDownNumbers();
-    // this.hidePaymentDropDownNumbers();
-    // this.hideshippingDropDownNumbers();
+
 
   }
 }

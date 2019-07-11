@@ -14,6 +14,7 @@ export class OrderInfoComponent implements OnInit {
   lstOrderStatus: any = [];
   viewRecord: any = [];
   returnUrl: any;
+  orderId: any
 
   changeStatus() {
     this.isOrder = false;
@@ -21,27 +22,27 @@ export class OrderInfoComponent implements OnInit {
   cancleEdit() {
     this.isOrder = true;
   }
-  getInfo(id) {
-    this._cS.API_GET(this._cS.getOrderId(id))
-      .subscribe(res => {
-        if (res) {
-          this.viewRecord = res.orders;
-        }
-      });
+  getInfo() {
+    this._route.queryParams.subscribe(params => {
+      this.orderId = params['id']
+    });
+    if (this.orderId) {
+      this._cS.API_GET(this._cS.getOrderId(this.orderId))
+        .subscribe(res => {
+          if (res) {
+            this.viewRecord = res.orders;
+          }
+        });
+    }
   }
   editCustomer(id) {
-    // const url = this.returnUrl != '/' ? this.returnUrl.split('/') : null;
-    // const urlHost = url[0].split('?');
-    // this._router.navigate(['/customers/addEdit' + urlHost[0]], { queryParams: id });
-    this._router.navigate(['/customers/addEdit', { queryParams: id }])
-
+    this._router.navigate(['/customers/addEdit'], { queryParams: { id: id } });
   }
   constructor(private _mD: MockService, private _cS: CommonService, private _router: Router, private _route: ActivatedRoute) { }
 
   ngOnInit() {
-    // this.returnUrl = this._route.snapshot.queryParams['returnUrl'] || '/';
-    const index = localStorage.getItem('index');
-    this.getInfo(index);
+    // const index = localStorage.getItem('index');
+    this.getInfo();
     this.lstOrderStatus = this._mD.orderStatus();
   }
 

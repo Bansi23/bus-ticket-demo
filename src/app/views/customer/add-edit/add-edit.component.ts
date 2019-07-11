@@ -18,10 +18,10 @@ export class AddEditComponent implements OnInit {
   selectedRoles = [];
   addCustomerForm : FormGroup;
   dataToSet : any;
-  custId : any;
-  customer ;
+  custId: any;
+  customer;
   companyName : any;
-  constructor(private _mS: MockService, private _cS: CommonService, private router: Router, private fb : FormBuilder, private route:ActivatedRoute) { }
+  constructor(private _mS: MockService, private _cS: CommonService, private router: Router, private fb: FormBuilder, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.lstCustomerRoles = this._mS.customerRoles();
@@ -53,7 +53,7 @@ export class AddEditComponent implements OnInit {
       console.log('this.customer:', this.customer)
     }else{
     }
-     this.settings = {
+    this.settings = {
       text: "Customer roles",
       selectAllText: 'Select All',
       unSelectAllText: 'UnSelect All',
@@ -114,7 +114,7 @@ export class AddEditComponent implements OnInit {
       this.saveCustomerData();
     }
     console.log('this.addCustomerForm:', this.addCustomerForm.value)
-    
+
   }
 
   saveCustomerData(){

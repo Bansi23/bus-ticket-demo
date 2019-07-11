@@ -29,7 +29,8 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-sm-12">
-
+                            <label>Full description</label>
+                            <div id="summernote">Hello Summernote</div>
                         </div>
                     </div>
                     <div class="row">
@@ -52,7 +53,8 @@
                     <div class="row">
                         <div class="form-group col-sm-12">
                             <label>Inventory method</label>
-                            <select class="form-control" formControlName="inventoryMethod" (change)="changeInventory($event.target.value)">
+                            <select class="form-control" formControlName="inventoryMethod"
+                                (change)="changeInventory($event.target.value)">
                                 <option *ngFor="let i of lstInvantory" [value]="i.id">
                                     {{i.name}}
                                 </option>
@@ -84,7 +86,8 @@
                         </div> -->
                         <div class="form-group col-sm-12">
                             <label>Search Sub Categories?
-                                <input type="checkbox" formControlName="shippingEnable" (change)="isShipping($event)">
+                                <input type="checkbox" formControlName="shippingEnable"
+                                    (change)="isShipping($event.target.checked)">
                             </label>
                             <div class="isShipping">
                                 <div class="form-group col-sm-12">
@@ -198,10 +201,10 @@
                     <div class="row">
                         <div class="form-group col-sm-6">
                             <label>Discounts</label>
-                            <angular2-multiselect [data]="lstInvantory" formControlName="discount" class="form-control"
-                                [settings]="dropdownProductStatus" (onSelect)="onProductSelect($event)"
-                                (onDeSelect)="onProductSelect($event)" (onSelectAll)="onProductSelect($event)"
-                                (onDeSelectAll)="onProductSelect($event)">
+                            <angular2-multiselect [data]="lstDiscount" formControlName="discount" class="form-control"
+                                [settings]="dropdownProductCategory" (onSelect)="onDiscountSelect($event)"
+                                (onDeSelect)="onDiscountSelect($event)" (onSelectAll)="onDiscountSelect($event)"
+                                (onDeSelectAll)="onDiscountSelect($event)">
                                 <!-- <ng-container *ngIf="lstInvantory?.length == selectedorderItems?.length">
                                     <c-badge>
                                         <ng-template let-item="item">

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
+const editedRecord = JSON.parse(localStorage.getItem('EditedRecord'));
 @Component({
   selector: 'app-product-tabs',
   templateUrl: './product-tabs.component.html',
@@ -17,7 +17,8 @@ export class ProductTabsComponent implements OnInit {
 
   ngOnInit() {
     if (localStorage.getItem('editProductId') != null) {
-      this.title = 'Edit product details';
+      console.log('editedRecord:', editedRecord)
+      this.title = `Edit product details - ${editedRecord[0].name}`;
     } else {
       this.title = 'Add a new product';
     }

@@ -314,7 +314,7 @@ export class MockService {
   customerDOBMonth() {
     const finalArray = [];
     for (let i = 0; i < 12; i++) {
-      finalArray.push({ id: i + 1, text: i+1 });
+      finalArray.push({ id: i + 1, text: i + 1 });
     };
     return finalArray;
   }
@@ -322,23 +322,23 @@ export class MockService {
   customerDOBDay() {
     const finalArray = [];
     for (let i = 0; i < 31; i++) {
-      finalArray.push({ id: i + 1, text: i+1 });
+      finalArray.push({ id: i + 1, text: i + 1 });
     };
     return finalArray;
   }
-  getManagerOfVendor(){
+  getManagerOfVendor() {
     return [
-      { "id" : 1, "text" : "Not a vendor"},
-      { "id" : 2, "text" : "Vendor 1"},
-      { "id" : 3, "text" : "Vendor 2"}
+      { "id": 1, "text": "Not a vendor" },
+      { "id": 2, "text": "Vendor 1" },
+      { "id": 3, "text": "Vendor 2" }
     ]
   }
 
-  setItemInStorage(key, val){
-    localStorage.setItem(key,JSON.stringify(val));
+  setItemInStorage(key, val) {
+    localStorage.setItem(key, JSON.stringify(val));
   }
 
-  getItemFromStorage(key){
+  getItemFromStorage(key) {
     return JSON.parse(localStorage.getItem(key));
   }
 
@@ -379,6 +379,7 @@ export class MockService {
 
   getTaxCategory() {
     return [
+      { id: 0, name: '[None]' },
       { id: 1, name: 'Books' },
       { id: 2, name: 'Electronics & Software' },
       { id: 3, name: 'Downloadable Products' },
@@ -389,8 +390,8 @@ export class MockService {
 
   getDiscountList() {
     return [
-      { id: 1, name: 'Sample discount with coupon code' },
-      { id: 2, name: 'test for discount' },
+      { id: 1, itemName: 'Sample discount with coupon code' },
+      { id: 2, itemName: 'test for discount' },
     ]
   }
 

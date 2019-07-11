@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-ordertabs',
@@ -9,15 +9,17 @@ import { Router } from '@angular/router';
 export class OrdertabsComponent implements OnInit {
 
   title: any = 'Edit order details';
-  index: any;
+  orderId: any;
 
   backToSearchList() {
-    this._router.navigateByUrl('/sales/orders');
+    this._router.navigate(['/sales/orders']);
   }
-  constructor(private _router: Router) { }
+  constructor(private _router: Router, private _route: ActivatedRoute) { }
 
 
   ngOnInit() {
-    this.index = localStorage.getItem('index');
+    this._route.queryParams.subscribe(params => {
+      this.orderId = params['id']
+    });
   }
 }

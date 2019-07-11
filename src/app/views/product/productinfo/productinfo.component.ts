@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MockService } from '../../../services/mock.service';
 import { CommonService } from '../../../services/common.service';
-
+declare var $: any;
 const productId = localStorage.getItem('editProductId');
 
 @Component({
@@ -50,6 +50,7 @@ export class ProductinfoComponent implements OnInit {
     this.lstTaxCategory = this._mS.getTaxCategory();
     this.productInfoForm.patchValue({
       inventoryMethod: 1,
+      taxCategory: 0
     })
   }
 
@@ -85,7 +86,7 @@ export class ProductinfoComponent implements OnInit {
   isShipping(ev) {
     const drpClass = <HTMLElement>document.querySelector('.isShipping');
     if (drpClass) {
-      if (ev.target.checked) {
+      if (ev) {
         drpClass.style.display = 'block';
       } else {
         drpClass.style.display = 'none';
@@ -113,36 +114,39 @@ export class ProductinfoComponent implements OnInit {
   getCategoryList() {
     this._cS.API_GET(this._cS.URL_getCategoryList())
       .subscribe(res => {
-        this.lstCategories = res.categories;
+        if (res) {
+          this.lstCategories = res.categories;
+          this.lstCategories.map(x => {
+            x.itemName = x.name
+          });
+        }
       })
   }
 
   multiSelectedOptions() {
     this.lstCategories.map(x => {
-      this.selectedCategories.push(x);
+      this.selectedCategories.push(x.id, x.itemName);
+    });
+    this.lstDiscount.map(x => {
+      this.selectedDiscount.push(x);
     });
     this.productInfoForm.get('categories').setValue(this.selectedCategories);
+    this.productInfoForm.get('discount').setValue(this.selectedDiscount);
   }
 
-  onProductCatSelect() {
-    const selectedData = this.selectedCategories.map((x: { name: any; }) => { return x.name });
-    var filtered = this.lstCategories.filter(
-      function (e) { return this.indexOf(e.type) != -1; }, selectedData);
-    this.lstCategories = filtered;
-    // setTimeout(() => {
-    //   this.hideCategoryDropDown();
-    // });
+  onProductCatSelect(value) {
+    // const selectedData = this.selectedCategories.map((x: { itemName: any; }) => { return x.itemName });
+    // var filtered = this.lstCategories.filter(
+    //   function (e) { return this.indexOf(e.name) != -1; }, selectedData);
+    // this.lstCategories = filtered;
   }
 
-  hideCategoryDropDown() {
-    const drpClass = <HTMLElement>document.querySelector('.countplaceholder');
-    if (drpClass) {
-      if (this.lstCategories.length == this.selectedCategories.length) {
-        drpClass.style.display = 'none';
-      } else {
-        drpClass.style.display = 'block';
-      }
-    }
+  selectedDiscount: any = [];
+  onDiscountSelect(value) {
+    // const selectedData = this.selectedDiscount.map((x: { itemName: any; }) => { return x.itemName });
+    // var filtered = this.lstDiscount.filter(
+    //   function (e) { return this.indexOf(e.itemName) != -1; }, selectedData);
+    // this.lstDiscount = filtered;
   }
 
   editedProduct: any = [];
@@ -151,8 +155,9 @@ export class ProductinfoComponent implements OnInit {
       this._cS.API_GET(this._cS.URL_getProductById(productId))
         .subscribe(res => {
           if (res) {
+            localStorage.setItem('EditedRecord', JSON.stringify(res.products));
             this.editedProduct = res.products
-            console.log('this.editedProduct:', this.editedProduct[0])
+            this.isShipping(this.editedProduct[0].is_ship_enabled);
             this.productInfoForm.patchValue({
               id: productId,
               productName: this.editedProduct[0].name ? this.editedProduct[0].name : '',
@@ -160,6 +165,7 @@ export class ProductinfoComponent implements OnInit {
               fullDescription: this.editedProduct[0].full_description ? this.editedProduct[0].full_description : '',
               sku: this.editedProduct[0].sku ? this.editedProduct[0].sku : '',
               inventoryMethod: this.editedProduct[0].manage_inventory_method_id ? this.editedProduct[0].manage_inventory_method_id : 0,
+              stockQuantity: this.editedProduct[0].stock_quantity ? this.editedProduct[0].stock_quantity : 0,
               shippingEnable: this.editedProduct[0].is_ship_enabled ? this.editedProduct[0].is_ship_enabled : true,
               weight: this.editedProduct[0].weight ? this.editedProduct[0].weight : '',
               length: this.editedProduct[0].length ? this.editedProduct[0].length : '',
@@ -168,7 +174,7 @@ export class ProductinfoComponent implements OnInit {
               // categories: this.editedProduct[0].categories ? this.editedProduct[0].categories : '',
               price: this.editedProduct[0].price ? this.editedProduct[0].price : '',
               productCost: this.editedProduct[0].product_cost ? this.editedProduct[0].product_cost : 0,
-              discount: this.editedProduct[0].discount_ids ? this.editedProduct[0].discount_ids : '',
+              discount: this.editedProduct[0].discount_ids ? this.editedProduct[0].discount_ids : 0,
               tax: this.editedProduct[0].is_tax_exempt ? this.editedProduct[0].is_tax_exempt : true,
             })
           }
@@ -183,10 +189,14 @@ export class ProductinfoComponent implements OnInit {
   ngOnInit() {
     this.productInfoForm_fb();
     this.bindStaticList();
+    this.getCategoryList();
     this.multiSelectedOptions();
     if (productId != null) {
       this.editRecord();
     }
+    // $(document).ready(function () {
+    //   $('#summernote').summernote('code');
+    // });
   }
 
 }
