@@ -9,8 +9,23 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td></td>
+                        <tr *ngFor="let sp of lstSpecificAttr">
+                            <td>{{sp.attribute_type_id}}</td>
+                            <td>{{sp.attribute_type_id}}</td>
+                            <td>{{sp.specification_attribute_option.name}}</td>
+                            <td class="fa"
+                                [ngClass]="{'fa-check text-success': sp.allow_filtering ? 'fa-close text-danger' : !sp.allow_filtering}">
+                            </td>
+                            <td class="fa"
+                                [ngClass]="{'fa-check text-success': sp.show_on_product_page ? 'fa-close text-danger' : !sp.show_on_product_page}">
+                            </td>
+                            <td>{{sp.display_order}}</td>
+                            <td>
+                                <button class="btn btn-success" (click)="editPicture(pic.picture_id)"><i
+                                        class="fa fa-edit"></i></button>
+                                <button class="btn btn-danger left-margin" (click)="deletePicture(pic.picture_id)"><i
+                                        class="fa fa-trash"></i></button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
