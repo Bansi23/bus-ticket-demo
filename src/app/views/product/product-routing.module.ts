@@ -3,6 +3,10 @@ import { Routes, RouterModule } from '@angular/router';
 import { SearchProductComponent } from './search-product/search-product.component';
 import { ProductTabsComponent } from './product-tabs/product-tabs.component';
 import { AddnewAttributeComponent } from './productattributes/attributes/addnew-attribute/addnew-attribute.component';
+import { ProductinfoComponent } from './productinfo/productinfo.component';
+import { PicturesComponent } from './pictures/pictures.component';
+import { AttributesComponent } from './productattributes/attributes/attributes/attributes.component';
+import { SpecificationattributesComponent } from './specificationattributes/specificationattributes.component';
 
 
 const routes: Routes = [
@@ -14,8 +18,16 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'product', pathMatch: 'full' },
       { path: 'product', component: SearchProductComponent, data: { title: 'Product' } },
-      { path: 'addProduct', component: ProductTabsComponent, data: { title: 'Create' } },
-      { path: 'addnew-attribute', component: AddnewAttributeComponent, data: { title: 'Add New Attribute' }},
+      {
+        path: 'addProduct', component: ProductTabsComponent, data: { title: 'Create' },
+        children: [
+          { path: 'productInfo', component: ProductinfoComponent },
+          { path: 'productPicture', component: PicturesComponent },
+          { path: 'productAttributes', component: AttributesComponent },
+          { path: 'productSpecificationAttr', component: SpecificationattributesComponent },
+        ]
+      },
+      { path: 'addnew-attribute', component: AddnewAttributeComponent, data: { title: 'Add New Attribute' } },
     ]
   }
 ];

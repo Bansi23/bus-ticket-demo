@@ -4,6 +4,7 @@ import { map, catchError } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
+import { AppComponent } from '../app.component';
 
 //const internetMessage = 'Please check your internet connection !!';
 const baseUrl = environment.apiURL;
@@ -22,11 +23,14 @@ export class CommonService {
    * @param url - Just pass url after /api/. Predefine url will take from environment   
   */
   API_GET(url: string): Observable<any> {
+    this.Display_Loader(true);
     return this._httpClient.get(`${url}`, { headers: hd }).pipe(map(res => {
+      this.Display_Loader(false);
       setTimeout(() => {
       }, 500);
       return res;
     }, catchError(err => {
+      this.Display_Loader(false);
       if (err.status == 401) {
       }
       else if (err.status == 400) {
@@ -40,11 +44,14 @@ export class CommonService {
   * @param Body - Pass body parameter in json. Ex : { id : 1, name : ABC, occupation : Angular Developer}
  */
   API_POST(Url, Body): Observable<any> {
+    this.Display_Loader(true);
     return this._httpClient.post<any>(`${Url}`, Body, { headers: hd }).pipe(map(res => {
+      this.Display_Loader(false);
       setTimeout(() => {
       }, 500);
       return res;
     }, catchError(err => {
+      this.Display_Loader(false);
       if (err.status == 401) {
       }
       else if (err.status == 400) {
@@ -84,7 +91,7 @@ export class CommonService {
   getOrderItem(orderId) {
     return baseUrl + `orders/${orderId}/items`;
   }
-  getOrderItemId(orderId,itemId) {
+  getOrderItemId(orderId, itemId) {
     return baseUrl + `orders/${orderId}/items/${itemId}`;
   }
 
@@ -104,7 +111,7 @@ export class CommonService {
     return baseUrl + `customers/${custId}`
   }
 
-  getPaticularCustomerOrder(custId){
+  getPaticularCustomerOrder(custId) {
     return baseUrl + `orders/${custId}`
   }
 
@@ -153,5 +160,11 @@ export class CommonService {
     return baseUrl + `products/${id}`;
   }
   //#endregion
-  constructor(public _router: Router, public _httpClient: HttpClient) { }
+
+  //#region loader
+  Display_Loader(value: boolean) {
+    this._app.Display_Loader(value);
+  };
+  //#endregion
+  constructor(public _router: Router, public _httpClient: HttpClient, public _app: AppComponent) { }
 }

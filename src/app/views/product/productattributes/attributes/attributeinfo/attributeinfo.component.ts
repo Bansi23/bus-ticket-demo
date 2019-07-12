@@ -16,8 +16,13 @@ export class AttributeinfoComponent implements OnInit {
   getattributeList() {
     this._cS.API_GET(this._cS.URL_getAttributeList())
       .subscribe(res => {
-        console.log('res:', res)
-
+        if (res) {
+          this.lstAttribute = res.product_attributes;
+        }
+      })
+      this.attrInfoForm.patchValue({
+        attribute : 1,
+        controlType : 1,
       })
   }
 
