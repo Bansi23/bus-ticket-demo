@@ -96,9 +96,9 @@ export class CommonService {
     return baseUrl + `products`;
   }
 
-  getCustomerList() {
-    return baseUrl + `customers`;
-  }
+  // getCustomerList() {
+  //   return baseUrl + `customers`;
+  // }
 
   getParticularCustomer(custId) {
     return baseUrl + `customers/${custId}`
@@ -106,6 +106,10 @@ export class CommonService {
 
   getPaticularCustomerOrder(custId){
     return baseUrl + `orders/${custId}`
+  }
+  getCustomersList(PageSize,PageIndex){
+    return baseUrl + `customers?Limit=${PageSize}&Page=${PageIndex}`;
+
   }
 
    formatAMPM() {

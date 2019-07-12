@@ -39,9 +39,9 @@ pageSize: number = 10;
     this.router.navigate(['/customers/addEdit'], {queryParams : {id : cust.id}});
   }
   getCustomerList() {
-    this._cS.API_GET(this._cS.getCustomerList())
+    this._cS.API_GET(this._cS.getCustomersList(this.pageSize,this.pageIndex))
       .subscribe(response => {
-
+        this.totalRecords = response.customers.length
         console.log("res", response);
         for (let i = 0; i < response.customers.length; i++) {
           const data = {

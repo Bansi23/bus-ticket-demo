@@ -38,15 +38,35 @@
                         </tr>
                     </tbody>
                 </table>
-                <nav aria-label="Page navigation example">
-                        <ul class="pagination">
-                          <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                          <li class="page-item"><a class="page-link" href="#">1</a></li>
-                          <li class="page-item"><a class="page-link" href="#">2</a></li>
-                          <li class="page-item"><a class="page-link" href="#">3</a></li>
-                          <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                        </ul>
-                      </nav>
+                <!-- <div class="row">
+                    <div class="col-md-3 col-12">
+                        <div class="total-count--table">
+                            <span>Total number of records : {{ totalRecords}}</span>
+                            <button class="btn btn-primary" (click)="getCustomerList()"><i
+                                    class="fa fa-refresh"></i></button>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-12" *ngIf="(lstcustomers).length > 0">
+                        <div class="text-right pagignation-page">
+                            <pagination-controls class="pagination-sm pagination-box"
+                                (pageChange)="pageChanged($event)">
+                            </pagination-controls>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-12" *ngIf="lstcustomers.length > 0">
+                        <div class="text-left pagignation-select">
+                            <select class="form-control" [(ngModel)]="pageSize"
+                                (change)="changePageSize($event.target.value)">
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="30">30</option>
+                                <option value="40">40</option>
+                                <option value="50">50</option>
+                            </select>
+                        </div>
+                    </div>
+                </div> -->
             </div>
         </div>
     </div>

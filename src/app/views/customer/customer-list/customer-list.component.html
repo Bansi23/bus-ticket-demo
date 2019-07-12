@@ -1,4 +1,4 @@
-<div class="col-sm-12">
+    <div class="col-sm-12">
         <!-- <div class="card"> -->
             <!-- <div class="card-header">
                 <strong>Customers</strong>
@@ -16,7 +16,7 @@
                            <th>Last activity</th>
                            <th>Edit</th>
                         </tr>
-                    </thead>
+                    </thead>    
                     <tbody>
                         <tr *ngFor="let c of lstcustomers">
                             <td>{{c.email}}</td>
@@ -27,7 +27,7 @@
                                 </span>
                             </td>
                             <td></td>
-                            <td><i class="fa fa-check"></i></td>
+                            <td><i class="fa fa-check text-success"></i></td>
                             <td>{{c.createdOn | date : 'medium'}}</td>
                             <td>{{c.lastActivity | date : 'medium'}}</td>
                             <td>
@@ -54,7 +54,6 @@
                             </pagination-controls>
                         </div>
                     </div>
-
                     <div class="col-md-3 col-12" *ngIf="lstcustomers.length > 0">
                         <div class="text-left pagignation-select">
                             <select class="form-control" [(ngModel)]="pageSize"
@@ -68,7 +67,6 @@
                         </div>
                     </div>
                 </div>
-                
             <!-- </div> -->
         <!-- </div> -->
     </div>
