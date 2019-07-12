@@ -130,18 +130,13 @@ export class SearchOrderComponent implements OnInit {
   filteredPayment: any;
   filteredShipping: any;
   onItemOrderSelect(item?: any) {
-    let FormVal = this.searchOrder.value.orderStatus;
-    console.log('FormVal', FormVal)
     const selectedData = this.selectedorderItems.map((x: { itemName: any; }) => { return x.itemName });
-    console.log('selectedData', selectedData)
     this.filteredOrder = this.lstOrderData.filter(
       function (e) { return this.indexOf(e.order_status) != -1; }, selectedData);
   }
-
+  paymentstatus: any;
   onItemPaymentSelect(item?: any) {
-    const selectedData = this.selectedpaymentItems.map((x: { itemName: any; }) => { return x.itemName });
-    this.filteredPayment = this.lstOrderData.filter(
-      function (e) { return this.indexOf(e.payment_status) != -1; }, selectedData);
+    this.paymentstatus = item;
   }
 
   onItemshippingSelect(item?: any) {
@@ -151,14 +146,19 @@ export class SearchOrderComponent implements OnInit {
   }
 
   searchRecord() {
-    let FormVal = this.searchOrder.value;
     this.onItemOrderSelect();
-    this.onItemPaymentSelect();
-    this.onItemshippingSelect();
     this.lstOrderData = this.filteredOrder;
-    this.lstOrderData = this.filteredPayment;
-    this.lstOrderData = this.filteredShipping;
+    this.onItemPaymentSelect(this.paymentstatus);
+    const payment = this.paymentstatus.itemName;
+    this._cS.API_GET(this._cS.getpaymentsearch(payment))
+      .subscribe(res => {
+        if (res) {
+          this.lstOrderData = res.orders;
+          this.finalTotal = this.lstOrderData.map(o => o.order_total).reduce((a, c) => a + c, 0);
+        }
+      });
   }
+ 
 
 
   select_all() {

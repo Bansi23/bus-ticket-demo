@@ -34,9 +34,9 @@ export class AddProductComponent implements OnInit {
   //#region methods
   backToSearchList() {
     this._route.queryParams.subscribe(params => {
-      this.orderId = params['orderid']
+      this.orderId = params['id']
     });
-    this._router.navigate(['/sales/viewrecord'], { queryParams: { orderid: this.orderId } });
+    this._router.navigate(['/sales/viewrecord'], { queryParams: { id: this.orderId } });
 
   }
 
@@ -66,8 +66,11 @@ export class AddProductComponent implements OnInit {
     this.getProductRecord();
   };
 
-  SelectProduct(id) {
-    this._router.navigate(['/sales/selectproduct'], { queryParams: { id: id } });
+  SelectProduct(productid) {
+    this._route.queryParams.subscribe(params => {
+      this.orderId = params['id']
+    });
+    this._router.navigate(['/sales/selectproduct'], { queryParams: { id: this.orderId, productid: productid } });
   }
   //#endregion
 

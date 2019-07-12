@@ -14,9 +14,15 @@ export class SelectAddProductComponent implements OnInit {
   AddProduct: FormGroup
   addProduct: any = [];
   orderid: any;
+  productid: any;
+  orderItem: any = [];
+  newArray: any = [];
 
   backToSearchList() {
-    this._router.navigate(['/sales/addproduct'], { queryParams: { orderid: this.id } });
+    this._route.queryParams.subscribe(params => {
+      this.id = params['id']
+    });
+    this._router.navigate(['/sales/addproduct'], { queryParams: { id: this.id } });
   }
   //#region form group
   fbAddProduct() {
@@ -33,8 +39,9 @@ export class SelectAddProductComponent implements OnInit {
   getProduct() {
     this._route.queryParams.subscribe(params => {
       this.id = params['id']
+      this.productid = params['productid']
     });
-    this._cS.API_GET(this._cS.URL_getProductById(this.id))
+    this._cS.API_GET(this._cS.URL_getProductById(this.productid))
       .subscribe(response => {
         if (response) {
           this.addProduct = response.products[0];
@@ -43,13 +50,39 @@ export class SelectAddProductComponent implements OnInit {
             priceExcl: this.addProduct.price ? this.addProduct.price : null,
             totalIncl: this.addProduct.price ? this.addProduct.price : null,
             totalExcl: this.addProduct.price ? this.addProduct.price : null,
-
           });
         }
       });
   }
 
   addProducttoOrder() {
+    this.getProduct();
+    this._route.queryParams.subscribe(params => {
+      this.orderid = params['id']
+    });
+    this._cS.API_GET(this._cS.getOrderItem(this.orderid))
+      .subscribe(response => {
+        if (response) {
+          this.orderItem = response.order_items;
+          this.orderItem.map(x => {
+            x.quantity = this.AddProduct.value.quantity,
+              x.unit_price_incl_tax = this.AddProduct.value.totalExcl,
+              x.unit_price_excl_tax = this.AddProduct.value.totalExcl,
+              x.price_incl_tax = this.AddProduct.value.totalExcl,
+              x.price_excl_tax = this.AddProduct.value.totalExcl,
+              x.discount_amount_incl_tax = 0.0000,
+              x.discount_amount_excl_tax = 0.0000,
+              x.original_product_cost = 0.0000,
+              x.attribute_description = "",
+              x.download_count = 0,
+              x.isDownload_activated = this.addProduct.is_download,
+              x.products = this.addProduct;
+          });
+
+          this.orderItem.push(this.addProduct);
+          console.log('this.addProduct', this.orderItem);
+        }
+      });
 
   }
   constructor(private _router: Router, private _route: ActivatedRoute, private fb: FormBuilder, private _cS: CommonService) { }
@@ -57,9 +90,6 @@ export class SelectAddProductComponent implements OnInit {
   ngOnInit() {
     this.fbAddProduct();
     this.getProduct();
-    // this._route.queryParams.subscribe(params => {
-    //   this.id = params['id']
-    // });
   }
 
 }

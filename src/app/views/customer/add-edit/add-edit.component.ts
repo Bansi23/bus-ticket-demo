@@ -138,6 +138,10 @@ export class AddEditComponent implements OnInit {
     // console.log('x:', x)
     // let date = this._cS.formatAMPM(x);
     // console.log('date:', date)
+    let date = this._cS.formatAMPM();
+    console.log('date:', date)
+    
+
 
     let body = {
       email: this.addCustomerForm.value.custEmail,

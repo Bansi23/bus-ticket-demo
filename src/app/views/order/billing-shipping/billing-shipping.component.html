@@ -138,7 +138,7 @@
                     <b>Shipping method</b>
                 </div>
                 <div class="col-md-6" *ngIf="editRec">
-                    <span>{{billingData.shipping_method}}</span>
+                    <span>{{billingData?.shipping_method}}</span>
                     <button class="btn btn-primary mx-2" (click)="EditShipMethod()">Edit</button>
                 </div>
 

@@ -9,7 +9,7 @@ import { CommonService } from '../../../services/common.service';
   styleUrls: ['./billing-shipping.component.scss']
 })
 export class BillingShippingComponent implements OnInit {
-  shippingMethod: any = "Ground";
+  shippingMethod: any;
   editRec: boolean = true;
   viewRecord: any = [];
   orderId: any;
@@ -17,10 +17,11 @@ export class BillingShippingComponent implements OnInit {
     this.editRec = false;
   }
   cancleEdit() {
-    this.shippingMethod = "Ground";
+   // this.shippingMethod = "Ground";
     this.editRec = true;
   }
   SaveChanges() {
+
     this.editRec = true;
   }
 
@@ -40,6 +41,7 @@ export class BillingShippingComponent implements OnInit {
         .subscribe(response => {
           if (response) {
             this.viewRecord = response.orders;
+            this.shippingMethod = this.viewRecord.shipping_method
           }
         });
     }
