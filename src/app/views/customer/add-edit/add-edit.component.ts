@@ -187,7 +187,6 @@ export class AddEditComponent implements OnInit {
   
   changePassword(){
     this.changePassword = this.addCustomerForm.value.custPassword;
-     
   }
 
 }

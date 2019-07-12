@@ -32,13 +32,12 @@ export class PicturesComponent implements OnInit {
 
   prodPictureForm_fb() {
     this.prodPictureForm = this.fb.group({
-      picture: [null],
+      src: [null],
       alt: [null],
       title: [null],
-      displayOrder: [null],
+      position: [null],
     })
   }
-
   //#region get product picture list
   getPictureList() {
     if (productId != null) {
@@ -51,20 +50,48 @@ export class PicturesComponent implements OnInit {
   //#endregion
 
   //#region edit & delete picture details
-  editPicture(picId) {
-
+  editPicture(i) {
+    console.log('i:', i)
+    this.prodPictureForm.patchValue({
+      src: this.lstPicture[i].src,
+      alt: this.lstPicture[i].alt,
+      title: this.lstPicture[i].title,
+      position: this.lstPicture[i].position,
+    })
   }
 
   deletePicture(picId) {
-
+    if (confirm("Are you sure want to delete this image?")) {
+      this.lstPicture.splice(picId, 1);
+    }
   }
   //#endregion
 
+  //#region add new picture in lst
+  formValue: any = {};
+
+  readUrl(event: any) {
+    this.formValue = this.prodPictureForm.getRawValue()
+    if (event.target.files && event.target.files[0]) {
+      var reader = new FileReader();
+      reader.onload = (event: ProgressEvent) => {
+        this.formValue.src = (<FileReader>event.target).result;
+      }
+      reader.readAsDataURL(event.target.files[0]);
+    }
+  }
+
+  addPicture() {
+    this.formValue = this.prodPictureForm.getRawValue();
+    console.log('this.formValue:', this.formValue)
+    this.lstPicture.push(this.formValue);
+    this.prodPictureForm.reset();
+  }
+  //#endregion
   constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
     this.prodPictureForm_fb();
     this.getPictureList();
   }
-
 }

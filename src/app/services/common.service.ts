@@ -178,5 +178,16 @@ export class CommonService {
     this._app.Display_Loader(value);
   };
   //#endregion
+
+  //#region 
+  getProductTabs() {
+    return [
+      {id : 1, name : 'Product Info', isActive : true},
+      {id : 2, name : 'Picture', isActive : false},
+      {id : 3, name : 'Product Attributes', isActive : false},
+      {id : 4, name : 'Specification Attributes', isActive : false},
+    ]
+  }
+  //#endregion
   constructor(public _router: Router, public _httpClient: HttpClient, public _app: AppComponent) { }
 }

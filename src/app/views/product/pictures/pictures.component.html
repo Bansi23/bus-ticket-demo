@@ -22,9 +22,9 @@
                             <td></td>
                             <td></td>
                             <td>
-                                <button class="btn btn-success" (click)="editPicture(pic.picture_id)"><i
+                                <button class="btn btn-success" (click)="editPicture(i)"><i
                                         class="fa fa-edit"></i></button>
-                                <button class="btn btn-danger left-margin" (click)="deletePicture(pic.picture_id)"><i
+                                <button class="btn btn-danger left-margin" (click)="deletePicture(i)"><i
                                         class="fa fa-trash"></i></button>
                             </td>
                         </tr>
@@ -76,7 +76,7 @@
                     <div class="row">
                         <div class="form-group col-sm-12">
                             <label>Picture</label>
-                            <input type="file" id="file-input" formControlName="picture">
+                            <input type="file" id="file-input" formControlName="src" (change)="readUrl($event)">
                         </div>
                     </div>
                     <div class="row">
@@ -94,11 +94,12 @@
                     <div class="row">
                         <div class="form-group col-sm-6">
                             <label>Display order</label>
-                            <input type="number" class="form-control" formControlName="displayOrder">
+                            <input type="number" class="form-control" formControlName="position">
                         </div>
                     </div>
                     <div class="row pull-right">
-                        <button class="btn btn-primary"><i class="fa fa-plus">Add Product Picture</i></button>
+                        <button class="btn btn-primary" (click)="addPicture()"><i class="fa fa-plus">Add Product
+                                Picture</i></button>
                     </div>
                 </div>
             </div>

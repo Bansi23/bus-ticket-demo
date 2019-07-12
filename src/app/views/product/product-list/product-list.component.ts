@@ -31,7 +31,7 @@ export class ProductListComponent implements OnInit {
     this._cS.API_GET(this._cS.URL_getProductList(this.pageSize, this.pageIndex))
       .subscribe(res => {
         this.lstProduct = res.products;
-      }); 
+      });
   }
 
   getTotalRecord() {
