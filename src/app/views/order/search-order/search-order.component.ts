@@ -136,6 +136,11 @@ export class SearchOrderComponent implements OnInit {
   }
   paymentstatus: any;
   onItemPaymentSelect(item?: any) {
+    this.pageIndex = 1;
+    // const selectedData = this.selectedpaymentItems.map((x: { itemName: any; }) => { return x.itemName });
+    // this.filteredOrder = this.lstOrderData.filter(
+    //   function (e) { return this.indexOf(e.payment_status) != -1; }, selectedData);
+    // this.paymentstatus = this.filteredOrder;
     this.paymentstatus = item;
   }
 
@@ -158,7 +163,7 @@ export class SearchOrderComponent implements OnInit {
         }
       });
   }
- 
+
 
 
   select_all() {
