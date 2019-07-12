@@ -31,7 +31,7 @@ export class AttributesComponent implements OnInit {
   getAttributeList() {
     if (productId != null) {
       this.lstAttr = editedRecord.attributes;
-      this.totalRecords = this.lstAttr.length;
+      this.totalRecords = this.lstAttr.length;  
     }
   }
   //#endregion  

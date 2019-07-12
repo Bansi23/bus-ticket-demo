@@ -31,7 +31,7 @@ export class ProductListComponent implements OnInit {
     this._cS.API_GET(this._cS.URL_getProductList(this.pageSize, this.pageIndex))
       .subscribe(res => {
         this.lstProduct = res.products;
-      });
+      }); 
   }
 
   getTotalRecord() {
@@ -52,13 +52,15 @@ export class ProductListComponent implements OnInit {
   }
 
   deleteProduct(prodId) {
-    this._cS.API_DELETE(this._cS.URL_deleteRecord(prodId))
-      .subscribe(res => {
-        if (res) {
-          if (confirm('Are you sure want to delete this record?')) {
+    if (confirm('Are you sure want to delete this record?')) {
+      this._cS.API_DELETE(this._cS.URL_deleteRecord(prodId))
+        .subscribe(res => {
+          if (res) {
+            this.lstProduct.splice(prodId, 1);
+            this.getTotalRecord();
           }
-        }
-      })
+        })
+    }
   }
 
   select_all() {

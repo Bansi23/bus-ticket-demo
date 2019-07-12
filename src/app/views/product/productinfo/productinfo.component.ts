@@ -1,8 +1,10 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MockService } from '../../../services/mock.service';
 import { CommonService } from '../../../services/common.service';
 import { find } from 'rxjs/operators';
+import { ProductInfoService } from '../../../services/FormServices/product-info.service';
+import { Router } from '@angular/router';
 declare var $: any;
 const productId = localStorage.getItem('editProductId');
 
@@ -13,10 +15,10 @@ const productId = localStorage.getItem('editProductId');
 })
 
 export class ProductinfoComponent implements OnInit {
-  @ViewChild('infoForm', { static: true }) infoForm: ElementRef;
+  // @ViewChild('infoForm', { static: true }) infoForm: ElementRef;
 
   //#region product info form
-  productInfoForm: FormGroup;
+  @Input() productInfoForm: FormGroup;
 
   productInfoForm_fb() {
     this.productInfoForm = this.fb.group({
@@ -39,6 +41,7 @@ export class ProductinfoComponent implements OnInit {
       tax: [null],
       taxCategory: [null]
     });
+
   }
   //#endregion
 
@@ -160,7 +163,75 @@ export class ProductinfoComponent implements OnInit {
     //   function (e) { return this.indexOf(e.itemName) != -1; }, selectedData);
     // this.lstDiscount = filtered;
   }
+  //#endregion
 
+  //#region create product
+
+  disc_ids: any = [];
+  createProduct() {
+    for (let c in this.productInfoForm.controls) {
+      this.productInfoForm.controls[c].markAsTouched();
+    }
+    if (this.productInfoForm.valid) {
+      const formValue = this.productInfoForm.getRawValue();
+      for (let i = 0; i < formValue.discount.length; i++) {
+        var discount = formValue.discount[i].id;
+        this.disc_ids.push(discount);
+      }
+      let body = {
+        product: {
+          name: formValue.productName,
+          short_descriptio: formValue.shortDescription ? formValue.shortDescription : "",
+          sku: formValue.sku ? formValue.sku : "",
+          manage_inventory_method_id: formValue.inventoryMethod ? formValue.inventoryMethod : 1,
+          stock_quantity: formValue.stockQuantity ? formValue.stockQuantity : 0,
+          discount_ids: this.disc_ids ? this.disc_ids : null,
+          price: formValue.price ? formValue.price : 0,
+          product_cost: formValue.productCost ? formValue.productCost : 0,
+          weight: formValue.weight ? formValue.weight : 0,
+          length: formValue.length ? formValue.length : 0,
+          width: formValue.width ? formValue.width : 0,
+          height: formValue.height ? formValue.width : 0
+        }
+      }
+
+      this._cS.API_POST(this._cS.getProductList(), body)
+        .subscribe(res => {
+          if (res) {
+            this.getProductList();
+            this.lstProduct.push(res.products);
+          }
+        })
+    }
+  }
+  //#endregion
+
+  //#region saveProductDetails & save and countinu edit 
+  saveProductDetails() {
+    this.createProduct();
+    this.productInfoForm.reset();
+    this._router.navigateByUrl('catalog/product');
+  }
+
+  saveAndEditProduct() {
+    this._router.navigate(['/catalog/product']);
+    this.createProduct();
+  }
+  //#region 
+
+  //#region  get product listing
+  lstProduct: any = [];
+  getProductList() {
+    this._cS.API_GET(this._cS.getProductList())
+      .subscribe(res => {
+        if (res) {
+          this.lstProduct = res.products;
+        }
+      })
+  }
+  //#endregion
+
+  //#region  edit product details
   editedProduct: any = [];
   editRecord() {
     if (productId != null) {
@@ -192,7 +263,6 @@ export class ProductinfoComponent implements OnInit {
                 tax: findId.is_tax_exempt ? findId.is_tax_exempt : true,
               })
             }
-
           }
         });
     }
@@ -200,11 +270,10 @@ export class ProductinfoComponent implements OnInit {
   //#endregion
   constructor(private fb: FormBuilder,
     private _mS: MockService,
-    private _cS: CommonService) { }
-
+    private _cS: CommonService,
+    private _router: Router) { }
 
   ngOnInit() {
-    console.log('infoForm', this.infoForm.nativeElement)
     this.productInfoForm_fb();
     this.bindStaticList();
     this.getCategoryList();
@@ -216,5 +285,11 @@ export class ProductinfoComponent implements OnInit {
     //   $('#summernote').summernote();
     // });
   }
+
+  // formChanged() {
+  //   if (this.productInfoForm.valid) {
+  //     localStorage.setItem('InfoForm', JSON.stringify(this.productInfoForm.getRawValue()));
+  //   }
+  // }
 
 }

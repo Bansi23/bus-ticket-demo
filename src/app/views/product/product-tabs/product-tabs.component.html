@@ -6,31 +6,36 @@
                     <strong>
                         <h3>{{title | titlecase}}</h3>
                     </strong>
-                    <button class="btn btn-link" (click)="backToList()"><i
-                            class="fa fa-arrow-circle-o-left"> back to product list</i></button>
+                    <button class="btn btn-link" (click)="backToList()"><i class="fa fa-arrow-circle-o-left"> back to
+                            product list</i></button>
                 </div>
             </div>
-            <div class="pull-right">
-                <button class="btn btn-primary text-white" (click)="addProduct()"><i class="fa fa-save">
+            <!-- <div class="pull-right">
+                <button class="btn btn-primary text-white" (click)="saveProductDetails()"><i class="fa fa-save">
                         Save</i></button>&nbsp;
-                <button class="btn btn-primary text-white"><i class="fa fa-save" (click)="saveProductDetails()"> Save and Continue Edit</i></button>
-            </div>
+                <button class="btn btn-primary text-white"><i class="fa fa-save" (click)="addProduct()"> Save and
+                        Continue Edit</i></button>
+            </div> -->
         </div>
         <div class="card-body">
             <div class="animated fadeIn">
                 <div class="row">
                     <div class="col-lg-12">
-                        <tabset class="tab-menu-main">
-                            <tab heading="Product Info">
+                        <tabset #tabSet class="tab-menu-main">
+                            <tab heading="Product Info" id="1" (selectTab)="onSelect($event)">
+                                <a [routerLink]="['productInfo']" [routerLinkActive]="'active'"></a>
                                 <app-productinfo></app-productinfo>
                             </tab>
-                            <tab heading="Pictures">
+                            <tab heading="Pictures" id="2" (selectTab)="onSelect($event)"
+                                [routerLink]="['productPicture']">
                                 <app-pictures></app-pictures>
                             </tab>
-                            <tab heading="Product Attributes">
+                            <tab heading="Product Attributes" id="3" (selectTab)="onSelect($event)"
+                                [routerLink]="['productAttributes']">
                                 <app-productattributes></app-productattributes>
                             </tab>
-                            <tab heading="Specification Attributes">
+                            <tab heading="Specification Attributes" id="4" (selectTab)="onSelect($event)"
+                                [routerLink]="['productSpecificationAttr']">
                                 <app-specificationattributes></app-specificationattributes>
                             </tab>
                         </tabset>
