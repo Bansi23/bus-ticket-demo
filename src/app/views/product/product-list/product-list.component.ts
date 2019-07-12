@@ -56,7 +56,6 @@ export class ProductListComponent implements OnInit {
       .subscribe(res => {
         if (res) {
           if (confirm('Are you sure want to delete this record?')) {
-
           }
         }
       })

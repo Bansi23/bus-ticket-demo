@@ -84,13 +84,20 @@ export class CommonService {
   getOrderItem(orderId) {
     return baseUrl + `orders/${orderId}/items`;
   }
-  getOrderItemId(orderId,itemId) {
+  getOrderItemId(orderId, itemId) {
     return baseUrl + `orders/${orderId}/items/${itemId}`;
   }
 
   getCountItem() {
     return baseUrl + `orders/count`;
   }
+  getpaymentsearch(PaymentStatus) {
+    return baseUrl + `orders?PaymentStatus=${PaymentStatus}`;
+  }
+  getOrder(){
+    return baseUrl + `orders`;
+  }
+ 
   // #endregion
   getProductList() {
     return baseUrl + `products`;
@@ -104,7 +111,7 @@ export class CommonService {
     return baseUrl + `customers/${custId}`
   }
 
-  getPaticularCustomerOrder(custId){
+  getPaticularCustomerOrder(custId) {
     return baseUrl + `orders/${custId}`
   }
 

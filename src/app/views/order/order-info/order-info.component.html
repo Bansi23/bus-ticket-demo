@@ -9,15 +9,15 @@
                         </div>
                         <div class="col-md-10">
                             <b> {{item.order_status}}</b>
-                            <button class="btn btn-danger">Cancle Order</button>
+                            <button class="btn btn-danger"  *ngIf="item.order_status !='Cancelled'" (click)="CancleOrder()">Cancle Order</button>
                             <button class="btn btn-primary" *ngIf="isOrder" (click)="changeStatus()">Change
                                 Status</button>
                         </div>
                         <div class="offset-md-2 col-md-10 mt-1" *ngIf="!isOrder">
-                            <div class="row">
+                            <div class="row"> 
                                 <div class="col-md-8">
-                                    <select class="form-control">
-                                        <option *ngFor="let orderstatus of lstOrderStatus" [ngValue]="orderstatus">
+                                    <select class="form-control"  [(ngModel)]="orderstatusValue"   (change)="selectedChanged($event.target.value)">
+                                        <option *ngFor="let orderstatus of lstOrderStatus" [value]="orderstatus.itemName">
                                             {{orderstatus.itemName}}
                                         </option>
                                     </select>
@@ -30,7 +30,7 @@
                                         activation/deactivation, etc) should be done manually in this case.</p>
                                 </div>
                                 <div class="col-md-4">
-                                    <button class="btn btn-primary">Save</button>
+                                    <button class="btn btn-primary" (click)="saveOrderStatus()">Save</button>
                                     <button class="btn btn-danger" (click)="cancleEdit()">Cancle</button>
                                 </div>
                             </div>
@@ -88,7 +88,8 @@
                             <b> Order subtotal </b>
                         </div>
                         <div class="col-md-3">
-                            <span> {{item.order_subtotal_excl_tax | number:'2.2-2'}} <b>excl tax</b></span>
+                            <!-- <span> {{item.order_subtotal_excl_tax | number:'2.2-2'}} <b>excl tax</b></span> -->
+                            <span> {{finalTotal | number:'2.2-2'}}</span>
                         </div>
                     </div>
                     <div class="row mt-3">
@@ -114,7 +115,7 @@
                         </div>
                         <!--  -->
                         <div class="col-md-3">
-                            <span> {{item.order_total | number:'2.2-2'}}</span>
+                            <span> {{finalTotal | number:'2.2-2'}}</span>
                         </div>
                     </div>
 
