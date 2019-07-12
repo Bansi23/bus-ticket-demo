@@ -92,6 +92,45 @@ export class EditBillingComponent implements OnInit {
         });
     }
   }
+  editBilling() {
+    let body = {
+      billing_address: {
+        first_name: this.editbillingForm.value.fnm,
+        last_name: this.editbillingForm.value.fnm,
+        email: this.editbillingForm.value.fnm,
+        company: this.editbillingForm.value.fnm,
+        country: this.editbillingForm.value.fnm,
+        state_province_id: this.editbillingForm.value.fnm,
+        city: this.editbillingForm.value.fnm,
+        address1: this.editbillingForm.value.fnm,
+        address2: this.editbillingForm.value.fnm,
+        zip_postal_code: this.editbillingForm.value.fnm,
+        phone_number: this.editbillingForm.value.fnm,
+        fax_number: this.editbillingForm.value.fnm,
+        province: null,
+        id: 14
+      }
+    }
+  }
+
+
+  // let body = {
+  //   customer: {
+  //     id: this.addCustomerForm.value.custEmail,
+  //     password: this.addCustomerForm.value.custPassword,
+  //     role_ids: roles,
+  //     managerOfVendor: this.addCustomerForm.value.custManagerOfVendor,
+  //     gender: this.addCustomerForm.value.custGender,
+  //     first_name: this.addCustomerForm.value.custFirstName,
+  //     last_name: this.addCustomerForm.value.custLastName,
+  //     date_of_birth: date,
+  //     company: this.addCustomerForm.value.custCompanyName,
+  //     admin_comment: this.addCustomerForm.value.custAdminComment,
+  //     is_tax_exempt: this.addCustomerForm.value.custIsTaxExempt,
+  //     subscribed_to_newsletter: this.addCustomerForm.value.custNewsletter,
+  //     active: this.addCustomerForm.value.custActive
+  //   }
+  // }
   //#endregion
   constructor(private fb: FormBuilder, private _router: Router, private _mD: MockService, private _route: ActivatedRoute, private _cS: CommonService) { }
 

@@ -79,6 +79,23 @@ export class SelectAddProductComponent implements OnInit {
               x.products = this.addProduct;
           });
 
+          // let body = {
+          //   customer: {
+          //     email: this.addCustomerForm.value.custEmail,
+          //     password: this.addCustomerForm.value.custPassword,
+          //     role_ids: roles,
+          //     managerOfVendor: this.addCustomerForm.value.custManagerOfVendor,
+          //     gender: this.addCustomerForm.value.custGender,
+          //     first_name: this.addCustomerForm.value.custFirstName,
+          //     last_name: this.addCustomerForm.value.custLastName,
+          //     date_of_birth: date,
+          //     company: this.addCustomerForm.value.custCompanyName,
+          //     admin_comment: this.addCustomerForm.value.custAdminComment,
+          //     is_tax_exempt: this.addCustomerForm.value.custIsTaxExempt,
+          //     subscribed_to_newsletter: this.addCustomerForm.value.custNewsletter,
+          //     active: this.addCustomerForm.value.custActive
+          //   }
+          // }
           this.orderItem.push(this.addProduct);
           console.log('this.addProduct', this.orderItem);
         }

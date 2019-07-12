@@ -46,31 +46,31 @@ export class OrderInfoComponent implements OnInit {
     }
   }
   selectedChanged(value) {
-    console.log('value',value);
+    console.log('value', value);
     this.orderstatusValue = value;
   }
   CancleOrder() {
-    const cancle = this.viewRecord.order_status = 'Cancelled'
-    const body = {
-      "order_status": cancle
-    }
-    console.log('body', body)
-    this.getParameter();
-    this._cS.API_POST(this._cS.getOrderId(this.orderId), body)
-      .subscribe(res => {
-        if (res) {
-          console.log('res', res);
-        } else {
-        };
-      }, err => {
-      });
+    //   const cancle = this.viewRecord.order_status = 'Cancelled'
+    //   const body = {
+    //     "order_status": cancle
+    //   }
+    //   console.log('body', body)
+    //   this.getParameter();
+    //   this._cS.API_POST(this._cS.getOrderId(this.orderId), body)
+    //     .subscribe(res => {
+    //       if (res) {
+    //         console.log('res', res);
+    //       } else {
+    //       };
+    //     }, err => {
+    //     });
   }
   saveOrderStatus() {
-     this.getParameter();
+    this.getParameter();
     const body = {
       "order_status": this.orderstatusValue
     }
-     console.log('this.orderstatusValue.itemName', body)
+    console.log('this.orderstatusValue.itemName', body)
     this._cS.API_POST(this._cS.getOrderId(this.orderId), body)
       .subscribe(res => {
         if (res) {
@@ -80,7 +80,7 @@ export class OrderInfoComponent implements OnInit {
       }, err => {
       });
   }
- 
+
   editCustomer(id) {
     this._router.navigate(['/customers/addEdit'], { queryParams: { id: id } });
   }
