@@ -71,12 +71,6 @@ export class SearchProductComponent implements OnInit {
 
   //#region add product function
   addProduct() {
-    this.spinner.show();
-
-    setTimeout(() => {
-      /** spinner ends after 5 seconds */
-      this.spinner.hide();
-    }, 5000);
     this._router.navigateByUrl('/catalog/addProduct');
   }
   //#endregion
