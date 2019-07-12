@@ -41,7 +41,8 @@ pageSize: number = 10;
   getCustomerList() {
     this._cS.API_GET(this._cS.getCustomersList(this.pageSize,this.pageIndex))
       .subscribe(response => {
-        this.totalRecords = response.customers.length
+        // this.totalRecords = response.customers.length
+        console.log('this.totalRecords :', this.totalRecords )
         console.log("res", response);
         for (let i = 0; i < response.customers.length; i++) {
           const data = {

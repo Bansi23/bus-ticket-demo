@@ -101,18 +101,18 @@ export class CommonService {
   getpaymentsearch(PaymentStatus) {
     return baseUrl + `orders?PaymentStatus=${PaymentStatus}`;
   }
-  getOrder(){
+  getOrder() {
     return baseUrl + `orders`;
   }
- 
+
   // #endregion
   getProductList() {
     return baseUrl + `products`;
   }
 
-  // getCustomerList() {
-  //   return baseUrl + `customers`;
-  // }
+  getCustomerList() {
+    return baseUrl + `customers`;
+  }
 
   getParticularCustomer(custId) {
     return baseUrl + `customers/${custId}`
@@ -121,21 +121,21 @@ export class CommonService {
   getPaticularCustomerOrder(custId) {
     return baseUrl + `orders/${custId}`
   }
-  getCustomersList(PageSize,PageIndex){
+  getCustomersList(PageSize, PageIndex) {
     return baseUrl + `customers?Limit=${PageSize}&Page=${PageIndex}`;
 
   }
 
-   formatAMPM() {
+  formatAMPM() {
     var hours = new Date().getHours();
-    var minutes : any;    
-     minutes = new Date().getMinutes();
-     var seconds = new Date().getSeconds();
+    var minutes: any;
+    minutes = new Date().getMinutes();
+    var seconds = new Date().getSeconds();
     var ampm = hours >= 12 ? 'pm' : 'am';
     hours = hours % 12;
     hours = hours ? hours : 12; // the hour '0' should be '12'
-    minutes = minutes < 10 ? '0'+minutes : minutes;
-    var strTime = hours + ':' + minutes + ':' + seconds+ ' '+ ampm;
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    var strTime = hours + ':' + minutes + ':' + seconds + ' ' + ampm;
     return strTime;
   }
 
