@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, throwError, forkJoin } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { map, catchError, count } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
@@ -87,14 +87,12 @@ export class CommonService {
   getOrderId(id: number) {
     return baseUrl + `orders/${id}`;
   }
-
   getOrderItem(orderId) {
     return baseUrl + `orders/${orderId}/items`;
   }
   getOrderItemId(orderId, itemId) {
     return baseUrl + `orders/${orderId}/items/${itemId}`;
   }
-
   getCountItem() {
     return baseUrl + `orders/count`;
   }
@@ -124,6 +122,9 @@ export class CommonService {
   getCustomersList(PageSize, PageIndex) {
     return baseUrl + `customers?Limit=${PageSize}&Page=${PageIndex}`;
 
+  }
+  getCustomerTotalRecord(){
+    return baseUrl + `customers/count`;
   }
 
   formatAMPM() {

@@ -55,10 +55,17 @@ pageSize: number = 10;
             lastActivity: response.customers[i].last_activity_date_utc
           }
           this.lstcustomers.push(data);
-          console.log('data:', this.lstcustomers)
+          // console.log('data:', this.lstcustomers)
         }
       })
-
+  }
+  getTotalRecord(){
+    this._cS.API_GET(this._cS.getCustomerTotalRecord())
+    .subscribe(response =>{
+      this.totalRecords = response.count;
+      console.log('response:', response.count)
+      this.getCustomerList(); 
+    })
   }
 
 }
