@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonService } from '../../../services/common.service';
+import { TabDirective } from 'ngx-bootstrap/tabs/public_api';
+import { ProductInfoService } from '../../../services/FormServices/product-info.service';
 const editedRecord = JSON.parse(localStorage.getItem('EditedRecord'));
 @Component({
   selector: 'app-product-tabs',
@@ -9,23 +11,19 @@ const editedRecord = JSON.parse(localStorage.getItem('EditedRecord'));
 })
 export class ProductTabsComponent implements OnInit {
   title: any = 'Add a new product';
-
   backToList() {
     this._router.navigateByUrl('/catalog/product');
   }
 
-  saveProductDetails() {
-    let body = {
-      
-    }
-    this._cS.API_POST(this._cS.getProductList(), body)
-      .subscribe(res => {
-        console.log('res:', res)
-      })
+  tabId: any = "1";
+  onSelect(e: TabDirective) {
+    this.tabId = e.id;
+    console.log('this.tabsdfId:', this.tabId)
   }
 
   constructor(private _router: Router,
-    private _cS: CommonService) { }
+    private _cS: CommonService,
+) { }
 
   ngOnInit() {
     if (localStorage.getItem('editProductId') != null) {
@@ -34,6 +32,9 @@ export class ProductTabsComponent implements OnInit {
     } else {
       this.title = 'Add a new product';
     }
+    console.log('this.tabId:', this.tabId)
   }
+
+
 
 }

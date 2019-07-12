@@ -135,7 +135,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card">
+                <!-- <div class="card">
                     <div class="card-header">
                         <strong>
                             Mappings
@@ -150,18 +150,11 @@
                                     (onSelect)="onProductCatSelect($event)" (onDeSelect)="onProductCatSelect($event)"
                                     (onSelectAll)="onProductCatSelect($event)"
                                     (onDeSelectAll)="onProductCatSelect($event)">
-                                    <!-- <ng-container *ngIf="lstInvantory?.length == selectedorderItems?.length">
-                                    <c-badge>
-                                        <ng-template let-item="item">
-                                            <label style="margin: 0px; padding-right: 5px;">All</label>
-                                        </ng-template>
-                                    </c-badge>
-                                </ng-container> -->
                                 </angular2-multiselect>
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
             </div>
         </div>
@@ -224,7 +217,7 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="row isTax">
+                        <!-- <div class="row isTax">
                             <div class="form-group col-sm-6">
                                 <label>Tax category</label>
                                 <select class="form-control" formControlName="taxCategory">
@@ -233,10 +226,17 @@
                                     </option>
                                 </select>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="row">
+            <button class="btn btn-primary text-white pull-right" (click)="saveProductDetails()"><i class="fa fa-save">
+                    Save</i></button>&nbsp;
+            <button class="btn btn-primary text-white pull-right margin-left" (click)="saveAndEditProduct()"><i
+                    class="fa fa-save">
+                    Save and Countinue Edit</i></button>
         </div>
     </form>
 </div>

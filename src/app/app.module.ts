@@ -7,7 +7,7 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
- const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
 
@@ -41,6 +41,8 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
 import { from } from 'rxjs';
+import { NgxSpinnerModule } from "ngx-spinner";
+// import { ToasterModule } from 'ngx-toaster/src/lib';
 
 @NgModule({
   imports: [
@@ -58,7 +60,7 @@ import { from } from 'rxjs';
     ChartsModule,
     HttpClientModule,
     HttpClientJsonpModule,
-    
+    NgxSpinnerModule,
   ],
   declarations: [
     AppComponent,
@@ -71,7 +73,9 @@ import { from } from 'rxjs';
   providers: [{
     provide: LocationStrategy,
     useClass: HashLocationStrategy
-  }],
+  },
+    AppComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

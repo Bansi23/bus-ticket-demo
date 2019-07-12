@@ -3,6 +3,7 @@ import { CommonService } from '../../../services/common.service';
 import { MockService } from '../../../services/mock.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-search-product',
@@ -70,6 +71,12 @@ export class SearchProductComponent implements OnInit {
 
   //#region add product function
   addProduct() {
+    this.spinner.show();
+
+    setTimeout(() => {
+      /** spinner ends after 5 seconds */
+      this.spinner.hide();
+    }, 5000);
     this._router.navigateByUrl('/catalog/addProduct');
   }
   //#endregion
@@ -77,7 +84,8 @@ export class SearchProductComponent implements OnInit {
     private _cS: CommonService,
     private _mS: MockService,
     private _router: Router,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,
+    private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     this.searchProdFrom_fb();
