@@ -29,7 +29,7 @@ export class AddEditComponent implements OnInit {
   IPAddress;
   createdOn;
   lastActivity;
-
+  gender : string;
 
   dropdownOrderStatus = {
     singleSelection: false,
@@ -55,12 +55,12 @@ export class AddEditComponent implements OnInit {
       });
 
     if (this.custId) {
-      // alert("called")
+      alert("called")
       this.isChangePassword = true;
       this._cS.API_GET(this._cS.getParticularCustomer(this.custId))
         .subscribe(response => {
           this.customer = response.customers;
-          // console.log('this.customer:', this.customer)
+          console.log('this.customer:', this.customer)
           // if(this.customer[0].addresses.length){
           //   this.companyName = this.customer[0].addresses[0].company
           // }else{
@@ -70,9 +70,9 @@ export class AddEditComponent implements OnInit {
 
           this.setValuesInForm();
         })
-      // console.log('this.customer:', this.customer)
+      console.log('this.customer:', this.customer)
     } else {
-      // alert("Id not found!")
+      alert("Id not found!")
       this._cS.Display_Loader(false);
     }
     this.settings = {
@@ -159,13 +159,18 @@ export class AddEditComponent implements OnInit {
     for (let i = 0; i < x.length; i++) {
       roles.push(x[i].id)
     }
+    if(this.addCustomerForm.value.custGender == "male"){
+      this.gender = "M"
+    }else{
+      this.gender = "F"
+    }
     let body = {
       customer: {
         email: this.addCustomerForm.value.custEmail,
         password: this.addCustomerForm.value.custPassword,
         role_ids: roles,
         managerOfVendor: this.addCustomerForm.value.custManagerOfVendor,
-        gender: this.addCustomerForm.value.custGender,
+        gender: this.gender,
         first_name: this.addCustomerForm.value.custFirstName,
         last_name: this.addCustomerForm.value.custLastName,
         date_of_birth: date,
@@ -177,13 +182,15 @@ export class AddEditComponent implements OnInit {
       }
     }
 
+    console.log('body:', body)
+
     if(this.isChangePassword){
-      // alert("Edit")
+      alert("Edit")
       this._cS.API_PUT(this._cS.getCustomerList(),body)
       .subscribe(response =>{
         if(response){
 
-          // console.log('response:', response)
+          console.log('response:', response)
           this.router.navigateByUrl('/customers');
         }
       })
@@ -192,6 +199,7 @@ export class AddEditComponent implements OnInit {
       this._cS.API_POST(this._cS.getCustomerList(), body)
         .subscribe(response => {
           if(response){
+            console.log('response:', response)
             this.router.navigateByUrl('/customers');
           }
         })
