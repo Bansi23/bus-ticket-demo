@@ -26,7 +26,7 @@ pageSize: number = 10;
     this.getCustomerList();
   };
 
-  changePageSize(value) {
+  changePageSize(value) { 
     this.pageIndex = 1;
     this.pageSize = value;
     this.getCustomerList();

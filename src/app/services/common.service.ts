@@ -59,6 +59,29 @@ export class CommonService {
       return throwError(err);
     })));
   };
+  /** Put API Method.
+  * @param Url - Just pass url after /api/. Predefine url will take from environment
+  * @param Body - Pass body parameter in json. Ex : { id : 1, name : ABC, occupation : Angular Developer}
+ */
+
+  API_PUT(Url, Body): Observable<any> {
+    this.Display_Loader(true);
+    return this._httpClient.put<any>(`${Url}`, Body, { headers: hd }).pipe(map(res => {
+      this.Display_Loader(false);
+      setTimeout(() => {
+      }, 500);
+      return res;
+    }, catchError(err => {
+      this.Display_Loader(false);
+      if (err.status == 401) {
+      }
+      else if (err.status == 400) {
+      }
+      return throwError(err);
+    })));
+  };
+
+
 
   /** Delete API Method.
    * @param Url - Just pass url after /api/. Predefine url will take from environment

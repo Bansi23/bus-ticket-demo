@@ -73,7 +73,7 @@ export class AddEditComponent implements OnInit {
       console.log('this.customer:', this.customer)
     } else {
       alert("Id not found!")
-      this._cS.Display_Loader(true);
+      this._cS.Display_Loader(false);
     }
     this.settings = {
       text: "Customer roles",
@@ -177,14 +177,27 @@ export class AddEditComponent implements OnInit {
       }
     }
 
-    console.log('body:', body)
-    this._cS.API_POST(this._cS.getCustomerList(), body)
-      .subscribe(response => {
+    if(this.isChangePassword){
+      alert("Edit")
+      this._cS.API_PUT(this._cS.getCustomerList(),body)
+      .subscribe(response =>{
         if(response){
+
+          console.log('response:', response)
           this.router.navigateByUrl('/customers');
         }
       })
-  }
+      this.isChangePassword = false;
+    }else{
+      this._cS.API_POST(this._cS.getCustomerList(), body)
+        .subscribe(response => {
+          if(response){
+            this.router.navigateByUrl('/customers');
+          }
+        })
+
+    }
+  } 
   
   changePassword(){
     this.changePassword = this.addCustomerForm.value.custPassword;
