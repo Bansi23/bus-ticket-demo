@@ -164,8 +164,6 @@ export class SearchOrderComponent implements OnInit {
       });
   }
 
-
-
   select_all() {
     for (let i = 0; i < this.lstOrderData.length; i++) {
       this.lstOrderData[i].select = this.selectAll;
@@ -180,7 +178,7 @@ export class SearchOrderComponent implements OnInit {
   ViewData(index) {
     this._router.navigate(['/sales/viewrecord'], { queryParams: { id: index } });
   }
-  godirectlyOrder() {
+  goDirectlyOrder() {
     const index = this.searchOrder.get('orderno').value;
     this._router.navigate(['/sales/viewrecord'], { queryParams: { id: index } });
   }
