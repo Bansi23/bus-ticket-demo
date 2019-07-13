@@ -21,7 +21,7 @@ const routes: Routes = [
       {
         path: 'addProduct', component: ProductTabsComponent, data: { title: 'Create' },
         children: [
-          { path: '**', redirectTo: 'productInfo', pathMatch: 'full' },
+          { path: '', redirectTo: 'productInfo', pathMatch: 'full' },
           { path: 'productInfo', component: ProductinfoComponent },
           { path: 'productPicture', component: PicturesComponent },
           { path: 'productAttributes', component: AttributesComponent },
