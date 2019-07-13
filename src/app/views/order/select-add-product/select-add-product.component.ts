@@ -64,43 +64,31 @@ export class SelectAddProductComponent implements OnInit {
       .subscribe(response => {
         if (response) {
           this.orderItem = response.order_items;
-          this.orderItem.map(x => {
-            x.quantity = this.AddProduct.value.quantity,
-              x.unit_price_incl_tax = this.AddProduct.value.totalExcl,
-              x.unit_price_excl_tax = this.AddProduct.value.totalExcl,
-              x.price_incl_tax = this.AddProduct.value.totalExcl,
-              x.price_excl_tax = this.AddProduct.value.totalExcl,
-              x.discount_amount_incl_tax = 0.0000,
-              x.discount_amount_excl_tax = 0.0000,
-              x.original_product_cost = 0.0000,
-              x.attribute_description = "",
-              x.download_count = 0,
-              x.isDownload_activated = this.addProduct.is_download,
-              x.products = this.addProduct;
-          });
-
-          // let body = {
-          //   customer: {
-          //     email: this.addCustomerForm.value.custEmail,
-          //     password: this.addCustomerForm.value.custPassword,
-          //     role_ids: roles,
-          //     managerOfVendor: this.addCustomerForm.value.custManagerOfVendor,
-          //     gender: this.addCustomerForm.value.custGender,
-          //     first_name: this.addCustomerForm.value.custFirstName,
-          //     last_name: this.addCustomerForm.value.custLastName,
-          //     date_of_birth: date,
-          //     company: this.addCustomerForm.value.custCompanyName,
-          //     admin_comment: this.addCustomerForm.value.custAdminComment,
-          //     is_tax_exempt: this.addCustomerForm.value.custIsTaxExempt,
-          //     subscribed_to_newsletter: this.addCustomerForm.value.custNewsletter,
-          //     active: this.addCustomerForm.value.custActive
-          //   }
-          // }
           let body = {
-            
+            order_item: {
+              quantity: this.AddProduct.value.quantity,
+              unit_price_incl_tax: this.AddProduct.value.totalExcl,
+              managerOfVendor: this.AddProduct.value.totalExcl,
+              unit_price_excl_tax: this.AddProduct.value.totalExcl,
+              price_incl_tax: this.AddProduct.value.totalExcl,
+              price_excl_tax: this.AddProduct.value.totalExcl,
+              discount_amount_incl_tax: 0.0000,
+              discount_amount_excl_tax: 0.0000,
+              original_product_cost: 0.0000,
+              attribute_description: "",
+              download_count: 0,
+              isDownload_activated: this.addProduct.is_download,
+              product: this.addProduct
+            }
           }
-          this.orderItem.push(this.addProduct);
-          console.log('this.addProduct', this.orderItem);
+
+          this._cS.API_POST(this._cS.getOrderItem(this.orderid), body)
+            .subscribe(response => {
+              if (response) {
+               // console.log(response, 'res');
+              }
+            })
+         // console.log('this.addProduct', this.orderItem);
         }
       });
 

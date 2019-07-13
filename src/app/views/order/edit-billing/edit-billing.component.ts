@@ -50,7 +50,7 @@ export class EditBillingComponent implements OnInit {
       this.orderId = params['id']
       this.billingId = params['billingid']
       this.shippingId = params['shippingid']
-      console.log(this.shippingId, 'this.shippingId');
+     // console.log(this.shippingId, 'this.shippingId');
     });
     if (this.orderId) {
       this._cS.API_GET(this._cS.getOrderId(this.orderId))
@@ -113,7 +113,7 @@ export class EditBillingComponent implements OnInit {
         }
       }
     }
-    console.log('billing', body);
+    //console.log('billing', body);
   }
   editShpping() {
     let body = {
@@ -135,7 +135,7 @@ export class EditBillingComponent implements OnInit {
         }
       }
     }
-    console.log('shipping', body);
+   // console.log('shipping', body);
   }
   //#endregion
   constructor(private fb: FormBuilder, private _router: Router, private _mD: MockService, private _route: ActivatedRoute, private _cS: CommonService) { }
