@@ -55,12 +55,12 @@ export class AddEditComponent implements OnInit {
       });
 
     if (this.custId) {
-      alert("called")
+      // alert("called")
       this.isChangePassword = true;
       this._cS.API_GET(this._cS.getParticularCustomer(this.custId))
         .subscribe(response => {
           this.customer = response.customers;
-          console.log('this.customer:', this.customer)
+          // console.log('this.customer:', this.customer)
           // if(this.customer[0].addresses.length){
           //   this.companyName = this.customer[0].addresses[0].company
           // }else{
@@ -70,9 +70,9 @@ export class AddEditComponent implements OnInit {
 
           this.setValuesInForm();
         })
-      console.log('this.customer:', this.customer)
+      // console.log('this.customer:', this.customer)
     } else {
-      alert("Id not found!")
+      // alert("Id not found!")
       this._cS.Display_Loader(false);
     }
     this.settings = {
@@ -178,12 +178,12 @@ export class AddEditComponent implements OnInit {
     }
 
     if(this.isChangePassword){
-      alert("Edit")
+      // alert("Edit")
       this._cS.API_PUT(this._cS.getCustomerList(),body)
       .subscribe(response =>{
         if(response){
 
-          console.log('response:', response)
+          // console.log('response:', response)
           this.router.navigateByUrl('/customers');
         }
       })
