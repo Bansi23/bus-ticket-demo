@@ -45,8 +45,7 @@ export class AddEditComponent implements OnInit {
 
   ngOnInit() {
     this.lstCustomerRoles = this._mS.customerRoles();
-    console.log('this.lstCustomerRoles:', this.lstCustomerRoles)
-    this.lstManagerOfVendor = this._mS.getManagerOfVendor();
+     this.lstManagerOfVendor = this._mS.getManagerOfVendor();
     this.initAddCustomerForm();
 
     this.route
@@ -56,12 +55,12 @@ export class AddEditComponent implements OnInit {
       });
 
     if (this.custId) {
+      alert("called")
       this.isChangePassword = true;
       this._cS.API_GET(this._cS.getParticularCustomer(this.custId))
         .subscribe(response => {
           this.customer = response.customers;
           console.log('this.customer:', this.customer)
- 
           // if(this.customer[0].addresses.length){
           //   this.companyName = this.customer[0].addresses[0].company
           // }else{
@@ -73,6 +72,8 @@ export class AddEditComponent implements OnInit {
         })
       console.log('this.customer:', this.customer)
     } else {
+      alert("Id not found!")
+      this._cS.Display_Loader(false);
     }
     this.settings = {
       text: "Customer roles",
@@ -176,18 +177,30 @@ export class AddEditComponent implements OnInit {
       }
     }
 
-    console.log('body:', body)
-    this._cS.API_POST(this._cS.getCustomerList(), body)
-      .subscribe(response => {
+    if(this.isChangePassword){
+      alert("Edit")
+      this._cS.API_PUT(this._cS.getCustomerList(),body)
+      .subscribe(response =>{
         if(response){
+
+          console.log('response:', response)
           this.router.navigateByUrl('/customers');
         }
       })
-  }
+      this.isChangePassword = false;
+    }else{
+      this._cS.API_POST(this._cS.getCustomerList(), body)
+        .subscribe(response => {
+          if(response){
+            this.router.navigateByUrl('/customers');
+          }
+        })
+
+    }
+  } 
   
   changePassword(){
     this.changePassword = this.addCustomerForm.value.custPassword;
-     
   }
 
 }

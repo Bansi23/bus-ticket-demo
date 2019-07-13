@@ -15,14 +15,16 @@ export class CustomerOrderComponent implements OnInit {
   constructor(private router : Router,private _mS: MockService, private _cS: CommonService, private route:ActivatedRoute) { }
 
   ngOnInit() {
-
     this.route
     .queryParams
     .subscribe(params => {
        this.custId = params['id']
     });   
 
-    this.getCustomerOrders();
+    if(this.custId){
+      console.log('this.custId:', this.custId)
+      this.getCustomerOrders();
+    }
      
   }
   navigateToOrders(){
@@ -35,7 +37,7 @@ export class CustomerOrderComponent implements OnInit {
       
         
       this.lstTempOrders = response.orders;
-      console.log('response:', response)
+      console.log('responsed:', response)
         // console.log('this.lstOrders:', this.lstTempOrders[0])
         // console.log("order",this.lstTempOrders[0].id);
 

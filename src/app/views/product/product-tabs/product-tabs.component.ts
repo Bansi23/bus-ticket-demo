@@ -11,6 +11,12 @@ const editedRecord = JSON.parse(localStorage.getItem('EditedRecord'));
 })
 export class ProductTabsComponent implements OnInit {
   title: any = 'Add a new product';
+  lstTabs: any = [];
+
+  getTabs() {
+    this.lstTabs = this._cS.getProductTabs();
+  }
+
   backToList() {
     this._router.navigateByUrl('/catalog/product');
   }
@@ -23,18 +29,17 @@ export class ProductTabsComponent implements OnInit {
 
   constructor(private _router: Router,
     private _cS: CommonService,
-) { }
+  ) { }
 
   ngOnInit() {
+    this.getTabs();
     if (localStorage.getItem('editProductId') != null) {
       console.log('editedRecord:', editedRecord)
       this.title = `Edit product details - ${editedRecord.name}`;
     } else {
       this.title = 'Add a new product';
     }
+
     console.log('this.tabId:', this.tabId)
   }
-
-
-
 }

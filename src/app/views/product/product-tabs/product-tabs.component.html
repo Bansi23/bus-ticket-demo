@@ -22,22 +22,13 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <tabset #tabSet class="tab-menu-main">
-                            <tab heading="Product Info" id="1" (selectTab)="onSelect($event)">
-                                <a [routerLink]="['productInfo']" [routerLinkActive]="'active'"></a>
-                                <app-productinfo></app-productinfo>
-                            </tab>
-                            <tab heading="Pictures" id="2" (selectTab)="onSelect($event)"
-                                [routerLink]="['productPicture']">
-                                <app-pictures></app-pictures>
-                            </tab>
-                            <tab heading="Product Attributes" id="3" (selectTab)="onSelect($event)"
-                                [routerLink]="['productAttributes']">
-                                <app-productattributes></app-productattributes>
-                            </tab>
-                            <tab heading="Specification Attributes" id="4" (selectTab)="onSelect($event)"
-                                [routerLink]="['productSpecificationAttr']">
-                                <app-specificationattributes></app-specificationattributes>
-                            </tab>
+                            <ng-container *ngFor="let tab of lstTabs">
+                                <tab heading={{tab.name}} id={{tab.id}}></tab>
+                            </ng-container>
+                            <ng-template #name>
+                                <router-outlet></router-outlet>
+                            </ng-template>
+
                         </tabset>
                     </div>
                 </div>

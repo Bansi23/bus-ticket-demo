@@ -19,7 +19,7 @@
         </thead>
         <tbody>
             <tr
-                *ngFor="let c of lstcustomers | paginate: { itemsPerPage: pageSize, currentPage: pageIndex, totalItems: totalRecords }; let i =index">
+                *ngFor="let c of lstcustomers | paginate: { itemsPerPage: pageSize, currentPage: pageIndex, totalItems: totalRecords }; let i =index;">
                 <td>{{c.email}}</td>
                 <td>{{c.name}}</td>
                 <td>
@@ -43,7 +43,7 @@
     <div class="row">
         <div class="col-md-3 col-12">
             <div class="total-count--table">
-                <span>Total number of records : {{ lstcustomers.length}}</span>
+                <span>Total number of records : {{ totalRecords}}</span>
                 <button class="btn btn-primary" (click)="getCustomerList()"><i class="fa fa-refresh"></i></button>
             </div>
         </div>
