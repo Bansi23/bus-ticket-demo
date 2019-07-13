@@ -22,7 +22,7 @@ export class CustomerOrderComponent implements OnInit {
     });   
 
     if(this.custId){
-      console.log('this.custId:', this.custId)
+      // console.log('this.custId:', this.custId)
       this.getCustomerOrders();
     }
      
@@ -37,7 +37,7 @@ export class CustomerOrderComponent implements OnInit {
       
         
       this.lstTempOrders = response.orders;
-      console.log('responsed:', response)
+      // console.log('responsed:', response)
         // console.log('this.lstOrders:', this.lstTempOrders[0])
         // console.log("order",this.lstTempOrders[0].id);
 

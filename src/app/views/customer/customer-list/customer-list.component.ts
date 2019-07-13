@@ -32,7 +32,7 @@ pageSize: number = 10;
     this.getCustomerList();
   }
   navigateToEditCustomer(cust){
-  console.log("cust",cust.id);  
+  // console.log("cust",cust.id);  
   //  this._mS.setItemInStorage('customerToEdit',cust);
       
     // this.router.navigateByUrl('/customers/addEdit', {id : cust.id});
@@ -42,8 +42,8 @@ pageSize: number = 10;
     this._cS.API_GET(this._cS.getCustomersList(this.pageSize,this.pageIndex))
       .subscribe(response => {
         // this.totalRecords = response.customers.length
-        console.log('this.totalRecords :', this.totalRecords )
-        console.log("res", response);
+        // console.log('this.totalRecords :', this.totalRecords )
+        // console.log("res", response);
         for (let i = 0; i < response.customers.length; i++) {
           const data = {
             id: response.customers[i].id,
@@ -63,7 +63,7 @@ pageSize: number = 10;
     this._cS.API_GET(this._cS.getCustomerTotalRecord())
     .subscribe(response =>{
       this.totalRecords = response.count;
-      console.log('response:', response.count)
+      // console.log('response:', response.count)
       this.getCustomerList(); 
     })
   }
