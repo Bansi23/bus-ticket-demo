@@ -19,17 +19,61 @@
         </div>
         <div class="card-body">
             <div class="animated fadeIn">
-                <div class="row">
+                <!-- <div class="row">
                     <div class="col-lg-12">
                         <tabset #tabSet class="tab-menu-main">
-                            <ng-container *ngFor="let tab of lstTabs">
-                                <tab heading={{tab.name}} id={{tab.id}}></tab>
-                            </ng-container>
-                            <ng-template #name>
+                            <tab heading="Product Info" id="1" (selectTab)="onSelect($event)">
+                                <a [routerLink]="['productInfo']" [routerLinkActive]="'active'">Product Info</a>
+                            </tab>
+                            <tab heading="Pictures" id="2" (selectTab)="onSelect($event)">
+                                <a [routerLink]="['productPicture']" [routerLinkActive]="'active'">Pictures</a>
+                            </tab>
+                            <tab heading="Product Attributes" id="3" (selectTab)="onSelect($event)">
+                                <a [routerLink]="['productAttributes']" [routerLinkActive]="'active'">Product Attributes</a>
+                            </tab>
+                            <tab heading="Specification Attributes" id="4" (selectTab)="onSelect($event)">
+                                <a [routerLink]="['productSpecificationAttr']" [routerLinkActive]="'active'">Specification Attributes</a>
+                            </tab>
+                            <div class="col col-sm-12">
                                 <router-outlet></router-outlet>
-                            </ng-template>
-
+                            </div>
                         </tabset>
+                    </div>
+                </div> -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div ng-reflect-justified="true" class="tab-container tab-box-main">
+                            <ul class="nav nav-justified nav-tabs">
+                                <li class="nav-item" [routerLink]="['productInfo']" [routerLinkActive]="'active'">
+                                    <a class="nav-link" [routerLink]="['productInfo']" [routerLinkActive]="'active'">
+                                        <span></span>Product Info
+                                    </a>
+                                </li>
+                                <li class="nav-item" [routerLink]="['productPicture']" [routerLinkActive]="'active'">
+                                    <a class="nav-link" [routerLink]="['productPicture']" [routerLinkActive]="'active'">
+                                        <span></span>Pictures
+                                    </a>
+                                </li>
+                                <li class="nav-item" [routerLink]="['productAttributes']" [routerLinkActive]="'active'">
+                                    <a class="nav-link" [routerLink]="['productAttributes']"
+                                        [routerLinkActive]="'active'">
+                                        <span></span>Product Attributes
+                                    </a>
+                                </li>
+                                <li class="nav-item" [routerLink]="['productSpecificationAttr']"
+                                    [routerLinkActive]="'active'">
+                                    <a class="nav-link" [routerLink]="['productSpecificationAttr']"
+                                        [routerLinkActive]="'active'">
+                                        <span></span>Specification Attributes
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="active tab-pane">
+                                    <router-outlet></router-outlet>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

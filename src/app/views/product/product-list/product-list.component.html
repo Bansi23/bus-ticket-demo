@@ -9,15 +9,15 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th><input type="checkbox" [(ngModel)]="selectAll" (change)="select_all()"></th>
+                                <!-- <th><input type="checkbox" [(ngModel)]="selectAll" (change)="select_all()"></th> -->
                                 <th *ngFor="let h of tableHeader">{{h | titlecase}}</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr
                                 *ngFor="let prod of lstProduct | paginate: { itemsPerPage: pageSize, currentPage: pageIndex, totalItems: totalRecords }; let i=index;">
-                                <td><input type="checkbox" [(ngModel)]="prod.select" (change)="checkIfAllSelected(prod)"
-                                        [ngModelOptions]="{standalone: true}"></td>
+                                <!-- <td><input type="checkbox" [(ngModel)]="prod.select" (change)="checkIfAllSelected(prod)"
+                                        [ngModelOptions]="{standalone: true}"></td> -->
                                 <td><img src="{{prod.images.length > 0 ? prod.images[0].src : 'assets/img/no_image.png'}}"
                                         width="110px" height="110px" alt="product" /></td>
                                 <td>{{prod.name}}</td>

@@ -28,3 +28,26 @@
 .top-mrging {
   margin-top: 10px;
 }
+.nav-tabs > .nav-item > .nav-link.active {
+  border-top: 2px solid #23b7e5;
+}
+
+.tab-box-main .nav-tabs > .nav-item > .nav-link {
+  background-color: #3dbee7;
+  border-right: 0;
+  padding: 5px 0px !important;
+  font-size: 14px;
+  font-weight: normal;
+  position: relative;
+  border: 0px;
+  color: #fff;
+  border-top: 1px solid #23b7e5;
+}
+.tab-box-main .nav-tabs > .nav-item > .nav-link {
+  background-color: #fff;
+  color: #656565;
+}
+.tab-box-main .nav-link.active {
+  background-color: #3dbee7 !important;
+  color: #fff !important;
+}
