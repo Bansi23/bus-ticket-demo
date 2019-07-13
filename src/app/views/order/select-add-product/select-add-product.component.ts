@@ -81,14 +81,15 @@ export class SelectAddProductComponent implements OnInit {
               product: this.addProduct
             }
           }
+          console.log('body:', body)
 
           this._cS.API_POST(this._cS.getOrderItem(this.orderid), body)
             .subscribe(response => {
               if (response) {
-               // console.log(response, 'res');
+                console.log(response, 'res');
               }
             })
-         // console.log('this.addProduct', this.orderItem);
+          // console.log('this.addProduct', this.orderItem);
         }
       });
 
