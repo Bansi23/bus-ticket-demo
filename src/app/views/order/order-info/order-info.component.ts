@@ -46,7 +46,7 @@ export class OrderInfoComponent implements OnInit {
     }
   }
   selectedChanged(value) {
-    console.log('value', value);
+  //  console.log('value', value);
     this.orderstatusValue = value;
   }
   CancleOrder() {
@@ -70,11 +70,11 @@ export class OrderInfoComponent implements OnInit {
     const body = {
       "order_status": this.orderstatusValue
     }
-    console.log('this.orderstatusValue.itemName', body)
+  //  console.log('this.orderstatusValue.itemName', body)
     this._cS.API_POST(this._cS.getOrderId(this.orderId), body)
       .subscribe(res => {
         if (res) {
-          console.log('res', res);
+         // console.log('res', res);
         } else {
         };
       }, err => {
