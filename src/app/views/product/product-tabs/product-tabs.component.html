@@ -21,15 +21,41 @@
             <div class="animated fadeIn">
                 <div class="row">
                     <div class="col-lg-12">
-                        <tabset #tabSet class="tab-menu-main">
-                            <ng-container *ngFor="let tab of lstTabs">
-                                <tab heading={{tab.name}} id={{tab.id}}></tab>
-                            </ng-container>
-                            <ng-template #name>
-                                <router-outlet></router-outlet>
-                            </ng-template>
-
-                        </tabset>
+                        <!-- <tabset #tabSet class="tab-menu-main">
+                            <tab heading="Product Info" id="1" (selectTab)="onSelect($event)">
+                                <a [routerLink]="['productInfo']" [routerLinkActive]="'active'"></a>
+                            </tab>
+                            <tab heading="Pictures" id="2" (selectTab)="onSelect($event)">
+                                <a [routerLink]="['productPicture']" [routerLinkActive]="'active'"></a>
+                            </tab>
+                            <tab heading="Product Attributes" id="3" (selectTab)="onSelect($event)">
+                                <a [routerLink]="['productAttributes']" [routerLinkActive]="'active'"></a>
+                            </tab>
+                            <tab heading="Specification Attributes" id="4" (selectTab)="onSelect($event)">
+                                <a [routerLink]="['productSpecificationAttr']" [routerLinkActive]="'active'"></a>
+                            </tab>
+                        </tabset> -->
+                        <ul class="tabs">
+                            <li class="tab">
+                                <a [routerLink]="['productInfo']" [routerLinkActive]="'active'">Account Details </a>
+                            </li>
+                            <li class="tab">
+                                <a [routerLink]="['productPicture']" [routerLinkActive]="'active'"> Edit Profile
+                                </a>
+                            </li>
+                            <li class="tab">
+                                <a [routerLink]="['productAttributes']" [routerLinkActive]="'active'">Reservations</a>
+                            </li>
+                            <li class="tab">
+                                <a [routerLink]="['productSpecificationAttr']" [routerLinkActive]="'active'">Change
+                                    Password</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col col-sm-12">
+                        <router-outlet></router-outlet>
                     </div>
                 </div>
             </div>
