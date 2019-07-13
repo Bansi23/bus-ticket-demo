@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, throwError, forkJoin } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { map, catchError, count } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
@@ -59,6 +59,29 @@ export class CommonService {
       return throwError(err);
     })));
   };
+  /** Put API Method.
+  * @param Url - Just pass url after /api/. Predefine url will take from environment
+  * @param Body - Pass body parameter in json. Ex : { id : 1, name : ABC, occupation : Angular Developer}
+ */
+
+  API_PUT(Url, Body): Observable<any> {
+    this.Display_Loader(true);
+    return this._httpClient.put<any>(`${Url}`, Body, { headers: hd }).pipe(map(res => {
+      this.Display_Loader(false);
+      setTimeout(() => {
+      }, 500);
+      return res;
+    }, catchError(err => {
+      this.Display_Loader(false);
+      if (err.status == 401) {  
+      }
+      else if (err.status == 400) {
+      }
+      return throwError(err);
+    })));
+  };
+
+
 
   /** Delete API Method.
    * @param Url - Just pass url after /api/. Predefine url will take from environment
@@ -87,14 +110,12 @@ export class CommonService {
   getOrderId(id: number) {
     return baseUrl + `orders/${id}`;
   }
-
   getOrderItem(orderId) {
     return baseUrl + `orders/${orderId}/items`;
   }
   getOrderItemId(orderId, itemId) {
     return baseUrl + `orders/${orderId}/items/${itemId}`;
   }
-
   getCountItem() {
     return baseUrl + `orders/count`;
   }
@@ -124,6 +145,9 @@ export class CommonService {
   getCustomersList(PageSize, PageIndex) {
     return baseUrl + `customers?Limit=${PageSize}&Page=${PageIndex}`;
 
+  }
+  getCustomerTotalRecord(){
+    return baseUrl + `customers/count`;
   }
 
   formatAMPM() {

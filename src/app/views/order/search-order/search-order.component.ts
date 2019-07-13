@@ -110,7 +110,7 @@ export class SearchOrderComponent implements OnInit {
     this._cS.API_GET(this._cS.getCountItem())
       .subscribe(res => {
         if (res) {
-          console.log(res)
+          // console.log(res)
           this.totalRecord = res.count;
         }
       });
@@ -164,8 +164,6 @@ export class SearchOrderComponent implements OnInit {
       });
   }
 
-
-
   select_all() {
     for (let i = 0; i < this.lstOrderData.length; i++) {
       this.lstOrderData[i].select = this.selectAll;
@@ -178,7 +176,10 @@ export class SearchOrderComponent implements OnInit {
   }
 
   ViewData(index) {
-    console.log(index);
+    this._router.navigate(['/sales/viewrecord'], { queryParams: { id: index } });
+  }
+  goDirectlyOrder() {
+    const index = this.searchOrder.get('orderno').value;
     this._router.navigate(['/sales/viewrecord'], { queryParams: { id: index } });
   }
 

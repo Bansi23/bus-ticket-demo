@@ -21,31 +21,34 @@ export class CustomerOrderComponent implements OnInit {
        this.custId = params['id']
     });   
 
-   // this.getCustomerOrders();
+    if(this.custId){
+      // console.log('this.custId:', this.custId)
+      this.getCustomerOrders();
+    }
      
   }
   navigateToOrders(){
     //  this.router.navigateByUrl('')
 
   }
-  // getCustomerOrders(){
-  //   this._cS.API_GET(this._cS.getPaticularCustomerOrder(this.custId))
-  //   .subscribe(response =>{
+  getCustomerOrders(){
+    this._cS.API_GET(this._cS.getPaticularCustomerOrder(this.custId))
+    .subscribe(response =>{
       
         
-  //     this.lstTempOrders = response.orders;
-  //     console.log('response:', response)
-  //       // console.log('this.lstOrders:', this.lstTempOrders[0])
-  //       // console.log("order",this.lstTempOrders[0].id);
+      this.lstTempOrders = response.orders;
+      // console.log('responsed:', response)
+        // console.log('this.lstOrders:', this.lstTempOrders[0])
+        // console.log("order",this.lstTempOrders[0].id);
 
-  //       // this.lstOrders.push(this.lstTempOrders[0].id);
-  //       // this.lstOrders.push(this.lstTempOrders[0].order_total);
-  //       // this.lstOrders.push(this.lstTempOrders[0].order_status);
-  //       // this.lstOrders.push(this.lstTempOrders[0].payment_status);
-  //       // this.lstOrders.push(this.lstTempOrders[0].shipping_status);
-  //       // this.lstOrders.push(this.lstTempOrders[0].created_on_utc)
-  //     })
+        // this.lstOrders.push(this.lstTempOrders[0].id);
+        // this.lstOrders.push(this.lstTempOrders[0].order_total);
+        // this.lstOrders.push(this.lstTempOrders[0].order_status);
+        // this.lstOrders.push(this.lstTempOrders[0].payment_status);
+        // this.lstOrders.push(this.lstTempOrders[0].shipping_status);
+        // this.lstOrders.push(this.lstTempOrders[0].created_on_utc)
+      })
     
-  // }
+  }
 
 }

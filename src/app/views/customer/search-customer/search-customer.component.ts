@@ -42,7 +42,7 @@ export class SearchCustomerComponent implements OnInit {
   getCustomerList() {
     this._cS.API_GET(this._cS.getCustomerList())
       .subscribe(response => {
-        console.log("response", response);
+        // console.log("response", response);
 
       })
   }
