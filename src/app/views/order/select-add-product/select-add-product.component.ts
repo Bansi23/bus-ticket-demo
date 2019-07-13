@@ -96,6 +96,9 @@ export class SelectAddProductComponent implements OnInit {
           //     active: this.addCustomerForm.value.custActive
           //   }
           // }
+          let body = {
+            
+          }
           this.orderItem.push(this.addProduct);
           console.log('this.addProduct', this.orderItem);
         }

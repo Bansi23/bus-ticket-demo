@@ -18,6 +18,7 @@ export class EditBillingComponent implements OnInit {
   editRecord: any;
   shippingId: any;
   billingId: any;
+  isbtnedit: boolean = true;
 
 
   //#region form group
@@ -94,43 +95,48 @@ export class EditBillingComponent implements OnInit {
   }
   editBilling() {
     let body = {
-      billing_address: {
-        first_name: this.editbillingForm.value.fnm,
-        last_name: this.editbillingForm.value.fnm,
-        email: this.editbillingForm.value.fnm,
-        company: this.editbillingForm.value.fnm,
-        country: this.editbillingForm.value.fnm,
-        state_province_id: this.editbillingForm.value.fnm,
-        city: this.editbillingForm.value.fnm,
-        address1: this.editbillingForm.value.fnm,
-        address2: this.editbillingForm.value.fnm,
-        zip_postal_code: this.editbillingForm.value.fnm,
-        phone_number: this.editbillingForm.value.fnm,
-        fax_number: this.editbillingForm.value.fnm,
-        province: null,
-        id: 14
+      order: {
+        billing_address: {
+          first_name: this.editbillingForm.value.fnm,
+          last_name: this.editbillingForm.value.lnm,
+          email: this.editbillingForm.value.mail,
+          company: this.editbillingForm.value.company,
+          country: this.editbillingForm.value.country,
+          state_province_id: this.editbillingForm.value.state,
+          city: this.editbillingForm.value.city,
+          address1: this.editbillingForm.value.addone,
+          address2: this.editbillingForm.value.addtwo,
+          zip_postal_code: this.editbillingForm.value.pinno,
+          phone_number: this.editbillingForm.value.mono,
+          fax_number: this.editbillingForm.value.faxno,
+          province: null,
+        }
       }
     }
+    console.log('billing', body);
   }
-
-
-  // let body = {
-  //   customer: {
-  //     id: this.addCustomerForm.value.custEmail,
-  //     password: this.addCustomerForm.value.custPassword,
-  //     role_ids: roles,
-  //     managerOfVendor: this.addCustomerForm.value.custManagerOfVendor,
-  //     gender: this.addCustomerForm.value.custGender,
-  //     first_name: this.addCustomerForm.value.custFirstName,
-  //     last_name: this.addCustomerForm.value.custLastName,
-  //     date_of_birth: date,
-  //     company: this.addCustomerForm.value.custCompanyName,
-  //     admin_comment: this.addCustomerForm.value.custAdminComment,
-  //     is_tax_exempt: this.addCustomerForm.value.custIsTaxExempt,
-  //     subscribed_to_newsletter: this.addCustomerForm.value.custNewsletter,
-  //     active: this.addCustomerForm.value.custActive
-  //   }
-  // }
+  editShpping() {
+    let body = {
+      order: {
+        shipping_address: {
+          first_name: this.editbillingForm.value.fnm,
+          last_name: this.editbillingForm.value.lnm,
+          email: this.editbillingForm.value.mail,
+          company: this.editbillingForm.value.company,
+          country: this.editbillingForm.value.country,
+          state_province_id: this.editbillingForm.value.state,
+          city: this.editbillingForm.value.city,
+          address1: this.editbillingForm.value.addone,
+          address2: this.editbillingForm.value.addtwo,
+          zip_postal_code: this.editbillingForm.value.pinno,
+          phone_number: this.editbillingForm.value.mono,
+          fax_number: this.editbillingForm.value.faxno,
+          province: null,
+        }
+      }
+    }
+    console.log('shipping', body);
+  }
   //#endregion
   constructor(private fb: FormBuilder, private _router: Router, private _mD: MockService, private _route: ActivatedRoute, private _cS: CommonService) { }
 
