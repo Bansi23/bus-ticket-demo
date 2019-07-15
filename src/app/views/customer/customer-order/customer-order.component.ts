@@ -22,8 +22,7 @@ export class CustomerOrderComponent implements OnInit {
     });   
 
     if(this.custId){
-      console.log('this.custId:', this.custId)
-      this.getCustomerOrders();
+       this.getCustomerOrders();
     }
      
   }
@@ -33,11 +32,8 @@ export class CustomerOrderComponent implements OnInit {
   getCustomerOrders(){
      this._cS.API_GET(this._cS.getPaticularCustomerOrder(this.custId))
     .subscribe(response =>{
-      console.log("customer order",response);
-      this.lstTempOrders = response.orders;
-      console.log('responsed:', response);
-        console.log('this.lstOrders:', this.lstTempOrders[0]);
-        // this.lstOrders.push(this.lstTempOrders[0].id);
+       this.lstTempOrders = response.orders;
+         // this.lstOrders.push(this.lstTempOrders[0].id);
         // this.lstOrders.push(this.lstTempOrders[0].order_total);
         // this.lstOrders.push(this.lstTempOrders[0].order_status); 
         // this.lstOrders.push(this.lstTempOrders[0].payment_status);

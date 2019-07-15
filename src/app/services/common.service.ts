@@ -138,6 +138,7 @@ export class CommonService {
   getParticularCustomer(custId) {
     return baseUrl + `customers/${custId}`
   }
+  
 
   getPaticularCustomerOrder(custId) {
     return baseUrl + `orders/customer/${custId}`

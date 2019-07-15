@@ -22,17 +22,14 @@ export class CustomerAddressComponent implements OnInit {
     });   
 
     if(this.custId){
-      console.log('this.custId:', this.custId)
-      this.getCustomerOrderAddress();
+       this.getCustomerOrderAddress();
     }
 
   }
   getCustomerOrderAddress(){
-    alert("ads");
-    this._cS.API_GET(this._cS.getPaticularCustomerOrder(this.custId))
+     this._cS.API_GET(this._cS.getPaticularCustomerOrder(this.custId))
     .subscribe(response =>{
-      console.log('response:', response)
-      })
+       })
     
   }
 
