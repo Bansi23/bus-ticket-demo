@@ -35,23 +35,29 @@ export class EditBillingComponent implements OnInit {
       addone: ['', Validators.required],
       addtwo: [''],
       pinno: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]\\d{0,15}')])],
-      faxno: ['', Validators.pattern('[0-9]\\d{0,15}')],
+      faxno: [''],
     });
   }
-  backToSearchList() {
+
+  getParameter() {
     this._route.queryParams.subscribe(params => {
       this.orderId = params['id']
     });
+  }
+  backToSearchList() {
     this._router.navigate(['/sales/viewrecord'], { queryParams: { id: this.orderId } });
   }
 
-  getRecord() {
+  getParam() {
     this._route.queryParams.subscribe(params => {
       this.orderId = params['id']
       this.billingId = params['billingid']
       this.shippingId = params['shippingid']
-     // console.log(this.shippingId, 'this.shippingId');
     });
+  }
+
+  getRecord() {
+    this.getParam();
     if (this.orderId) {
       this._cS.API_GET(this._cS.getOrderId(this.orderId))
         .subscribe(response => {
@@ -94,13 +100,15 @@ export class EditBillingComponent implements OnInit {
     }
   }
   editBilling() {
-    let body = {
+    this.getParam();
+    var body = {
       order: {
         billing_address: {
           first_name: this.editbillingForm.value.fnm,
           last_name: this.editbillingForm.value.lnm,
           email: this.editbillingForm.value.mail,
           company: this.editbillingForm.value.company,
+          country_id: +this.id,
           country: this.editbillingForm.value.country,
           state_province_id: this.editbillingForm.value.state,
           city: this.editbillingForm.value.city,
@@ -109,42 +117,70 @@ export class EditBillingComponent implements OnInit {
           zip_postal_code: this.editbillingForm.value.pinno,
           phone_number: this.editbillingForm.value.mono,
           fax_number: this.editbillingForm.value.faxno,
-          province: null,
-        }
+          id: +this.billingId
+        },
+        id: +this.orderId
       }
     }
-    //console.log('billing', body);
+    console.log('body', body);
+    this._cS.API_PUT(this._cS.getOrderId(this.orderId), body)
+      .subscribe(res => {
+        if (res) {
+          this._router.navigate(['/sales/viewrecord'], { queryParams: { id: this.orderId } });
+        } else {
+        };
+      }, err => {
+        console.log(err, 'err')
+      });
   }
   editShpping() {
-    let body = {
-      order: {
-        shipping_address: {
-          first_name: this.editbillingForm.value.fnm,
-          last_name: this.editbillingForm.value.lnm,
-          email: this.editbillingForm.value.mail,
-          company: this.editbillingForm.value.company,
-          country: this.editbillingForm.value.country,
-          state_province_id: this.editbillingForm.value.state,
-          city: this.editbillingForm.value.city,
-          address1: this.editbillingForm.value.addone,
-          address2: this.editbillingForm.value.addtwo,
-          zip_postal_code: this.editbillingForm.value.pinno,
-          phone_number: this.editbillingForm.value.mono,
-          fax_number: this.editbillingForm.value.faxno,
-          province: null,
+    this.getParam();
+    for (let i = 0; i < this.lstCountry.length; i++) {
+      var body = {
+        order: {
+          shipping_address: {
+            first_name: this.editbillingForm.value.fnm,
+            last_name: this.editbillingForm.value.lnm,
+            email: this.editbillingForm.value.mail,
+            company: this.editbillingForm.value.company,
+            country: this.editbillingForm.value.country,
+            country_id: this.lstCountry[i].country_id,
+            state_province_id: this.editbillingForm.value.state,
+            city: this.editbillingForm.value.city,
+            address1: this.editbillingForm.value.addone,
+            address2: this.editbillingForm.value.addtwo,
+            zip_postal_code: this.editbillingForm.value.pinno,
+            phone_number: this.editbillingForm.value.mono,
+            fax_number: this.editbillingForm.value.faxno,
+            province: null,
+            id: this.shippingId
+          },
+          id: +this.orderId
         }
       }
     }
-   // console.log('shipping', body);
+
+    this._cS.API_PUT(this._cS.getOrderId(this.orderId), body)
+      .subscribe(res => {
+        if (res) {
+          this._router.navigate(['/sales/viewrecord'], { queryParams: { id: this.orderId } });
+        } else {
+        };
+      }, err => {
+      });
   }
   //#endregion
+
   constructor(private fb: FormBuilder, private _router: Router, private _mD: MockService, private _route: ActivatedRoute, private _cS: CommonService) { }
 
+  id: number = 1;
   ngOnInit() {
     this.fbEditAddress();
     this.getRecord();
-    //   this.patchRecord();
     this.lstCountry = this._mD.countryList();
+    this.lstCountry.map(x => {
+      x.country_id = this.id++;
+    });
   }
 
 }

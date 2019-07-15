@@ -130,38 +130,49 @@ export class SearchOrderComponent implements OnInit {
   filteredPayment: any;
   filteredShipping: any;
   onItemOrderSelect(item?: any) {
-    const selectedData = this.selectedorderItems.map((x: { itemName: any; }) => { return x.itemName });
-    this.filteredOrder = this.lstOrderData.filter(
-      function (e) { return this.indexOf(e.order_status) != -1; }, selectedData);
+    this.filteredOrder = item;
+    // const selectedData = this.selectedorderItems.map((x: { itemName: any; }) => { return x.itemName });
+    // this.filteredOrder = this.lstOrderData.filter(
+    //   function (e) { return this.indexOf(e.order_status) != -1; }, selectedData);
   }
   paymentstatus: any;
-  onItemPaymentSelect(item?: any) {
-    this.pageIndex = 1;
-    // const selectedData = this.selectedpaymentItems.map((x: { itemName: any; }) => { return x.itemName });
-    // this.filteredOrder = this.lstOrderData.filter(
-    //   function (e) { return this.indexOf(e.payment_status) != -1; }, selectedData);
-    // this.paymentstatus = this.filteredOrder;
-    this.paymentstatus = item;
-  }
+  // onItemPaymentSelect(item?: any) {
+  //   this.pageIndex = 1;
+  //   // const selectedData = this.selectedpaymentItems.map((x: { itemName: any; }) => { return x.itemName });
+  //   // this.filteredOrder = this.lstOrderData.filter(
+  //   //   function (e) { return this.indexOf(e.payment_status) != -1; }, selectedData);
+  //   // this.paymentstatus = this.filteredOrder;
+  //   this.paymentstatus = item;
+  // }
+  // onChangePayment(event) {
+  //   this.pageIndex = 1;
+  //   this.paymentstatus = event;
+  // }
 
   onItemshippingSelect(item?: any) {
-    const selectedData = this.selectedshippingItem.map((x: { itemName: any; }) => { return x.itemName });
-    this.filteredShipping = this.lstOrderData.filter(
-      function (e) { return this.indexOf(e.shipping_status) != -1; }, selectedData);
+    // const selectedData = this.selectedshippingItem.map((x: { itemName: any; }) => { return x.itemName });
+    // this.filteredShipping = this.lstOrderData.filter(
+    //   function (e) { return this.indexOf(e.shipping_status) != -1; }, selectedData);
+    this.filteredShipping = item;
   }
 
   searchRecord() {
-    this.onItemOrderSelect();
+    this.onItemOrderSelect(this.filteredOrder);
+    this.onItemshippingSelect(this.filteredShipping);
     this.lstOrderData = this.filteredOrder;
-    this.onItemPaymentSelect(this.paymentstatus);
-    const payment = this.paymentstatus.itemName;
-    this._cS.API_GET(this._cS.getpaymentsearch(payment))
+    const payment = this.searchOrder.get('paymentStatus').value;
+    if(payment == "All"){
+      this.GetRecord();
+    }
+    else{
+      this._cS.API_GET(this._cS.getsearchRecord(payment))
       .subscribe(res => {
         if (res) {
           this.lstOrderData = res.orders;
           this.finalTotal = this.lstOrderData.map(o => o.order_total).reduce((a, c) => a + c, 0);
         }
       });
+    } 
   }
 
   select_all() {
@@ -216,7 +227,5 @@ export class SearchOrderComponent implements OnInit {
     this.GetCountRecord();
     this.GetRecord();
     this.lstOrderData.map(x => { x.select = '' });
-
-
   }
 }

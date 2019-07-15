@@ -31,7 +31,6 @@ export class CustomerOrderComponent implements OnInit {
     //  this.router.navigateByUrl('')
   }
   getCustomerOrders(){
-
      this._cS.API_GET(this._cS.getPaticularCustomerOrder(this.custId))
     .subscribe(response =>{
       console.log("customer order",response);

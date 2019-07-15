@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MockService } from '../../../services/mock.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CommonService } from '../../../services/common.service';
 
@@ -13,11 +12,12 @@ export class BillingShippingComponent implements OnInit {
   editRec: boolean = true;
   viewRecord: any = [];
   orderId: any;
+  shippingAddress = 'https://maps.google.com/maps';
   EditShipMethod() {
     this.editRec = false;
   }
   cancleEdit() {
-   // this.shippingMethod = "Ground";
+    // this.shippingMethod = "Ground";
     this.editRec = true;
   }
   SaveChanges() {
@@ -27,7 +27,6 @@ export class BillingShippingComponent implements OnInit {
 
   billingEdit(id, billingid) {
     this._router.navigate(['/sales/editbilling'], { queryParams: { id: id, billingid: billingid } });
-
   }
   shippingEdit(id, shippingid) {
     this._router.navigate(['/sales/editbilling'], { queryParams: { id: id, shippingid: shippingid } });
@@ -49,6 +48,14 @@ export class BillingShippingComponent implements OnInit {
 
   ngOnInit() {
     this.getRecord();
+    const baseUrl = `https://maps.google.com/maps`;
+    for (let i = 0; i < this.viewRecord.length; i++) {
+      const pin = this.viewRecord[i].shipping_address.zip_postal_code;
+      const city = this.viewRecord[i].shipping_address.city;
+      const country = this.viewRecord[i].shipping_address.country;
+      const addone = this.viewRecord[i].shipping_address.address1;
+      this.shippingAddress = baseUrl + `search/${pin}+${city}+${country}+${addone}`;
+    }
   }
 
   constructor(private _router: Router, private _cS: CommonService, private _route: ActivatedRoute) { }

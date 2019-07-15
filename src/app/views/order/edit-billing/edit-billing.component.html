@@ -67,7 +67,7 @@
                     <label for="mail">Country<span class="text-danger"
                             *ngIf="editbillingForm.controls.country.errors?.required">*</span></label>
                     <select class="form-control" formControlName="country">
-                        <option *ngFor="let country of lstCountry" [ngValue]="country">
+                        <option *ngFor="let country of lstCountry">
                             {{country.name}}</option>
                     </select>
                     <span class="text-danger"
@@ -158,10 +158,10 @@
                     <label for="faxno">Fax No.<span class="text-danger"
                             *ngIf="editbillingForm.controls.faxno.errors?.pattern">*</span></label>
                     <input type="text" class="form-control" formControlName="faxno">
-                    <span class="text-danger"
+                    <!-- <span class="text-danger"
                         *ngIf="editbillingForm.get('faxno').hasError('pattern') && editbillingForm.get('faxno').touched">
                         Enter valid Fax number
-                    </span>
+                    </span> -->
                 </div>
             </div>
         </form>
