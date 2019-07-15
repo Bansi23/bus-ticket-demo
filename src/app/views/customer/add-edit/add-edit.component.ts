@@ -24,7 +24,7 @@ export class AddEditComponent implements OnInit {
   customer;
   companyName: any;
   ctRoles;
-  isChangePassword : boolean = false;
+  isChangePassword: boolean = false;
   changedPassword;
   IPAddress;
   createdOn;
@@ -45,13 +45,14 @@ export class AddEditComponent implements OnInit {
 
   ngOnInit() {
     this.lstCustomerRoles = this._mS.customerRoles();
-     this.lstManagerOfVendor = this._mS.getManagerOfVendor();
+    this.lstManagerOfVendor = this._mS.getManagerOfVendor();
     this.initAddCustomerForm();
 
     this.route
       .queryParams
       .subscribe(params => {
         this.custId = params['id']
+        console.log('   this.custId', this.custId)
       });
 
     if (this.custId) {
@@ -117,7 +118,7 @@ export class AddEditComponent implements OnInit {
     this.addCustomerForm.patchValue({
       custEmail: this.customer[0].email,
       // custPassword : this.dataToSet.
-      custRoles : this.customer[0].role_ids,
+      custRoles: this.customer[0].role_ids,
       //manager of vendor
       custGender: this.customer[0].gender,
       custFirstName: this.customer[0].first_name,
@@ -139,8 +140,8 @@ export class AddEditComponent implements OnInit {
   filteredShipping: any;
   onItemRoleSelect(item?: any) {
     this.ctRoles = this.addCustomerForm.value.custRoles;
-     const selectedData = this.selectedcustomerRoles.map((x: { itemName: any; }) => { return x.itemName });
-     this.filteredOrder = this.lstCustomerRoles.filter(
+    const selectedData = this.selectedcustomerRoles.map((x: { itemName: any; }) => { return x.itemName });
+    this.filteredOrder = this.lstCustomerRoles.filter(
       function (e) { return this.indexOf(e.order_status) != -1; }, selectedData);
   }
 
@@ -177,29 +178,29 @@ export class AddEditComponent implements OnInit {
       }
     }
 
-    if(this.isChangePassword){
+    if (this.isChangePassword) {
       // alert("Edit")
-      this._cS.API_PUT(this._cS.getCustomerList(),body)
-      .subscribe(response =>{
-        if(response){
+      this._cS.API_PUT(this._cS.getCustomerList(), body)
+        .subscribe(response => {
+          if (response) {
 
-          // console.log('response:', response)
-          this.router.navigateByUrl('/customers');
-        }
-      })
+            // console.log('response:', response)
+            this.router.navigateByUrl('/customers');
+          }
+        })
       this.isChangePassword = false;
-    }else{
+    } else {
       this._cS.API_POST(this._cS.getCustomerList(), body)
         .subscribe(response => {
-          if(response){
+          if (response) {
             this.router.navigateByUrl('/customers');
           }
         })
 
     }
-  } 
-  
-  changePassword(){
+  }
+
+  changePassword() {
     this.changePassword = this.addCustomerForm.value.custPassword;
   }
 

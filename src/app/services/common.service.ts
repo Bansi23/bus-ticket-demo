@@ -119,7 +119,7 @@ export class CommonService {
   getCountItem() {
     return baseUrl + `orders/count`;
   }
-  getpaymentsearch(PaymentStatus) {
+  getsearchRecord(PaymentStatus) {
     return baseUrl + `orders?PaymentStatus=${PaymentStatus}`;
   }
   getOrder() {
@@ -140,7 +140,7 @@ export class CommonService {
   }
 
   getPaticularCustomerOrder(custId) {
-    return baseUrl + `orders/${custId}`
+    return baseUrl + `orders/customer/${custId}`
   }
   getCustomersList(PageSize, PageIndex) {
     return baseUrl + `customers?Limit=${PageSize}&Page=${PageIndex}`;

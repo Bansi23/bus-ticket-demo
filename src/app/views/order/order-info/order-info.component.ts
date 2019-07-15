@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MockService } from '../../../services/mock.service';
 import { CommonService } from '../../../services/common.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-order-info',
@@ -16,7 +17,7 @@ export class OrderInfoComponent implements OnInit {
   returnUrl: any;
   orderId: any;
   finalTotal: any;
-  orderstatusValue: any;
+  orderstatusForm: FormGroup;
 
 
   changeStatus() {
@@ -45,50 +46,97 @@ export class OrderInfoComponent implements OnInit {
         });
     }
   }
-  selectedChanged(value) {
-  //  console.log('value', value);
-    this.orderstatusValue = value;
-  }
   CancleOrder() {
-    //   const cancle = this.viewRecord.order_status = 'Cancelled'
-    //   const body = {
-    //     "order_status": cancle
-    //   }
-    //   console.log('body', body)
-    //   this.getParameter();
-    //   this._cS.API_POST(this._cS.getOrderId(this.orderId), body)
-    //     .subscribe(res => {
-    //       if (res) {
-    //         console.log('res', res);
-    //       } else {
-    //       };
-    //     }, err => {
-    //     });
-  }
-  saveOrderStatus() {
     this.getParameter();
-    const body = {
-      "order_status": this.orderstatusValue
+    var body = {
+      order: {
+        order_status: 'Cancelled',
+        id: this.orderId
+      }
     }
-  //  console.log('this.orderstatusValue.itemName', body)
-    this._cS.API_POST(this._cS.getOrderId(this.orderId), body)
+
+    this._cS.API_PUT(this._cS.getOrderId(this.orderId), body)
       .subscribe(res => {
         if (res) {
-         // console.log('res', res);
+          this._router.navigate(['/sales/orders']);
         } else {
         };
       }, err => {
       });
   }
 
-  editCustomer(id) {
-    this._router.navigate(['/customers/addEdit'], { queryParams: { id: id } });
+  refundAmount() {
+    this.getParameter();
+    var body = {
+      order: {
+        payment_status: 'Refunded',
+        id: this.orderId
+      }
+    }
+    this._cS.API_PUT(this._cS.getOrderId(this.orderId), body)
+      .subscribe(res => {
+        if (res) {
+          this._router.navigate(['/sales/orders']);
+        } else {
+        };
+      }, err => {
+      });
   }
-  constructor(private _mD: MockService, private _cS: CommonService, private _router: Router, private _route: ActivatedRoute) { }
+
+
+  paidAmount() {
+    this.getParameter();
+    var body = {
+      order: {
+        payment_status: 'Paid',
+        id: this.orderId
+      }
+    }
+    this._cS.API_PUT(this._cS.getOrderId(this.orderId), body)
+      .subscribe(res => {
+        if (res) {
+          this._router.navigate(['/sales/orders']);
+        } else {
+        };
+      }, err => {
+      });
+  }
+
+
+  saveOrderStatus() {
+    this.getParameter();
+    const orderstatus = this.orderstatusForm.get('orderStatus').value;
+    for (let i = 0; i < this.viewRecord.length; i++) {
+      var body = {
+        order: {
+          order_status: orderstatus,
+          id: this.orderId
+        }
+      }
+    }
+    this._cS.API_PUT(this._cS.getOrderId(this.orderId), body)
+      .subscribe(res => {
+        if (res) {
+          this._router.navigate(['/sales/orders']);
+        } else {
+        };
+      }, err => {
+      });
+  }
+
+  editCustomer(id, custid) {
+    this._router.navigate(['/customers/addEdit'], { queryParams: { orderid: id, id: custid } });
+    console.log('custid', custid);
+
+  }
+  constructor(private _mD: MockService, private _cS: CommonService, private _router: Router, private _route: ActivatedRoute, private fb: FormBuilder) { }
 
   ngOnInit() {
     this.getInfo();
     this.lstOrderStatus = this._mD.orderStatus();
+    this.orderstatusForm = this.fb.group({
+      orderStatus: ['']
+    })
   }
 
 }

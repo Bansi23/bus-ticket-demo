@@ -9,31 +9,33 @@
                         </div>
                         <div class="col-md-10">
                             <b> {{item.order_status}}</b>
-                            <button class="btn btn-danger"  *ngIf="item.order_status !='Cancelled'" (click)="CancleOrder()">Cancle Order</button>
+                            <button class="btn btn-danger" *ngIf="item.order_status !='Cancelled'"
+                                (click)="CancleOrder()">Cancle Order</button>
                             <button class="btn btn-primary" *ngIf="isOrder" (click)="changeStatus()">Change
                                 Status</button>
                         </div>
                         <div class="offset-md-2 col-md-10 mt-1" *ngIf="!isOrder">
-                            <div class="row"> 
-                                <div class="col-md-8">
-                                    <select class="form-control"  [(ngModel)]="orderstatusValue"   (change)="selectedChanged($event.target.value)">
-                                        <option *ngFor="let orderstatus of lstOrderStatus" [value]="orderstatus.itemName">
-                                            {{orderstatus.itemName}}
-                                        </option>
-                                    </select>
-                                    <p>
-                                        This option is only for advanced users (not recommended to change manually). All
-                                        appropriate
-                                        actions (such as inventory adjustment, sending notification emails, reward
-                                        points,
-                                        gift card
-                                        activation/deactivation, etc) should be done manually in this case.</p>
+                            <form [formGroup]="orderstatusForm">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <select class="form-control" formControlName="orderStatus">
+                                            <option *ngFor="let item of lstOrderStatus">{{item.itemName}}</option>
+                                        </select>
+                                        <p>
+                                            This option is only for advanced users (not recommended to change manually).
+                                            All
+                                            appropriate
+                                            actions (such as inventory adjustment, sending notification emails, reward
+                                            points,
+                                            gift card
+                                            activation/deactivation, etc) should be done manually in this case.</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <button class="btn btn-primary" (click)="saveOrderStatus()">Save</button>
+                                        <button class="btn btn-danger" (click)="cancleEdit()">Cancle</button>
+                                    </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <button class="btn btn-primary" (click)="saveOrderStatus()">Save</button>
-                                    <button class="btn btn-danger" (click)="cancleEdit()">Cancle</button>
-                                </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
 
@@ -70,7 +72,7 @@
                             <b>Customer</b>
                         </div>
                         <div class="col-md-3">
-                            <button class="btn btn-link" (click)="editCustomer(item.customer_id)">
+                            <button class="btn btn-link" (click)="editCustomer(item.id,item.customer_id)">
                                 {{item.customer.email}}</button>
                         </div>
                     </div>
@@ -149,10 +151,10 @@
                         <div class="col-md-3">
                             <span> {{item.payment_status}} </span>
                             <div *ngIf="item.payment_status =='Pending'">
-                                <button class="btn btn-primary">Mark As Paid</button>
+                                <button class="btn btn-primary" (click)="paidAmount()">Mark As Paid</button>
                             </div>
                             <div *ngIf="item.payment_status =='Paid' || item.payment_status =='Partially refunded'">
-                                <button class="btn btn-primary mb-1">Refund (Offline)</button>
+                                <button class="btn btn-primary mb-1" (click)="refundAmount()">Refund (Offline)</button>
                                 <button class="btn btn-primary"> Partial refund (Offline)</button>
                             </div>
                         </div>

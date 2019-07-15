@@ -32,6 +32,7 @@ export class CustomerOrderComponent implements OnInit {
 
   }
   getCustomerOrders(){
+    debugger;
     this._cS.API_GET(this._cS.getPaticularCustomerOrder(this.custId))
     .subscribe(response =>{
       

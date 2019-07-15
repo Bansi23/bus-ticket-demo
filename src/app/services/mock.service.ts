@@ -64,7 +64,7 @@ export class MockService {
 
   countryList() {
     return [
-      { "name": "Afghanistan", "code": "AF" },
+      { "name": "Afghanistan", "code": "AF"},
       { "name": "land Islands", "code": "AX" },
       { "name": "Albania", "code": "AL" },
       { "name": "Algeria", "code": "DZ" },

@@ -36,11 +36,15 @@ export class SelectAddProductComponent implements OnInit {
   }
   //#endregion
 
-  getProduct() {
+  getParameter() {
     this._route.queryParams.subscribe(params => {
       this.id = params['id']
       this.productid = params['productid']
     });
+  }
+
+  getProduct() {
+    this.getParameter();
     this._cS.API_GET(this._cS.URL_getProductById(this.productid))
       .subscribe(response => {
         if (response) {
@@ -59,6 +63,7 @@ export class SelectAddProductComponent implements OnInit {
     this.getProduct();
     this._route.queryParams.subscribe(params => {
       this.orderid = params['id']
+      this.productid = params['productid']
     });
     this._cS.API_GET(this._cS.getOrderItem(this.orderid))
       .subscribe(response => {
@@ -78,20 +83,19 @@ export class SelectAddProductComponent implements OnInit {
               attribute_description: "",
               download_count: 0,
               isDownload_activated: this.addProduct.is_download,
-              product: this.addProduct
+              product: this.addProduct,
+              product_id: this.productid
             }
           }
 
           this._cS.API_POST(this._cS.getOrderItem(this.orderid), body)
             .subscribe(response => {
               if (response) {
-               // console.log(response, 'res');
+                this._router.navigate(['/sales/viewrecord'], { queryParams: { id: this.id } });
               }
             })
-         // console.log('this.addProduct', this.orderItem);
         }
       });
-
   }
   constructor(private _router: Router, private _route: ActivatedRoute, private fb: FormBuilder, private _cS: CommonService) { }
 
