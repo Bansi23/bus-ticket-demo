@@ -24,7 +24,6 @@ export class ProductTabsComponent implements OnInit {
   tabId: any = "1";
   onSelect(e: TabDirective) {
     this.tabId = e.id;
-    console.log('this.tabsdfId:', this.tabId)
   }
 
   constructor(private _router: Router,
@@ -34,12 +33,9 @@ export class ProductTabsComponent implements OnInit {
   ngOnInit() {
     this.getTabs();
     if (localStorage.getItem('editProductId') != null) {
-      console.log('editedRecord:', editedRecord)
       this.title = `Edit product details - ${editedRecord.name}`;
     } else {
       this.title = 'Add a new product';
     }
-
-    console.log('this.tabId:', this.tabId)
   }
 }

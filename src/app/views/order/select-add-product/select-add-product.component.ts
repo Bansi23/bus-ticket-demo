@@ -87,6 +87,7 @@ export class SelectAddProductComponent implements OnInit {
               product_id: this.productid
             }
           }
+          console.log('body:', body)
 
           this._cS.API_POST(this._cS.getOrderItem(this.orderid), body)
             .subscribe(response => {

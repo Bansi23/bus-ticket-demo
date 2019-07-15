@@ -214,7 +214,7 @@ export class ProductinfoComponent implements OnInit {
   }
 
   saveAndEditProduct() {
-    this._router.navigate(['/catalog/product']);
+    this._router.navigate(['/catalog/addProduct/productPicture']);
     this.createProduct();
   }
   //#region 
