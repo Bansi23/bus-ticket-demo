@@ -15,7 +15,7 @@ export class CustomerOrderComponent implements OnInit {
   totalRecords : number;
   pageIndex: number = 1;
   pageSize: number = 10;
-
+ 
   constructor(private router : Router,private _mS: MockService, private _cS: CommonService, private route:ActivatedRoute) { }
 
   ngOnInit() {
@@ -45,14 +45,17 @@ export class CustomerOrderComponent implements OnInit {
     this.totalRecords = this.lstTempOrders.length
   }
 
-  navigateToOrders(){
-    //  this.router.navigateByUrl('')
+  navigateToOrders(order_Id){
+    //  this.router.navigateByUrl('/Sales/order')
+    // this.router.navigate(['/sales/order'], { queryParams: { orderid: id, id: custid } });
+    this.router.navigate(['/sales/viewrecord'], { queryParams : {orderId : order_Id}});
   }
   getCustomerOrders(){
      this._cS.API_GET(this._cS.getPaticularCustomerOrder(this.custId))
     .subscribe(response =>{
        this.lstTempOrders = response.orders;
       this.lstOrders = [];
+      
        for(let i=0;i<this.lstTempOrders.length;i++){
         const data = {
           orderId : this.lstTempOrders[i].id,

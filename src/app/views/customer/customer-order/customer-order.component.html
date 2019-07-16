@@ -26,13 +26,12 @@
                                         'badge-success': o.orderStatus =='Complete',
                                         'badge-danger': o.orderStatus =='Cancelled'}" class="badge">
                                 {{o.orderStatus}}</span>
-
                             </td>
-                            <td>{{o.paymentStatus}}</td>
+                            <td>{{o.paymentStatus}}</td>    
                             <td>{{o.shippingStatus}}</td>
                             <td>{{o.createdOn}}</td>
                             <td>
-                                <a class="btn btn-secondary" (click)="navigateToOrders()">
+                                <a class="btn btn-secondary" (click)="navigateToOrders(o.orderId)">
                                     <i class="fa fa-eye"></i>
                                     View
                                 </a>
