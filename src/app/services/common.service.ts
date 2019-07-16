@@ -73,7 +73,7 @@ export class CommonService {
       return res;
     }, catchError(err => {
       this.Display_Loader(false);
-      if (err.status == 401) {  
+      if (err.status == 401) {
       }
       else if (err.status == 400) {
       }
@@ -119,11 +119,19 @@ export class CommonService {
   getCountItem() {
     return baseUrl + `orders/count`;
   }
-  getsearchRecord(PaymentStatus) {
-    return baseUrl + `orders?PaymentStatus=${PaymentStatus}`;
+
+  // http://nop.satva.solutions/api/orders?PaymentStatus=Refunded&Status=Pending
+
+  getsearchRecord(PaymentStatus, orderStatus, shippingStatus) {
+    return baseUrl + `orders?PaymentStatus=${PaymentStatus}&Status=${orderStatus}&ShippingStatus=${shippingStatus}`;
   }
   getOrder() {
     return baseUrl + `orders`;
+  }
+
+  getCountry(countryId){
+    //http://nop.satva.solutions/Country/GetStatesByCountryId?countryId=1
+    return `https://cors-anywhere.herokuapp.com/`+`http://nop.satva.solutions/Country/GetStatesByCountryId?countryId=${countryId}`
   }
 
   // #endregion
@@ -146,7 +154,7 @@ export class CommonService {
     return baseUrl + `customers?Limit=${PageSize}&Page=${PageIndex}`;
 
   }
-  getCustomerTotalRecord(){
+  getCustomerTotalRecord() {
     return baseUrl + `customers/count`;
   }
 
@@ -206,10 +214,10 @@ export class CommonService {
   //#region 
   getProductTabs() {
     return [
-      {id : 1, name : 'Product Info', isActive : true},
-      {id : 2, name : 'Picture', isActive : false},
-      {id : 3, name : 'Product Attributes', isActive : false},
-      {id : 4, name : 'Specification Attributes', isActive : false},
+      { id: 1, name: 'Product Info', isActive: true },
+      { id: 2, name: 'Picture', isActive: false },
+      { id: 3, name: 'Product Attributes', isActive: false },
+      { id: 4, name: 'Specification Attributes', isActive: false },
     ]
   }
   //#endregion

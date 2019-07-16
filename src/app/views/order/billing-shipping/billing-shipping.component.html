@@ -12,48 +12,48 @@
                             </tr>
                             <tr>
                                 <td> Full name</td>
-                                <td>{{billingData.billing_address.first_name}} {{billingData.billing_address.last_name}}
+                                <td>{{billingData?.billing_address?.first_name}} {{billingData?.billing_address?.last_name}}
                                 </td>
                             </tr>
                             <tr>
                                 <td> Email</td>
-                                <td>{{billingData.billing_address.email}}</td>
+                                <td>{{billingData?.billing_address.email}}</td>
                             </tr>
                             <tr>
                                 <td>Phone</td>
-                                <td>{{billingData.billing_address.phone_number}}</td>
+                                <td>{{billingData?.billing_address?.phone_number}}</td>
                             </tr>
                             <tr>
                                 <td>Fax</td>
-                                <td>{{billingData.billing_address.fax_number}}</td>
+                                <td>{{billingData?.billing_address?.fax_number}}</td>
                             </tr>
                             <tr>
                                 <td> Company</td>
-                                <td> {{billingData.billing_address.company}}</td>
+                                <td> {{billingData?.billing_address?.company}}</td>
                             </tr>
                             <tr>
                                 <td> Address 1</td>
-                                <td> {{billingData.billing_address.address1}} </td>
+                                <td> {{billingData?.billing_address?.address1}} </td>
                             </tr>
                             <tr>
                                 <td>Address 2</td>
-                                <td> {{billingData.billing_address.address2}}</td>
+                                <td> {{billingData?.billing_address?.address2}}</td>
                             </tr>
                             <tr>
                                 <td> City</td>
-                                <td> {{billingData.billing_address.city}}</td>
+                                <td> {{billingData?.billing_address?.city}}</td>
                             </tr>
                             <tr>
                                 <td>State / province</td>
-                                <td>{{billingData.billing_address.state_province_id}}</td>
+                                <td>{{displaybilling?.name}}</td>
                             </tr>
                             <tr>
                                 <td> Zip / postal code</td>
-                                <td>{{billingData.billing_address.zip_postal_code}}</td>
+                                <td>{{billingData?.billing_address.zip_postal_code}}</td>
                             </tr>
                             <tr>
                                 <td>Country </td>
-                                <td>{{billingData.billing_address.country}}</td>
+                                <td>{{billingData?.billing_address.country}}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -105,7 +105,7 @@
                             </tr>
                             <tr>
                                 <td> State / province</td>
-                                <td>{{billingData?.shipping_address?.state_province_id}}</td>
+                                <td>{{displayshipping?.name}}</td>
                             </tr>
                             <tr>
                                 <td>Zip / postal code</td>
@@ -118,8 +118,8 @@
                             <tr>
                                 <td colspan="2">
                                     <i class="fa fa-map-marker">
-                                        <a [href]="shippingAddress" style="margin-bottom: 10px;"
-                                            target="_blank">View address on Google Maps</a></i>
+                                        <a [href]="shippingAddress" style="margin-bottom: 10px;" target="_blank">View
+                                            address on Google Maps</a></i>
                                 </td>
                             </tr>
                         </tbody>
