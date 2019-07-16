@@ -119,11 +119,19 @@ export class CommonService {
   getCountItem() {
     return baseUrl + `orders/count`;
   }
-  getpaymentsearch(PaymentStatus) {
-    return baseUrl + `orders?PaymentStatus=${PaymentStatus}`;
+
+  // http://nop.satva.solutions/api/orders?PaymentStatus=Refunded&Status=Pending
+
+  getsearchRecord(PaymentStatus, orderStatus, shippingStatus) {
+    return baseUrl + `orders?PaymentStatus=${PaymentStatus}&Status=${orderStatus}&ShippingStatus=${shippingStatus}`;
   }
   getOrder() {
     return baseUrl + `orders`;
+  }
+
+  getCountry(countryId){
+    //http://nop.satva.solutions/Country/GetStatesByCountryId?countryId=1
+    return `https://cors-anywhere.herokuapp.com/`+`http://nop.satva.solutions/Country/GetStatesByCountryId?countryId=${countryId}`
   }
 
   // #endregion
@@ -138,9 +146,10 @@ export class CommonService {
   getParticularCustomer(custId) {
     return baseUrl + `customers/${custId}`
   }
+  
 
   getPaticularCustomerOrder(custId) {
-    return baseUrl + `orders/${custId}`
+    return baseUrl + `orders/customer/${custId}`
   }
   getCustomersList(PageSize, PageIndex) {
     return baseUrl + `customers?Limit=${PageSize}&Page=${PageIndex}`;

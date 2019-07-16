@@ -110,7 +110,6 @@ export class SearchOrderComponent implements OnInit {
     this._cS.API_GET(this._cS.getCountItem())
       .subscribe(res => {
         if (res) {
-          // console.log(res)
           this.totalRecord = res.count;
         }
       });
@@ -125,43 +124,22 @@ export class SearchOrderComponent implements OnInit {
     this.pageSize = +value;
     this.GetRecord();
   }
-
-  filteredOrder: any;
-  filteredPayment: any;
-  filteredShipping: any;
-  onItemOrderSelect(item?: any) {
-    const selectedData = this.selectedorderItems.map((x: { itemName: any; }) => { return x.itemName });
-    this.filteredOrder = this.lstOrderData.filter(
-      function (e) { return this.indexOf(e.order_status) != -1; }, selectedData);
-  }
-  paymentstatus: any;
-  onItemPaymentSelect(item?: any) {
-    this.pageIndex = 1;
-    // const selectedData = this.selectedpaymentItems.map((x: { itemName: any; }) => { return x.itemName });
-    // this.filteredOrder = this.lstOrderData.filter(
-    //   function (e) { return this.indexOf(e.payment_status) != -1; }, selectedData);
-    // this.paymentstatus = this.filteredOrder;
-    this.paymentstatus = item;
-  }
-
-  onItemshippingSelect(item?: any) {
-    const selectedData = this.selectedshippingItem.map((x: { itemName: any; }) => { return x.itemName });
-    this.filteredShipping = this.lstOrderData.filter(
-      function (e) { return this.indexOf(e.shipping_status) != -1; }, selectedData);
-  }
-
   searchRecord() {
-    this.onItemOrderSelect();
-    this.lstOrderData = this.filteredOrder;
-    this.onItemPaymentSelect(this.paymentstatus);
-    const payment = this.paymentstatus.itemName;
-    this._cS.API_GET(this._cS.getpaymentsearch(payment))
-      .subscribe(res => {
-        if (res) {
-          this.lstOrderData = res.orders;
-          this.finalTotal = this.lstOrderData.map(o => o.order_total).reduce((a, c) => a + c, 0);
-        }
-      });
+    const payment = this.searchOrder.get('paymentStatus').value;
+    const shipping = this.searchOrder.get('shippingStatus').value;
+    const order = this.searchOrder.get('orderstatus').value;
+    if (payment == "All" && shipping == "All" && order == "All") {
+      this.GetRecord();
+    }
+    else {
+      this._cS.API_GET(this._cS.getsearchRecord(payment, shipping, order))
+        .subscribe(res => {
+          if (res) {
+            this.lstOrderData = res.orders;
+            this.finalTotal = this.lstOrderData.map(o => o.order_total).reduce((a, c) => a + c, 0);
+          }
+        });
+    }
   }
 
   select_all() {
@@ -216,7 +194,5 @@ export class SearchOrderComponent implements OnInit {
     this.GetCountRecord();
     this.GetRecord();
     this.lstOrderData.map(x => { x.select = '' });
-
-
   }
 }
