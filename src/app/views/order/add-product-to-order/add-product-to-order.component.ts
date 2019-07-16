@@ -60,8 +60,7 @@ export class AddProductToOrderComponent implements OnInit {
   saveRecord() {
     this.getParemeter();
     const formValue = this.itemForm.getRawValue();
-    //formValue.itemId = formValue.itemId;
-   // console.log(formValue.itemId, ' formValue.itemId');
+    console.log('formValue',formValue);
 
     let body = {
       // order_item: {

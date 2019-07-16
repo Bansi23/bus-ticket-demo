@@ -286,30 +286,33 @@ export class CommonService {
       })
   }
 
+  attrValue: any;
   getAttributeValues(vBody) {
-    
+    this.attrValue = [{ vBody }]
   }
 
+  attrInfo: any;
   getAttributeInfo(iBody) {
+    var productId = localStorage.getItem('productId');
+    this.attrInfo = [{ iBody }]
+
+  }
+
+  addAttribute() {
     var productId = localStorage.getItem('productId');
     var body = {
       product: {
-        attributes: [
-          {
-            iBody,
-            attribute_values: [
-              {
-
-              }
-            ]
-          }
-        ]
+        attributes:
+          this.attrInfo,
+        attribute_values:
+          this.attrValue
       }
     }
-    // this.API_PUT(this.URL_getProductById(productId), body)
-    //   .subscribe(res => {
-    //     console.log('res:', res)
-    //   })
+
+    this.API_PUT(this.URL_getProductById(productId), body)
+      .subscribe(res => {
+        console.log('res:', res)
+      })
   }
   //#endregion
   constructor(public _router: Router, public _httpClient: HttpClient, public _app: AppComponent) { }
