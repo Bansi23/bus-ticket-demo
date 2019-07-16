@@ -129,9 +129,9 @@ export class CommonService {
     return baseUrl + `orders`;
   }
 
-  getCountry(countryId){
+  getCountry(countryId) {
     //http://nop.satva.solutions/Country/GetStatesByCountryId?countryId=1
-    return `https://cors-anywhere.herokuapp.com/`+`http://nop.satva.solutions/Country/GetStatesByCountryId?countryId=${countryId}`
+    return `https://cors-anywhere.herokuapp.com/` + `http://nop.satva.solutions/Country/GetStatesByCountryId?countryId=${countryId}`
   }
 
   // #endregion
@@ -146,7 +146,7 @@ export class CommonService {
   getParticularCustomer(custId) {
     return baseUrl + `customers/${custId}`
   }
-  
+
 
   getPaticularCustomerOrder(custId) {
     return baseUrl + `orders/customer/${custId}`
@@ -284,6 +284,32 @@ export class CommonService {
       .subscribe(res => {
         console.log('res:', res)
       })
+  }
+
+  getAttributeValues(vBody) {
+    
+  }
+
+  getAttributeInfo(iBody) {
+    var productId = localStorage.getItem('productId');
+    var body = {
+      product: {
+        attributes: [
+          {
+            iBody,
+            attribute_values: [
+              {
+
+              }
+            ]
+          }
+        ]
+      }
+    }
+    // this.API_PUT(this.URL_getProductById(productId), body)
+    //   .subscribe(res => {
+    //     console.log('res:', res)
+    //   })
   }
   //#endregion
   constructor(public _router: Router, public _httpClient: HttpClient, public _app: AppComponent) { }

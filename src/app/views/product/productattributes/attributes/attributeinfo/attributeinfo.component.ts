@@ -44,15 +44,14 @@ export class AttributeinfoComponent implements OnInit {
   addInfo() {
     const formValue = this.attrInfoForm.getRawValue();
     var body = {
-      attributes: {
-        product_attribute_name : formValue.attribute,
-        text_prompt : formValue.textPrompt,
-        is_required: formValue.isReq,
-        display_order : formValue.displayOrder,
-        attribute_control_type_name : formValue.controlType
-      }
+      product_attribute_name: formValue.attribute,
+      text_prompt: formValue.textPrompt,
+      is_required: formValue.isReq,
+      display_order: formValue.displayOrder,
+      attribute_control_type_name: formValue.controlType
     }
     console.log('formValue:', body);
+    this._cS.getAttributeInfo(body);
   }
   //#endregion
   constructor(private _cS: CommonService,

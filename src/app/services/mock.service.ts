@@ -882,8 +882,8 @@ export class MockService {
 
   getAttributeValueType() {
     return [
-      { id: 1, name: 'Simple' },
-      { id: 2, name: 'Associated to product' }
+      { id: 0, name: 'Simple' },
+      { id: 1, name: 'Associated to product' }
     ]
   }
 
