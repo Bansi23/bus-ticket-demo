@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { MockService } from '../../../services/mock.service';
 
 const productId = localStorage.getItem('editProductId');
 const editedRecord = JSON.parse(localStorage.getItem('EditedRecord'));
@@ -40,6 +41,23 @@ export class SpecificationattributesComponent implements OnInit {
     })
   }
 
+  //#region bind static list
+  lstAttrType: any = [];
+  lstAttr: any = [];
+  lstAttrOptions: any = [];
+  attrOptions: any = [];
+  bindList() {
+    this.lstAttrType = this._mS.getAttributeType();
+    this.lstAttr = this._mS.getAttribute();
+    this.attrOptions = this._mS.getAttributeOptions();
+  }
+
+  getAttrOptions(value) {
+    var filter = this.attrOptions.filter(x => x.aId == value);
+    this.lstAttrOptions = filter;
+  }
+  //#endregion
+
   //#region get specification attribute list
   lstSpecificAttr: any = [];
   getSpecificAttrList() {
@@ -49,10 +67,18 @@ export class SpecificationattributesComponent implements OnInit {
     }
   }
   //#endregion
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder,
+    private _mS: MockService) { }
 
   ngOnInit() {
     this.specificationForm_fb();
+    this.bindList();
+    this.getAttrOptions("1");
+    this.specificationForm.patchValue({
+      attrType: 1,
+      attr: 1,
+      attrOption: 1,
+    });
   }
 
 }

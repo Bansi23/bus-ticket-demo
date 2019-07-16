@@ -14,17 +14,19 @@ export class AddProductToOrderComponent implements OnInit {
   orderId: any;
   viewRecord: any = [];
   orderRecord: any = [];
-  updateIndex: number = -1;
-
-
+  updateIndex = 1;
   itemForm: FormGroup;
+  @ViewChild('editItem', { static: true }) EditRecord: ModalDirective;
 
   fbItemEdit() {
     this.itemForm = this.fb.group({
+      id: [''],
       unitexclprice: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]\\d{0,50}')])],
       quantity: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]\\d{0,50}')])],
       discount: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]\\d{0,50}')])],
-      excltax: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]\\d{0,50}')])]
+      excltax: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]\\d{0,50}')])],
+      img: [''],
+      productName: ['']
     });
   }
   getParemeter() {
@@ -55,8 +57,12 @@ export class AddProductToOrderComponent implements OnInit {
         }
       })
   }
-  saveRecord(itemid) {
+  saveRecord() {
     this.getParemeter();
+    const formValue = this.itemForm.getRawValue();
+    //formValue.itemId = formValue.itemId;
+   // console.log(formValue.itemId, ' formValue.itemId');
+
     let body = {
       // order_item: {
       //   quantity: this.itemForm.value.quantity,
@@ -75,18 +81,28 @@ export class AddProductToOrderComponent implements OnInit {
       //   product_id: this.productid
       // }
     }
-    this._cS.API_POST(this._cS.getOrderItemId(this.orderId, itemid), body)
-      .subscribe(response => {
-        if (response) {
-          console.log('response', response);
-        }
-      })
+    // this._cS.API_POST(this._cS.getOrderItemId(this.orderId, itemid), body)
+    //   .subscribe(response => {
+    //     if (response) {
+    //       console.log('response', response);
+    //     }
+    //   })
   }
 
-  editRecord(itemid) {
-    this.updateIndex = itemid;
-    if (itemid > -1) {
-    }
+  editRecord(row) {
+    this.itemForm.patchValue({
+      id: row.id,
+      unitexclprice: row.unit_price_excl_tax,
+      quantity: row.quantity,
+      discount: row.discount_amount_excl_tax,
+      excltax: row.price_excl_tax,
+      img: row.product.name,
+      productName: row.product.name
+    });
+    this.EditRecord.show();
+  }
+  close() {
+    this.EditRecord.hide();
   }
 
   addProduct() {

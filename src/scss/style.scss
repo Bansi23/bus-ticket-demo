@@ -8,6 +8,11 @@
 @import "custom";
 
 //toaster css
+@import "../../node_modules/angular2-toaster/src/toaster";
+
+.toast {
+  top: 0;
+}
 
 //custome css
 .isShipping,
@@ -29,7 +34,7 @@
   margin-top: 10px;
 }
 .nav-tabs > .nav-item > .nav-link.active {
-  border-top: 2px solid #23b7e5;
+  border: 2px solid #23b7e5;
 }
 
 .tab-box-main .nav-tabs > .nav-item > .nav-link {
@@ -41,13 +46,13 @@
   position: relative;
   border: 0px;
   color: #fff;
-  border-top: 1px solid #23b7e5;
+  border: 1px solid #23b7e5;
 }
 .tab-box-main .nav-tabs > .nav-item > .nav-link {
-  background-color: #fff;
-  color: #656565;
+  background-color: #3dbee7;
+  color: #fff;
 }
 .tab-box-main .nav-link.active {
-  background-color: #3dbee7 !important;
-  color: #fff !important;
+  background-color: #fff !important;
+  color: #111 !important;
 }

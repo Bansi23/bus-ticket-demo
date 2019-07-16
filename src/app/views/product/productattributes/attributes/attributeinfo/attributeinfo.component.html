@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    <div class="form-group col-sm-12">
+                    <div class="form-group col-sm-4">
                         <label>Attribute</label>
                         <select class="form-control" formControlName="attribute">
                             <option *ngFor="let a of lstAttribute" [value]="a.id">
@@ -11,22 +11,18 @@
                             </option>
                         </select>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="form-group col-sm-12">
+                    <div class="form-group col-sm-4">
                         <label>Text prompt</label>
                         <input type="text" class="form-control" formControlName="textPrompt">
                     </div>
-                </div>
-                <div class="row">
-                    <div class="form-group col-sm-12">
+                    <div class="form-group col-sm-4">
                         <label>Is Required
                             <input type="checkbox" formControlName="isReq">
                         </label>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="form-group col-sm-12">
+                    <div class="form-group col-sm-4">
                         <label>Control type</label>
                         <select class="form-control" formControlName="controlType">
                             <option *ngFor="let c of lstControl" [value]="c.id">
@@ -34,12 +30,13 @@
                             </option>
                         </select>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="form-group col-sm-6">
+                    <div class="form-group col-sm-4">
                         <label>Display order</label>
                         <input type="number" class="form-control" formControlName="displayOrder">
                     </div>
+                </div>
+                <div class="pull-right">
+                    <button class="btn btn-primary text-white" (click)="addInfo()">Next</button>
                 </div>
             </div>
         </div>

@@ -5,28 +5,30 @@
         </div>
         <div class="card-body">
             <form [formGroup]="searchOrder">
-                <!-- <div class="row">
-                    <div class="form-group col-sm-6">
+                <div class="row">
+                    <!-- <div class="form-group col-sm-6">
                         <label>Start Date</label>
                         <my-date-picker [options]="myDatePickerOptions" formControlName="sdate">
                         </my-date-picker>
+                    </div> -->
+
+                    <div class="form-group col-sm-6">
+                        <label for="city">Payment Status</label>
+                        <select class="form-control" formControlName="paymentStatus">
+                            <option value="All">All</option>
+                            <option *ngFor="let item of lstPaymentStatus" [value]="item.itemName">{{item.itemName}}
+                            </option>
+                        </select>
                     </div>
                     <div class="form-group col-sm-6">
                         <label>Order Status</label>
-                        <angular2-multiselect [data]="lstOrderStatus" formControlName="orderstatus"
-                            class="form-control orderNumber" [settings]="dropdownOrderStatus"
-                            (onSelect)="onItemOrderSelect($event)" (onDeSelect)="onItemOrderSelect($event)"
-                            (onSelectAll)="onItemOrderSelect($event)" (onDeSelectAll)="onItemOrderSelect($event)">
-                            <ng-container *ngIf="lstOrderStatus?.length == selectedorderItems?.length">
-                                <c-badge>
-                                    <ng-template let-item="item">
-                                        <label style="margin: 0px; padding-right: 5px;">All</label>
-                                    </ng-template>
-                                </c-badge>
-                            </ng-container>
-                        </angular2-multiselect>
+                        <select class="form-control" formControlName="orderstatus">
+                            <option value="All">All</option>
+                            <option *ngFor="let item of lstOrderStatus" [value]="item.itemName">{{item.itemName}}
+                            </option>
+                        </select>
                     </div>
-                </div> -->
+                </div>
 
                 <div class="row">
                     <!-- <div class="form-group col-sm-6">
@@ -34,30 +36,18 @@
                         <my-date-picker [options]="myDatePickerOptions" formControlName="edate">
                         </my-date-picker>
                     </div> -->
-                    <div class="form-group col-sm-12">
+                    <!-- <div class="form-group col-sm-6">
                         <label for="city">Payment Status</label>
-                        <!-- <angular2-multiselect [data]="lstPaymentStatus" formControlName="paymentStatus"
-                            class="form-control" [settings]="dropdownPaymentStatus"
-                            (onSelect)="onItemPaymentSelect($event)" (onDeSelect)="onItemPaymentSelect($event)"
-                            (onSelectAll)="onItemPaymentSelect($event)" (onDeSelectAll)="onItemPaymentSelect($event)">
-                            <ng-container *ngIf="lstPaymentStatus?.length == selectedpaymentItems?.length">
-                                <c-badge>
-                                    <ng-template let-item="item">
-                                        <label style="margin: 0px; padding-right: 5px;">All</label>
-                                    </ng-template>
-                                </c-badge>
-                            </ng-container>
-                        </angular2-multiselect> -->
                         <select class="form-control" formControlName="paymentStatus">
                             <option value="All">All</option>
-                            <option *ngFor="let item of lstPaymentStatus">{{item.itemName}}</option>
+                            <option *ngFor="let item of lstPaymentStatus" [value]="item.itemName">{{item.itemName}}</option>
                         </select>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="row">
-                    <!-- <div class="form-group col-sm-6">
+                    <div class="form-group col-sm-6">
                         <label>Shipping Status</label>
-                        <angular2-multiselect [data]="lstShippingStatus" formControlName="shippingStatus"
+                        <!-- <angular2-multiselect [data]="lstShippingStatus" formControlName="shippingStatus"
                             class="form-control" [settings]="dropdownShippingStatus"
                             (onSelect)="onItemshippingSelect($event)" (onDeSelect)="onItemshippingSelect($event)"
                             (onSelectAll)="onItemshippingSelect($event)" (onDeSelectAll)="onItemshippingSelect($event)">
@@ -68,9 +58,14 @@
                                     </ng-template>
                                 </c-badge>
                             </ng-container>
-                        </angular2-multiselect>
-                    </div> -->
-                    <div class="form-group col-sm-12">
+                        </angular2-multiselect> -->
+                        <select class="form-control" formControlName="shippingStatus">
+                            <option value="All">All</option>
+                            <option *ngFor="let item of lstShippingStatus" [value]="item.itemName">{{item.itemName}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group col-sm-6">
                         <label>Go directly to Order #</label>
                         <div class="input-group">
                             <input type="text" class="form-control" formControlName="orderno">
@@ -134,7 +129,7 @@
                             <td>{{lstorder.order_total | number:'2.2-2'}}</td>
                         </tr>
                         <tr>
-                            <td colspan="7"></td>
+                            <td colspan="8"></td>
                             <td>{{finalTotal | number:'2.2-2'}}</td>
                             <td></td>
                         </tr>
@@ -149,7 +144,7 @@
                 <div class="col-md-2 col-12">
                     <div class="total-count--table">
                         <span> Total Number of Records :{{totalRecord}}</span>
-                        <button class="btn btn-primary" (click)="getOrderList()"><i class="fa fa-refresh"></i></button>
+                        <button class="btn btn-primary" (click)="GetRecord()"><i class="fa fa-refresh"></i></button>
                     </div>
                 </div>
                 <div class="col-md-8 col-12" *ngIf="(lstOrderData).length > 0">

@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-sm-12">
+    <div class="col-sm-7">
         <div class="card">
             <div class="card-header">
                 <strong>
@@ -19,8 +19,6 @@
                             <td><img src="{{pic  ? pic.src : 'assets/img/no_image.png'}}" width="150px" height="150px"
                                     alt="product" /></td>
                             <td>{{pic.position}}</td>
-                            <td></td>
-                            <td></td>
                             <td>
                                 <button class="btn btn-success" (click)="editPicture(i)"><i
                                         class="fa fa-edit"></i></button>
@@ -62,10 +60,8 @@
             </div>
         </div>
     </div>
-</div>
-<form [formGroup]="prodPictureForm" class="form-validate" role="form" name="productInfo">
-    <div class="row">
-        <div class="col-sm-12">
+    <div class="col-sm-5">
+        <form [formGroup]="prodPictureForm" class="form-validate" role="form" name="productInfo">
             <div class="card">
                 <div class="card-header">
                     <strong>
@@ -79,7 +75,7 @@
                             <input type="file" id="file-input" formControlName="src" (change)="readUrl($event)">
                         </div>
                     </div>
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="form-group col-sm-12">
                             <label>Alt</label>
                             <input type="text" class="form-control" formControlName="alt">
@@ -90,9 +86,9 @@
                             <label>Title</label>
                             <input type="text" class="form-control" formControlName="title">
                         </div>
-                    </div>
+                    </div> -->
                     <div class="row">
-                        <div class="form-group col-sm-6">
+                        <div class="form-group col-sm-12">
                             <label>Display order</label>
                             <input type="number" class="form-control" formControlName="position">
                         </div>
@@ -103,6 +99,6 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
-</form>
+</div>

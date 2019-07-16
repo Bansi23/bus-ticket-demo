@@ -55,7 +55,10 @@ export class EditBillingComponent implements OnInit {
       this.shippingId = params['shippingid']
     });
   }
-
+  otherCountry = {
+    "id": 500, "name": "Other (Non US)", "Form": null, "CustomProperties": {}
+  }
+  statelist: any = []
   getRecord() {
     this.getParam();
     if (this.orderId) {
@@ -64,29 +67,41 @@ export class EditBillingComponent implements OnInit {
           if (response) {
             this.editRecord = response.orders[0];
             if (this.billingId != null) {
-              this.editbillingForm.patchValue({
-                fnm: this.editRecord.billing_address.first_name ? this.editRecord.billing_address.first_name : null,
-                lnm: this.editRecord.billing_address.last_name ? this.editRecord.billing_address.last_name : null,
-                mail: this.editRecord.billing_address.email ? this.editRecord.billing_address.email : null,
-                company: this.editRecord.billing_address.company ? this.editRecord.billing_address.company : null,
-                country: this.editRecord.billing_address.country ? this.editRecord.billing_address.country : null,
-                state: this.editRecord.billing_address.state_province_id ? this.editRecord.billing_address.state_province_id : null,
-                city: this.editRecord.billing_address.city ? this.editRecord.billing_address.city : null,
-                addone: this.editRecord.billing_address.address1 ? this.editRecord.billing_address.address1 : null,
-                addtwo: this.editRecord.billing_address.address2 ? this.editRecord.billing_address.address2 : null,
-                pinno: this.editRecord.billing_address.zip_postal_code ? this.editRecord.billing_address.zip_postal_code : null,
-                mono: this.editRecord.billing_address.phone_number ? this.editRecord.billing_address.phone_number : null,
-                faxno: this.editRecord.billing_address.fax_number ? this.editRecord.billing_address.fax_number : null,
+              this._cS.API_GET(this._cS.getCountry(this.editRecord.billing_address.country_id)).subscribe(res => {
+                this.statelist = res;
+                var statebilling = this.statelist.find((item) => item.id == this.editRecord.billing_address.state_province_id);
+                console.log('state', statebilling);
+                if (statebilling == undefined) {
+                  statebilling = this.otherCountry;
+                }
+                this.editbillingForm.patchValue({
+                  fnm: this.editRecord.billing_address.first_name ? this.editRecord.billing_address.first_name : null,
+                  lnm: this.editRecord.billing_address.last_name ? this.editRecord.billing_address.last_name : null,
+                  mail: this.editRecord.billing_address.email ? this.editRecord.billing_address.email : null,
+                  company: this.editRecord.billing_address.company ? this.editRecord.billing_address.company : null,
+                  country: this.editRecord.billing_address.country ? this.editRecord.billing_address.country : null,
+                  state: statebilling.name,
+                  city: this.editRecord.billing_address.city ? this.editRecord.billing_address.city : null,
+                  addone: this.editRecord.billing_address.address1 ? this.editRecord.billing_address.address1 : null,
+                  addtwo: this.editRecord.billing_address.address2 ? this.editRecord.billing_address.address2 : null,
+                  pinno: this.editRecord.billing_address.zip_postal_code ? this.editRecord.billing_address.zip_postal_code : null,
+                  mono: this.editRecord.billing_address.phone_number ? this.editRecord.billing_address.phone_number : null,
+                  faxno: this.editRecord.billing_address.fax_number ? this.editRecord.billing_address.fax_number : null,
+                });
               });
             }
             else if (this.shippingId != null) {
+              var stateshipping = this.statelist.find((item) => item.id == this.editRecord.shipping_address.state_province_id);
+              if (stateshipping == undefined) {
+                stateshipping = this.otherCountry;
+              }
               this.editbillingForm.patchValue({
                 fnm: this.editRecord.shipping_address.first_name ? this.editRecord.shipping_address.first_name : null,
                 lnm: this.editRecord.shipping_address.last_name ? this.editRecord.shipping_address.last_name : null,
                 mail: this.editRecord.shipping_address.email ? this.editRecord.shipping_address.email : null,
                 company: this.editRecord.shipping_address.company ? this.editRecord.shipping_address.company : null,
                 country: this.editRecord.shipping_address.country ? this.editRecord.shipping_address.country : null,
-                state: this.editRecord.shipping_address.state_province_id ? this.editRecord.shipping_address.state_province_id : null,
+                state: stateshipping.name,
                 city: this.editRecord.shipping_address.city ? this.editRecord.shipping_address.city : null,
                 addone: this.editRecord.shipping_address.address1 ? this.editRecord.shipping_address.address1 : null,
                 addtwo: this.editRecord.shipping_address.address2 ? this.editRecord.shipping_address.address2 : null,
@@ -182,5 +197,4 @@ export class EditBillingComponent implements OnInit {
       x.country_id = this.id++;
     });
   }
-
 }

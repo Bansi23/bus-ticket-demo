@@ -18,52 +18,86 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let item of orderRecord let index = i">
-                        <ng-container *ngIf="updateIndex != item.id; else elseTemplate">
-                            <td><img src="{{item.product.images.length > 0 ? item.product.images[0].src : 'assets/img/no_image.png'}}"
-                                    width="110px" height="110px" alt="product" /></td>
-                            <td>{{item.product.name}}</td>
-                            <td>{{item.unit_price_excl_tax}}</td>
-                            <td>{{item.quantity}}</td>
-                            <td>{{item.discount_amount_excl_tax}}</td>
-                            <td>{{item.price_excl_tax}}</td>
-                            <td>
-                                <button class="btn btn-info"><i class="fa fa-pencil"
-                                        (click)="editRecord(item.id)"></i></button>
-                                <button class="btn btn-danger mb-1" (click)="DeleteRecord(item.id)"><i
-                                        class="fa fa-trash"></i></button>
-                            </td>
-                        </ng-container>
-                        <ng-template #elseTemplate>
-                            <td><img src="{{item.product.images.length > 0 ? item.product.images[0].src : 'assets/img/no_image.png'}}"
-                                    width="110px" height="110px" alt="product" /></td>
-                            <td>{{item.product.name}}</td>
-                            <td><input type="text" class="form-control" [(ngModel)]="item.unit_price_excl_tax"
-                                    formControlName="unitexclprice"></td>
-
-                            <td><input type="text" class="form-control" [(ngModel)]="item.quantity"
-                                    formControlName="quantity"> </td>
-
-                            <td><input type="text" class="form-control" [(ngModel)]="item.discount_amount_excl_tax"
-                                    formControlName="discount"></td>
-
-                            <td><input type="text" class="form-control" [(ngModel)]="item.price_excl_tax"
-                                    formControlName=excltax></td>
-
-                            <td>
-                                <button class="btn btn-dark fa fa-save btn-sm" (click)="saveRecord(item.id)"></button>
-                                &nbsp;&nbsp; <button type="button" class="btn btn-warning btn-sm fa fa-remove"
-                                    (click)="cancelEdit(item.id)"></button>
-                            </td>
-                        </ng-template>
+                        <td><img src="{{item.product.images.length > 0 ? item.product.images[0].src : 'assets/img/no_image.png'}}"
+                                width="110px" height="110px" alt="product" /></td>
+                        <td>{{item.product.name}}</td>
+                        <td>{{item.unit_price_excl_tax}}</td>
+                        <td>{{item.quantity}}</td>
+                        <td>{{item.discount_amount_excl_tax}}</td>
+                        <td>{{item.price_excl_tax}}</td>
+                        <td>
+                            <button class="btn btn-info" (click)="editRecord(item)"><i
+                                    class="fa fa-pencil"></i></button>
+                            <button class="btn btn-danger mb-1" (click)="DeleteRecord(item.id)"><i
+                                    class="fa fa-trash"></i></button>
+                        </td>
                     </tr>
-
-
 
                     <tr *ngIf="(orderRecord).length == 0" class="alert">
                         <td colspan="8" class="alert">No matching record Found</td>
                     </tr>
                 </tbody>
             </table>
+
+            <div class="modal fade" #editItem="bs-modal" bsModal tabindex="-1" role="dialog"
+                aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">{{ 'Edit Item'}}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                (click)="close()">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <label>Product image</label>
+                                    <!-- <div *ngFor="let item of orderRecord let index = i"> -->
+                                    <!-- <img formControlName="img" width="110px" height="110px" alt="product" /> -->
+                                    <!-- </div> -->
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <label>Product Name</label>
+                                    <input type="text" readonly class="form-control" formControlName="productName">
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <label>Price</label>
+                                    <input type="text" class="form-control" formControlName="unitexclprice">
+                                </div>
+
+                                <div class="form-group col-sm-6">
+                                    <label>Quantity</label>
+                                    <input type="text" class="form-control" formControlName="quantity">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <label>Discount</label>
+                                    <input type="text" class="form-control" formControlName="discount">
+                                </div>
+
+                                <div class="form-group col-sm-6">
+                                    <label>Total</label>
+                                    <input type="text" class="form-control" formControlName=excltax>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-danger float-left btn-sm" (click)="close()">Close </button>
+                            <button class="btn btn-success btn-sm" (click)="saveRecord()">{{ 'Edit' }}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </form>
 
         <div class="row">

@@ -42,7 +42,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
 import { from } from 'rxjs';
 import { NgxSpinnerModule } from "ngx-spinner";
-// import { ToasterModule } from 'ngx-toaster/src/lib';
+import { ToasterModule, ToasterService } from 'angular2-toaster';
 
 @NgModule({
   imports: [
@@ -61,6 +61,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
     HttpClientModule,
     HttpClientJsonpModule,
     NgxSpinnerModule,
+    ToasterModule.forRoot()
   ],
   declarations: [
     AppComponent,
@@ -74,7 +75,8 @@ import { NgxSpinnerModule } from "ngx-spinner";
     provide: LocationStrategy,
     useClass: HashLocationStrategy
   },
-    AppComponent
+    AppComponent,
+    ToasterService
   ],
   bootstrap: [AppComponent]
 })

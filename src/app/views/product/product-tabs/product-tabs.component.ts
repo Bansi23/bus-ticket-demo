@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonService } from '../../../services/common.service';
 import { TabDirective } from 'ngx-bootstrap/tabs/public_api';
 import { ProductInfoService } from '../../../services/FormServices/product-info.service';
+import { ProductinfoComponent } from '../productinfo/productinfo.component';
 const editedRecord = JSON.parse(localStorage.getItem('EditedRecord'));
 @Component({
   selector: 'app-product-tabs',
@@ -10,6 +11,7 @@ const editedRecord = JSON.parse(localStorage.getItem('EditedRecord'));
   styleUrls: ['./product-tabs.component.scss']
 })
 export class ProductTabsComponent implements OnInit {
+  @ViewChild(ProductinfoComponent, { static: true }) private productInfoForm: ProductinfoComponent;
   title: any = 'Add a new product';
   lstTabs: any = [];
 
