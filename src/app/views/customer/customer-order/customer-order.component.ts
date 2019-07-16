@@ -12,6 +12,10 @@ export class CustomerOrderComponent implements OnInit {
   custId;
   lstTempOrders = [];
   lstOrders = [];
+  totalRecords : number;
+  pageIndex: number = 1;
+  pageSize: number = 10;
+
   constructor(private router : Router,private _mS: MockService, private _cS: CommonService, private route:ActivatedRoute) { }
 
   ngOnInit() {
@@ -22,22 +26,46 @@ export class CustomerOrderComponent implements OnInit {
     });   
 
     if(this.custId){
-      console.log('this.custId:', this.custId)
-      this.getCustomerOrders();
+       this.getCustomerOrders();
     }
      
   }
+
+  pageChanged(value) {
+    this.pageIndex = +value;
+    this.getCustomerOrders();  
+  };
+
+  changePageSize(value) {
+    this.pageIndex = 1;
+    this.pageSize = value;
+    this.getCustomerOrders();
+  }
+  getTotalRecord(){
+    this.totalRecords = this.lstTempOrders.length
+  }
+
   navigateToOrders(){
     //  this.router.navigateByUrl('')
   }
   getCustomerOrders(){
      this._cS.API_GET(this._cS.getPaticularCustomerOrder(this.custId))
     .subscribe(response =>{
-      console.log("customer order",response);
-      this.lstTempOrders = response.orders;
-      console.log('responsed:', response);
-        console.log('this.lstOrders:', this.lstTempOrders[0]);
-        // this.lstOrders.push(this.lstTempOrders[0].id);
+       this.lstTempOrders = response.orders;
+      this.lstOrders = [];
+       for(let i=0;i<this.lstTempOrders.length;i++){
+        const data = {
+          orderId : this.lstTempOrders[i].id,
+          orderTotal : this.lstTempOrders[i].order_total,
+          orderStatus : this.lstTempOrders[i].order_status,
+          paymentStatus : this.lstTempOrders[i].payment_status,
+          shippingStatus : this.lstTempOrders[i].shipping_status, 
+          createdOn : this.lstTempOrders[i].created_on_utc
+        }  
+        this.lstOrders.push(data);
+       }
+       
+         // this.lstOrders.push(this.lstTempOrders[0].id);
         // this.lstOrders.push(this.lstTempOrders[0].order_total);
         // this.lstOrders.push(this.lstTempOrders[0].order_status); 
         // this.lstOrders.push(this.lstTempOrders[0].payment_status);

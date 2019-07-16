@@ -52,7 +52,7 @@ export class ProductListComponent implements OnInit {
   }
 
   deleteProduct(prodId) {
-    if (confirm('Are you sure want to delete this record?')) {
+    if (confirm('Are you sure you want to delete this record?')) {
       this._cS.API_DELETE(this._cS.URL_deleteRecord(prodId))
         .subscribe(res => {
           if (res) {

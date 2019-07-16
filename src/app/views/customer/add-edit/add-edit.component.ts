@@ -5,7 +5,7 @@ import { MockService } from '../../../services/mock.service';
 import { CommonService } from '../../../services/common.service';
 import { FormBuilder, FormGroup, Validators, FormArray, AbstractControl, Form } from '@angular/forms';
 import { map } from 'rxjs/operators';
-
+import {environment } from '../../../../environments/environment'
 @Component({
   selector: 'app-add-edit',
   templateUrl: './add-edit.component.html',
@@ -29,7 +29,9 @@ export class AddEditComponent implements OnInit {
   IPAddress;
   createdOn;
   lastActivity;
-  gender : string;
+  // gender : string;
+  // patchGender : string;
+  patchDate;
 
   dropdownOrderStatus = {
     singleSelection: false,
@@ -52,16 +54,23 @@ export class AddEditComponent implements OnInit {
       .queryParams
       .subscribe(params => {
         this.custId = params['id']
-        console.log('   this.custId', this.custId)
-      });
+       });
 
     if (this.custId) {
-      alert("called")
-      this.isChangePassword = true;
+       this.isChangePassword = true;
       this._cS.API_GET(this._cS.getParticularCustomer(this.custId))
         .subscribe(response => {
           this.customer = response.customers;
-          console.log('this.customer:', this.customer)
+           // if(this.customer[0].gender == "M"){
+          //   alert()
+          //   this.patchGender = "male"
+          // }else if(this.customer[0].gender == "F"){
+          //   this.patchGender = "female"
+          // }else{
+          //   alert("No gender")
+          // }
+          // this.patchDate = new Date(this.customer[0].date_of_birth).getDate() + "/" + new Date(this.customer[0].date_of_birth).getMonth()+1 + "/" + new Date(this.customer[0].date_of_birth).getFullYear();
+           
           // if(this.customer[0].addresses.length){
           //   this.companyName = this.customer[0].addresses[0].company
           // }else{
@@ -71,10 +80,8 @@ export class AddEditComponent implements OnInit {
 
           this.setValuesInForm();
         })
-      console.log('this.customer:', this.customer)
-    } else {
-      alert("Id not found!")
-      this._cS.Display_Loader(false);
+     } else {
+       this._cS.Display_Loader(false);
     }
     this.settings = {
       text: "Customer roles",
@@ -99,14 +106,15 @@ export class AddEditComponent implements OnInit {
   }
   initAddCustomerForm() {
     this.addCustomerForm = this.fb.group({
-      custEmail: ['', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')])],
+      custEmail: ['', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')])],  
       custPassword: ['', Validators.compose([Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')])],
       custRoles: ['', Validators.required],
       custManagerOfVendor: ['', Validators.required],
-      custGender: ['', Validators.required],
+      // custGender: ['', Validators.required],
       custFirstName: ['', Validators.required],
       custLastName: ['', Validators.required],
-      custDob: ['', Validators.required],
+      // custDob: ['', Validators.required],
+      custDob : [''],
       custCompanyName: [''],
       custAdminComment: [''],
       custIsTaxExempt: [''],
@@ -120,10 +128,10 @@ export class AddEditComponent implements OnInit {
       // custPassword : this.dataToSet.
       custRoles: this.customer[0].role_ids,
       //manager of vendor
-      custGender: this.customer[0].gender,
+      // custGender: this.patchGender,
       custFirstName: this.customer[0].first_name,
       custLastName: this.customer[0].last_name,
-      custDob: this.customer[0].date_of_birth,
+       // custDob: new Date(),
       custCompanyName: this.companyName,
       custAdminComment: this.customer[0].admin_comment,
       custIsTaxExempt: this.customer[0].is_tax_exempt,
@@ -160,18 +168,18 @@ export class AddEditComponent implements OnInit {
     for (let i = 0; i < x.length; i++) {
       roles.push(x[i].id)
     }
-    if(this.addCustomerForm.value.custGender == "male"){
-      this.gender = "M"
-    }else{
-      this.gender = "F"
-    }
+    // if(this.addCustomerForm.value.custGender == "male"){
+    //   this.gender = "M"
+    // }else{
+    //   this.gender = "F"
+    // }
     let body = {
       customer: {
         email: this.addCustomerForm.value.custEmail,
         password: this.addCustomerForm.value.custPassword,
         role_ids: roles,
         managerOfVendor: this.addCustomerForm.value.custManagerOfVendor,
-        gender: this.gender,
+        // gender: this.gender,
         first_name: this.addCustomerForm.value.custFirstName,
         last_name: this.addCustomerForm.value.custLastName,
         date_of_birth: date,
@@ -185,29 +193,27 @@ export class AddEditComponent implements OnInit {
 
     if (this.isChangePassword) {
       // alert("Edit")
-      this._cS.API_PUT(this._cS.getCustomerList(), body)
+      this._cS.API_PUT(environment.apiURL+"/customers/"+this.custId, body)
         .subscribe(response => {
           if (response) {
-
-            // console.log('response:', response)
-            this.router.navigateByUrl('/customers');
+            this.isChangePassword = false;
+             this.router.navigateByUrl('/customers');
+          }else{
+            alert("Record not updated")
           }
         })
-      this.isChangePassword = false;
     } else {
       this._cS.API_POST(this._cS.getCustomerList(), body)
         .subscribe(response => {
           if(response){
-            console.log('response:', response)
+            
             this.router.navigateByUrl('/customers');
           }
         })
-
     }
   }
 
   changePassword() {
     this.changePassword = this.addCustomerForm.value.custPassword;
   }
-
 }

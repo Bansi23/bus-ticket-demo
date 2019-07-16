@@ -10,7 +10,10 @@ import { CommonService } from '../../../services/common.service';
 })
 export class CustomerAddressComponent implements OnInit {
   custId;
-
+  custAddress = [];
+  totalRecords : number;
+  pageIndex: number = 1;
+  pageSize: number = 10;
   constructor(private router : Router,private _mS: MockService, private _cS: CommonService, private route:ActivatedRoute) { }
 
   ngOnInit() {
@@ -22,17 +25,46 @@ export class CustomerAddressComponent implements OnInit {
     });   
 
     if(this.custId){
-      console.log('this.custId:', this.custId)
-      this.getCustomerOrderAddress();
+       this.getCustomerOrderAddress();
     }
 
   }
+
+  pageChanged(value) {
+    this.pageIndex = +value;
+    this.getCustomerOrderAddress();  
+  };
+
+  changePageSize(value) {
+    this.pageIndex = 1;
+    this.pageSize = value;
+    this.getCustomerOrderAddress();
+  }
+  getTotalRecord(){
+    this.totalRecords = this.custAddress.length
+  }
   getCustomerOrderAddress(){
-    alert("ads");
-    this._cS.API_GET(this._cS.getPaticularCustomerOrder(this.custId))
+     this._cS.API_GET(this._cS.getPaticularCustomerOrder(this.custId))
     .subscribe(response =>{
-      console.log('response:', response)
-      })
+         let temp = response.orders;
+        this.custAddress = [];
+        for(let i=0;i<response. orders.length; i++){
+          const data = {
+              firstName : temp[i].billing_address.first_name,
+              lastName : temp[i].billing_address.last_name,
+              email : temp[i].billing_address.email,
+              phoneNo : temp[i].billing_address.phone_number,
+              faxNo : temp[i].billing_address.fax_number,
+              address : new Array(temp[i].billing_address.company,
+                temp[i].billing_address.address1,
+                temp[i].billing_address.address2,
+                temp[i].billing_address.city,
+                temp[i].billing_address.zip_postal_code,
+                temp[i].billing_address.country)
+          }
+          this.custAddress.push(data);
+        }
+        })
     
   }
 

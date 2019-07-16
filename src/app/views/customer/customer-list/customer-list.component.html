@@ -32,9 +32,9 @@
                 <td>{{c.createdOn | date : 'medium'}}</td>
                 <td>{{c.lastActivity | date : 'medium'}}</td>
                 <td>
-                    <a class="btn btn-secondary" (click)="navigateToEditCustomer(c)">
-                        <i class="fa fa-pencil"></i>
-                        Edit</a>
+                    <button class="btn btn-success" (click)="navigateToEditCustomer(c)">
+                        <i class="fa fa-edit"></i>
+                        Edit</button>
                 </td>
             </tr>
         </tbody>
