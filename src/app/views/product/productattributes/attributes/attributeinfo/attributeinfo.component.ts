@@ -20,10 +20,10 @@ export class AttributeinfoComponent implements OnInit {
           this.lstAttribute = res.product_attributes;
         }
       })
-      this.attrInfoForm.patchValue({
-        attribute : 1,
-        controlType : 1,
-      })
+    this.attrInfoForm.patchValue({
+      attribute: 1,
+      controlType: 1,
+    })
   }
 
   //#region  attribute form 
@@ -37,6 +37,22 @@ export class AttributeinfoComponent implements OnInit {
       controlType: [null],
       displayOrder: [null],
     });
+  }
+  //#endregion
+
+  //#region attribute info add
+  addInfo() {
+    const formValue = this.attrInfoForm.getRawValue();
+    var body = {
+      attributes: {
+        product_attribute_name : formValue.attribute,
+        text_prompt : formValue.textPrompt,
+        is_required: formValue.isReq,
+        display_order : formValue.displayOrder,
+        attribute_control_type_name : formValue.controlType
+      }
+    }
+    console.log('formValue:', body);
   }
   //#endregion
   constructor(private _cS: CommonService,

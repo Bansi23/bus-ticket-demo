@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { CommonService } from '../../../services/common.service';
 
 const productId = localStorage.getItem('editProductId');
 const editedRecord = JSON.parse(localStorage.getItem('EditedRecord'));
@@ -11,7 +12,7 @@ const editedRecord = JSON.parse(localStorage.getItem('EditedRecord'));
 })
 export class PicturesComponent implements OnInit {
 
-  tableHeader: any = ['Picture', 'Display order', 'Alt', 'Title', 'Action']
+  tableHeader: any = ['Picture', 'Display order', 'Action']
 
   prodPictureForm: FormGroup;
   lstPicture: any = [];
@@ -33,8 +34,6 @@ export class PicturesComponent implements OnInit {
   prodPictureForm_fb() {
     this.prodPictureForm = this.fb.group({
       src: [null],
-      alt: [null],
-      title: [null],
       position: [null],
     })
   }
@@ -42,7 +41,6 @@ export class PicturesComponent implements OnInit {
   getPictureList() {
     if (productId != null) {
       this.lstPicture = editedRecord.images;
-      console.log('this.lstPicture:', this.lstPicture.length)
       this.totalRecords = this.lstPicture.length;
     }
   }
@@ -51,11 +49,8 @@ export class PicturesComponent implements OnInit {
 
   //#region edit & delete picture details
   editPicture(i) {
-    console.log('i:', i)
+    console.log('this.lstPicture:', this.lstPicture)
     this.prodPictureForm.patchValue({
-      src: this.lstPicture[i].src,
-      alt: this.lstPicture[i].alt,
-      title: this.lstPicture[i].title,
       position: this.lstPicture[i].position,
     })
   }
@@ -69,26 +64,53 @@ export class PicturesComponent implements OnInit {
 
   //#region add new picture in lst
   formValue: any = {};
-
+  src: any
   readUrl(event: any) {
-    this.formValue = this.prodPictureForm.getRawValue()
     if (event.target.files && event.target.files[0]) {
       var reader = new FileReader();
       reader.onload = (event: ProgressEvent) => {
-        this.formValue.src = (<FileReader>event.target).result;
+        this.src = (<FileReader>event.target).result;
       }
       reader.readAsDataURL(event.target.files[0]);
     }
   }
 
+  b64toBlob(b64Data, contentType?, sliceSize?) {
+    contentType = contentType || '';
+    sliceSize = sliceSize || 512;
+
+    var byteCharacters = atob(b64Data.replace(/^data:image\/(png|jpeg|jpg);base64,/, ''));
+    var byteArrays = [];
+
+    for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+      var slice = byteCharacters.slice(offset, offset + sliceSize);
+
+      var byteNumbers = new Array(slice.length);
+      for (var i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+
+      var byteArray = new Uint8Array(byteNumbers);
+
+      byteArrays.push(byteArray);
+    }
+
+    var blob = new Blob(byteArrays, { type: contentType });
+    console.log('blob:', blob)
+    return blob;
+  }
+
   addPicture() {
-    this.formValue = this.prodPictureForm.getRawValue();
-    console.log('this.formValue:', this.formValue)
+    this.formValue = this.prodPictureForm.getRawValue()
+    this.formValue.src = this.src;
+    this.b64toBlob(this.src);
     this.lstPicture.push(this.formValue);
+    // this._cS.sendPictureToService(this.lstPicture);
     this.prodPictureForm.reset();
   }
   //#endregion
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder,
+    private _cS: CommonService) { }
 
   ngOnInit() {
     this.prodPictureForm_fb();

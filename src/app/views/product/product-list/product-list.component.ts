@@ -18,7 +18,7 @@ export class ProductListComponent implements OnInit {
 
   pageChanged(value) {
     this.pageIndex = +value;
-    this.getProductList();  
+    this.getProductList();
   };
 
   changePageSize(value) {

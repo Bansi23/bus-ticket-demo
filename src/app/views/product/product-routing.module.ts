@@ -7,6 +7,8 @@ import { ProductinfoComponent } from './productinfo/productinfo.component';
 import { PicturesComponent } from './pictures/pictures.component';
 import { AttributesComponent } from './productattributes/attributes/attributes/attributes.component';
 import { SpecificationattributesComponent } from './specificationattributes/specificationattributes.component';
+import { AttributeinfoComponent } from './productattributes/attributes/attributeinfo/attributeinfo.component';
+import { AttributeValuesComponent } from './productattributes/attributes/attribute-values/attribute-values.component';
 
 
 const routes: Routes = [
@@ -28,7 +30,14 @@ const routes: Routes = [
           { path: 'productSpecificationAttr', component: SpecificationattributesComponent },
         ]
       },
-      { path: 'addnew-attribute', component: AddnewAttributeComponent, data: { title: 'Add New Attribute' } },
+      {
+        path: 'addnew-attribute', component: AddnewAttributeComponent, data: { title: 'Add New Attribute' },
+        children: [
+          { path: '', redirectTo: 'info', pathMatch: 'full' },
+          { path: 'info', component: AttributeinfoComponent },
+          { path: 'value', component: AttributeValuesComponent },
+        ]
+      },
     ]
   }
 ];

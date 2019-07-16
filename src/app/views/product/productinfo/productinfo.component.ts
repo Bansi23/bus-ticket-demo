@@ -18,7 +18,7 @@ export class ProductinfoComponent implements OnInit {
   // @ViewChild('infoForm', { static: true }) infoForm: ElementRef;
 
   //#region product info form
-  @Input() productInfoForm: FormGroup;
+  productInfoForm: FormGroup;
 
   productInfoForm_fb() {
     this.productInfoForm = this.fb.group({
@@ -41,7 +41,6 @@ export class ProductinfoComponent implements OnInit {
       tax: [null],
       taxCategory: [null]
     });
-
   }
   //#endregion
 
@@ -72,17 +71,6 @@ export class ProductinfoComponent implements OnInit {
   //#endregion
 
   //#region category multi select
-  dropdownProductCategory = {
-    singleSelection: false,
-    text: "Select Order Status",
-    selectAllText: 'Select All',
-    unSelectAllText: 'UnSelect All',
-    enableSearchFilter: true,
-    classes: "myclass custom-class",
-    badgeShowLimit: 1,
-    maxHeight: 200
-  };
-
   dropdownProductDiscount = {
     singleSelection: false,
     text: "Select Discount",
@@ -166,7 +154,7 @@ export class ProductinfoComponent implements OnInit {
   //#endregion
 
   //#region create product
-
+  productInfoValue: any;
   disc_ids: any = [];
   createProduct() {
     for (let c in this.productInfoForm.controls) {
@@ -178,7 +166,7 @@ export class ProductinfoComponent implements OnInit {
         var discount = formValue.discount[i].id;
         this.disc_ids.push(discount);
       }
-      let body = {
+      var body = {
         product: {
           name: formValue.productName,
           short_descriptio: formValue.shortDescription ? formValue.shortDescription : "",
@@ -194,15 +182,8 @@ export class ProductinfoComponent implements OnInit {
           height: formValue.height ? formValue.width : 0
         }
       }
-
-      this._cS.API_POST(this._cS.getProductList(), body)
-        .subscribe(res => {
-          if (res) {
-            this.getProductList();
-            this.lstProduct.push(res.products);
-          }
-        })
     }
+    this._cS.sendInfoToService(body);
   }
   //#endregion
 
@@ -214,22 +195,9 @@ export class ProductinfoComponent implements OnInit {
   }
 
   saveAndEditProduct() {
-    this._router.navigate(['/catalog/addProduct/productPicture']);
     this.createProduct();
   }
   //#region 
-
-  //#region  get product listing
-  lstProduct: any = [];
-  getProductList() {
-    this._cS.API_GET(this._cS.getProductList())
-      .subscribe(res => {
-        if (res) {
-          this.lstProduct = res.products;
-        }
-      })
-  }
-  //#endregion
 
   //#region  edit product details
   editedProduct: any = [];
@@ -278,6 +246,7 @@ export class ProductinfoComponent implements OnInit {
     this.bindStaticList();
     this.getCategoryList();
     this.multiSelectedOptions();
+    // this.getProductList();
     if (productId != null) {
       this.editRecord();
     }

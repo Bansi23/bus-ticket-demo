@@ -182,7 +182,6 @@ export class AddEditComponent implements OnInit {
       this._cS.API_PUT(this._cS.getCustomerList(),body)
       .subscribe(response =>{
         if(response){
-
           // console.log('response:', response)
           this.router.navigateByUrl('/customers');
         }

@@ -73,7 +73,7 @@ export class CommonService {
       return res;
     }, catchError(err => {
       this.Display_Loader(false);
-      if (err.status == 401) {  
+      if (err.status == 401) {
       }
       else if (err.status == 400) {
       }
@@ -146,7 +146,7 @@ export class CommonService {
     return baseUrl + `customers?Limit=${PageSize}&Page=${PageIndex}`;
 
   }
-  getCustomerTotalRecord(){
+  getCustomerTotalRecord() {
     return baseUrl + `customers/count`;
   }
 
@@ -203,14 +203,78 @@ export class CommonService {
   };
   //#endregion
 
+  // #region Toaster Message
+  /** Display Toster message Like success, error, warning   
+   * @param Type - Pass toaster type Like 'success', 'error'.
+   * @param Title - Pass message title Like 'Error Message !!'
+   * @param Message - Pass message body text Like 'You can't delete this user !!'
+   * Ex : this.show_Toaster('success', 'Created !!', 'User Created Successfully !!');
+  */
+  displayToast(type: number, message?: any, title?: any, ) {
+    let typeString;
+    switch (type) {
+      case 1: { typeString = 'success'; break; };
+      case 2: { typeString = 'error'; break; };
+      case 3: { typeString = 'warning'; break; };
+      case 4: { typeString = 'info'; break; };
+      default: { typeString = 'error'; break; };
+    };
+    title = title ? title : null;
+    this._app.popToast(typeString, title, message);
+  };
+  // #endregion
+
   //#region 
   getProductTabs() {
     return [
-      {id : 1, name : 'Product Info', isActive : true},
-      {id : 2, name : 'Picture', isActive : false},
-      {id : 3, name : 'Product Attributes', isActive : false},
-      {id : 4, name : 'Specification Attributes', isActive : false},
+      { id: 1, name: 'Product Info', isActive: true },
+      { id: 2, name: 'Picture', isActive: false },
+      { id: 3, name: 'Product Attributes', isActive: false },
+      { id: 4, name: 'Specification Attributes', isActive: false },
     ]
+  }
+
+  //#region  get product listing
+  lstProduct: any = [];
+  productList() {
+    this.API_GET(this.getProductList())
+      .subscribe(res => {
+        if (res) {
+          this.lstProduct = res.products;
+        }
+      })
+  }
+  //#endregion
+  //#region  create product
+  sendInfoToService(body) {
+    this.API_POST(this.getProductList(), body)
+      .subscribe(res => {
+        if (res) {
+          console.log('res:', res)
+          this.productList();
+          this.lstProduct.push(res.products);
+          localStorage.setItem('productId', res.products[0].id);
+        }
+      });
+    this._router.navigateByUrl('/catalog/addProduct/productPicture');
+  }
+  //#endregion
+
+  //#region edit product addtional info
+  sendPictureToService(data) {
+    var body = {
+      product: {
+        images:
+          data
+      }
+    }
+    console.log('data:', body)
+    var productId = localStorage.getItem('productId');
+    console.log('productId:', productId)
+    this.API_PUT(this.URL_getProductById(productId), body)
+      .subscribe(res => {
+        console.log('res:', res)
+      })
   }
   //#endregion
   constructor(public _router: Router, public _httpClient: HttpClient, public _app: AppComponent) { }

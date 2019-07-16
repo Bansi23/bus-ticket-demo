@@ -443,6 +443,27 @@ export class MockService {
       { id: 5, name: 'Hard drive' },
     ]
   }
+
+  getAttributeOptions() {
+    return [
+      { id: 1, name: "13.0''", aId: 1 },
+      { id: 2, name: "13.3''", aId: 1 },
+      { id: 3, name: "14.0''", aId: 1 },
+      { id: 4, name: "15.0''", aId: 1 },
+      { id: 5, name: "15.6''", aId: 1 },
+      { id: 6, name: 'Grey', aId: 2 },
+      { id: 7, name: 'Red', aId: 2 },
+      { id: 8, name: 'Blue', aId: 2 },
+      { id: 9, name: 'Intel Core i5', aId: 3 },
+      { id: 10, name: 'Intel Core i7', aId: 3 },
+      { id: 11, name: '4 GB', aId: 4 },
+      { id: 12, name: '8 GB', aId: 4 },
+      { id: 13, name: '16 GB', aId: 4 },
+      { id: 14, name: '1 TB', aId: 5 },
+      { id: 15, name: '500 GB', aId: 5 },
+      { id: 16, name: '128 GB', aId: 5 },
+    ]
+  }
   //#endregion
 
   constructor() { }
