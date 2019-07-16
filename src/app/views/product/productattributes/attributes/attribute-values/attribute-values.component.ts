@@ -3,6 +3,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import { MockService } from '../../../../../services/mock.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CommonService } from '../../../../../services/common.service';
 
 @Component({
   selector: 'app-attribute-values',
@@ -47,10 +48,9 @@ export class AttributeValuesComponent implements OnInit {
   }
 
   changeValueType(ev) {
-    console.log('ev:', ev)
     var assProduct = <HTMLElement>document.querySelector('.associateType');
     var simple = <HTMLElement>document.querySelector('.simpleType');
-    if (ev == 2) {
+    if (ev == 1) {
       if (assProduct) {
         assProduct.style.display = 'block';
         simple.style.display = 'none';
@@ -73,16 +73,49 @@ export class AttributeValuesComponent implements OnInit {
   associateProdList() {
     this.associateModal.show();
   }
+
+  addAttributeValues() {
+    const formValue = this.attrValueForm.getRawValue();
+    console.log('formValue:', formValue)
+    var body = {
+      type_id: formValue.valueType,
+      associated_product_id: this.filteredProduct.id,
+      name: formValue.name,
+      price_adjustment: formValue.priceAdj,
+      weight_adjustment: formValue.weightAdj,
+      cost: formValue.cost,
+      quantity: formValue.pQuantity,
+      is_pre_selected: formValue.isPreSelected,
+      display_order: formValue.displayOrder,
+      product_image_id: formValue.picture,
+      id: this.filteredProduct.id
+    }
+    this._cS.getAttributeValues(body);
+  }
+
+  lstProduct: any = [];
+  getProductList(lst) {
+    this.lstProduct = lst;
+  }
+
+  associateProduct: any;
+  filteredProduct: any = [];
+  associatedProduct(productId) {
+    this.associateModal.hide();
+    this.filteredProduct = this.lstProduct.find(x => x.id == productId);
+    this.associateProduct = this.filteredProduct.name;
+  }
   //#endregion
   constructor(private _mS: MockService,
     private fb: FormBuilder,
-    private _router: Router) { }
+    private _router: Router,
+    private _cS: CommonService) { }
 
   ngOnInit() {
     this.attrValueForm_fb();
     this.getValueType();
     this.attrValueForm.patchValue({
-      valueType: 1,
+      valueType: 0,
     })
   }
 

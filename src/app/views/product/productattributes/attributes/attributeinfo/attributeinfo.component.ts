@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonService } from '../../../../../services/common.service';
 import { MockService } from '../../../../../services/mock.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-attributeinfo',
@@ -44,20 +45,20 @@ export class AttributeinfoComponent implements OnInit {
   addInfo() {
     const formValue = this.attrInfoForm.getRawValue();
     var body = {
-      attributes: {
-        product_attribute_name : formValue.attribute,
-        text_prompt : formValue.textPrompt,
-        is_required: formValue.isReq,
-        display_order : formValue.displayOrder,
-        attribute_control_type_name : formValue.controlType
-      }
+      product_attribute_name: formValue.attribute,
+      text_prompt: formValue.textPrompt,
+      is_required: formValue.isReq,
+      display_order: formValue.displayOrder,
+      attribute_control_type_name: formValue.controlType
     }
-    console.log('formValue:', body);
+    this._cS.getAttributeInfo(body);
+    _
   }
   //#endregion
   constructor(private _cS: CommonService,
     private _mS: MockService,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,
+    private _router : Router) { }
 
   ngOnInit() {
     this.attrInfoForm_fb();

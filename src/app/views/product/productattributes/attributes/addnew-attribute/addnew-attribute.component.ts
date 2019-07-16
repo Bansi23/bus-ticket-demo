@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CommonService } from '../../../../../services/common.service';
 
 @Component({
   selector: 'app-addnew-attribute',
@@ -12,7 +13,11 @@ export class AddnewAttributeComponent implements OnInit {
     this._router.navigateByUrl('/catalog/addProduct')
   }
 
-  constructor(private _router: Router) { }
+  saveAttribute() {
+    this._cS.addAttribute();
+  }
+  constructor(private _router: Router,
+    private _cS: CommonService) { }
 
   ngOnInit() {
   }

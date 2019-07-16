@@ -1,22 +1,7 @@
-<form [formGroup]="associateForm" class="form-validate" role="form" name="attrValue">
+<!-- <form [formGroup]="associateForm" class="form-validate" role="form" name="attrValue">
     <div class="col-sm-12">
         <div class="card">
             <div class="card-body">
-                <!-- <div class="row">
-                    <div class="form-group col-sm-6">
-                        <label>Product name</label>
-                        <input type="text" class="form-control" formControlName="productName">
-                    </div>
-                    <div class="form-group col-sm-6">
-                        <label>Product type</label>
-                        <select class="form-control" formControlName="productType"
-                            (change)="changeValueType($event.target.value)">
-                            <option *ngFor="let p of lstProductType" [value]="p.id">
-                                {{p.name}}
-                            </option>
-                        </select>
-                    </div>
-                </div> -->
                 <div class="row">
                     <div class="form-group col-sm-6">
                         <label>Category</label>
@@ -45,7 +30,7 @@
             </div>
         </div>
     </div>
-</form>
+</form> -->
 <div class="col-sm-12">
     <div class="card">
         <div class="card-body">
@@ -57,9 +42,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
+                        <tr *ngFor="let prod of lstProduct">
+                            <td>
+                                <button class="btn btn-info" (click)="selectProduct(prod.id)">Select</button>
+                            </td>
+                            <td>{{prod.name}}</td>
+                            <td class="fa"
+                                [ngClass]="{'fa-check text-success': prod.published ? 'fa-close text-danger' : !prod.published}">
+                            </td>
                         </tr>
                     </tbody>
                 </table>
