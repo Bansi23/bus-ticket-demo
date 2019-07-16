@@ -41,9 +41,8 @@ pageSize: number = 10;
   getCustomerList() {
     this._cS.API_GET(this._cS.getCustomersList(this.pageSize,this.pageIndex))
       .subscribe(response => {
-        // this.totalRecords = response.customers.length
-        // console.log('this.totalRecords :', this.totalRecords )
-        // console.log("res", response);
+       this.getCustomerCount(); 
+       this.lstcustomers = [];
         for (let i = 0; i < response.customers.length; i++) {
           const data = {
             id: response.customers[i].id,
@@ -58,6 +57,16 @@ pageSize: number = 10;
           // console.log('data:', this.lstcustomers)
         }
       })
+  }
+  getCustomerCount(){
+    this._cS.API_GET(this._cS.getCustomerTotalRecord())
+    .subscribe(response=> {
+      if(response){
+        this.totalRecords = response.count;
+      }
+    })
+   
+    
   }
   getTotalRecord(){
     this._cS.API_GET(this._cS.getCustomerTotalRecord())

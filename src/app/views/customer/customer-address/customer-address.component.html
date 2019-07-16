@@ -32,7 +32,7 @@
                                 </span> 
                             </td>
                             <td>
-                                <button class="btn btn-success">
+                                <button class="btn btn-success" (click)="navigateToEditAddress(ad.customerId,ad.addressId)">
                                     <i class="fa fa-edit"></i>
                                 </button>
                             </td>
@@ -55,13 +55,12 @@
                             </div>
                         </div>
                         <div class="col-md-6 col-12" *ngIf="(custAddress).length > 0">
-                            <div class="text-right pagignation-page">
+                                <div class="text-right pagignation-page">
                                 <pagination-controls class="pagination-sm pagination-box"
                                     (pageChange)="pageChanged($event)">
                                 </pagination-controls>
                             </div>
                         </div>
-    
                         <div class="col-md-3 col-12" *ngIf="custAddress.length > 0">
                             <div class="text-left pagignation-select">
                                 <select class="form-control" [(ngModel)]="pageSize"

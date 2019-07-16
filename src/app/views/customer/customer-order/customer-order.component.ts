@@ -46,8 +46,6 @@ export class CustomerOrderComponent implements OnInit {
   }
 
   navigateToOrders(order_Id){
-    //  this.router.navigateByUrl('/Sales/order')
-    // this.router.navigate(['/sales/order'], { queryParams: { orderid: id, id: custid } });
     this.router.navigate(['/sales/viewrecord'], { queryParams : {orderId : order_Id}});
   }
   getCustomerOrders(){
@@ -55,7 +53,7 @@ export class CustomerOrderComponent implements OnInit {
     .subscribe(response =>{
        this.lstTempOrders = response.orders;
       this.lstOrders = [];
-      
+      this.getTotalRecord();
        for(let i=0;i<this.lstTempOrders.length;i++){
         const data = {
           orderId : this.lstTempOrders[i].id,
