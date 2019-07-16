@@ -5,7 +5,7 @@ import { MockService } from '../../../services/mock.service';
 import { CommonService } from '../../../services/common.service';
 import { FormBuilder, FormGroup, Validators, FormArray, AbstractControl, Form } from '@angular/forms';
 import { map } from 'rxjs/operators';
-import {environment } from '../../../../environments/environment'
+import { environment } from '../../../../environments/environment'
 @Component({
   selector: 'app-add-edit',
   templateUrl: './add-edit.component.html',
@@ -14,7 +14,6 @@ import {environment } from '../../../../environments/environment'
 export class AddEditComponent implements OnInit {
   lstCustomerRoles = [];
   selectedcustomerRoles: any = [];
-
   lstManagerOfVendor = [];
   settings = {};
   selectedRoles = [];
@@ -32,6 +31,7 @@ export class AddEditComponent implements OnInit {
   // gender : string;
   // patchGender : string;
   patchDate;
+  isSaveAndEdit: boolean = false;
 
   dropdownOrderStatus = {
     singleSelection: false,
@@ -44,7 +44,6 @@ export class AddEditComponent implements OnInit {
     maxHeight: 200
   };
   constructor(private _mS: MockService, private _cS: CommonService, private router: Router, private fb: FormBuilder, private route: ActivatedRoute) { }
-
   ngOnInit() {
     this.lstCustomerRoles = this._mS.customerRoles();
     this.lstManagerOfVendor = this._mS.getManagerOfVendor();
@@ -54,14 +53,14 @@ export class AddEditComponent implements OnInit {
       .queryParams
       .subscribe(params => {
         this.custId = params['id']
-       });
+      });
 
     if (this.custId) {
-       this.isChangePassword = true;
+      this.isChangePassword = true;
       this._cS.API_GET(this._cS.getParticularCustomer(this.custId))
         .subscribe(response => {
           this.customer = response.customers;
-           // if(this.customer[0].gender == "M"){
+          // if(this.customer[0].gender == "M"){
           //   alert()
           //   this.patchGender = "male"
           // }else if(this.customer[0].gender == "F"){
@@ -70,7 +69,7 @@ export class AddEditComponent implements OnInit {
           //   alert("No gender")
           // }
           // this.patchDate = new Date(this.customer[0].date_of_birth).getDate() + "/" + new Date(this.customer[0].date_of_birth).getMonth()+1 + "/" + new Date(this.customer[0].date_of_birth).getFullYear();
-           
+
           // if(this.customer[0].addresses.length){
           //   this.companyName = this.customer[0].addresses[0].company
           // }else{
@@ -80,8 +79,8 @@ export class AddEditComponent implements OnInit {
 
           this.setValuesInForm();
         })
-     } else {
-       this._cS.Display_Loader(false);
+    } else {
+      this._cS.Display_Loader(false);
     }
     this.settings = {
       text: "Customer roles",
@@ -106,7 +105,7 @@ export class AddEditComponent implements OnInit {
   }
   initAddCustomerForm() {
     this.addCustomerForm = this.fb.group({
-      custEmail: ['', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')])],  
+      custEmail: ['', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')])],
       custPassword: ['', Validators.compose([Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')])],
       custRoles: ['', Validators.required],
       custManagerOfVendor: ['', Validators.required],
@@ -114,7 +113,7 @@ export class AddEditComponent implements OnInit {
       custFirstName: ['', Validators.required],
       custLastName: ['', Validators.required],
       // custDob: ['', Validators.required],
-      custDob : [''],
+      custDob: [''],
       custCompanyName: [''],
       custAdminComment: [''],
       custIsTaxExempt: [''],
@@ -131,7 +130,7 @@ export class AddEditComponent implements OnInit {
       // custGender: this.patchGender,
       custFirstName: this.customer[0].first_name,
       custLastName: this.customer[0].last_name,
-       // custDob: new Date(),
+      // custDob: new Date(),
       custCompanyName: this.companyName,
       custAdminComment: this.customer[0].admin_comment,
       custIsTaxExempt: this.customer[0].is_tax_exempt,
@@ -154,10 +153,12 @@ export class AddEditComponent implements OnInit {
   }
 
   saveAddEditForm() {
+    for (let v in this.addCustomerForm.controls) {
+      this.addCustomerForm.controls[v].markAsTouched();
+    };
     if (this.addCustomerForm.valid) {
       this.saveCustomerData();
-    } else {
-      alert("not valid")
+
     }
   }
 
@@ -192,22 +193,27 @@ export class AddEditComponent implements OnInit {
     }
 
     if (this.isChangePassword) {
-      // alert("Edit")
-      this._cS.API_PUT(environment.apiURL+"/customers/"+this.custId, body)
+
+      this._cS.API_PUT(environment.apiURL + "/customers/" + this.custId, body)
         .subscribe(response => {
           if (response) {
             this.isChangePassword = false;
-             this.router.navigateByUrl('/customers');
-          }else{
+            this.router.navigateByUrl('/customers');
+          } else {
             alert("Record not updated")
           }
         })
     } else {
       this._cS.API_POST(this._cS.getCustomerList(), body)
         .subscribe(response => {
-          if(response){
-            
-            this.router.navigateByUrl('/customers');
+          if (response) {
+            if (this.isSaveAndEdit) {
+              console.log('response:', response)
+              this.isChangePassword = true;
+              // alert("is save and edit")
+            } else {
+              this.router.navigateByUrl('/customers');
+            }
           }
         })
     }
@@ -215,5 +221,9 @@ export class AddEditComponent implements OnInit {
 
   changePassword() {
     this.changePassword = this.addCustomerForm.value.custPassword;
+  }
+  saveAndEditForm() {
+    this.isSaveAndEdit = true;
+    this.saveAddEditForm();
   }
 }

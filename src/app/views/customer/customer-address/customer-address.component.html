@@ -1,79 +1,79 @@
 <div class="col-sm-12">
-        <div class="card">
-            <div class="card-header">
-                <strong>Customers</strong>
-            </div>
-            <div class="card-body">
-                <table class="table">
-                    <thead>
-                        <tr>
-                           <th>First name</th>
-                           <th>Last name</th>
-                           <th>Email</th>
-                           <th>Phone number</th>
-                           <th>Fax number</th>
-                           <th>Address</th>
-                           <th>Edit</th>
-                           <th>Delete</th>
-                           
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let ad of custAddress | paginate: { itemsPerPage: pageSize, currentPage: pageIndex, totalItems: totalRecords }; let i=index;">
-                            <td>{{ad.firstName}}</td>
-                            <td>{{ad.lastName}}</td>
-                            <td>{{ad.email}}</td>
-                            <td>{{ad.phoneNo}}</td>
-                            <td>{{ad.faxNo}}</td>
-                            <td>
-                                <span *ngFor="let a of ad.address">
+    <div class="card">
+        <div class="card-header">
+            <strong>Customers</strong>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>First name</th>
+                        <th>Last name</th>
+                        <th>Email</th>
+                        <th>Phone number</th>
+                        <th>Fax number</th>
+                        <th>Address</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
 
-                                    {{a}} <br>
-                                </span> 
-                            </td>
-                            <td>
-                                <button class="btn btn-success" (click)="navigateToEditAddress(ad.customerId,ad.addressId)">
-                                    <i class="fa fa-edit"></i>
-                                </button>
-                            </td>
-                            <td>
-                                <button class="btn btn-danger">
-                                    <i class="fa fa-trash"></i>
-                                
-                                </button>
-                            </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr
+                        *ngFor="let ad of custAddress | paginate: { itemsPerPage: pageSize, currentPage: pageIndex, totalItems: totalRecords }; let i=index;">
+                        <td>{{ad.firstName}}</td>
+                        <td>{{ad.lastName}}</td>
+                        <td>{{ad.email}}</td>
+                        <td>{{ad.phoneNo}}</td>
+                        <td>{{ad.faxNo}}</td>
+                        <td>
+                            <span *ngFor="let a of ad.address">
 
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="row">
-                        <div class="col-md-3 col-12">
-                            <div class="total-count--table">
-                                <span>Total number of records : {{ totalRecords}}</span>
-                                <button class="btn btn-primary" (click)="getCustomerOrderAddress()"><i
-                                        class="fa fa-refresh"></i></button>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-12" *ngIf="(custAddress).length > 0">
-                                <div class="text-right pagignation-page">
-                                <pagination-controls class="pagination-sm pagination-box"
-                                    (pageChange)="pageChanged($event)">
-                                </pagination-controls>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-12" *ngIf="custAddress.length > 0">
-                            <div class="text-left pagignation-select">
-                                <select class="form-control" [(ngModel)]="pageSize"
-                                    (change)="changePageSize($event.target.value)">
-                                    <option value="10">10</option>
-                                    <option value="20">20</option>
-                                    <option value="30">30</option>
-                                    <option value="40">40</option>
-                                    <option value="50">50</option>
-                                </select>
-                            </div>
-                        </div>
+                                {{a}} <br>
+                            </span>
+                        </td>
+                        <td>
+                            <button class="btn btn-success" (click)="navigateToEditAddress(ad.customerId,ad.addressId)">
+                                <i class="fa fa-edit"></i>
+                            </button>
+                        </td>
+                        <td>
+                            <button class="btn btn-danger">
+                                <i class="fa fa-trash"></i>
+
+                            </button>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="col-md-3 col-12">
+                    <div class="total-count--table">
+                        <span>Total number of records : {{ totalRecords}}</span>
+                        <button class="btn btn-primary" (click)="getCustomerOrderAddress()"><i
+                                class="fa fa-refresh"></i></button>
                     </div>
+                </div>
+                <div class="col-md-6 col-12" *ngIf="(custAddress).length > 0">
+                    <div class="text-right pagignation-page">
+                        <pagination-controls class="pagination-sm pagination-box" (pageChange)="pageChanged($event)">
+                        </pagination-controls>
+                    </div>
+                </div>
+                <div class="col-md-3 col-12" *ngIf="custAddress.length > 0">
+                    <div class="text-left pagignation-select">
+                        <select class="form-control" [(ngModel)]="pageSize"
+                            (change)="changePageSize($event.target.value)">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="40">40</option>
+                            <option value="50">50</option>
+                        </select>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+</div>

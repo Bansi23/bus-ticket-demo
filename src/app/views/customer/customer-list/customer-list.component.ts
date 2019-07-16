@@ -9,12 +9,12 @@ import { CommonService } from '../../../services/common.service';
   styleUrls: ['./customer-list.component.scss']
 })
 export class CustomerListComponent implements OnInit {
-lstcustomers = [];
-lstCustomerRoles = [];
-totalRecords : number;
-pageIndex: number = 1;
-pageSize: number = 10;
-  constructor(private router : Router,private _mS: MockService, private _cS: CommonService) { }
+  lstcustomers = [];
+  lstCustomerRoles = [];
+  totalRecords: number;
+  pageIndex: number = 1;
+  pageSize: number = 10;
+  constructor(private router: Router, private _mS: MockService, private _cS: CommonService) { }
 
   ngOnInit() {
     this.getCustomerList();
@@ -26,23 +26,23 @@ pageSize: number = 10;
     this.getCustomerList();
   };
 
-  changePageSize(value) { 
+  changePageSize(value) {
     this.pageIndex = 1;
     this.pageSize = value;
     this.getCustomerList();
   }
-  navigateToEditCustomer(cust){
-  // console.log("cust",cust.id);  
-  //  this._mS.setItemInStorage('customerToEdit',cust);
-      
+  navigateToEditCustomer(cust) {
+    // console.log("cust",cust.id);  
+    //  this._mS.setItemInStorage('customerToEdit',cust);
+
     // this.router.navigateByUrl('/customers/addEdit', {id : cust.id});
-    this.router.navigate(['/customers/addEdit'], {queryParams : {id : cust.id}});
+    this.router.navigate(['/customers/addEdit'], { queryParams: { id: cust.id } });
   }
   getCustomerList() {
-    this._cS.API_GET(this._cS.getCustomersList(this.pageSize,this.pageIndex))
+    this._cS.API_GET(this._cS.getCustomersList(this.pageSize, this.pageIndex))
       .subscribe(response => {
-       this.getCustomerCount(); 
-       this.lstcustomers = [];
+        this.getCustomerCount();
+        this.lstcustomers = [];
         for (let i = 0; i < response.customers.length; i++) {
           const data = {
             id: response.customers[i].id,
@@ -58,23 +58,23 @@ pageSize: number = 10;
         }
       })
   }
-  getCustomerCount(){
+  getCustomerCount() {
     this._cS.API_GET(this._cS.getCustomerTotalRecord())
-    .subscribe(response=> {
-      if(response){
-        this.totalRecords = response.count;
-      }
-    })
-   
-    
+      .subscribe(response => {
+        if (response) {
+          this.totalRecords = response.count;
+        }
+      })
+
+
   }
-  getTotalRecord(){
+  getTotalRecord() {
     this._cS.API_GET(this._cS.getCustomerTotalRecord())
-    .subscribe(response =>{
-      this.totalRecords = response.count;
-      // console.log('response:', response.count)
-      this.getCustomerList(); 
-    })
+      .subscribe(response => {
+        this.totalRecords = response.count;
+        // console.log('response:', response.count)
+        this.getCustomerList();
+      })
   }
 
 }
