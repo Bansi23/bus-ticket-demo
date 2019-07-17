@@ -52,7 +52,6 @@ export class AttributeinfoComponent implements OnInit {
       attribute_control_type_name: formValue.controlType
     }
     this._cS.getAttributeInfo(body);
-    _
   }
   //#endregion
   constructor(private _cS: CommonService,

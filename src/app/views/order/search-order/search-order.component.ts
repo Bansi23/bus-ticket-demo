@@ -97,11 +97,21 @@ export class SearchOrderComponent implements OnInit {
   //#endregion
 
   GetRecord() {
+    this._cS.Display_Loader(true);
     this._cS.API_GET(this._cS.getOrderList(this.pageSize, this.pageIndex))
       .subscribe(res => {
+        this._cS.Display_Loader(false);
         if (res) {
           this.lstOrderData = res.orders;
           this.finalTotal = this.lstOrderData.map(o => o.order_total).reduce((a, c) => a + c, 0);
+        }
+        else {
+          err => {
+            if (err.status == 400) {
+              this._cS.displayToast(2, "Record not found");
+              this._router.navigate(['/sales/order']);
+            }
+          }
         }
       });
   }
@@ -158,7 +168,15 @@ export class SearchOrderComponent implements OnInit {
   }
   goDirectlyOrder() {
     const index = this.searchOrder.get('orderno').value;
-    this._router.navigate(['/sales/viewrecord'], { queryParams: { id: index } });
+    const id = this.lstOrderData.find((item) => item.id == index);
+    if (id) {
+      this._router.navigate(['/sales/viewrecord'], { queryParams: { id: id.id } });
+    }
+    else {
+      this._cS.displayToast(2, 'This record is not found')
+    }
+
+
   }
 
   StaticList() {

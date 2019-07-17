@@ -56,6 +56,9 @@ export class SelectAddProductComponent implements OnInit {
             totalExcl: this.addProduct.price ? this.addProduct.price : null,
           });
         }
+        else{
+          this._cS.displayToast(2, 'Not get the response');
+        }
       });
   }
 
@@ -87,12 +90,13 @@ export class SelectAddProductComponent implements OnInit {
               product_id: this.productid
             }
           }
-          console.log('body:', body)
-
           this._cS.API_POST(this._cS.getOrderItem(this.orderid), body)
             .subscribe(response => {
               if (response) {
                 this._router.navigate(['/sales/viewrecord'], { queryParams: { id: this.id } });
+              }
+              else {
+                this._cS.displayToast(2, 'API response error');
               }
             })
         }

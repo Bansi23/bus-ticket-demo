@@ -55,6 +55,7 @@ export class CommonService {
       if (err.status == 401) {
       }
       else if (err.status == 400) {
+        this.displayToast(2, 'Not found')
       }
       return throwError(err);
     })));
