@@ -2,7 +2,7 @@
     <div class="card card-default">
         <div class="card-body">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col col-md-6">
                     <table class="table table-hover table-bordered table-striped" style="max-width: 500px;">
                         <tbody>
                             <tr>
@@ -12,7 +12,8 @@
                             </tr>
                             <tr>
                                 <td> Full name</td>
-                                <td>{{billingData?.billing_address?.first_name}} {{billingData?.billing_address?.last_name}}
+                                <td>{{billingData?.billing_address?.first_name}}
+                                    {{billingData?.billing_address?.last_name}}
                                 </td>
                             </tr>
                             <tr>
@@ -57,76 +58,100 @@
                             </tr>
                         </tbody>
                     </table>
-                    <button class="btn btn-primary"
+                    <button class="btn btn-primary pull-right"
                         (click)="billingEdit(billingData.id , this.billingData.billing_address.id)">Edit</button>
 
                 </div>
-                <div class="col-md-6">
-                    <table class="table table-hover table-bordered  table-striped" style="max-width: 500px;">
-                        <tbody>
-                            <tr>
-                                <th colspan="2" class="bg-dark">
-                                    <strong>Shipping address</strong>
-                                </th>
-                            </tr>
-                            <tr>
-                                <td>Full name</td>
-                                <td>{{billingData?.shipping_address?.first_name}}
-                                    {{billingData?.shipping_address?.last_name}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Email</td>
-                                <td>{{billingData?.shipping_address?.email}}</td>
-                            </tr>
-                            <tr>
-                                <td>Phone </td>
-                                <td>{{billingData?.shipping_address?.phone_number}}</td>
-                            </tr>
-                            <tr>
-                                <td>Fax</td>
-                                <td>{{billingData?.shipping_address?.fax_number}}</td>
-                            </tr>
-                            <tr>
-                                <td>Company</td>
-                                <td>{{billingData?.shipping_address?.company}}</td>
-                            </tr>
-                            <tr>
-                                <td>Address 1</td>
-                                <td> {{billingData?.shipping_address?.address1}}</td>
-                            </tr>
-                            <tr>
-                                <td> Address 2</td>
-                                <td>{{billingData?.shipping_address?.address2}}</td>
-                            </tr>
-                            <tr>
-                                <td>City</td>
-                                <td>{{billingData?.shipping_address?.city}}</td>
-                            </tr>
-                            <tr>
-                                <td> State / province</td>
-                                <td>{{displayshipping?.name}}</td>
-                            </tr>
-                            <tr>
-                                <td>Zip / postal code</td>
-                                <td> {{billingData?.shipping_address?.zip_postal_code}}</td>
-                            </tr>
-                            <tr>
-                                <td>Country</td>
-                                <td>{{billingData?.shipping_address?.country}}</td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <i class="fa fa-map-marker">
-                                        <a [href]="shippingAddress" style="margin-bottom: 10px;" target="_blank">View
-                                            address on Google Maps</a></i>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <button class="btn btn-primary"
-                        (click)="shippingEdit(billingData.id ,  this.billingData.shipping_address.id)">Edit</button>
-                </div>
+                <ng-container *ngIf="billingData?.shipping_address; else elseTemplate">
+                    <div class="col-md-6">
+                        <table class="table table-hover table-bordered  table-striped" style="max-width: 500px;">
+                            <tbody>
+                                <tr>
+                                    <th colspan="2" class="bg-dark">
+                                        <strong>Shipping address</strong>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td>Full name</td>
+                                    <td>{{billingData?.shipping_address?.first_name}}
+                                        {{billingData?.shipping_address?.last_name}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Email</td>
+                                    <td>{{billingData?.shipping_address?.email}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Phone </td>
+                                    <td>{{billingData?.shipping_address?.phone_number}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Fax</td>
+                                    <td>{{billingData?.shipping_address?.fax_number}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Company</td>
+                                    <td>{{billingData?.shipping_address?.company}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Address 1</td>
+                                    <td> {{billingData?.shipping_address?.address1}}</td>
+                                </tr>
+                                <tr>
+                                    <td> Address 2</td>
+                                    <td>{{billingData?.shipping_address?.address2}}</td>
+                                </tr>
+                                <tr>
+                                    <td>City</td>
+                                    <td>{{billingData?.shipping_address?.city}}</td>
+                                </tr>
+                                <tr>
+                                    <td> State / province</td>
+                                    <td>{{displayshipping?.name}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Zip / postal code</td>
+                                    <td> {{billingData?.shipping_address?.zip_postal_code}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Country</td>
+                                    <td>{{billingData?.shipping_address?.country}}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <i class="fa fa-map-marker">
+                                            <!-- <a [href]="shippingAddress" style="margin-bottom: 10px;" target="_blank">View
+                                                        address on Google Maps</a> -->
+                                            <button class="btn btn-link" (click)="goToAddress()">View address on Google
+                                                Maps</button>
+                                        </i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button class="btn btn-primary  pull-right"
+                            (click)="shippingEdit(billingData.id ,  this.billingData.shipping_address.id)">Edit</button>
+                    </div>
+
+                </ng-container>
+                <ng-template #elseTemplate>
+                    <div class="col-md-6">
+                        <table class="table table-hover table-bordered table-striped" style="max-width: 500px;">
+                            <tbody>
+                                <tr>
+                                    <th colspan="2" class="bg-dark">
+                                        <strong>Shipping address</strong>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">Shipping not required</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </ng-template>
+
             </div>
         </div>
     </div>
@@ -137,19 +162,21 @@
                 <div class="col-md-2">
                     <b>Shipping method</b>
                 </div>
-                <div class="col-md-6" *ngIf="editRec">
+                <div class="col-md-4" *ngIf="editRec">
                     <span>{{billingData?.shipping_method}}</span>
-                    <button class="btn btn-primary mx-2" (click)="EditShipMethod()">Edit</button>
+                    <button class="btn btn-primary mx-2" (click)="EditShipMethod(billingData)">Edit</button>
                 </div>
 
-                <div class="col-md-6" *ngIf="!editRec">
-                    <div class="input-group">
-                        <input type="text" class="form-control" [(ngModel)]="billingData.shipping_method">
-                        <span class="input-group-append">
-                            <button type="button" class="btn btn-primary" (click)="SaveChanges()">Save</button>
-                            <button type="button" class="btn btn-danger" (click)="cancleEdit()">Cancle</button>
-                        </span>
-                    </div>
+                <div class="col-md-4" *ngIf="!editRec">
+                    <form [formGroup]="editShippingMethodForm">
+                        <div class="input-group">
+                            <input type="text" class="form-control" formControlName="shippingMethod">
+                            <span class="input-group-append">
+                                <button type="button" class="btn btn-primary" (click)="SaveChanges()">Save</button>
+                                <button type="button" class="btn btn-danger" (click)="cancleEdit()">Cancle</button>
+                            </span>
+                        </div>
+                    </form>
                 </div>
             </div>
 
@@ -157,7 +184,7 @@
                 <div class="col-md-2">
                     <b>Shipping Status</b>
                 </div>
-                <div class="col-md-10">
+                <div class="col-md-4">
                     <b>{{billingData.shipping_status}}</b>
                 </div>
             </div>

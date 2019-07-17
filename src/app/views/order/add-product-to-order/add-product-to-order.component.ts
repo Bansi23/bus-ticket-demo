@@ -16,16 +16,22 @@ export class AddProductToOrderComponent implements OnInit {
   orderRecord: any = [];
   updateIndex = 1;
   itemForm: FormGroup;
+  orderlst: any = [];
+  giftWrapping: any;
+
   @ViewChild('editItem', { static: true }) EditRecord: ModalDirective;
 
   fbItemEdit() {
     this.itemForm = this.fb.group({
-      id: [''],
-      unitexclprice: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]\\d{0,50}')])],
-      quantity: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]\\d{0,50}')])],
-      discount: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]\\d{0,50}')])],
-      excltax: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]\\d{0,50}')])],
-      img: [''],
+      id: [null],
+      unitexclprice: [null, Validators.compose([Validators.required, Validators.pattern('[0-9]\\d{0,50}')])],
+      unitinclprice: [null, Validators.compose([Validators.required, Validators.pattern('[0-9]\\d{0,50}')])],
+      quantity: [null, Validators.compose([Validators.required, Validators.pattern('[0-9]\\d{0,50}')])],
+      incldiscount: [null, Validators.compose([Validators.required, Validators.pattern('[0-9]\\d{0,50}')])],
+      excldiscount: [null, Validators.compose([Validators.required, Validators.pattern('[0-9]\\d{0,50}')])],
+      incltotal: [null, Validators.compose([Validators.required, Validators.pattern('[0-9]\\d{0,50}')])],
+      excltotal: [null, Validators.compose([Validators.required, Validators.pattern('[0-9]\\d{0,50}')])],
+      img: [null],
       productName: ['']
     });
   }
@@ -35,7 +41,7 @@ export class AddProductToOrderComponent implements OnInit {
     });
   }
 
-  getRecord() {
+  getItem() {
     this.getParemeter();
     if (this.orderId) {
       this._cS.API_GET(this._cS.getOrderItem(this.orderId))
@@ -43,58 +49,91 @@ export class AddProductToOrderComponent implements OnInit {
           if (response) {
             this.orderRecord = response.order_items;
           }
+          else {
+            this._cS.displayToast(2, 'Error in response');
+          }
         });
     }
   }
+  getOrder() {
+    this.getParemeter();
+    if (this.orderId) {
+      this._cS.API_GET(this._cS.getOrderId(this.orderId))
+        .subscribe(response => {
+          if (response) {
+            this.orderlst = response.orders;
+            console.log('this.orderlst', this.orderlst);
+          }
+          else {
+            this._cS.displayToast(2, 'Error in response');
+          }
+        });
+    }
+  }
+
   DeleteRecord(itemid) {
     this.getParemeter();
     this._cS.API_DELETE(this._cS.getOrderItemId(this.orderId, itemid))
       .subscribe(res => {
         if (res) {
           if (confirm('Are you sure want to delete this record?')) {
-            this.getRecord();
+            this.getItem();
+            this._cS.displayToast(1, 'SuccessFully Deleted Record');
           }
+        }
+        else {
+          this._cS.displayToast(2, 'Error in response');
         }
       })
   }
   saveRecord() {
     this.getParemeter();
-    const formValue = this.itemForm.getRawValue();
-    console.log('formValue',formValue);
-
+    const formValue = this.itemForm.value;
     let body = {
-      // order_item: {
-      //   quantity: this.itemForm.value.quantity,
-      //   unitexclprice: this.orderRecord.unit_price_excl_tax,
-      //   discount: this.orderRecord.value.totalExcl,
-      //   unit_price_excl_tax: this.orderRecord.unit_price_excl_tax,
-      //   price_incl_tax: this.orderRecord.unit_price_excl_tax,
-      //   price_excl_tax: this.orderRecord.unit_price_excl_tax,
-      //   discount_amount_incl_tax: 0.0000,
-      //   discount_amount_excl_tax: 0.0000,
-      //   original_product_cost: 0.0000,
-      //   attribute_description: "",
-      //   download_count: 0,
-      //   isDownload_activated: this.addProduct.is_download,
-      //   product: this.addProduct,
-      //   product_id: this.productid
-      // }
+      order_item: {
+        "quantity": +this.itemForm.value.quantity,
+        "unit_price_incl_tax": +this.itemForm.value.unitinclprice,
+        "unit_price_excl_tax": +this.itemForm.value.unitexclprice,
+        "price_incl_tax": +this.itemForm.value.incltotal,
+        "price_excl_tax": +this.itemForm.value.excltotal,
+        "discount_amount_incl_tax": this.itemForm.value.incldiscount,
+        "discount_amount_excl_tax": this.itemForm.value.excldiscount,
+        "id": +this.itemForm.value.id
+      }
     }
-    // this._cS.API_POST(this._cS.getOrderItemId(this.orderId, itemid), body)
-    //   .subscribe(response => {
-    //     if (response) {
-    //       console.log('response', response);
-    //     }
-    //   })
+
+    this._cS.API_PUT(this._cS.getOrderItemId(this.orderId, formValue.id), body)
+      .subscribe(response => {
+        if (response) {
+          this.close();
+          this.getItem();
+          this._cS.displayToast(1, 'SuccessFully Edit Record');
+        }
+        else {
+          this._cS.displayToast(2, 'Error in response');
+        }
+      })
+  }
+  GotoProduct(id) {
+    if (id) {
+      this._router.navigate(['/catalog/addProduct'], { queryParams: { id: id } });
+    }
+    else {
+      this._router.navigate(['/catalog/product']);
+    }
+    console.log('id', id);
   }
 
   editRecord(row) {
     this.itemForm.patchValue({
       id: row.id,
       unitexclprice: row.unit_price_excl_tax,
+      unitinclprice: row.unit_price_incl_tax,
       quantity: row.quantity,
-      discount: row.discount_amount_excl_tax,
-      excltax: row.price_excl_tax,
+      excldiscount: row.discount_amount_excl_tax,
+      incldiscount: row.discount_amount_incl_tax,
+      excltotal: row.price_excl_tax,
+      incltotal: row.price_incl_tax,
       img: row.product.name,
       productName: row.product.name
     });
@@ -113,6 +152,7 @@ export class AddProductToOrderComponent implements OnInit {
   constructor(private _router: Router, private _route: ActivatedRoute, private _cS: CommonService, private fb: FormBuilder) { }
   ngOnInit() {
     this.fbItemEdit();
-    this.getRecord();
+    this.getItem();
+    this.getOrder();
   }
 }
