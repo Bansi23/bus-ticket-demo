@@ -28,10 +28,13 @@ export class AddEditComponent implements OnInit {
   IPAddress;
   createdOn;
   lastActivity;
+  count: number = 1;
   // gender : string;
   // patchGender : string;
   patchDate;
   isSaveAndEdit: boolean = false;
+  storedId: number;
+  isSaveClicked: boolean = false;
 
   dropdownOrderStatus = {
     singleSelection: false,
@@ -45,6 +48,7 @@ export class AddEditComponent implements OnInit {
   };
   constructor(private _mS: MockService, private _cS: CommonService, private router: Router, private fb: FormBuilder, private route: ActivatedRoute) { }
   ngOnInit() {
+    console.log('this.count:', this.count)
     this.lstCustomerRoles = this._mS.customerRoles();
     this.lstManagerOfVendor = this._mS.getManagerOfVendor();
     this.initAddCustomerForm();
@@ -153,6 +157,7 @@ export class AddEditComponent implements OnInit {
   }
 
   saveAddEditForm() {
+    this.isSaveClicked = true;
     for (let v in this.addCustomerForm.controls) {
       this.addCustomerForm.controls[v].markAsTouched();
     };
@@ -192,17 +197,22 @@ export class AddEditComponent implements OnInit {
       }
     }
 
-    if (this.isChangePassword) {
+    if (this.count == 2) {
 
-      this._cS.API_PUT(environment.apiURL + "/customers/" + this.custId, body)
+      this._cS.API_PUT(environment.apiURL + "/customers/" + this.storedId, body)
         .subscribe(response => {
           if (response) {
             this.isChangePassword = false;
-            this.router.navigateByUrl('/customers');
+            if (this.isSaveClicked) {
+
+              this.router.navigateByUrl('/customers');
+            }
           } else {
-            alert("Record not updated")
+            this._cS.displayToast(3, "Failed", "Record not updated!");
+
           }
         })
+
     } else {
       this._cS.API_POST(this._cS.getCustomerList(), body)
         .subscribe(response => {
@@ -210,12 +220,17 @@ export class AddEditComponent implements OnInit {
             if (this.isSaveAndEdit) {
               console.log('response:', response)
               this.isChangePassword = true;
+              this.storedId = response.customers[0].id;
               // alert("is save and edit")
             } else {
+              console.log('response:', response)
+              this.storedId = response.customers[0].id;
+              console.log('this.storedId:', this.storedId)
               this.router.navigateByUrl('/customers');
             }
           }
         })
+      this.count = 2;
     }
   }
 
@@ -224,6 +239,7 @@ export class AddEditComponent implements OnInit {
   }
   saveAndEditForm() {
     this.isSaveAndEdit = true;
+    // this.count = 1;
     this.saveAddEditForm();
   }
 }
