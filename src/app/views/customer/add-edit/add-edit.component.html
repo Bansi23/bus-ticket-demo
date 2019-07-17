@@ -10,7 +10,7 @@
                 <button type="button" class="btn btn-primary" (click)="saveAddEditForm()">
                     <i class="fa fa-save"></i>
                     Save</button>
-                <button type="button" class="btn btn-primary">
+                <button type="button" class="btn btn-primary" (click)="saveAndEditForm()">
                     <i class="fa fa-save"></i>
                     Save and continue edit</button>
             </div>
@@ -38,22 +38,22 @@
                                                         Enter valid email address
                                                     </span>
                                                 </div>
-                                                     <div class="col-sm-6">
-                                                        <label for="first name">First name</label>
-                                                        <input formControlName="custFirstName" type="text"
-                                                            class="form-control">
-                                                        <span class="text-danger"
-                                                            *ngIf="addCustomerForm.get('custFirstName').hasError('required') && addCustomerForm.get('custFirstName').touched">
-                                                            First name is required
-                                                        </span>
-                                                    </div>
-                                             </div>
+                                                <div class="col-sm-6">
+                                                    <label for="first name">First name</label>
+                                                    <input formControlName="custFirstName" type="text"
+                                                        class="form-control">
+                                                    <span class="text-danger"
+                                                        *ngIf="addCustomerForm.get('custFirstName').hasError('required') && addCustomerForm.get('custFirstName').touched">
+                                                        First name is required
+                                                    </span>
+                                                </div>
+                                            </div>
                                             <div class="row">
                                                 <div class="col-sm-6">
                                                     <label for="password">Password</label>
                                                     <input type="password" formControlName="custPassword"
                                                         class="form-control">
-                                                        <br>
+                                                    <br>
                                                     <div class="pull-right" *ngIf="isChangePassword">
                                                         <button type="button" class="btn btn-info"
                                                             (click)="changePassword()">Change password</button>
@@ -67,16 +67,16 @@
                                                         Invalid password
                                                     </span>
                                                 </div>
-                                                     <div class="col-sm-6">
-                                                        <label for="last name">Last name</label>
-                                                        <input formControlName="custLastName" type="text"
-                                                            class="form-control">
-                                                        <span class="text-danger"
-                                                            *ngIf="addCustomerForm.get('custLastName').hasError('required') && addCustomerForm.get('custLastName').touched">
-                                                            Last name is required
-                                                        </span>
-                                                    </div>
-                                             </div>
+                                                <div class="col-sm-6">
+                                                    <label for="last name">Last name</label>
+                                                    <input formControlName="custLastName" type="text"
+                                                        class="form-control">
+                                                    <span class="text-danger"
+                                                        *ngIf="addCustomerForm.get('custLastName').hasError('required') && addCustomerForm.get('custLastName').touched">
+                                                        Last name is required
+                                                    </span>
+                                                </div>
+                                            </div>
                                             <div class="row">
                                                 <div class="col-sm-6">
                                                     <label for="customer roles">Customer roles</label>
@@ -107,17 +107,17 @@
                                                         Select customer role
                                                     </span>
                                                 </div>
-                                                     <div class="col-sm-6">
-                                                        <label for="date of birth">Date of birth</label>
-                                                        <my-date-picker formControlName="custDob"
-                                                            [options]="myDatePickerOptions">
-                                                        </my-date-picker>
-                                                        <!-- <span class="text-danger"
+                                                <div class="col-sm-6">
+                                                    <label for="date of birth">Date of birth</label>
+                                                    <my-date-picker formControlName="custDob"
+                                                        [options]="myDatePickerOptions">
+                                                    </my-date-picker>
+                                                    <!-- <span class="text-danger"
                                                             *ngIf="addCustomerForm.get('custDob').hasError('required') && addCustomerForm.get('custDob').touched">
                                                             Date of birth is required
                                                         </span> -->
-                                                    </div>
-                                             </div>
+                                                </div>
+                                            </div>
                                             <div class="row">
                                                 <!-- <div class="col-sm-6">
                                                     <label for="manager of vendor">Manager of vendor</label>
@@ -134,20 +134,20 @@
                                                     <span>Note: if you have a vendor associated with this customer, then
                                                         also ensure it is in "Vendors" customer role.</span>
                                                 </div> -->
-                                                     <div class="col-sm-6">
-                                                        <label for="company name">Company name</label>
-                                                        <input type="text" formControlName="custCompanyName"
-                                                            class="form-control">
-                                                        <!-- <span class="text-danger" *ngIf="addCustomerForm.get('custCompanyName').hasError('required') && addCustomerForm.get('custCompanyName').touched">
+                                                <div class="col-sm-6">
+                                                    <label for="company name">Company name</label>
+                                                    <input type="text" formControlName="custCompanyName"
+                                                        class="form-control">
+                                                    <!-- <span class="text-danger" *ngIf="addCustomerForm.get('custCompanyName').hasError('required') && addCustomerForm.get('custCompanyName').touched">
                                                                 Company name is required
                                                             </span> -->
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                            <label for="admin comment">Admin comment</label>
-                                                            <textarea formControlName="custAdminComment"
-                                                                class="form-control"></textarea>
-                                                        </div>
-                                                    <!-- <div class="col-sm-6">
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <label for="admin comment">Admin comment</label>
+                                                    <textarea formControlName="custAdminComment"
+                                                        class="form-control"></textarea>
+                                                </div>
+                                                <!-- <div class="col-sm-6">
                                                         <br>
                                                             <label for="gender">Gender </label>
                                                             <label for="male">
@@ -159,12 +159,12 @@
                                                                     name="custGender" value="female">Female
                                                             </label>
                                                         </div> -->
-                                                    <!-- <div class="col-sm-6">
+                                                <!-- <div class="col-sm-6">
                                                         <label for="admin comment">Admin comment</label>
                                                         <textarea formControlName="custAdminComment"
                                                             class="form-control"></textarea>
                                                     </div> -->
-                                             </div>
+                                            </div>
                                             <br>
                                             <!-- <div class="row">
                                                 <div class="col-sm-6">
@@ -246,7 +246,7 @@
                                                     <span>Note: if you have a vendor associated with this customer, then
                                                         also ensure it is in "Vendors" customer role.</span>
                                                 </div>
-                                                
+
                                             </div>
                                             <div class="row">
                                                 <div class="col-sm-6">
@@ -292,10 +292,10 @@
                                     </div>
                                 </div>
                             </tab>
-                            <tab heading="Orders">
+                            <tab heading="Orders" *ngIf="isChangePassword">
                                 <app-customer-order></app-customer-order>
                             </tab>
-                            <tab heading="Addresses">
+                            <tab heading="Addresses" *ngIf="isChangePassword">
                                 <app-customer-address></app-customer-address>
                             </tab>
                         </tabset>

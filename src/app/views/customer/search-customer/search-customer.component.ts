@@ -61,18 +61,14 @@ export class SearchCustomerComponent implements OnInit {
       //custRole : [''],
       custDOBMonth: [''],
       custDOBDay: ['']
-
     })
   }
   searchRecords() {
     if (this.searchCustomerForm.valid) {
       console.log('this.searchCustomerForm.value:', this.searchCustomerForm.value)
     } else {
-
     }
-
   }
-
 }
 
 
