@@ -15,7 +15,7 @@ import { ToasterConfig, ToasterService } from 'angular2-toaster';
     [fullScreen] = "true"
     >
     </ngx-spinner>
-    <toaster-container [toasterconfig]="toasterconfig"></toaster-container>`
+    <toaster-container [toasterconfig]="config"></toaster-container>`
 })
 export class AppComponent implements OnInit {
   constructor(private router: Router,

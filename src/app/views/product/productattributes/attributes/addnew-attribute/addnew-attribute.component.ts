@@ -38,6 +38,9 @@ export class AddnewAttributeComponent implements OnInit {
       this._router.navigate(['catalog/addnew-attribute/value']);
     }
   }
+  addProduct() {
+
+  }
   //#endregion
   saveAttribute() {
     this._cS.addAttribute();

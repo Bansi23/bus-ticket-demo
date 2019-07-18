@@ -6,6 +6,7 @@ import { CommonService } from '../../../services/common.service';
 import { FormBuilder, FormGroup, Validators, FormArray, AbstractControl, Form } from '@angular/forms';
 import { map } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment'
+import { IMyDpOptions } from 'mydatepicker';
 @Component({
   selector: 'app-add-edit',
   templateUrl: './add-edit.component.html',
@@ -45,6 +46,12 @@ export class AddEditComponent implements OnInit {
     classes: "myclass custom-class",
     badgeShowLimit: 1,
     maxHeight: 200
+  };
+
+  public myDatePickerOptions: IMyDpOptions = {
+    dateFormat: 'dd/mm/yyyy',
+    openSelectorOnInputClick: true,
+    editableDateField: false
   };
   constructor(private _mS: MockService, private _cS: CommonService, private router: Router, private fb: FormBuilder, private route: ActivatedRoute) { }
   ngOnInit() {
@@ -220,14 +227,14 @@ export class AddEditComponent implements OnInit {
         .subscribe(response => {
           if (response) {
             if (this.isSaveAndEdit) {
-              
+
               this.isChangePassword = true;
               this.storedId = response.customers[0].id;
               // alert("is save and edit")
             } else {
-              
+
               this.storedId = response.customers[0].id;
-              
+
               this.router.navigateByUrl('/customers');
             }
           }

@@ -69,6 +69,13 @@ export class ProductListComponent implements OnInit {
       this.lstProduct[i].select = this.selectAll;
     };
   }
+  getPictureList(){
+
+  }
+  addProduct(){
+
+  }
+  
 
   selectedRecord: any = [];
   checkIfAllSelected(rec) {
