@@ -54,6 +54,7 @@ export class AddEditComponent implements OnInit {
     editableDateField: false
   };
   constructor(private _mS: MockService, private _cS: CommonService, private router: Router, private fb: FormBuilder, private route: ActivatedRoute) { }
+
   ngOnInit() {
     this.lstCustomerRoles = this._mS.customerRoles();
     this.lstManagerOfVendor = this._mS.getManagerOfVendor();
@@ -67,7 +68,7 @@ export class AddEditComponent implements OnInit {
 
     if (this.custId) {
       this.count += 1;
-      console.log('this.count:', this.count)
+      
       this.storedId = this.custId;
       this.isChangePassword = true;
       this._cS.API_GET(this._cS.getParticularCustomer(this.custId))
@@ -120,7 +121,7 @@ export class AddEditComponent implements OnInit {
   initAddCustomerForm() {
     this.addCustomerForm = this.fb.group({
       custEmail: ['', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')])],
-      custPassword: ['', Validators.compose([Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')])],
+      custPassword: ['', Validators.compose([Validators.minLength(5), Validators.required,Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')])],
       custRoles: ['', Validators.required],
       custManagerOfVendor: ['', Validators.required],
       // custGender: ['', Validators.required],
@@ -167,11 +168,12 @@ export class AddEditComponent implements OnInit {
   }
 
   saveAddEditForm() {
-    this.isSaveClicked = true;
+    this.isSaveClicked = true;  
     for (let v in this.addCustomerForm.controls) {
       this.addCustomerForm.controls[v].markAsTouched();
     };
     if (this.addCustomerForm.valid) {
+      
       this.saveCustomerData();
 
     }
@@ -184,6 +186,9 @@ export class AddEditComponent implements OnInit {
     for (let i = 0; i < x.length; i++) {
       roles.push(x[i].id)
     }
+    //NOTE -> This splice is temporary
+    // We need to remove it in future.
+   
     // if(this.addCustomerForm.value.custGender == "male"){
     //   this.gender = "M"
     // }else{
@@ -208,33 +213,33 @@ export class AddEditComponent implements OnInit {
     }
 
     if (this.count == 2) {
+      roles.splice(0,1);
 
+      
       this._cS.API_PUT(environment.apiURL + "/customers/" + this.storedId, body)
         .subscribe(response => {
           if (response) {
-            this.isChangePassword = false;
+            
+             this.isChangePassword = false;
             if (this.isSaveClicked) {
               this.router.navigateByUrl('/customers');
             }
           } else {
             this._cS.displayToast(3, "Failed", "Record not updated!");
-
           }
         })
 
     } else {
+      
       this._cS.API_POST(this._cS.getCustomerList(), body)
         .subscribe(response => {
           if (response) {
             if (this.isSaveAndEdit) {
-
               this.isChangePassword = true;
               this.storedId = response.customers[0].id;
               // alert("is save and edit")
             } else {
-
               this.storedId = response.customers[0].id;
-
               this.router.navigateByUrl('/customers');
             }
           }
