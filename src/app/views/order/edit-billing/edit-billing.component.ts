@@ -72,16 +72,18 @@ export class EditBillingComponent implements OnInit {
               this._cS.API_GET(this._cS.getCountry(this.editRecord.billing_address.country_id)).subscribe(res => {
                 this.statelist = res;
                 var statebilling = this.statelist.find((item) => item.id == this.editRecord.billing_address.state_province_id);
+                const country = this.lstCountry.find((item) => item.state_id == this.editRecord.billing_address.country_id);
                 if (statebilling == undefined) {
                   statebilling = this.otherCountry;
                 }
+
                 this.editbillingForm.patchValue({
                   fnm: this.editRecord.billing_address.first_name ? this.editRecord.billing_address.first_name : null,
                   lnm: this.editRecord.billing_address.last_name ? this.editRecord.billing_address.last_name : null,
                   mail: this.editRecord.billing_address.email ? this.editRecord.billing_address.email : null,
                   company: this.editRecord.billing_address.company ? this.editRecord.billing_address.company : null,
-                  country: this.editRecord.billing_address.country ? this.editRecord.billing_address.country : null,
-                  state: statebilling.name,
+                  country: country.state_id,
+                  state: statebilling.id,
                   city: this.editRecord.billing_address.city ? this.editRecord.billing_address.city : null,
                   addone: this.editRecord.billing_address.address1 ? this.editRecord.billing_address.address1 : null,
                   addtwo: this.editRecord.billing_address.address2 ? this.editRecord.billing_address.address2 : null,
@@ -93,6 +95,7 @@ export class EditBillingComponent implements OnInit {
             }
             else if (this.shippingId != null) {
               var stateshipping = this.statelist.find((item) => item.id == this.editRecord.shipping_address.state_province_id);
+              const country = this.lstCountry.find((item) => item.state_id == this.editRecord.shipping_address.country_id);
               if (stateshipping == undefined) {
                 stateshipping = this.otherCountry;
               }
@@ -101,8 +104,8 @@ export class EditBillingComponent implements OnInit {
                 lnm: this.editRecord.shipping_address.last_name ? this.editRecord.shipping_address.last_name : null,
                 mail: this.editRecord.shipping_address.email ? this.editRecord.shipping_address.email : null,
                 company: this.editRecord.shipping_address.company ? this.editRecord.shipping_address.company : null,
-                country: this.editRecord.shipping_address.country ? this.editRecord.shipping_address.country : null,
-                state: stateshipping.name,
+                country: country.state_id,
+                state: stateshipping.id,
                 city: this.editRecord.shipping_address.city ? this.editRecord.shipping_address.city : null,
                 addone: this.editRecord.shipping_address.address1 ? this.editRecord.shipping_address.address1 : null,
                 addtwo: this.editRecord.shipping_address.address2 ? this.editRecord.shipping_address.address2 : null,
@@ -139,7 +142,7 @@ export class EditBillingComponent implements OnInit {
     this._cS.API_GET(this._cS.getCountry(this.editbillingForm.value.country)).subscribe(res => {
       this.statelist = res;
     });
-    var statebilling = this.statelist.find((item) => item.id == this.editRecord.billing_address.state_province_id);
+    var statebilling = this.statelist.find((item) => item.id == this.editbillingForm.value.state);
     var countryname = this.lstCountry.find((item) => item.state_id == this.editbillingForm.value.country);
     if (statebilling == undefined) {
       statebilling = this.otherCountry;
@@ -183,11 +186,10 @@ export class EditBillingComponent implements OnInit {
   }
   editShpping() {
     this.getParam();
-    this.getRecord();
     this._cS.API_GET(this._cS.getCountry(this.editbillingForm.value.country)).subscribe(res => {
       this.statelist = res;
     });
-    var statebilling = this.statelist.find((item) => item.id == this.editRecord.shipping_address.state_province_id);
+    var statebilling = this.statelist.find((item) => item.id == this.editbillingForm.value.state);
     var countryname = this.lstCountry.find((item) => item.state_id == this.editbillingForm.value.country);
     if (statebilling == undefined) {
       statebilling = this.otherCountry;

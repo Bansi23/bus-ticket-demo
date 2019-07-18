@@ -82,7 +82,7 @@
                     <label for="mail">State<span class="text-danger"
                             *ngIf="editbillingForm.controls.state.errors?.required">*</span></label>
                     <select class="form-control" formControlName="state">
-                        <option *ngFor="let state of statelist">
+                        <option *ngFor="let state of statelist" [value]="state?.id">
                             {{state.name}}</option>
                     </select>
 

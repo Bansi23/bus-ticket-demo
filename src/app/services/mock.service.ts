@@ -54,11 +54,11 @@ export class MockService {
 
   customerRoles() {
     return [
-      { "id": 1, "role": "Administrator" },
-      { "id": 2, "role": "Forum Moderators" },
-      { "id": 3, "role": "Guests" },
-      { "id": 4, "role": "Registered" },
-      { "id": 5, "role": "Vendors" }
+      { "id": 1, "itemName": "Administrator" },
+      { "id": 2, "itemName": "Forum Moderators" },
+      { "id": 3, "itemName": "Guests" },
+      { "id": 4, "itemName": "Registered" },
+      { "id": 5, "itemName": "Vendors" }
     ]
   }
 

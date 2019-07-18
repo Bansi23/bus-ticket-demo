@@ -126,7 +126,7 @@ export class OrderInfoComponent implements OnInit {
       .subscribe(res => {
         if (res) {
           this.getInfo();
-          this._cS.displayToast(1, 'SuccessFully edit order status');
+          this._cS.displayToast(1,'SuccessFully edit order status');
           this.cancleEdit();
         } else {
         };

@@ -71,9 +71,7 @@ export class CustomerAddressComponent implements OnInit {
 
   }
   navigateToEditAddress(customerId, addressId) {
-    console.log('customerId:', customerId)
-    console.log('billindId:', addressId)
-    // console.log('this.custAddress:', this.custAddress)
+    
     this.router.navigate(['/sales/editbilling'], { queryParams: { customerId: customerId, addressId: addressId } });
   }
 
