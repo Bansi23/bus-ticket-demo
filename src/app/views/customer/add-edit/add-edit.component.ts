@@ -207,7 +207,6 @@ export class AddEditComponent implements OnInit {
           if (response) {
             this.isChangePassword = false;
             if (this.isSaveClicked) {
-
               this.router.navigateByUrl('/customers');
             }
           } else {

@@ -6,7 +6,7 @@
                     <table class="table table-hover table-bordered table-striped" style="max-width: 500px;">
                         <tbody>
                             <tr>
-                                <th colspan="2" class="bg-dark">
+                                <th colspan="2">
                                     <strong>Billing address</strong>
                                 </th>
                             </tr>
@@ -67,7 +67,7 @@
                         <table class="table table-hover table-bordered  table-striped" style="max-width: 500px;">
                             <tbody>
                                 <tr>
-                                    <th colspan="2" class="bg-dark">
+                                    <th colspan="2">
                                         <strong>Shipping address</strong>
                                     </th>
                                 </tr>
@@ -120,8 +120,6 @@
                                 <tr>
                                     <td colspan="2">
                                         <i class="fa fa-map-marker">
-                                            <!-- <a [href]="shippingAddress" style="margin-bottom: 10px;" target="_blank">View
-                                                        address on Google Maps</a> -->
                                             <button class="btn btn-link" (click)="goToAddress()">View address on Google
                                                 Maps</button>
                                         </i>
@@ -139,7 +137,7 @@
                         <table class="table table-hover table-bordered table-striped" style="max-width: 500px;">
                             <tbody>
                                 <tr>
-                                    <th colspan="2" class="bg-dark">
+                                    <th colspan="2">
                                         <strong>Shipping address</strong>
                                     </th>
                                 </tr>
@@ -157,17 +155,17 @@
     </div>
 
     <div class="card card-default">
-        <div class="card-body">
+        <div class="card-body pull-left">
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <b>Shipping method</b>
                 </div>
-                <div class="col-md-4" *ngIf="editRec">
+                <div class="col-md-3" *ngIf="editRec">
                     <span>{{billingData?.shipping_method}}</span>
                     <button class="btn btn-primary mx-2" (click)="EditShipMethod(billingData)">Edit</button>
                 </div>
 
-                <div class="col-md-4" *ngIf="!editRec">
+                <div class="col-md-7" *ngIf="!editRec">
                     <form [formGroup]="editShippingMethodForm">
                         <div class="input-group">
                             <input type="text" class="form-control" formControlName="shippingMethod">
@@ -181,10 +179,10 @@
             </div>
 
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <b>Shipping Status</b>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <b>{{billingData.shipping_status}}</b>
                 </div>
             </div>
