@@ -102,11 +102,17 @@ export class SpecificationattributesComponent implements OnInit {
 
   ngOnInit() {
     this.getParameter();
+    const showContenet = <HTMLElement>document.querySelector('.showContenet');
+    const hideContent = <HTMLElement>document.querySelector('.hideContent');
     if (this.productId) {
+      hideContent.style.display = 'none';
+      showContenet.style.display = 'block';
       this.getSpecificAttrList();
-      this._cS.displayToast(1,'sadfdasffg');
     } else {
-      console.log('add specification');
+      if (showContenet) {
+        showContenet.style.display = 'none';
+        hideContent.style.display = 'block';
+      }
     }
     this.specificationForm_fb();
     this.bindList();

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { CommonService } from '../../../../../services/common.service';
 
 @Component({
   selector: 'app-attributes',
@@ -43,7 +44,6 @@ export class AttributesComponent implements OnInit {
 
   addAttributes() {
     this.getParameter();
-    console.log('this.productId:', this.productId)
     if (this.productId) {
       this._router.navigate(['/catalog/addnew-attribute'], { queryParams: { id: this.productId } })
     } else {
@@ -52,14 +52,21 @@ export class AttributesComponent implements OnInit {
   }
 
   constructor(private _router: Router,
-    private _route: ActivatedRoute) { }
-
+    private _route: ActivatedRoute,
+    private _cS: CommonService) { }
   ngOnInit() {
     this.getParameter();
+    const showContenet = <HTMLElement>document.querySelector('.showContenet');
+    const hideContent = <HTMLElement>document.querySelector('.hideContent');
     if (this.productId) {
+      hideContent.style.display = 'none';
+      showContenet.style.display = 'block';
       this.getAttributeList();
     } else {
-      console.log('add attribute')
+      if (showContenet) {
+        showContenet.style.display = 'none';
+        hideContent.style.display = 'block';
+      }
     }
 
   }

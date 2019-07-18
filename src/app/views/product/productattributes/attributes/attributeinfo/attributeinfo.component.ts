@@ -51,6 +51,7 @@ export class AttributeinfoComponent implements OnInit {
       display_order: formValue.displayOrder,
       attribute_control_type_id: formValue.controlType
     }
+    
     this._cS.getAttributeInfo(body);
     this.getParameter();
     if (this.productId) {

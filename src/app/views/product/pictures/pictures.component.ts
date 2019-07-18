@@ -120,10 +120,17 @@ export class PicturesComponent implements OnInit {
   ngOnInit() {
     this.prodPictureForm_fb();
     this.getParameter();
+    const showContenet = <HTMLElement>document.querySelector('.showContenet');
+    const hideContent = <HTMLElement>document.querySelector('.hideContent');
     if (this.productId) {
+      hideContent.style.display = 'none';
+      showContenet.style.display = 'block';
       this.getPictureList();
     } else {
-      console.log('add picture');
+      if (showContenet) {
+        showContenet.style.display = 'none';
+        hideContent.style.display = 'block';
+      }
     }
   }
 }

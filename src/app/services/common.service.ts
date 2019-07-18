@@ -299,25 +299,25 @@ export class CommonService {
   getAttrSpecification(body) {
     this.editProduct(body);
   }
-
+  productObj: any;
   addAttribute() {
     this.getAttributeInfo(this.attrInfo);
     this.getAttributeValues(this.attrValue);
-    var productObj = JSON.parse(localStorage.getItem('EditedRecord'));
+    this.productObj = JSON.parse(localStorage.getItem('EditedRecord'));
     if (this.attrValue) {
       this.attrInfo.attribute_values = this.attrValue;
     } else {
       this.attrInfo;
     }
     if (this.attrInfo) {
-      console.log('productObj.attributes:', productObj.attributes)
-      productObj.attributes.push(this.attrInfo);
-    } 
+      this.productObj.attributes.push(this.attrInfo);
+      console.log('productObj.attributes:', this.productObj.attributes)
+    }
 
-    console.log('productObj:', productObj)
+    console.log('productObj:', this.productObj)
     var body = {
       product:
-        productObj
+        this.productObj
     }
     this.editProduct(body);
   }
@@ -332,12 +332,20 @@ export class CommonService {
   editProduct(body) {
     console.log('body:', body)
     this.getParameter();
-    this.API_PUT(this.URL_getProductById(this.productId), body)
-      .subscribe(res => {
-        console.log('res:', res)
-      })
+    // this.API_PUT(this.URL_getProductById(this.productId), body)
+    //   .subscribe(res => {
+    //     console.log('res:', res)
+    //   })
   }
 
+  //#endregion
+
+  //#region prevent enter e, arithmatic sign in number type controls 
+  restrict(e) {
+    if ([69, 187, 188, 189, 190, 107, 109].includes(e.keyCode)) {
+      e.preventDefault();
+    }
+  }
   //#endregion
   constructor(public _router: Router,
     public _route: ActivatedRoute,

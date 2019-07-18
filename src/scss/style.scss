@@ -9,17 +9,26 @@
 
 //toaster css
 // @import "../../node_modules/angular2-toaster/src/toaster";
-@import 'node_modules/angular2-toaster/src/toaster';
+@import "node_modules/angular2-toaster/src/toaster";
 .toast {
-
   top: 0;
 }
 
 //custome css
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
 .isShipping,
 .associateType,
 .hideUi,
-.stockQuan {
+.stockQuan,
+.duplicateMessage {
   display: none;
 }
 
@@ -38,7 +47,8 @@
   border: 2px solid #23b7e5;
 }
 
-.tab-box-main .nav-tabs > .nav-item > .nav-link {
+.tab-box-main .nav-tabs > .nav-item > .nav-link,
+.tab-box-main .nav-tabs > .btn-link {
   background-color: #3dbee7;
   border-right: 0;
   padding: 5px 0px !important;
@@ -49,11 +59,18 @@
   color: #fff;
   border: 1px solid #23b7e5;
 }
-.tab-box-main .nav-tabs > .nav-item > .nav-link {
+.tab-box-main .nav-tabs > .nav-item > .nav-link,
+.tab-box-main .btn-link {
   background-color: #3dbee7;
   color: #fff;
 }
-.tab-box-main .nav-link.active {
+.tab-box-main .nav-link.active,
+.tab-box-main .btn-link.active {
   background-color: #fff !important;
   color: #111 !important;
 }
+
+// .tab-box-main .btn-link.active {
+//   background-color: #fff !important;
+//   color: #111 !important;
+// }

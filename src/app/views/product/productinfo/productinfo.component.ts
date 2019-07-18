@@ -1,10 +1,8 @@
-import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MockService } from '../../../services/mock.service';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonService } from '../../../services/common.service';
-import { find } from 'rxjs/operators';
-import { ProductInfoService } from '../../../services/FormServices/product-info.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { MockService } from '../../../services/mock.service';
 declare var $: any;
 @Component({
   selector: 'app-productinfo',
@@ -34,11 +32,34 @@ export class ProductinfoComponent implements OnInit {
       height: [null],
       categories: [null],
       price: [null, Validators.pattern("^[1-9]\d{0,7}(?:\.\d{1,4})?|\.\d{1,4}$")],
-      productCost: [null],
+      productCost: [null, Validators.pattern("^[1-9]\d{0,7}(?:\.\d{1,4})?|\.\d{1,4}$")],
       discount: [null],
       tax: [null],
       taxCategory: [null]
     });
+    this.productInfoForm.get('sku').valueChanges.subscribe(
+      res => {
+        const duplicateMessage = <HTMLElement>document.querySelector('.duplicateMessage');
+        for (let i = 0; i < this.lstProduct.length; i++) {
+          if (res == this.lstProduct[i].sku) {
+            duplicateMessage.style.display = 'block';
+            this.productInfoForm.get('sku').setValue(null);
+          }else{
+            duplicateMessage.style.display = 'none';
+          }
+        }
+      }
+    )
+  }
+  //#endregion
+
+  //#region get product lsit 
+  lstProduct: any = [];
+  getProductList() {
+    this._cS.API_GET(this._cS.getProductList())
+      .subscribe(res => {
+        this.lstProduct = res.products;
+      })
   }
   //#endregion
 
@@ -107,9 +128,7 @@ export class ProductinfoComponent implements OnInit {
   }
 
   restrict(e) {
-    if ([69, 187, 188, 189, 190, 107, 109].includes(e.keyCode)) {
-      e.preventDefault();
-    }
+    this._cS.restrict(e);
   }
 
   getCategoryList() {
@@ -180,8 +199,8 @@ export class ProductinfoComponent implements OnInit {
           height: formValue.height ? formValue.width : 0
         }
       }
+      this._cS.sendInfoToService(body);
     }
-    this._cS.sendInfoToService(body);
   }
   //#endregion
 
@@ -248,15 +267,12 @@ export class ProductinfoComponent implements OnInit {
     this.productInfoForm_fb();
     this.bindStaticList();
     this.getCategoryList();
+    this.getProductList();
     this.multiSelectedOptions();
     if (this.productId) {
       this.editProduct();
     } else {
-      this.productInfoForm_fb();
+      console.log('create product');
     }
-
-    // $(document).ready(function () {
-    //   $('#summernote').summernote();
-    // });
   }
 }
