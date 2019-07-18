@@ -62,7 +62,6 @@ export class AddProductToOrderComponent implements OnInit {
         .subscribe(response => {
           if (response) {
             this.orderlst = response.orders;
-            console.log('this.orderlst', this.orderlst);
           }
           else {
             this._cS.displayToast(2, 'Error in response');
