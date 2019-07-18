@@ -74,6 +74,7 @@ export class AddEditComponent implements OnInit {
       this._cS.API_GET(this._cS.getParticularCustomer(this.custId))
         .subscribe(response => {
           this.customer = response.customers;
+          console.log('this.customer:', this.customer)
           // if(this.customer[0].gender == "M"){
           //   alert()
           //   this.patchGender = "male"
@@ -137,6 +138,10 @@ export class AddEditComponent implements OnInit {
     })
   }
   setValuesInForm() {
+    if(this.custId){
+      this.addCustomerForm.get('custPassword').clearValidators();
+      this.addCustomerForm.get('custPassword').updateValueAndValidity();
+    }
     this.addCustomerForm.patchValue({
       custEmail: this.customer[0].email,
       // custPassword : this.dataToSet.
