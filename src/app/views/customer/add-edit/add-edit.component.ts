@@ -74,7 +74,7 @@ export class AddEditComponent implements OnInit {
       this._cS.API_GET(this._cS.getParticularCustomer(this.custId))
         .subscribe(response => {
           this.customer = response.customers;
-          console.log('this.customer:', this.customer)
+          
           // if(this.customer[0].gender == "M"){
           //   alert()
           //   this.patchGender = "male"
