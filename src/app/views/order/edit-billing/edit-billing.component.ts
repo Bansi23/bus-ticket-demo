@@ -67,6 +67,7 @@ export class EditBillingComponent implements OnInit {
         .subscribe(response => {
           if (response) {
             this.editRecord = response.orders[0];
+            this.lstCountry = this._mD.countryList();
             if (this.billingId != null) {
               this._cS.API_GET(this._cS.getCountry(this.editRecord.billing_address.country_id)).subscribe(res => {
                 this.statelist = res;
@@ -119,7 +120,6 @@ export class EditBillingComponent implements OnInit {
   }
   statebilling: any;
   onSelectCountry(country_id) {
-    console.log('id', country_id);
     this._cS.API_GET(this._cS.getCountry(country_id)).subscribe(res => {
       this.statelist = res;
       this.statebilling = this.statelist.find((item) => item.id == this.editRecord.billing_address.state_province_id);
