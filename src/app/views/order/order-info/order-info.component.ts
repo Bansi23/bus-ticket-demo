@@ -43,6 +43,9 @@ export class OrderInfoComponent implements OnInit {
               this.finalTotal = element.map(o => o.unit_price_excl_tax).reduce((a, c) => a + c, 0);
             }
           }
+          else {
+            this._cS.displayToast(2, 'Not get response');
+          }
         });
     }
   }
@@ -54,12 +57,14 @@ export class OrderInfoComponent implements OnInit {
         id: this.orderId
       }
     }
-
     this._cS.API_PUT(this._cS.getOrderId(this.orderId), body)
       .subscribe(res => {
         if (res) {
-          this._router.navigate(['/sales/orders']);
+          // this._router.navigate(['/sales/orders']);
+          this.getInfo();
+          this._cS.displayToast(1, 'SuccessFully cancelled order');
         } else {
+          this._cS.displayToast(2, 'API response Error');
         };
       }, err => {
       });
@@ -76,10 +81,13 @@ export class OrderInfoComponent implements OnInit {
     this._cS.API_PUT(this._cS.getOrderId(this.orderId), body)
       .subscribe(res => {
         if (res) {
-          this._router.navigate(['/sales/orders']);
+          //   this._router.navigate(['/sales/orders']);
+          this.getInfo();
+          this._cS.displayToast(1, 'SuccessFully refunded order amount');
         } else {
         };
       }, err => {
+        this._cS.displayToast(2, 'Get Error');
       });
   }
 
@@ -95,7 +103,8 @@ export class OrderInfoComponent implements OnInit {
     this._cS.API_PUT(this._cS.getOrderId(this.orderId), body)
       .subscribe(res => {
         if (res) {
-          this._router.navigate(['/sales/orders']);
+          this.getInfo();
+          this._cS.displayToast(1, 'SuccessFully Updated payment status of this order');
         } else {
         };
       }, err => {
@@ -106,18 +115,19 @@ export class OrderInfoComponent implements OnInit {
   saveOrderStatus() {
     this.getParameter();
     const orderstatus = this.orderstatusForm.get('orderStatus').value;
-    for (let i = 0; i < this.viewRecord.length; i++) {
-      var body = {
-        order: {
-          order_status: orderstatus,
-          id: this.orderId
-        }
+    var body = {
+      order: {
+        order_status: orderstatus,
+        id: this.orderId
       }
     }
+
     this._cS.API_PUT(this._cS.getOrderId(this.orderId), body)
       .subscribe(res => {
         if (res) {
-          this._router.navigate(['/sales/orders']);
+          this.getInfo();
+          this._cS.displayToast(1, 'SuccessFully edit order status');
+          this.cancleEdit();
         } else {
         };
       }, err => {
@@ -126,8 +136,6 @@ export class OrderInfoComponent implements OnInit {
 
   editCustomer(id, custid) {
     this._router.navigate(['/customers/addEdit'], { queryParams: { orderid: id, id: custid } });
-    console.log('custid', custid);
-
   }
   constructor(private _mD: MockService, private _cS: CommonService, private _router: Router, private _route: ActivatedRoute, private fb: FormBuilder) { }
 
