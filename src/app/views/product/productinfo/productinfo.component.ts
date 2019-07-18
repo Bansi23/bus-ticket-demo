@@ -44,7 +44,7 @@ export class ProductinfoComponent implements OnInit {
           if (res == this.lstProduct[i].sku) {
             duplicateMessage.style.display = 'block';
             this.productInfoForm.get('sku').setValue(null);
-          }else{
+          } else {
             duplicateMessage.style.display = 'none';
           }
         }
@@ -264,10 +264,10 @@ export class ProductinfoComponent implements OnInit {
 
   ngOnInit() {
     this.getParameter();
+    this.getProductList();
     this.productInfoForm_fb();
     this.bindStaticList();
     this.getCategoryList();
-    this.getProductList();
     this.multiSelectedOptions();
     if (this.productId) {
       this.editProduct();
