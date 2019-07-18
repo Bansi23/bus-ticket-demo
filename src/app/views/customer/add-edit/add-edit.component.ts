@@ -47,6 +47,7 @@ export class AddEditComponent implements OnInit {
     maxHeight: 200
   };
   constructor(private _mS: MockService, private _cS: CommonService, private router: Router, private fb: FormBuilder, private route: ActivatedRoute) { }
+
   ngOnInit() {
     this.lstCustomerRoles = this._mS.customerRoles();
     this.lstManagerOfVendor = this._mS.getManagerOfVendor();
@@ -160,11 +161,12 @@ export class AddEditComponent implements OnInit {
   }
 
   saveAddEditForm() {
-    this.isSaveClicked = true;
+    this.isSaveClicked = true;  
     for (let v in this.addCustomerForm.controls) {
       this.addCustomerForm.controls[v].markAsTouched();
     };
     if (this.addCustomerForm.valid) {
+      alert("form is valid  ")
       this.saveCustomerData();
 
     }
@@ -177,6 +179,9 @@ export class AddEditComponent implements OnInit {
     for (let i = 0; i < x.length; i++) {
       roles.push(x[i].id)
     }
+    //NOTE -> This splice is temporary
+    // We need to remove it in future.
+   
     // if(this.addCustomerForm.value.custGender == "male"){
     //   this.gender = "M"
     // }else{
@@ -201,34 +206,33 @@ export class AddEditComponent implements OnInit {
     }
 
     if (this.count == 2) {
+      roles.splice(0,1);
 
+      console.log('body:', body)
       this._cS.API_PUT(environment.apiURL + "/customers/" + this.storedId, body)
         .subscribe(response => {
           if (response) {
-            this.isChangePassword = false;
+            alert("responded")
+             this.isChangePassword = false;
             if (this.isSaveClicked) {
-
               this.router.navigateByUrl('/customers');
             }
           } else {
             this._cS.displayToast(3, "Failed", "Record not updated!");
-
           }
         })
 
     } else {
+      console.log('body:', body)
       this._cS.API_POST(this._cS.getCustomerList(), body)
         .subscribe(response => {
           if (response) {
             if (this.isSaveAndEdit) {
-              
               this.isChangePassword = true;
               this.storedId = response.customers[0].id;
               // alert("is save and edit")
             } else {
-              
               this.storedId = response.customers[0].id;
-              
               this.router.navigateByUrl('/customers');
             }
           }
