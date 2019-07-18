@@ -4,6 +4,7 @@ import { environment } from '../../../../environments/environment';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CommonService } from '../../../services/common.service';
 import { MockService } from '../../../services/mock.service';
+import { debugOutputAstAsTypeScript } from '@angular/compiler';
 const emailPattern = environment.emailPattern;
 
 @Component({
@@ -56,7 +57,7 @@ export class EditBillingComponent implements OnInit {
     });
   }
   otherCountry = {
-    "id": 500, "name": "Other (Non US)", "Form": null, "CustomProperties": {}
+    "id": 0, "name": "Other (Non US)", "Form": null, "CustomProperties": {}
   }
   statelist: any = []
   getRecord() {
@@ -116,112 +117,125 @@ export class EditBillingComponent implements OnInit {
         });
     }
   }
+  statebilling: any;
+  onSelectCountry(country_id) {
+    console.log('id', country_id);
+    this._cS.API_GET(this._cS.getCountry(country_id)).subscribe(res => {
+      this.statelist = res;
+      this.statebilling = this.statelist.find((item) => item.id == this.editRecord.billing_address.state_province_id);
+      if (this.statebilling == undefined) {
+        this.statebilling = this.otherCountry;
+      }
+      else {
+        this.editbillingForm.patchValue({
+          state: this.statebilling.name,
+        });
+      }
+    });
+  }
+
   editBilling() {
     this.getParam();
+    this._cS.API_GET(this._cS.getCountry(this.editbillingForm.value.country)).subscribe(res => {
+      this.statelist = res;
+    });
+    var statebilling = this.statelist.find((item) => item.id == this.editRecord.billing_address.state_province_id);
+    var countryname = this.lstCountry.find((item) => item.state_id == this.editbillingForm.value.country);
+    if (statebilling == undefined) {
+      statebilling = this.otherCountry;
+    }
+
     var body = {
-      // order: {
-      //   billing_address: {
-      //     first_name: this.editbillingForm.value.fnm,
-      //     last_name: this.editbillingForm.value.lnm,
-      //     email: this.editbillingForm.value.mail,
-      //     company: this.editbillingForm.value.company,
-      //     country_id: +this.id,
-      //     country: this.editbillingForm.value.country,
-      //     state_province_id: this.editbillingForm.value.state,
-      //     city: this.editbillingForm.value.city,
-      //     address1: this.editbillingForm.value.addone,
-      //     address2: this.editbillingForm.value.addtwo,
-      //     zip_postal_code: this.editbillingForm.value.pinno,
-      //     phone_number: this.editbillingForm.value.mono,
-      //     fax_number: this.editbillingForm.value.faxno,
-      //     id: +this.billingId
-      //   },
-      //   id: +this.orderId
-      // }
       "order":
       {
         "billing_address": {
-              "first_name": this.editbillingForm.value.fnm,
-              "last_name": this.editbillingForm.value.lnm,
-              "email": this.editbillingForm.value.mail,
-              "company": this.editbillingForm.value.company,
-              "country_id": +this.id,
-              "country":this.editbillingForm.value.country,
-              "state_province_id":this.editbillingForm.value.state,
-              "city": this.editbillingForm.value.city,
-              "address1": this.editbillingForm.value.addone,
-              "address2":this.editbillingForm.value.addtwo,
-              "zip_postal_code":  this.editbillingForm.value.pinno,
-              "phone_number": this.editbillingForm.value.mono,
-              "fax_number":this.editbillingForm.value.faxno,
-             // "customer_attributes": "",
-              //"created_on_utc": "2019-07-03T10:45:33",
-              //"province": null,
-              "id": +this.billingId
-         },
-         "id":+this.orderId
-      }
-     }
-    console.log('body', body);
-    this._cS.API_PUT(this._cS.getOrderId(this.orderId), body)
-      .subscribe(res => {
-        if (res) {
-          this._router.navigate(['/sales/viewrecord'], { queryParams: { id: this.orderId } });
-        } else {
-          this._cS.displayToast(2, 'Error in response');
-        };
-      }, err => {
-        console.log(err, 'err')
-        this._cS.displayToast(2, 'Record not updated');
-      });
-  }
-  editShpping() {
-    this.getParam();
-    for (let i = 0; i < this.lstCountry.length; i++) {
-      var body = {
-        order: {
-          shipping_address: {
-            first_name: this.editbillingForm.value.fnm,
-            last_name: this.editbillingForm.value.lnm,
-            email: this.editbillingForm.value.mail,
-            company: this.editbillingForm.value.company,
-            country: this.editbillingForm.value.country,
-            country_id: this.lstCountry[i].country_id,
-            state_province_id: this.editbillingForm.value.state,
-            city: this.editbillingForm.value.city,
-            address1: this.editbillingForm.value.addone,
-            address2: this.editbillingForm.value.addtwo,
-            zip_postal_code: this.editbillingForm.value.pinno,
-            phone_number: this.editbillingForm.value.mono,
-            fax_number: this.editbillingForm.value.faxno,
-            province: null,
-            id: this.shippingId
-          },
-          id: +this.orderId
-        }
+          "first_name": this.editbillingForm.value.fnm,
+          "last_name": this.editbillingForm.value.lnm,
+          "email": this.editbillingForm.value.mail,
+          "company": this.editbillingForm.value.company,
+          "country_id": +this.editbillingForm.value.country,
+          "country": countryname.state,
+          "state_province_id": +statebilling.id ? +statebilling.id : null,
+          "city": this.editbillingForm.value.city,
+          "address1": this.editbillingForm.value.addone,
+          "address2": this.editbillingForm.value.addtwo,
+          "zip_postal_code": +this.editbillingForm.value.pinno,
+          "phone_number": +this.editbillingForm.value.mono,
+          "fax_number": +this.editbillingForm.value.faxno,
+          "id": +this.billingId
+        },
+        "id": +this.orderId
       }
     }
 
     this._cS.API_PUT(this._cS.getOrderId(this.orderId), body)
       .subscribe(res => {
         if (res) {
+          this._cS.displayToast(1, 'Record updated successfully');
+          this._router.navigate(['/sales/viewrecord'], { queryParams: { id: this.orderId } });
+        } else {
+          this._cS.displayToast(2, 'Error in response');
+        };
+      }, err => {
+        this._cS.displayToast(2, 'Record not updated');
+      });
+
+  }
+  editShpping() {
+    this.getParam();
+    this.getRecord();
+    this._cS.API_GET(this._cS.getCountry(this.editbillingForm.value.country)).subscribe(res => {
+      this.statelist = res;
+    });
+    var statebilling = this.statelist.find((item) => item.id == this.editRecord.shipping_address.state_province_id);
+    var countryname = this.lstCountry.find((item) => item.state_id == this.editbillingForm.value.country);
+    if (statebilling == undefined) {
+      statebilling = this.otherCountry;
+    }
+    var body = {
+      order: {
+        shipping_address: {
+          "first_name": this.editbillingForm.value.fnm,
+          "last_name": this.editbillingForm.value.lnm,
+          "email": this.editbillingForm.value.mail,
+          "company": this.editbillingForm.value.company,
+          "country_id": this.editbillingForm.value.country,
+          "country": countryname.state,
+          "state_province_id": +statebilling.id ? +statebilling.id : null,
+          "city": this.editbillingForm.value.city,
+          "address1": this.editbillingForm.value.addone,
+          "address2": this.editbillingForm.value.addtwo,
+          "zip_postal_code": this.editbillingForm.value.pinno,
+          "phone_number": this.editbillingForm.value.mono,
+          "fax_number": this.editbillingForm.value.faxno,
+          "id": this.shippingId
+        },
+        id: +this.orderId
+      }
+    }
+
+    this._cS.API_PUT(this._cS.getOrderId(this.orderId), body)
+      .subscribe(res => {
+        if (res) {
+          this._cS.displayToast(1, 'Record updated successfully');
           this._router.navigate(['/sales/viewrecord'], { queryParams: { id: this.orderId } });
         } else {
         };
       }, err => {
+        this._cS.displayToast(2, 'Record not updated');
       });
   }
   //#endregion
 
   constructor(private fb: FormBuilder, private _router: Router, private _mD: MockService, private _route: ActivatedRoute, private _cS: CommonService) { }
 
-  id: number = 1;
+  id: number;
   ngOnInit() {
     this.fbEditAddress();
     this.getRecord();
     this.lstCountry = this._mD.countryList();
-    this.lstCountry.map(x => {
-      x.country_id = this.id++;
-    });
+    // this.lstCountry.map(x => {
+    //   x.country_id = this.id++;
+    // });
   }
 }
