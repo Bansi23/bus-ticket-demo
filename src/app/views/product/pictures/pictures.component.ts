@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { CommonService } from '../../../services/common.service';
-
-const productId = localStorage.getItem('editProductId');
-const editedRecord = JSON.parse(localStorage.getItem('EditedRecord'));
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-pictures',
@@ -39,7 +37,8 @@ export class PicturesComponent implements OnInit {
   }
   //#region get product picture list
   getPictureList() {
-    if (productId != null) {
+    var editedRecord = JSON.parse(localStorage.getItem('EditedRecord'));
+    if (editedRecord.images.length > 0) {
       this.lstPicture = editedRecord.images;
       this.totalRecords = this.lstPicture.length;
     }
@@ -48,6 +47,12 @@ export class PicturesComponent implements OnInit {
   //#endregion
 
   //#region edit & delete picture details
+  productId: any;
+  getParameter() {
+    this._route.queryParams.subscribe(params => {
+      this.productId = params['id']
+    });
+  }
   editPicture(i) {
     console.log('this.lstPicture:', this.lstPicture)
     this.prodPictureForm.patchValue({
@@ -96,24 +101,36 @@ export class PicturesComponent implements OnInit {
     }
 
     var blob = new Blob(byteArrays, { type: contentType });
-    console.log('blob:', blob)
     return blob;
   }
 
   addPicture() {
     this.formValue = this.prodPictureForm.getRawValue()
     this.formValue.src = this.src;
-    this.b64toBlob(this.src);
+    // this.b64toBlob(this.src);
     this.lstPicture.push(this.formValue);
-    // this._cS.sendPictureToService(this.lstPicture);
+    this._cS.sendPictureToService(this.lstPicture);
     this.prodPictureForm.reset();
   }
   //#endregion
   constructor(private fb: FormBuilder,
-    private _cS: CommonService) { }
+    private _cS: CommonService,
+    private _route: ActivatedRoute) { }
 
   ngOnInit() {
     this.prodPictureForm_fb();
-    this.getPictureList();
+    this.getParameter();
+    const showContenet = <HTMLElement>document.querySelector('.showContenet');
+    const hideContent = <HTMLElement>document.querySelector('.hideContent');
+    if (this.productId) {
+      hideContent.style.display = 'none';
+      showContenet.style.display = 'block';
+      this.getPictureList();
+    } else {
+      if (showContenet) {
+        showContenet.style.display = 'none';
+        hideContent.style.display = 'block';
+      }
+    }
   }
 }

@@ -9,9 +9,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
+                        <tr *ngFor="let val of lstAttribute">
+                            <td>{{val.type_id}}</td>
+                            <td>{{val.name}}</td>
+                            <td>{{val.associated_product_id}}</td>
+                            <td>{{val.price_adjustment}}</td>
+                            <td>{{val.weight_adjustment}}</td>
+                            <td>{{val.is_pre_selected}}</td>
+                            <td>{{val.product_image_id}}</td>
+                            <td>{{val.display_order}}</td>
+                            <td>
+                                <button class="btn btn-success" (click)="editPicture(i)"><i
+                                        class="fa fa-edit"></i></button>
+                                <button class="btn btn-danger left-margin" (click)="deletePicture(i)"><i
+                                        class="fa fa-trash"></i></button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

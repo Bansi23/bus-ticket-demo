@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-
-const productId = localStorage.getItem('editProductId');
-const editedRecord = JSON.parse(localStorage.getItem('EditedRecord'));
+import { Router, ActivatedRoute } from '@angular/router';
+import { CommonService } from '../../../../../services/common.service';
 
 @Component({
   selector: 'app-attributes',
@@ -29,21 +27,51 @@ export class AttributesComponent implements OnInit {
   //#region bind attribute list when edit
   lstAttr: any = [];
   getAttributeList() {
-    if (productId != null) {
+    var editedRecord = JSON.parse(localStorage.getItem('EditedRecord'));
+    if (editedRecord.attributes.length > 0) {
       this.lstAttr = editedRecord.attributes;
-      this.totalRecords = this.lstAttr.length;  
+      this.totalRecords = this.lstAttr.length;
     }
+  }
+
+  productId: any;
+  getParameter() {
+    this._route.queryParams.subscribe(params => {
+      this.productId = params['id']
+    });
   }
   //#endregion  
 
+  getPictureList(){
+    
+  }
   addAttributes() {
-    this._router.navigateByUrl('/catalog/addnew-attribute')
+    this.getParameter();
+    if (this.productId) {
+      this._router.navigate(['/catalog/addnew-attribute'], { queryParams: { id: this.productId } })
+    } else {
+      this._router.navigate(['/catalog/addnew-attribute'])
+    }
   }
 
-  constructor(private _router: Router) { }
-
+  constructor(private _router: Router,
+    private _route: ActivatedRoute,
+    private _cS: CommonService) { }
   ngOnInit() {
-    this.getAttributeList();
+    this.getParameter();
+    const showContenet = <HTMLElement>document.querySelector('.showContenet');
+    const hideContent = <HTMLElement>document.querySelector('.hideContent');
+    if (this.productId) {
+      hideContent.style.display = 'none';
+      showContenet.style.display = 'block';
+      this.getAttributeList();
+    } else {
+      if (showContenet) {
+        showContenet.style.display = 'none';
+        hideContent.style.display = 'block';
+      }
+    }
+
   }
 
 }

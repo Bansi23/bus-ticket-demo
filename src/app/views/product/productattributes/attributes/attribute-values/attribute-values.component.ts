@@ -13,7 +13,7 @@ import { CommonService } from '../../../../../services/common.service';
 export class AttributeValuesComponent implements OnInit {
   @ViewChild('valuesModal', { static: false }) valuesModal: ModalDirective;
   @ViewChild('associateModal', { static: false }) public associateModal: ModalDirective;
-
+  lstAttribute: any = [];
   tableHeader: any = ['Attribute value type', 'Name', 'Associated product', 'Price adjustment', 'Weight adjustment', 'Is pre-selected', 'Picture', 'Display order', 'Action']
 
   showValue() {
@@ -75,22 +75,28 @@ export class AttributeValuesComponent implements OnInit {
   }
 
   addAttributeValues() {
-    const formValue = this.attrValueForm.getRawValue();
-    console.log('formValue:', formValue)
-    var body = {
-      type_id: formValue.valueType,
-      associated_product_id: this.filteredProduct.id,
-      name: formValue.name,
-      price_adjustment: formValue.priceAdj,
-      weight_adjustment: formValue.weightAdj,
-      cost: formValue.cost,
-      quantity: formValue.pQuantity,
-      is_pre_selected: formValue.isPreSelected,
-      display_order: formValue.displayOrder,
-      product_image_id: formValue.picture,
-      id: this.filteredProduct.id
+    for (let c in this.attrValueForm.controls) {
+      this.attrValueForm.controls[c].markAsTouched();
     }
-    this._cS.getAttributeValues(body);
+    if (this.attrValueForm.valid) {
+      const formValue = this.attrValueForm.getRawValue();
+      var body = {
+        type_id: formValue.valueType,
+        associated_product_id: this.filteredProduct.id,
+        name: formValue.name,
+        price_adjustment: formValue.priceAdj,
+        weight_adjustment: formValue.weightAdj,
+        cost: formValue.cost,
+        quantity: formValue.pQuantity,
+        is_pre_selected: formValue.isPreSelected,
+        display_order: formValue.displayOrder,
+        product_image_id: formValue.picture,
+        // id: this.filteredProduct.id
+      }
+      this.lstAttribute.push(body);
+      this._cS.getAttributeValues(this.lstAttribute);
+      this.valuesModal.hide();
+    }
   }
 
   lstProduct: any = [];

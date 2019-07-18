@@ -31,13 +31,18 @@
                         <div class="row">
                             <div class="form-group col-sm-12">
                                 <label>Full description</label>
-                                <div id="summernote">Hello Summernote</div>
+                                <!-- <app-ngx-editor [spelŌlcheck]="true" formControlName="fullDescription"></app-ngx-editor> -->
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-sm-12">
                                 <label>SKU</label>
                                 <input type="text" class="form-control" placeholder="SKU" formControlName="sku">
+                                <div class="duplicateMessage">
+                                    <div class="alert alert-warning">
+                                        <strong>The entered SKU is already reserved.</strong>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -70,11 +75,15 @@
                             <div class="form-group col-sm-12">
                                 <label>Product Cost</label>
                                 <div class="input-group">
-                                    <input type="number" class="form-control" formControlName="productCost">
+                                    <input type="number" class="form-control" formControlName="productCost"
+                                        (keydown)="restrict($event)">
                                     <span class="input-group-append">
                                         <button type="button" class="btn btn-secondary">USD</button>
                                     </span>
                                 </div>
+                                <span class="text-danger"
+                                    *ngIf="productInfoForm.controls['productCost'].hasError('pattern') && (productInfoForm.controls['productCost'].dirty || productInfoForm.controls['productCost'].touched)">
+                                    Enter valid cost price</span>
                             </div>
                         </div>
                         <div class="row">
@@ -231,9 +240,8 @@
         </div>
         <div class="row">
             <div class="pull-right">
-                    &nbsp;
-                <button class="btn btn-primary text-white" (click)="saveProductDetails()"><i
-                        class="fa fa-save">
+                &nbsp;
+                <button class="btn btn-primary text-white" (click)="saveProductDetails()"><i class="fa fa-save">
                         Save</i></button>
                 <button class="btn btn-primary text-white margin-left" (click)="saveAndEditProduct()"><i
                         class="fa fa-save">

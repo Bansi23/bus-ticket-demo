@@ -8,20 +8,27 @@
 @import "custom";
 
 //toaster css
-@import "../../node_modules/angular2-toaster/src/toaster";
-//@import "../../node_modules/angular2-toaster/src/toaster.scss";
-//@import "../../node_modules/angular2-toaster/toaster.css";
-
-
+// @import "../../node_modules/angular2-toaster/src/toaster";
+@import "node_modules/angular2-toaster/src/toaster";
 .toast {
   top: 0;
 }
 
 //custome css
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
 .isShipping,
 .associateType,
 .hideUi,
-.stockQuan {
+.stockQuan,
+.duplicateMessage {
   display: none;
 }
 
@@ -59,3 +66,8 @@
   background-color: #fff !important;
   color: #111 !important;
 }
+
+// .tab-box-main .btn-link.active {
+//   background-color: #fff !important;
+//   color: #111 !important;
+// }

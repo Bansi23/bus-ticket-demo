@@ -46,9 +46,10 @@ export class ProductListComponent implements OnInit {
 
 
   editProduct(prodId) {
-    localStorage.setItem('editProductId', prodId);
-    this._route.snapshot.paramMap.get('id');
-    this._router.navigate(['catalog/addProduct', { id: prodId }]);
+    // localStorage.setItem('editProductId', prodId);
+    this._router.navigate(['catalog/addProduct'], { queryParams: { id: prodId } });
+    var editedProduct = this.lstProduct.find(x => x.id == prodId);
+    localStorage.setItem('EditedRecord', JSON.stringify(editedProduct));
   }
 
   deleteProduct(prodId) {
@@ -68,6 +69,13 @@ export class ProductListComponent implements OnInit {
       this.lstProduct[i].select = this.selectAll;
     };
   }
+  getPictureList(){
+
+  }
+  addProduct(){
+
+  }
+  
 
   selectedRecord: any = [];
   checkIfAllSelected(rec) {

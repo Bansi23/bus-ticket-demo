@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { MockService } from '../../../services/mock.service';
-
-const productId = localStorage.getItem('editProductId');
-const editedRecord = JSON.parse(localStorage.getItem('EditedRecord'));
+import { CommonService } from '../../../services/common.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-specificationattributes',
@@ -12,12 +11,12 @@ const editedRecord = JSON.parse(localStorage.getItem('EditedRecord'));
 })
 export class SpecificationattributesComponent implements OnInit {
 
-  tableHeader: any = ['Attribute', 'type', 'Value', 'Allow filtering', 'Show on product page', 'Display order', 'action'];
+  tableHeader: any = ['Attribute type	', 'Attribute', 'Value', 'Allow filtering', 'Show on product page', 'Display order', 'action'];
   lstAttributeType: any = [];
   pageIndex: number = 1;
   pageSize: number = 10;
   totalRecords: number;
-
+  lstAttrSpecification: any = [];
   pageChanged(value) {
     this.pageIndex = +value;
     this.getSpecificAttrList();
@@ -59,18 +58,62 @@ export class SpecificationattributesComponent implements OnInit {
   //#endregion
 
   //#region get specification attribute list
+  productId: any;
+  getParameter() {
+    this._route.queryParams.subscribe(params => {
+      this.productId = params['id']
+    });
+  }
+  addAttribute() {
+    const formValue = this.specificationForm.getRawValue();
+    console.log('formValue:', formValue)
+    //   var body = {
+    //     "id": 42,
+    //     "product_id": 67,
+    //     "attribute_type_id": 0,
+    //     "specification_attribute_option_id": 1,
+    //     "custom_value": null,
+    //     "allow_filtering": false,
+    //     "show_on_product_page": true,
+    //     "display_order": 0,
+    //     "attribute_type": "Option",
+    //     "specification_attribute_option": {
+    //       "id": 1,
+    //       "specification_attribute_id": 1,
+    //       "name": "13.0''",
+    //       "color_squares_rgb": null,
+    //       "display_order": 2
+    //   }
+  }
+
   lstSpecificAttr: any = [];
   getSpecificAttrList() {
-    if (productId != null) {
+    var editedRecord = JSON.parse(localStorage.getItem('EditedRecord'));
+    if (editedRecord.product_specification_attributes.length > 0) {
       this.lstSpecificAttr = editedRecord.product_specification_attributes;
       this.totalRecords = this.lstSpecificAttr.length;
     }
   }
   //#endregion
   constructor(private fb: FormBuilder,
-    private _mS: MockService) { }
+    private _mS: MockService,
+    private _cS: CommonService,
+    private _route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.getParameter();
+    const showContenet = <HTMLElement>document.querySelector('.showContenet');
+    const hideContent = <HTMLElement>document.querySelector('.hideContent');
+    if (this.productId) {
+      hideContent.style.display = 'none';
+      showContenet.style.display = 'block';
+      this.getSpecificAttrList();
+    } else {
+      if (showContenet) {
+        showContenet.style.display = 'none';
+        hideContent.style.display = 'block';
+      }
+    }
     this.specificationForm_fb();
     this.bindList();
     this.getAttrOptions("1");

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { CommonService } from '../../../../../services/common.service';
 
 @Component({
@@ -13,11 +13,41 @@ export class AddnewAttributeComponent implements OnInit {
     this._router.navigateByUrl('/catalog/addProduct')
   }
 
+  //#region tabs routing on click
+  productId: any;
+  getParameter() {
+    this._route.queryParams.subscribe(params => {
+      this.productId = params['id']
+    });
+  }
+
+  goToInfo() {
+    this.getParameter();
+    if (this.productId) {
+      this._router.navigate(['catalog/addnew-attribute/info'], { queryParams: { id: this.productId } });
+    } else {
+      this._router.navigate(['catalog/addnew-attribute/info']);
+    }
+  }
+
+  goToValue() {
+    this.getParameter();
+    if (this.productId) {
+      this._router.navigate(['catalog/addnew-attribute/value'], { queryParams: { id: this.productId } });
+    } else {
+      this._router.navigate(['catalog/addnew-attribute/value']);
+    }
+  }
+  addProduct() {
+
+  }
+  //#endregion
   saveAttribute() {
     this._cS.addAttribute();
   }
   constructor(private _router: Router,
-    private _cS: CommonService) { }
+    private _cS: CommonService,
+    private _route: ActivatedRoute) { }
 
   ngOnInit() {
   }

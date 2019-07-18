@@ -42,7 +42,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let prod of lstProduct">
+                        <tr
+                            *ngFor="let prod of lstProduct | paginate: { itemsPerPage: pageSize, currentPage: pageIndex, totalItems: totalRecords }; let i=index;">
                             <td>
                                 <button class="btn btn-info" (click)="selectProduct(prod.id)">Select</button>
                             </td>
@@ -53,6 +54,34 @@
                         </tr>
                     </tbody>
                 </table>
+            </div>
+            <div class="row">
+                <div class="col-md-5 col-12">
+                    <div class="total-count--table">
+                        <span>Total number of records : {{ totalRecords}}</span>
+                        <button class="btn btn-primary" (click)="getProductList()"><i
+                                class="fa fa-refresh"></i></button>
+                    </div>
+                </div>
+                <div class="col-md-4 col-12" *ngIf="(lstProduct).length > 0">
+                    <div class="text-right pagignation-page">
+                        <pagination-controls class="pagination-sm pagination-box" (pageChange)="pageChanged($event)">
+                        </pagination-controls>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-12" *ngIf="lstProduct.length > 0">
+                    <div class="text-left pagignation-select">
+                        <select class="form-control" [(ngModel)]="pageSize"
+                            (change)="changePageSize($event.target.value)">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="40">40</option>
+                            <option value="50">50</option>
+                        </select>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

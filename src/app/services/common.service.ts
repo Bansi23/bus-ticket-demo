@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError, forkJoin } from 'rxjs';
 import { map, catchError, count } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { AppComponent } from '../app.component';
 
@@ -260,13 +260,12 @@ export class CommonService {
     this.API_POST(this.getProductList(), body)
       .subscribe(res => {
         if (res) {
-          console.log('res:', res)
           this.productList();
           this.lstProduct.push(res.products);
-          localStorage.setItem('productId', res.products[0].id);
+          this._router.navigate(['catalog/addProduct/productPicture'], { queryParams: { id: res.products[0].id } });
+          localStorage.setItem('EditedRecord', JSON.stringify(res.products[0]));
         }
       });
-    this._router.navigateByUrl('/catalog/addProduct/productPicture');
   }
   //#endregion
 
@@ -288,33 +287,69 @@ export class CommonService {
   }
 
   attrValue: any;
-  getAttributeValues(vBody) {
-    this.attrValue = [{ vBody }]
+  getAttributeValues(body) {
+    this.attrValue = body;
   }
 
   attrInfo: any;
-  getAttributeInfo(iBody) {
-    var productId = localStorage.getItem('productId');
-    this.attrInfo = [{ iBody }]
-
+  getAttributeInfo(body) {
+    this.attrInfo = body;
   }
 
+  getAttrSpecification(body) {
+    this.editProduct(body);
+  }
+  productObj: any;
   addAttribute() {
-    var productId = localStorage.getItem('productId');
-    var body = {
-      product: {
-        attributes:
-          this.attrInfo,
-        attribute_values:
-          this.attrValue
-      }
+    this.getAttributeInfo(this.attrInfo);
+    this.getAttributeValues(this.attrValue);
+    this.productObj = JSON.parse(localStorage.getItem('EditedRecord'));
+    if (this.attrValue) {
+      this.attrInfo.attribute_values = this.attrValue;
+    } else {
+      this.attrInfo;
+    }
+    if (this.attrInfo) {
+      this.productObj.attributes.push(this.attrInfo);
+      console.log('productObj.attributes:', this.productObj.attributes)
     }
 
-    this.API_PUT(this.URL_getProductById(productId), body)
-      .subscribe(res => {
-        console.log('res:', res)
-      })
+    console.log('productObj:', this.productObj)
+    var body = {
+      product:
+        this.productObj
+    }
+    this.editProduct(body);
+  }
+
+  productId: any;
+  getParameter() {
+    this._route.queryParams.subscribe(params => {
+      this.productId = params['id']
+    });
+  }
+
+  editProduct(body) {
+    console.log('body:', body)
+    this.getParameter();
+    // this.API_PUT(this.URL_getProductById(this.productId), body)
+    //   .subscribe(res => {
+    //     console.log('res:', res)
+    //   })
+  }
+
+  //#endregion
+
+  //#region prevent enter e, arithmatic sign in number type controls 
+  restrict(e) {
+    if ([69, 187, 188, 189, 190, 107, 109].includes(e.keyCode)) {
+      e.preventDefault();
+    }
   }
   //#endregion
-  constructor(public _router: Router, public _httpClient: HttpClient, public _app: AppComponent) { }
+  constructor(public _router: Router,
+    public _route: ActivatedRoute,
+    public _httpClient: HttpClient,
+    public _app: AppComponent,
+  ) { }
 }

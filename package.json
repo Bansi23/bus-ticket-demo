@@ -53,6 +53,7 @@
     "mydatepicker": "^2.6.6",
     "ng2-charts": "^2.3.0",
     "ngx-bootstrap": "^5.0.0",
+    "ngx-editor": "^4.1.0",
     "ngx-pagination": "^4.0.0",
     "ngx-perfect-scrollbar": "^8.0.0",
     "ngx-spinner": "^8.0.1",

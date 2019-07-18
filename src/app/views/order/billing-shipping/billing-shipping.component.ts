@@ -123,7 +123,6 @@ export class BillingShippingComponent implements OnInit {
       else {
         this.shippingAddress = baseUrl + `search/${pin}+${_city}+${country}+${address}`;
       }
-
       window.open(this.shippingAddress, "_blank");
     }
   }

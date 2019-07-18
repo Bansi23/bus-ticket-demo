@@ -3,10 +3,12 @@
         <strong>Edit Address</strong>
         <button class="btn btn-link" (click)="backToSearchList()"><i class="fa fa-arrow-circle-o-left"> back to
                 View Order</i></button>
-        <button class="btn btn-info text-center text-white pull-right" *ngIf="billingId"  (click)="editBilling()"><i class="fa fa-save">
+        <button class="btn btn-info text-center text-white pull-right" *ngIf="billingId"
+            [disabled]="!editbillingForm.valid " (click)="editBilling()"><i class="fa fa-save">
                 &nbsp;</i>Save</button>
 
-        <button class="btn btn-info text-center text-white pull-right" *ngIf="shippingId"  (click)="editShpping()"><i class="fa fa-save">
+        <button class="btn btn-info text-center text-white pull-right" *ngIf="shippingId" (click)="editShpping()"
+            [disabled]="!editbillingForm.valid "><i class="fa fa-save">
                 &nbsp;</i>Save</button>
     </div>
     <div class="card-body">
@@ -63,9 +65,10 @@
                 <div class="form-group col-sm-8">
                     <label for="mail">Country<span class="text-danger"
                             *ngIf="editbillingForm.controls.country.errors?.required">*</span></label>
-                    <select class="form-control" formControlName="country">
-                        <option *ngFor="let country of lstCountry">
-                            {{country.state}}</option>
+                    <select formControlName="country" class="form-control"
+                        (change)="onSelectCountry($event.target.value)">
+                        <option *ngFor="let country of lstCountry" [value]="country.state_id">{{country.state}}
+                        </option>
                     </select>
                     <span class="text-danger"
                         *ngIf="editbillingForm.get('country').hasError('required') && editbillingForm.get('country').touched">

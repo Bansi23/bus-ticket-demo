@@ -6,6 +6,7 @@ import { CommonService } from '../../../services/common.service';
 import { FormBuilder, FormGroup, Validators, FormArray, AbstractControl, Form } from '@angular/forms';
 import { map } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment'
+import { IMyDpOptions } from 'mydatepicker';
 @Component({
   selector: 'app-add-edit',
   templateUrl: './add-edit.component.html',
@@ -46,6 +47,12 @@ export class AddEditComponent implements OnInit {
     badgeShowLimit: 1,
     maxHeight: 200
   };
+
+  public myDatePickerOptions: IMyDpOptions = {
+    dateFormat: 'dd/mm/yyyy',
+    openSelectorOnInputClick: true,
+    editableDateField: false
+  };
   constructor(private _mS: MockService, private _cS: CommonService, private router: Router, private fb: FormBuilder, private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -61,7 +68,7 @@ export class AddEditComponent implements OnInit {
 
     if (this.custId) {
       this.count += 1;
-      console.log('this.count:', this.count)
+      
       this.storedId = this.custId;
       this.isChangePassword = true;
       this._cS.API_GET(this._cS.getParticularCustomer(this.custId))
@@ -166,7 +173,7 @@ export class AddEditComponent implements OnInit {
       this.addCustomerForm.controls[v].markAsTouched();
     };
     if (this.addCustomerForm.valid) {
-      alert("form is valid  ")
+      
       this.saveCustomerData();
 
     }
@@ -208,11 +215,11 @@ export class AddEditComponent implements OnInit {
     if (this.count == 2) {
       roles.splice(0,1);
 
-      console.log('body:', body)
+      
       this._cS.API_PUT(environment.apiURL + "/customers/" + this.storedId, body)
         .subscribe(response => {
           if (response) {
-            alert("responded")
+            
              this.isChangePassword = false;
             if (this.isSaveClicked) {
               this.router.navigateByUrl('/customers');
@@ -223,7 +230,7 @@ export class AddEditComponent implements OnInit {
         })
 
     } else {
-      console.log('body:', body)
+      
       this._cS.API_POST(this._cS.getCustomerList(), body)
         .subscribe(response => {
           if (response) {
