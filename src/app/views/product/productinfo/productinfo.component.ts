@@ -4,10 +4,8 @@ import { MockService } from '../../../services/mock.service';
 import { CommonService } from '../../../services/common.service';
 import { find } from 'rxjs/operators';
 import { ProductInfoService } from '../../../services/FormServices/product-info.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 declare var $: any;
-const productId = localStorage.getItem('editProductId');
-
 @Component({
   selector: 'app-productinfo',
   templateUrl: './productinfo.component.html',
@@ -201,64 +199,64 @@ export class ProductinfoComponent implements OnInit {
 
   //#region  edit product details
   editedProduct: any = [];
-  editRecord() {
-    if (productId != null) {
-      this._cS.API_GET(this._cS.URL_getProductById(productId))
-        .subscribe(res => {
-          if (res) {
-            var findId = res.products.find(x => x.id == productId);
-            console.log('findId:', findId)
-            if (findId) {
-              localStorage.setItem('EditedRecord', JSON.stringify(findId));
-              this.isShipping(findId.is_ship_enabled);
-              this.productInfoForm.patchValue({
-                id: productId,
-                productName: findId.name ? findId.name : '',
-                shortDescription: findId.short_description ? findId.short_description : '',
-                fullDescription: findId.full_description ? findId.full_description : '',
-                sku: findId.sku ? findId.sku : '',
-                inventoryMethod: findId.manage_inventory_method_id ? findId.manage_inventory_method_id : 0,
-                stockQuantity: findId.stock_quantity ? findId.stock_quantity : 0,
-                shippingEnable: findId.is_ship_enabled ? findId.is_ship_enabled : true,
-                weight: findId.weight ? findId.weight : 0,
-                length: findId.length ? findId.length : 0,
-                width: findId.width ? findId.width : 0,
-                height: findId.height ? findId.height : 0,
-                // categories: findId.categories ? findId.categories : '',
-                price: findId.price ? findId.price : '',
-                productCost: findId.product_cost ? findId.product_cost : 0,
-                discount: findId.discount_ids ? findId.discount_ids : 0,
-                tax: findId.is_tax_exempt ? findId.is_tax_exempt : true,
-              })
-            }
-          }
-        });
-    }
+  editProduct() {
+    var editedRecord = JSON.parse(localStorage.getItem('EditedRecord'));
+    console.log('editedRecord:', editedRecord)
+    this._cS.API_GET(this._cS.URL_getProductById(this.productId))
+      .subscribe(res => {
+        if (res) {
+          this.isShipping(editedRecord.is_ship_enabled);
+          this.productInfoForm.patchValue({
+            id: this.productId,
+            productName: editedRecord.name ? editedRecord.name : '',
+            shortDescription: editedRecord.short_description ? editedRecord.short_description : '',
+            fullDescription: editedRecord.full_description ? editedRecord.full_description : '',
+            sku: editedRecord.sku ? editedRecord.sku : '',
+            inventoryMethod: editedRecord.manage_inventory_method_id ? editedRecord.manage_inventory_method_id : 0,
+            stockQuantity: editedRecord.stock_quantity ? editedRecord.stock_quantity : 0,
+            shippingEnable: editedRecord.is_ship_enabled ? editedRecord.is_ship_enabled : true,
+            weight: editedRecord.weight ? editedRecord.weight : 0,
+            length: editedRecord.length ? editedRecord.length : 0,
+            width: editedRecord.width ? editedRecord.width : 0,
+            height: editedRecord.height ? editedRecord.height : 0,
+            // categories: editedRecord.categories ? editedRecord.categories : '',
+            price: editedRecord.price ? editedRecord.price : '',
+            productCost: editedRecord.product_cost ? editedRecord.product_cost : 0,
+            discount: editedRecord.discount_ids ? editedRecord.discount_ids : 0,
+            tax: editedRecord.is_tax_exempt ? editedRecord.is_tax_exempt : true,
+          })
+          // }
+        }
+      });
+  }
+
+  productId: any;
+  getParameter() {
+    this._route.queryParams.subscribe(params => {
+      this.productId = params['id']
+    });
   }
   //#endregion
   constructor(private fb: FormBuilder,
     private _mS: MockService,
     private _cS: CommonService,
-    private _router: Router) { }
+    private _router: Router,
+    private _route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.getParameter();
     this.productInfoForm_fb();
     this.bindStaticList();
     this.getCategoryList();
     this.multiSelectedOptions();
-    // this.getProductList();
-    if (productId != null) {
-      this.editRecord();
+    if (this.productId) {
+      this.editProduct();
+    } else {
+      this.productInfoForm_fb();
     }
+
     // $(document).ready(function () {
     //   $('#summernote').summernote();
     // });
   }
-
-  // formChanged() {
-  //   if (this.productInfoForm.valid) {
-  //     localStorage.setItem('InfoForm', JSON.stringify(this.productInfoForm.getRawValue()));
-  //   }
-  // }
-
 }

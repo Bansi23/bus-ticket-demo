@@ -23,17 +23,30 @@
                     <div class="col-lg-12">
                         <div ng-reflect-justified="true" class="tab-container tab-box-main">
                             <ul class="nav nav-justified nav-tabs">
-                                <li class="nav-item" [routerLink]="['productInfo']" [routerLinkActive]="'active'">
+                                <!-- <li class="nav-item" [routerLink]="['productInfo']" [routerLinkActive]="'active'">
                                     <a class="nav-link" [routerLink]="['productInfo']" [routerLinkActive]="'active'">
                                         <span></span>Product Info
                                     </a>
-                                </li>
-                                <li class="nav-item" [routerLink]="['productPicture']" [routerLinkActive]="'active'">
+                                </li> -->
+                                <!-- <li class="nav-item" [routerLink]="['productPicture']" [routerLinkActive]="'active'">
                                     <a class="nav-link" [routerLink]="['productPicture']" [routerLinkActive]="'active'">
                                         <span></span>Pictures
                                     </a>
+                                </li> -->
+                                <li class="nav-item">
+                                    <button class="btn btn-link" (click)="goToInfo()">Product Info</button>
                                 </li>
-                                <li class="nav-item" [routerLink]="['productAttributes']" [routerLinkActive]="'active'">
+                                <li class="nav-item">
+                                    <button class="btn btn-link" (click)="goToPicture()">Pictures</button>
+                                </li>
+                                <li class="nav-item">
+                                    <button class="btn btn-link" (click)="goToAttribute()">Product Attributes</button>
+                                </li>
+                                <li class="nav-item">
+                                    <button class="btn btn-link" (click)="goToSpecification()">Specification
+                                        Attributes</button>
+                                </li>
+                                <!-- <li class="nav-item" [routerLink]="['productAttributes']" [routerLinkActive]="'active'">
                                     <a class="nav-link" [routerLink]="['productAttributes']"
                                         [routerLinkActive]="'active'">
                                         <span></span>Product Attributes
@@ -45,7 +58,7 @@
                                         [routerLinkActive]="'active'">
                                         <span></span>Specification Attributes
                                     </a>
-                                </li>
+                                </li> -->
                             </ul>
                             <div class="tab-content">
                                 <div class="active tab-pane">

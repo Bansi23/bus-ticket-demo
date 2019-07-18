@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-
-const productId = localStorage.getItem('editProductId');
-const editedRecord = JSON.parse(localStorage.getItem('EditedRecord'));
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-attributes',
@@ -29,21 +26,42 @@ export class AttributesComponent implements OnInit {
   //#region bind attribute list when edit
   lstAttr: any = [];
   getAttributeList() {
-    if (productId != null) {
+    var editedRecord = JSON.parse(localStorage.getItem('EditedRecord'));
+    if (editedRecord.attributes.length > 0) {
       this.lstAttr = editedRecord.attributes;
-      this.totalRecords = this.lstAttr.length;  
+      this.totalRecords = this.lstAttr.length;
     }
+  }
+
+  productId: any;
+  getParameter() {
+    this._route.queryParams.subscribe(params => {
+      this.productId = params['id']
+    });
   }
   //#endregion  
 
   addAttributes() {
-    this._router.navigateByUrl('/catalog/addnew-attribute')
+    this.getParameter();
+    console.log('this.productId:', this.productId)
+    if (this.productId) {
+      this._router.navigate(['/catalog/addnew-attribute'], { queryParams: { id: this.productId } })
+    } else {
+      this._router.navigate(['/catalog/addnew-attribute'])
+    }
   }
 
-  constructor(private _router: Router) { }
+  constructor(private _router: Router,
+    private _route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.getAttributeList();
+    this.getParameter();
+    if (this.productId) {
+      this.getAttributeList();
+    } else {
+      console.log('add attribute')
+    }
+
   }
 
 }

@@ -13,6 +13,23 @@ export class AssociateProdustListComponent implements OnInit {
   @Output() productList = new EventEmitter();
   tableHeader: any = ['Select', 'Product name', 'Published'];
 
+  //#region pagination
+  pageIndex: number = 1;
+  pageSize: number = 10;
+  totalRecords: number;
+
+  pageChanged(value) {
+    this.pageIndex = +value;
+    this.getProductList();
+  };
+
+  changePageSize(value) {
+    this.pageIndex = 1;
+    this.pageSize = value;
+    this.getProductList();
+  }
+  //#endregion
+
   //#region search panel form 
   associateForm: FormGroup;
 
@@ -45,10 +62,20 @@ export class AssociateProdustListComponent implements OnInit {
   //#region getProductList
   lstProduct: any = [];
   getProductList() {
-    this._cS.API_GET(this._cS.getProductList())
+    this._cS.API_GET(this._cS.URL_getProductList(this.pageSize, this.pageIndex))
       .subscribe(res => {
         this.lstProduct = res.products;
         this.productList.emit(this.lstProduct);
+      })
+  }
+
+  getTotalRecord() {
+    this._cS.API_GET(this._cS.URL_getTotalRecords())
+      .subscribe(res => {
+        if (res) {
+          this.totalRecords = res.count;
+          this.getProductList();
+        }
       })
   }
 
@@ -63,6 +90,7 @@ export class AssociateProdustListComponent implements OnInit {
   ngOnInit() {
     this.associateForm_fb();
     this.getStaticList();
+    this.getTotalRecord();
     this.getProductList();
   }
 

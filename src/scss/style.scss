@@ -8,9 +8,10 @@
 @import "custom";
 
 //toaster css
-@import "../../node_modules/angular2-toaster/src/toaster";
-
+// @import "../../node_modules/angular2-toaster/src/toaster";
+@import 'node_modules/angular2-toaster/src/toaster';
 .toast {
+
   top: 0;
 }
 
