@@ -2,17 +2,17 @@
     <div class="card">
         <div class="card-header">
             <strong>Add a new customer</strong> &nbsp;&nbsp;
-            <i class="fa fa-arrow-circle-left"></i>
+            <!-- <i class="fa fa-arrow-circle-left"></i>
             <a href="" style="text-decoration: none;" routerLink="/customers" routerLinkActive="active">back to customer
-                list</a>
-
+                list</a> -->
+            <button class="btn btn-link" routerLink="/customers" routerLinkActive="active"><i
+                    class="fa fa-arrow-circle-o-left"> back to
+                    customer</i></button>
             <div class="pull-right">
                 <button type="button" class="btn btn-primary" (click)="saveAddEditForm()">
-                    <i class="fa fa-save"></i>
-                    Save</button>
+                    <i class="fa fa-save"></i> Save</button>
                 <button type="button" class="btn btn-primary" (click)="saveAndEditForm()">
-                    <i class="fa fa-save"></i>
-                    Save and continue edit</button>
+                    <i class="fa fa-save"></i> Save and continue edit</button>
             </div>
         </div>
         <div class="card-body">
@@ -50,7 +50,7 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-sm-6">
-                                                    <label for="password" class="pull-left">Password</label>    
+                                                    <label for="password" class="pull-left">Password</label>
                                                     <input type="password" formControlName="custPassword"
                                                         class="form-control">
                                                     <br>
@@ -64,7 +64,7 @@
                                                     </span>
                                                     <span class="text-danger"
                                                         *ngIf="addCustomerForm.get('custPassword').hasError('pattern') && addCustomerForm.get('custPassword').touched">
-                                                            Password should contain uppercase,lowercase letters and numbers.
+                                                        Password should contain uppercase,lowercase letters and numbers.
                                                     </span>
                                                 </div>
                                                 <div class="col-sm-6">
@@ -232,7 +232,8 @@
                                             </div><br> -->
                                             <div class="row">
                                                 <div class="col-sm-6">
-                                                    <label for="manager of vendor" class="pull-left">Manager of vendor</label>
+                                                    <label for="manager of vendor" class="pull-left">Manager of
+                                                        vendor</label>
                                                     <select formControlName="custManagerOfVendor" class="form-control">
                                                         <option value="">Select manager of vendor</option>
                                                         <option value="{{m.id}}" *ngFor="let m of lstManagerOfVendor">
@@ -259,16 +260,17 @@
                                             <div class="row">
                                                 <div class="col-sm-6">
                                                     <label for="custNewsLetter" class="pull-left">Newsletter
-                                                    <input id="custNewsLetter" type="checkbox"
-                                                        formControlName="custNewsletter"> <span>(Your store name)</span>
+                                                        <input id="custNewsLetter" type="checkbox"
+                                                            formControlName="custNewsletter"> <span>(Your store
+                                                            name)</span>
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-sm-6">
                                                     <label for="active" class="pull-left">Active
-                                                    <input id="active"  type="checkbox" formControlName="custActive">
-                                                </label>
+                                                        <input id="active" type="checkbox" formControlName="custActive">
+                                                    </label>
                                                 </div>
                                             </div>
                                             <div class="row" *ngIf="isChangePassword">
@@ -285,7 +287,8 @@
                                             </div>
                                             <div class="row" *ngIf="isChangePassword">
                                                 <div class="col-sm-6">
-                                                    <label for="lastActivity" class="pull-left">Last activity &nbsp;</label>
+                                                    <label for="lastActivity" class="pull-left">Last activity
+                                                        &nbsp;</label>
                                                     <label class="pull-left">{{lastActivity | date : 'short'}}</label>
                                                 </div>
                                             </div>
