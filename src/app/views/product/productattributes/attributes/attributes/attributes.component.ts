@@ -42,6 +42,9 @@ export class AttributesComponent implements OnInit {
   }
   //#endregion  
 
+  getPictureList(){
+    
+  }
   addAttributes() {
     this.getParameter();
     if (this.productId) {
