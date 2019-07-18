@@ -48,7 +48,6 @@ export class AddEditComponent implements OnInit {
   };
   constructor(private _mS: MockService, private _cS: CommonService, private router: Router, private fb: FormBuilder, private route: ActivatedRoute) { }
   ngOnInit() {
-    console.log('this.count:', this.count)
     this.lstCustomerRoles = this._mS.customerRoles();
     this.lstManagerOfVendor = this._mS.getManagerOfVendor();
     this.initAddCustomerForm();
@@ -60,6 +59,9 @@ export class AddEditComponent implements OnInit {
       });
 
     if (this.custId) {
+      this.count += 1;
+      console.log('this.count:', this.count)
+      this.storedId = this.custId;
       this.isChangePassword = true;
       this._cS.API_GET(this._cS.getParticularCustomer(this.custId))
         .subscribe(response => {
@@ -84,6 +86,7 @@ export class AddEditComponent implements OnInit {
           this.setValuesInForm();
         })
     } else {
+
       this._cS.Display_Loader(false);
     }
     this.settings = {
@@ -217,14 +220,14 @@ export class AddEditComponent implements OnInit {
         .subscribe(response => {
           if (response) {
             if (this.isSaveAndEdit) {
-              console.log('response:', response)
+              
               this.isChangePassword = true;
               this.storedId = response.customers[0].id;
               // alert("is save and edit")
             } else {
-              console.log('response:', response)
+              
               this.storedId = response.customers[0].id;
-              console.log('this.storedId:', this.storedId)
+              
               this.router.navigateByUrl('/customers');
             }
           }

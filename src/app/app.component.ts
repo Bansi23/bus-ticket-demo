@@ -14,9 +14,8 @@ import { ToasterConfig, ToasterService } from 'angular2-toaster';
     type = "line-scale-pulse-out"
     [fullScreen] = "true"
     >
-    <p style="color: white" > Loading... </p>
     </ngx-spinner>
-    <toaster-container [toasterconfig]="config"></toaster-container>`
+    <toaster-container [toasterconfig]="toasterconfig"></toaster-container>`
 })
 export class AppComponent implements OnInit {
   constructor(private router: Router,

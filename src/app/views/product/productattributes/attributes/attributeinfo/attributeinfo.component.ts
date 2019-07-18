@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonService } from '../../../../../services/common.service';
 import { MockService } from '../../../../../services/mock.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-attributeinfo',
@@ -45,24 +45,38 @@ export class AttributeinfoComponent implements OnInit {
   addInfo() {
     const formValue = this.attrInfoForm.getRawValue();
     var body = {
-      product_attribute_name: formValue.attribute,
+      product_attribute_id: formValue.attribute,
       text_prompt: formValue.textPrompt,
       is_required: formValue.isReq,
       display_order: formValue.displayOrder,
-      attribute_control_type_name: formValue.controlType
+      attribute_control_type_id: formValue.controlType
     }
+    
     this._cS.getAttributeInfo(body);
+    this.getParameter();
+    if (this.productId) {
+      this._router.navigate(['/catalog/addnew-attribute/value'], { queryParams: { id: this.productId } });
+    } else {
+      this._router.navigate(['/catalog/addnew-attribute/value']);
+    }
+  }
+
+  productId: any;
+  getParameter() {
+    this._route.queryParams.subscribe(params => {
+      this.productId = params['id']
+    });
   }
   //#endregion
   constructor(private _cS: CommonService,
     private _mS: MockService,
     private fb: FormBuilder,
-    private _router : Router) { }
+    private _router: Router,
+    private _route: ActivatedRoute) { }
 
   ngOnInit() {
     this.attrInfoForm_fb();
     this.lstControl = this._mS.getControlTypes();
     this.getattributeList();
   }
-
 }
