@@ -67,7 +67,6 @@ export class AddEditComponent implements OnInit {
 
     if (this.custId) {
       this.count += 1;
-      console.log('this.count:', this.count)
       this.storedId = this.custId;
       this.isChangePassword = true;
       this._cS.API_GET(this._cS.getParticularCustomer(this.custId))

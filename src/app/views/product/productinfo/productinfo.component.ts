@@ -199,7 +199,11 @@ export class ProductinfoComponent implements OnInit {
           height: formValue.height ? formValue.width : 0
         }
       }
-      this._cS.sendInfoToService(body);
+      if (this.productId) {
+        this._cS.editProduct(body);
+      } else {
+        this._cS.sendForCreate(body);
+      }
     }
   }
   //#endregion
@@ -220,7 +224,6 @@ export class ProductinfoComponent implements OnInit {
   editedProduct: any = [];
   editProduct() {
     var editedRecord = JSON.parse(localStorage.getItem('EditedRecord'));
-    console.log('editedRecord:', editedRecord)
     this._cS.API_GET(this._cS.URL_getProductById(this.productId))
       .subscribe(res => {
         if (res) {
@@ -231,7 +234,7 @@ export class ProductinfoComponent implements OnInit {
             shortDescription: editedRecord.short_description ? editedRecord.short_description : '',
             fullDescription: editedRecord.full_description ? editedRecord.full_description : '',
             sku: editedRecord.sku ? editedRecord.sku : '',
-            inventoryMethod: editedRecord.manage_inventory_method_id ? editedRecord.manage_inventory_method_id : 0,
+            inventoryMethod: editedRecord.manage_inventory_method_id ? editedRecord.manage_inventory_method_id : 1,
             stockQuantity: editedRecord.stock_quantity ? editedRecord.stock_quantity : 0,
             shippingEnable: editedRecord.is_ship_enabled ? editedRecord.is_ship_enabled : true,
             weight: editedRecord.weight ? editedRecord.weight : 0,
@@ -239,7 +242,7 @@ export class ProductinfoComponent implements OnInit {
             width: editedRecord.width ? editedRecord.width : 0,
             height: editedRecord.height ? editedRecord.height : 0,
             // categories: editedRecord.categories ? editedRecord.categories : '',
-            price: editedRecord.price ? editedRecord.price : '',
+            price: editedRecord.price ? editedRecord.price : 0,
             productCost: editedRecord.product_cost ? editedRecord.product_cost : 0,
             discount: editedRecord.discount_ids ? editedRecord.discount_ids : 0,
             tax: editedRecord.is_tax_exempt ? editedRecord.is_tax_exempt : true,
@@ -272,7 +275,6 @@ export class ProductinfoComponent implements OnInit {
     if (this.productId) {
       this.editProduct();
     } else {
-      console.log('create product');
     }
   }
 }

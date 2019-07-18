@@ -10,7 +10,9 @@ import { CommonService } from '../../../../../services/common.service';
 export class AddnewAttributeComponent implements OnInit {
 
   backToList() {
-    this._router.navigateByUrl('/catalog/addProduct')
+    if (this.productId) {
+      this._router.navigate(['/catalog/addProduct'], { queryParams: { id: this.productId } });
+    }
   }
 
   //#region tabs routing on click
@@ -22,7 +24,6 @@ export class AddnewAttributeComponent implements OnInit {
   }
 
   goToInfo() {
-    this.getParameter();
     if (this.productId) {
       this._router.navigate(['catalog/addnew-attribute/info'], { queryParams: { id: this.productId } });
     } else {
@@ -31,7 +32,6 @@ export class AddnewAttributeComponent implements OnInit {
   }
 
   goToValue() {
-    this.getParameter();
     if (this.productId) {
       this._router.navigate(['catalog/addnew-attribute/value'], { queryParams: { id: this.productId } });
     } else {
@@ -50,6 +50,7 @@ export class AddnewAttributeComponent implements OnInit {
     private _route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.getParameter();
   }
 
 }
