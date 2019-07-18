@@ -47,8 +47,7 @@ input[type="number"]::-webkit-outer-spin-button {
   border: 2px solid #23b7e5;
 }
 
-.tab-box-main .nav-tabs > .nav-item > .nav-link,
-.tab-box-main .nav-tabs > .btn-link {
+.tab-box-main .nav-tabs > .nav-item > .nav-link {
   background-color: #3dbee7;
   border-right: 0;
   padding: 5px 0px !important;
@@ -59,13 +58,11 @@ input[type="number"]::-webkit-outer-spin-button {
   color: #fff;
   border: 1px solid #23b7e5;
 }
-.tab-box-main .nav-tabs > .nav-item > .nav-link,
-.tab-box-main .btn-link {
+.tab-box-main .nav-tabs > .nav-item > .nav-link {
   background-color: #3dbee7;
   color: #fff;
 }
-.tab-box-main .nav-link.active,
-.tab-box-main .btn-link.active {
+.tab-box-main .nav-link.active {
   background-color: #fff !important;
   color: #111 !important;
 }
