@@ -70,7 +70,6 @@ export class EditBillingComponent implements OnInit {
             this.lstCountry = this._mD.countryList();
             if (this.billingId != null) {
               this._cS.API_GET(this._cS.getCountry(this.editRecord.billing_address.country_id)).subscribe(res => {
-                debugger;
                 this.statelist = res;
                 var statebilling = this.statelist.find((item) => item.id == this.editRecord.billing_address.state_province_id);
                 const country = this.lstCountry.find((item) => item.state_id == this.editRecord.billing_address.country_id);
@@ -139,7 +138,6 @@ export class EditBillingComponent implements OnInit {
   }
 
   editBilling() {
-    debugger;
     this.getParam();
     this._cS.API_GET(this._cS.getCountry(this.editbillingForm.value.country)).subscribe(res => {
       this.statelist = res;
