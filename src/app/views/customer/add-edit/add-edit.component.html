@@ -50,7 +50,7 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-sm-6">
-                                                    <label for="password" class="pull-left">Password</label>
+                                                    <label for="password" class="pull-left">Password</label>    
                                                     <input type="password" formControlName="custPassword"
                                                         class="form-control">
                                                     <br>
@@ -81,7 +81,7 @@
                                                 <div class="col-sm-6">
                                                     <label for="customer roles" class="pull-left">Customer roles</label>
                                                     <angular2-multiselect [data]="lstCustomerRoles"
-                                                        formControlName="custRoles" class="form-control orderNumber"
+                                                        formControlName="custRoles" class="form-control"
                                                         [settings]="dropdownOrderStatus"
                                                         (onSelect)="onItemRoleSelect($event)"
                                                         (onDeSelect)="onItemRoleSelect($event)"

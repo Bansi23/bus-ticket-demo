@@ -131,7 +131,7 @@ export class ProductinfoComponent implements OnInit {
     this._cS.restrict(e);
   }
 
-  getCategoryList() {
+  getCategoryList() { 
     this._cS.API_GET(this._cS.URL_getCategoryList())
       .subscribe(res => {
         if (res) {
