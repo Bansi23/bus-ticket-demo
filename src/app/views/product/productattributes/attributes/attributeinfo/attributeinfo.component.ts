@@ -44,12 +44,16 @@ export class AttributeinfoComponent implements OnInit {
   //#region attribute info add
   addInfo() {
     const formValue = this.attrInfoForm.getRawValue();
+    var controlName = this.lstControl.find(x => {
+
+    })
     var body = {
       product_attribute_id: formValue.attribute,
       text_prompt: formValue.textPrompt,
       is_required: formValue.isReq,
       display_order: formValue.displayOrder,
-      attribute_control_type_id: formValue.controlType
+      attribute_control_type_id: formValue.controlType,
+      // attribute_control_type_name : 
     }
     this._cS.getAttributeInfo(body);
     this.getParameter();

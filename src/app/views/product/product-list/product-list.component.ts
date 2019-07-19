@@ -57,7 +57,6 @@ export class ProductListComponent implements OnInit {
       this._cS.API_DELETE(this._cS.URL_deleteRecord(prodId))
         .subscribe(res => {
           if (res) {
-            this.lstProduct.splice(prodId, 1);
             this.getTotalRecord();
           }
         })
@@ -69,13 +68,13 @@ export class ProductListComponent implements OnInit {
       this.lstProduct[i].select = this.selectAll;
     };
   }
-  getPictureList(){
+  getPictureList() {
 
   }
-  addProduct(){
+  addProduct() {
 
   }
-  
+
 
   selectedRecord: any = [];
   checkIfAllSelected(rec) {

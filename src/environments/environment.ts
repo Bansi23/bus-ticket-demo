@@ -5,6 +5,6 @@
 
 export const environment = {
   production: false,
-  apiURL: 'https://cors-anywhere.herokuapp.com/'+'http://nop.satva.solutions/api/',
+  apiURL: 'http://nop.satva.solutions/api/',
   emailPattern: '[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,63}',
 };
