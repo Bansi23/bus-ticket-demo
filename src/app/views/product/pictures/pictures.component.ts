@@ -54,7 +54,6 @@ export class PicturesComponent implements OnInit {
     });
   }
   editPicture(i) {
-    console.log('this.lstPicture:', this.lstPicture)
     this.prodPictureForm.patchValue({
       position: this.lstPicture[i].position,
     })

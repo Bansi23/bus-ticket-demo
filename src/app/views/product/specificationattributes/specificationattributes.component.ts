@@ -66,7 +66,6 @@ export class SpecificationattributesComponent implements OnInit {
   }
   addAttribute() {
     const formValue = this.specificationForm.getRawValue();
-    console.log('formValue:', formValue)
     //   var body = {
     //     "id": 42,
     //     "product_id": 67,

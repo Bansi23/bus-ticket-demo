@@ -256,7 +256,7 @@ export class CommonService {
   }
   //#endregion
   //#region  create product
-  sendInfoToService(body) {
+  sendForCreate(body) {
     this.API_POST(this.getProductList(), body)
       .subscribe(res => {
         if (res) {
@@ -277,12 +277,10 @@ export class CommonService {
           data
       }
     }
-    console.log('data:', body)
     var productId = localStorage.getItem('productId');
-    console.log('productId:', productId)
     this.API_PUT(this.URL_getProductById(productId), body)
       .subscribe(res => {
-        console.log('res:', res)
+
       })
   }
 
@@ -311,10 +309,8 @@ export class CommonService {
     }
     if (this.attrInfo) {
       this.productObj.attributes.push(this.attrInfo);
-      console.log('productObj.attributes:', this.productObj.attributes)
     }
 
-    console.log('productObj:', this.productObj)
     var body = {
       product:
         this.productObj
@@ -330,12 +326,11 @@ export class CommonService {
   }
 
   editProduct(body) {
-    console.log('body:', body)
     this.getParameter();
-    // this.API_PUT(this.URL_getProductById(this.productId), body)
-    //   .subscribe(res => {
-    //     console.log('res:', res)
-    //   })
+    this.API_PUT(this.URL_getProductById(this.productId), body)
+      .subscribe(res => {
+
+      })
   }
 
   //#endregion
