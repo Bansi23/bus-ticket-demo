@@ -262,6 +262,7 @@ export class CommonService {
         if (res) {
           this.productList();
           this.lstProduct.push(res.products);
+          this.displayToast(1, 'Product create successfully');
           this._router.navigate(['catalog/addProduct/productPicture'], { queryParams: { id: res.products[0].id } });
           localStorage.setItem('EditedRecord', JSON.stringify(res.products[0]));
         }

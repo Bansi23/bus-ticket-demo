@@ -16,15 +16,15 @@
                         <label for="city">Payment Status</label>
                         <select class="form-control" formControlName="paymentStatus">
                             <option value="All">All</option>
-                            <option *ngFor="let item of lstPaymentStatus" [value]="item.itemName">{{item.itemName}}
+                            <option *ngFor="let item of lstPaymentStatus" >{{item.itemName}}
                             </option>
                         </select>
                     </div>
                     <div class="form-group col-sm-6">
                         <label>Order Status</label>
                         <select class="form-control" formControlName="orderstatus">
-                            <option value="All">All</option>
-                            <option *ngFor="let item of lstOrderStatus" [value]="item.itemName">{{item.itemName}}
+                            <option  value="all">All</option>
+                            <option *ngFor="let item of lstOrderStatus">{{item.itemName}}
                             </option>
                         </select>
                     </div>
@@ -47,21 +47,9 @@
                 <div class="row">
                     <div class="form-group col-sm-6">
                         <label>Shipping Status</label>
-                        <!-- <angular2-multiselect [data]="lstShippingStatus" formControlName="shippingStatus"
-                            class="form-control" [settings]="dropdownShippingStatus"
-                            (onSelect)="onItemshippingSelect($event)" (onDeSelect)="onItemshippingSelect($event)"
-                            (onSelectAll)="onItemshippingSelect($event)" (onDeSelectAll)="onItemshippingSelect($event)">
-                            <ng-container *ngIf="lstShippingStatus?.length == selectedshippingItem?.length">
-                                <c-badge>
-                                    <ng-template let-item="item">
-                                        <label style="margin: 0px; padding-right: 5px;">All</label>
-                                    </ng-template>
-                                </c-badge>
-                            </ng-container>
-                        </angular2-multiselect> -->
                         <select class="form-control" formControlName="shippingStatus">
                             <option value="All">All</option>
-                            <option *ngFor="let item of lstShippingStatus" [value]="item.itemName">{{item.itemName}}
+                            <option *ngFor="let item of lstShippingStatus">{{item.itemName}}
                             </option>
                         </select>
                     </div>

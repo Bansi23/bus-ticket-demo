@@ -27,8 +27,8 @@ export class MockService {
 
   shippingStatus() {
     return [
-      { "id": 1, 'itemName': 'Shipping not required' },
-      { "id": 2, 'itemName': 'Not yet shipped' },
+      { "id": 1, 'itemName': 'ShippingNotRequired' },
+      { "id": 2, 'itemName': 'NotYetShipped' },
       { "id": 3, 'itemName': 'Partially shipped' },
       { "id": 4, 'itemName': 'Shipped' },
       { "id": 5, 'itemName': 'Delivered' },
@@ -37,7 +37,7 @@ export class MockService {
 
   paymentMethod() {
     return [
-      { "id": 1, 'payment_method': 'Check / Money Order' },
+      { "id": 1, 'payment_method': 'Check/Money Order' },
       { "id": 2, 'payment_method': 'Credit Card(Payments.Manual)' },
       { "id": 3, 'payment_method': 'Credit Card(Payments.Square)' },
       { "id": 4, 'payment_method': 'Credit Card(Payments.WorldpayUS)' },

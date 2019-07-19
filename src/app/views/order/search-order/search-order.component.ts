@@ -138,18 +138,16 @@ export class SearchOrderComponent implements OnInit {
     const payment = this.searchOrder.get('paymentStatus').value;
     const shipping = this.searchOrder.get('shippingStatus').value;
     const order = this.searchOrder.get('orderstatus').value;
-    if (payment == "All" && shipping == "All" && order == "All") {
-      this.GetRecord();
-    }
-    else {
-      this._cS.API_GET(this._cS.getsearchRecord(payment, shipping, order))
-        .subscribe(res => {
-          if (res) {
-            this.lstOrderData = res.orders;
-            this.finalTotal = this.lstOrderData.map(o => o.order_total).reduce((a, c) => a + c, 0);
-          }
-        });
-    }
+    this._cS.API_GET(this._cS.getsearchRecord(payment, shipping, order))
+      .subscribe(res => {
+        if (res) {
+          this.lstOrderData = res.orders;
+          this.finalTotal = this.lstOrderData.map(o => o.order_total).reduce((a, c) => a + c, 0);
+        }
+        else{
+          this._cS.displayToast(2,'Not found ')
+        }
+      });
   }
 
   select_all() {

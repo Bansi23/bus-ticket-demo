@@ -9,7 +9,7 @@ import { CommonService } from '../../../../../services/common.service';
 })
 export class AttributesComponent implements OnInit {
 
-  tableHeader: any = ['Attribute', 'Text prompt', 'Is Required', 'Control type', 'Display order', 'Validation rules', 'Condition', 'Action']
+  tableHeader: any = ['Attribute', 'Text prompt', 'Is Required', 'Control type', 'Display order', 'Condition', 'Action']
   pageIndex: number = 1;
   pageSize: number = 10;
   totalRecords: number;
@@ -30,6 +30,7 @@ export class AttributesComponent implements OnInit {
     var editedRecord = JSON.parse(localStorage.getItem('EditedRecord'));
     if (editedRecord.attributes.length > 0) {
       this.lstAttr = editedRecord.attributes;
+      console.log('this.lstAttr:', this.lstAttr)
       this.totalRecords = this.lstAttr.length;
     }
   }
