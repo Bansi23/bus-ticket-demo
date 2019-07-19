@@ -58,7 +58,6 @@ export class AddEditComponent implements OnInit {
   ngOnInit() {
     this.lstCustomerRoles = this._mS.customerRoles();
     this.lstManagerOfVendor = this._mS.getManagerOfVendor();
-    this.initAddCustomerForm();
 
     this.route
       .queryParams
@@ -67,6 +66,7 @@ export class AddEditComponent implements OnInit {
       });
 
     if (this.custId) {
+      this.initEidtCustomerForm();
       this.count += 1;
 
       this.storedId = this.custId;
@@ -95,6 +95,7 @@ export class AddEditComponent implements OnInit {
           this.setValuesInForm();
         })
     } else {
+      this.initAddCustomerForm();
 
       this._cS.Display_Loader(false);
     }
@@ -137,11 +138,26 @@ export class AddEditComponent implements OnInit {
       custActive: ['']
     })
   }
+  initEidtCustomerForm(){
+    this.addCustomerForm = this.fb.group({
+      custEmail: ['', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')])],
+      // custPassword: ['', Validators.compose([Validators.minLength(5), Validators.required,Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')])],
+      custRoles: ['', Validators.required],
+      custManagerOfVendor: ['', Validators.required],
+      // custGender: ['', Validators.required],
+      custFirstName: ['', Validators.required],
+      custLastName: ['', Validators.required],
+      // custDob: ['', Validators.required],
+      custDob: [''],
+      custCompanyName: [''],
+      custAdminComment: [''],
+      custIsTaxExempt: [''],
+      custNewsletter: [''],
+      custActive: ['']
+    })
+  }
   setValuesInForm() {
-    if (this.custId) {
-      this.addCustomerForm.get('custPassword').clearValidators();
-      this.addCustomerForm.get('custPassword').updateValueAndValidity();
-    }
+    
     this.addCustomerForm.patchValue({
       custEmail: this.customer[0].email,
       // custPassword : this.dataToSet.
