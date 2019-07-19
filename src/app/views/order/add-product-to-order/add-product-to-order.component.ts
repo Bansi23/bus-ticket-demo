@@ -20,6 +20,7 @@ export class AddProductToOrderComponent implements OnInit {
   giftWrapping: any;
 
   @ViewChild('editItem', { static: true }) EditRecord: ModalDirective;
+ // @ViewChild('deleteModal', { static: true }) deleteMedalRec: ModalDirective;
 
   fbItemEdit() {
     this.itemForm = this.fb.group({
@@ -71,20 +72,17 @@ export class AddProductToOrderComponent implements OnInit {
   }
 
   DeleteRecord(itemid) {
-    this.getParemeter();
-    this._cS.API_DELETE(this._cS.getOrderItemId(this.orderId, itemid))
-      .subscribe(res => {
-        if (res) {
-          if (confirm('Are you sure want to delete this record?')) {
-            this.getItem();
+    if (confirm('Are you sure you want to delete this record?')) {
+      this._cS.API_DELETE(this._cS.getOrderItemId(this.orderId, itemid))
+        .subscribe(res => {
+          if (res) {
             this._cS.displayToast(1, 'SuccessFully Deleted Record');
+            this.getItem();
           }
-        }
-        else {
-          this._cS.displayToast(2, 'Error in response');
-        }
-      })
+        })
+    }
   }
+
   saveRecord() {
     this.getParemeter();
     const formValue = this.itemForm.value;
@@ -140,6 +138,7 @@ export class AddProductToOrderComponent implements OnInit {
   }
   close() {
     this.EditRecord.hide();
+    //this.deleteMedalRec.hide();
   }
 
   addProduct() {
