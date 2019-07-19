@@ -16,8 +16,7 @@
                         </td>
                         <td>{{attr.attribute_control_type_name}}</td>
                         <td>{{attr.display_order}}</td>
-                        <td>{{attr.product_attribute_name}}</td>
-                        <td></td>
+                        <!-- <td></td> -->
                         <td>
                             <button class="btn btn-success" (click)="editAttribute(attr.id)"><i
                                     class="fa fa-edit"></i></button>
@@ -31,7 +30,7 @@
         <div class="col-md-4 col-12">
             <div class="total-count--table">
                 <span>Total number of records : {{ totalRecords}}</span>
-                <button class="btn btn-primary" (click)="getPictureList()"><i class="fa fa-refresh"></i></button>
+                <button class="btn btn-primary" (click)="reloadAttribute()"><i class="fa fa-refresh"></i></button>
             </div>
         </div>
         <div class="col-md-5 col-12" *ngIf="lstAttr.length > 0">

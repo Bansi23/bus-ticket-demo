@@ -131,7 +131,7 @@ export class ProductinfoComponent implements OnInit {
     this._cS.restrict(e);
   }
 
-  getCategoryList() { 
+  getCategoryList() {
     this._cS.API_GET(this._cS.URL_getCategoryList())
       .subscribe(res => {
         if (res) {
@@ -186,7 +186,7 @@ export class ProductinfoComponent implements OnInit {
       var body = {
         product: {
           name: formValue.productName,
-          short_descriptio: formValue.shortDescription ? formValue.shortDescription : "",
+          short_description: formValue.shortDescription ? formValue.shortDescription : "",
           sku: formValue.sku ? formValue.sku : "",
           manage_inventory_method_id: formValue.inventoryMethod ? formValue.inventoryMethod : 1,
           stock_quantity: formValue.stockQuantity ? formValue.stockQuantity : 0,
@@ -247,7 +247,6 @@ export class ProductinfoComponent implements OnInit {
             discount: editedRecord.discount_ids ? editedRecord.discount_ids : 0,
             tax: editedRecord.is_tax_exempt ? editedRecord.is_tax_exempt : true,
           })
-          // }
         }
       });
   }
@@ -274,7 +273,6 @@ export class ProductinfoComponent implements OnInit {
     this.multiSelectedOptions();
     if (this.productId) {
       this.editProduct();
-    } else {
     }
   }
 }
