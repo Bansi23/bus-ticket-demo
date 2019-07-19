@@ -56,11 +56,31 @@ export class SelectAddProductComponent implements OnInit {
             totalExcl: this.addProduct.price ? this.addProduct.price : null,
           });
         }
-        else{
+        else {
           this._cS.displayToast(2, 'Not get the response');
         }
       });
   }
+
+  attributeControl: any;
+  product: any = [];
+  // getProductList() {
+  //   debugger;
+  //   this.getParameter();
+  //   this._cS.API_GET(this._cS.URL_getProductById(this.productid))
+  //     .subscribe(response => {
+  //       if (response) {
+  //         this.product = response.products;
+  //         for (let i = 0; i < this.product.length; i++) {
+  //          // const element = this.product[i].attributes;
+  //         }
+  //       }
+  //       else {
+  //         this._cS.displayToast(2, 'Not get the response');
+  //       }
+  //     });
+  // }
+
 
   addProducttoOrder() {
     this.getProduct();
@@ -93,6 +113,7 @@ export class SelectAddProductComponent implements OnInit {
           this._cS.API_POST(this._cS.getOrderItem(this.orderid), body)
             .subscribe(response => {
               if (response) {
+                this._cS.displayToast(1, 'Successfully added this Product')
                 this._router.navigate(['/sales/viewrecord'], { queryParams: { id: this.id } });
               }
               else {
@@ -105,6 +126,7 @@ export class SelectAddProductComponent implements OnInit {
   constructor(private _router: Router, private _route: ActivatedRoute, private fb: FormBuilder, private _cS: CommonService) { }
 
   ngOnInit() {
+    //this.getProductList();
     this.fbAddProduct();
     this.getProduct();
   }
