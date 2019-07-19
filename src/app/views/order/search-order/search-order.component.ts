@@ -86,9 +86,9 @@ export class SearchOrderComponent implements OnInit {
       mail: ['', Validators.pattern(emailPattern)],
       orderstatus: [''],
       billingAdd: [''],
-      paymentStatus: [''],
+      paymentstatus: [''],
       country: [''],
-      shippingStatus: [''],
+      shippingstatus: [''],
       paymentMethod: [''],
       ordernote: [''],
       orderno: ['', Validators.pattern('[0-9]\\d{0,50}')]
@@ -103,6 +103,9 @@ export class SearchOrderComponent implements OnInit {
         this._cS.Display_Loader(false);
         if (res) {
           this.lstOrderData = res.orders;
+          // this.searchOrder.get('paymentstatus').setValue('All');
+          // this.searchOrder.get('shippingstatus').setValue('All');
+          // this.searchOrder.get('orderstatus').setValue('All');
           this.finalTotal = this.lstOrderData.map(o => o.order_total).reduce((a, c) => a + c, 0);
         }
         else {
@@ -135,21 +138,20 @@ export class SearchOrderComponent implements OnInit {
     this.GetRecord();
   }
   searchRecord() {
-    const payment = this.searchOrder.get('paymentStatus').value;
-    const shipping = this.searchOrder.get('shippingStatus').value;
-    const order = this.searchOrder.get('orderstatus').value;
-    if (payment == "All" && shipping == "All" && order == "All") {
-      this.GetRecord();
-    }
-    else {
-      this._cS.API_GET(this._cS.getsearchRecord(payment, shipping, order))
-        .subscribe(res => {
-          if (res) {
-            this.lstOrderData = res.orders;
-            this.finalTotal = this.lstOrderData.map(o => o.order_total).reduce((a, c) => a + c, 0);
-          }
-        });
-    }
+    const paymentStatus = this.searchOrder.get('paymentstatus').value;
+    const shippingStatus = this.searchOrder.get('shippingstatus').value;
+    const orderStatus = this.searchOrder.get('orderstatus').value;
+    this._cS.API_GET(this._cS.getsearchRecord(paymentStatus, orderStatus, shippingStatus))
+      .subscribe(res => {
+        this.pageIndex = 1;
+        if (res) {
+          this.lstOrderData = res.orders;
+          this.finalTotal = this.lstOrderData.map(o => o.order_total).reduce((a, c) => a + c, 0);
+        }
+        else {
+          this._cS.displayToast(2, 'Not found ')
+        }
+      });
   }
 
   select_all() {
@@ -175,8 +177,6 @@ export class SearchOrderComponent implements OnInit {
     else {
       this._cS.displayToast(2, 'This record is not found')
     }
-
-
   }
 
   StaticList() {
@@ -187,28 +187,12 @@ export class SearchOrderComponent implements OnInit {
     this.lstpaymentMethod = this.__mD.paymentMethod();
     this.lstCountry = this.__mD.countryList();
   }
-  MultiselectDropData() {
-    this.lstOrderStatus.map(x => {
-      this.selectedorderItems.push(x);
-    });
-    this.lstPaymentStatus.map(x => {
-      this.selectedpaymentItems.push(x);
-    });
-
-    this.lstShippingStatus.map(x => {
-      this.selectedshippingItem.push(x);
-    });
-    this.searchOrder.get('orderstatus').setValue(this.selectedorderItems);
-    this.searchOrder.get('paymentStatus').setValue(this.selectedpaymentItems);
-    this.searchOrder.get('shippingStatus').setValue(this.selectedshippingItem);
-  }
 
   constructor(private _cS: CommonService, private __mD: MockService, private fb: FormBuilder, private _router: Router) { }
 
   ngOnInit() {
     this.fbSearchOrder();
     this.StaticList();
-    this.MultiselectDropData();
     this.GetCountRecord();
     this.GetRecord();
     this.lstOrderData.map(x => { x.select = '' });

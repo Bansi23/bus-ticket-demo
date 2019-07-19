@@ -1,14 +1,14 @@
 <div class="card">
     <div class="card-header">
         <strong>Edit Address</strong>
-        <button class="btn btn-link" (click)="backToSearchList()"><i class="fa fa-arrow-circle-o-left"> back to
-                View Order</i></button>
+        <button class="btn btn-link" (click)="backToCustomerDetails()"><i class="fa fa-arrow-circle-o-left"> back to
+                customer details</i></button>
         <button class="btn btn-info text-center text-white pull-right" *ngIf="billingId"
             [disabled]="!editbillingForm.valid " (click)="editBilling()"><i class="fa fa-save">
                 &nbsp;</i>Save</button>
 
-        <button class="btn btn-info text-center text-white pull-right" *ngIf="shippingId" (click)="editShpping()"
-            [disabled]="!editbillingForm.valid "><i class="fa fa-save">
+        <button class="btn btn-info text-center text-white pull-right"   (click)="editShpping()"
+             ><i class="fa fa-save">
                 &nbsp;</i>Save</button>
     </div>
     <div class="card-body">

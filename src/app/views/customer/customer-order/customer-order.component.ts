@@ -46,7 +46,7 @@ export class CustomerOrderComponent implements OnInit {
   }
 
   navigateToOrders(order_Id) {
-    this.router.navigate(['/sales/viewrecord'], { queryParams: { orderId: order_Id } });
+    this.router.navigate(['/sales/viewrecord'], { queryParams: { id: order_Id } });
   }
   getCustomerOrders() {
     this._cS.API_GET(this._cS.getPaticularCustomerOrder(this.custId))

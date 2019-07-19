@@ -41,13 +41,12 @@ export class BillingShippingComponent implements OnInit {
     var body = {
       order: {
         shipping_method: paymetMethod,
-        id: this.orderId
+        id: +this.orderId
       }
     }
     this._cS.API_PUT(this._cS.getOrderId(this.orderId), body)
       .subscribe(res => {
         if (res) {
-          // this._router.navigate(['/sales/orders']);
           this.getRecord();
           this._cS.displayToast(1, 'SuccessFully Edit Shipping Method');
         } else {

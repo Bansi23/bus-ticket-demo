@@ -75,7 +75,7 @@ export class OrderInfoComponent implements OnInit {
     var body = {
       order: {
         payment_status: 'Refunded',
-        id: this.orderId
+        id: +this.orderId
       }
     }
     this._cS.API_PUT(this._cS.getOrderId(this.orderId), body)
@@ -97,7 +97,7 @@ export class OrderInfoComponent implements OnInit {
     var body = {
       order: {
         payment_status: 'Paid',
-        id: this.orderId
+        id: +this.orderId
       }
     }
     this._cS.API_PUT(this._cS.getOrderId(this.orderId), body)
@@ -118,7 +118,7 @@ export class OrderInfoComponent implements OnInit {
     var body = {
       order: {
         order_status: orderstatus,
-        id: this.orderId
+        id: +this.orderId
       }
     }
 

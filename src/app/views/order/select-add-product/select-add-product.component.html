@@ -40,8 +40,32 @@
                 </div>
             </div>
         </form>
-        <div class="col-md-12">
-                <button class="btn btn-primary" (click)="addProducttoOrder()">ADD PRODUCT</button>
+
+        <!-- <ng-container *ngFor="let _prod of addProduct">
+            <div *ngFor="let attr of _prod.attributes">
+                <div *ngIf="attr.attribute_control_type_name == 'TextBox'">
+                    <div class="row">
+                        <div class="form-group col-sm-6">
+                            <label>{{attr.text_prompt}}</label>
+                            <input type="textbox" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="attr.attribute_control_type_name == 'DropdownList'">
+                    <div class="row">
+                        <div class="form-group col-sm-6">
+                            <label>{{attribute.product_attribute_name}}</label>
+                            <select>
+                                <option *ngFor="let item of attribute.attribute_values" [value]="item.id">{{item.name}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </ng-container> -->
+        <div class=" col-md-12">
+            <button class="btn btn-info" (click)="addProducttoOrder()">ADD PRODUCT</button>
+        </div>
     </div>
 </div>
