@@ -194,7 +194,8 @@ export class AddEditComponent implements OnInit {
       this.addCustomerForm.controls[v].markAsTouched();
     };
     if (this.addCustomerForm.valid) {
-
+      var x = this.addCustomerForm.value.custRoles;
+      console.log('x:', x)
       this.saveCustomerData();
 
     }
@@ -236,22 +237,30 @@ export class AddEditComponent implements OnInit {
     if (this.count == 2) {
       roles.splice(0, 1);
 
-
       this._cS.API_PUT(environment.apiURL + "/customers/" + this.storedId, body)
         .subscribe(response => {
-          if (response) {
 
-            this.isChangePassword = false;
+          if (response) {
+             this.isChangePassword = false;
             if (this.isSaveClicked) {
+              this._cS.displayToast(1,"The customer has been updated successfully!")
+
               this.router.navigateByUrl('/customers');
             }
           } else {
+            
             this._cS.displayToast(3, "Failed", "Record not updated!");
           }
+        }, err => {
+          this._cS.displayToast(2,err.error.errors["Dto.RoleIds"]);
+          this._cS.Display_Loader(false);
+          
         })
 
     } else {
+    
 
+      
       this._cS.API_POST(this._cS.getCustomerList(), body)
         .subscribe(response => {
           if (response) {
@@ -261,6 +270,8 @@ export class AddEditComponent implements OnInit {
               // alert("is save and edit")
             } else {
               this.storedId = response.customers[0].id;
+              this._cS.displayToast(1,"The new customer has been created successfully!")
+
               this.router.navigateByUrl('/customers');
             }
           }
