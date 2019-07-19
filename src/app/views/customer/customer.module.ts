@@ -11,10 +11,11 @@ import { from } from 'rxjs';
 import { CustomerListComponent } from './customer-list/customer-list.component';
 import { CustomerOrderComponent } from './customer-order/customer-order.component';
 import { CustomerAddressComponent } from './customer-address/customer-address.component';
+import { EditCustomerAddressComponent } from './edit-customer-address/edit-customer-address.component';
 
 
 @NgModule({
-  declarations: [SearchCustomerComponent, AddEditComponent, CustomerListComponent, CustomerOrderComponent, CustomerAddressComponent],
+  declarations: [SearchCustomerComponent, AddEditComponent, CustomerListComponent, CustomerOrderComponent, CustomerAddressComponent, EditCustomerAddressComponent],
   imports: [
     CommonModule,
     CustomerRoutingModule,

@@ -112,13 +112,7 @@ export class AddEditComponent implements OnInit {
       { "id": 3, "role": "Guests" },
       { "id": 4, "role": "Vendors" }];
 
-    // if(this._mS.getItemFromStorage('customerToEdit')){ 
-    //   this.dataToSet = this._mS.getItemFromStorage('customerToEdit')
-    //   console.log('this.dataToSet:', this.dataToSet)
-    //   this.setValuesInForm();      
-    // }else{
-    //   alert("no")
-    // }
+  
   }
   initAddCustomerForm() {
     this.addCustomerForm = this.fb.group({
@@ -195,7 +189,6 @@ export class AddEditComponent implements OnInit {
     };
     if (this.addCustomerForm.valid) {
       var x = this.addCustomerForm.value.custRoles;
-      console.log('x:', x)
       this.saveCustomerData();
 
     }
@@ -253,8 +246,8 @@ export class AddEditComponent implements OnInit {
           }
         }, err => {
           this._cS.displayToast(2,err.error.errors["Dto.RoleIds"]);
-          this._cS.Display_Loader(false);
-          
+           this._cS.Display_Loader(false);
+           
         })
 
     } else {
