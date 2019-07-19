@@ -19,7 +19,7 @@ export class MockService {
       { "id": 1, 'itemName': 'Pending' },
       { "id": 2, 'itemName': 'Authorized' },
       { "id": 3, 'itemName': 'Paid' },
-      { "id": 4, 'itemName': 'Partially refunded' },
+      { "id": 4, 'itemName': 'PartiallyRefunded' },
       { "id": 5, 'itemName': 'Refunded' },
       { "id": 6, 'itemName': 'Voided' }
     ]
@@ -29,7 +29,7 @@ export class MockService {
     return [
       { "id": 1, 'itemName': 'ShippingNotRequired' },
       { "id": 2, 'itemName': 'NotYetShipped' },
-      { "id": 3, 'itemName': 'Partially shipped' },
+      { "id": 3, 'itemName': 'PartiallyShipped' },
       { "id": 4, 'itemName': 'Shipped' },
       { "id": 5, 'itemName': 'Delivered' },
     ]

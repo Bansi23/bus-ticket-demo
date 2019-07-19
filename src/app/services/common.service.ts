@@ -123,7 +123,7 @@ export class CommonService {
 
   // http://nop.satva.solutions/api/orders?PaymentStatus=Refunded&Status=Pending
 
-  getsearchRecord(PaymentStatus, orderStatus, shippingStatus) {
+  getsearchRecord(PaymentStatus?, orderStatus?, shippingStatus?) {
     return baseUrl + `orders?PaymentStatus=${PaymentStatus}&Status=${orderStatus}&ShippingStatus=${shippingStatus}`;
   }
   getOrder() {
