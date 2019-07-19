@@ -51,7 +51,6 @@ export class AttributeinfoComponent implements OnInit {
       display_order: formValue.displayOrder,
       attribute_control_type_id: formValue.controlType
     }
-    
     this._cS.getAttributeInfo(body);
     this.getParameter();
     if (this.productId) {
@@ -75,6 +74,7 @@ export class AttributeinfoComponent implements OnInit {
     private _route: ActivatedRoute) { }
 
   ngOnInit() {
+
     this.attrInfoForm_fb();
     this.lstControl = this._mS.getControlTypes();
     this.getattributeList();

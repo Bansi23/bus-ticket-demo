@@ -118,7 +118,6 @@ export class AddProductToOrderComponent implements OnInit {
     else {
       this._router.navigate(['/catalog/product']);
     }
-    console.log('id', id);
   }
 
   editRecord(row) {

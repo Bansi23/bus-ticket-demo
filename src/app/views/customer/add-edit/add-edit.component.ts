@@ -58,7 +58,6 @@ export class AddEditComponent implements OnInit {
   ngOnInit() {
     this.lstCustomerRoles = this._mS.customerRoles();
     this.lstManagerOfVendor = this._mS.getManagerOfVendor();
-    this.initAddCustomerForm();
 
     this.route
       .queryParams
@@ -67,14 +66,15 @@ export class AddEditComponent implements OnInit {
       });
 
     if (this.custId) {
+      this.initEidtCustomerForm();
       this.count += 1;
-      
+
       this.storedId = this.custId;
       this.isChangePassword = true;
       this._cS.API_GET(this._cS.getParticularCustomer(this.custId))
         .subscribe(response => {
           this.customer = response.customers;
-          
+
           // if(this.customer[0].gender == "M"){
           //   alert()
           //   this.patchGender = "male"
@@ -95,6 +95,7 @@ export class AddEditComponent implements OnInit {
           this.setValuesInForm();
         })
     } else {
+      this.initAddCustomerForm();
 
       this._cS.Display_Loader(false);
     }
@@ -122,7 +123,25 @@ export class AddEditComponent implements OnInit {
   initAddCustomerForm() {
     this.addCustomerForm = this.fb.group({
       custEmail: ['', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')])],
-      custPassword: ['', Validators.compose([Validators.minLength(5), Validators.required,Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')])],
+      custPassword: ['', Validators.compose([Validators.minLength(5), Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')])],
+      custRoles: ['', Validators.required],
+      custManagerOfVendor: ['', Validators.required],
+      // custGender: ['', Validators.required],
+      custFirstName: ['', Validators.required],
+      custLastName: ['', Validators.required],
+      // custDob: ['', Validators.required],
+      custDob: [''],
+      custCompanyName: [''],
+      custAdminComment: [''],
+      custIsTaxExempt: [''],
+      custNewsletter: [''],
+      custActive: ['']
+    })
+  }
+  initEidtCustomerForm(){
+    this.addCustomerForm = this.fb.group({
+      custEmail: ['', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')])],
+      // custPassword: ['', Validators.compose([Validators.minLength(5), Validators.required,Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')])],
       custRoles: ['', Validators.required],
       custManagerOfVendor: ['', Validators.required],
       // custGender: ['', Validators.required],
@@ -138,10 +157,7 @@ export class AddEditComponent implements OnInit {
     })
   }
   setValuesInForm() {
-    if(this.custId){
-      this.addCustomerForm.get('custPassword').clearValidators();
-      this.addCustomerForm.get('custPassword').updateValueAndValidity();
-    }
+    
     this.addCustomerForm.patchValue({
       custEmail: this.customer[0].email,
       // custPassword : this.dataToSet.
@@ -173,12 +189,12 @@ export class AddEditComponent implements OnInit {
   }
 
   saveAddEditForm() {
-    this.isSaveClicked = true;  
+    this.isSaveClicked = true;
     for (let v in this.addCustomerForm.controls) {
       this.addCustomerForm.controls[v].markAsTouched();
     };
     if (this.addCustomerForm.valid) {
-      
+
       this.saveCustomerData();
 
     }
@@ -193,7 +209,7 @@ export class AddEditComponent implements OnInit {
     }
     //NOTE -> This splice is temporary
     // We need to remove it in future.
-   
+
     // if(this.addCustomerForm.value.custGender == "male"){
     //   this.gender = "M"
     // }else{
@@ -218,14 +234,14 @@ export class AddEditComponent implements OnInit {
     }
 
     if (this.count == 2) {
-      roles.splice(0,1);
+      roles.splice(0, 1);
 
-      
+
       this._cS.API_PUT(environment.apiURL + "/customers/" + this.storedId, body)
         .subscribe(response => {
           if (response) {
-            
-             this.isChangePassword = false;
+
+            this.isChangePassword = false;
             if (this.isSaveClicked) {
               this.router.navigateByUrl('/customers');
             }
@@ -235,7 +251,7 @@ export class AddEditComponent implements OnInit {
         })
 
     } else {
-      
+
       this._cS.API_POST(this._cS.getCustomerList(), body)
         .subscribe(response => {
           if (response) {

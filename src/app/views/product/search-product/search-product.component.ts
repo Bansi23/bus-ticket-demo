@@ -52,8 +52,14 @@ export class SearchProductComponent implements OnInit {
   }
 
   goToEditProduct() {
-    debugger;
-    const sku = this.searchProdFrom.getRawValue().sku;
+    if (this.lstProduct.length > 0) {
+      const sku = this.searchProdFrom.getRawValue().sku;
+      var skuMatch = this.lstProduct.find(x => x.sku == sku);
+      if (skuMatch) {
+        localStorage.setItem('EditedRecord', JSON.stringify(skuMatch));
+        this._router.navigate(['/catalog/addProduct'], { queryParams: { id: skuMatch.id } })
+      }
+    }
   }
   //#region search form
   searchProdFrom: FormGroup;
@@ -73,7 +79,6 @@ export class SearchProductComponent implements OnInit {
   }
 
   searchList() {
-    console.log('this.searchProdFrom.getRawValue();:', this.searchProdFrom.getRawValue())
 
   }
   //#endregion

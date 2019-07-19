@@ -42,8 +42,8 @@ export class AttributesComponent implements OnInit {
   }
   //#endregion  
 
-  getPictureList(){
-    
+  getPictureList() {
+
   }
   addAttributes() {
     this.getParameter();
