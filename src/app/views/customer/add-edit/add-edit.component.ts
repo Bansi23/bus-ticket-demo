@@ -241,8 +241,7 @@ export class AddEditComponent implements OnInit {
         .subscribe(response => {
 
           if (response) {
-            alert(response.statusText)
-            this.isChangePassword = false;
+             this.isChangePassword = false;
             if (this.isSaveClicked) {
               this._cS.displayToast(1,"The customer has been updated successfully!")
 
