@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MockService } from '../../../services/mock.service';
 import { CommonService } from '../../../services/common.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ModalDirective } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-order-info',
@@ -18,10 +19,17 @@ export class OrderInfoComponent implements OnInit {
   orderId: any;
   finalTotal: any;
   orderstatusForm: FormGroup;
+  refunded_Amount: boolean = false;
+
+  @ViewChild('changeModal', { static: true }) refundedAmount: ModalDirective;
+  addrefund: FormGroup;
 
 
   changeStatus() {
     this.isOrder = false;
+  }
+  close() {
+    this.refundedAmount.hide();
   }
   cancleEdit() {
     this.isOrder = true;
@@ -41,6 +49,7 @@ export class OrderInfoComponent implements OnInit {
             for (let i = 0; i < this.viewRecord.length; i++) {
               const element = this.viewRecord[i].order_items;
               this.finalTotal = element.map(o => o.unit_price_excl_tax).reduce((a, c) => a + c, 0);
+              this.partialAmount = this.finalTotal;
             }
           }
           else {
@@ -57,17 +66,19 @@ export class OrderInfoComponent implements OnInit {
         id: this.orderId
       }
     }
-    this._cS.API_PUT(this._cS.getOrderId(this.orderId), body)
-      .subscribe(res => {
-        if (res) {
-          // this._router.navigate(['/sales/orders']);
-          this.getInfo();
-          this._cS.displayToast(1, 'SuccessFully cancelled order');
-        } else {
-          this._cS.displayToast(2, 'API response Error');
-        };
-      }, err => {
-      });
+    if (confirm('Are you sure you want to Cancelled this record?')) {
+      this._cS.API_PUT(this._cS.getOrderId(this.orderId), body)
+        .subscribe(res => {
+          if (res) {
+            this.getInfo();
+            this._cS.displayToast(1, 'SuccessFully cancelled order');
+          } else {
+            this._cS.displayToast(2, 'API response Error');
+          };
+        }, err => {
+        });
+    }
+
   }
 
   refundAmount() {
@@ -75,20 +86,22 @@ export class OrderInfoComponent implements OnInit {
     var body = {
       order: {
         payment_status: 'Refunded',
-        id: +this.orderId
+        id: +this.orderId,
+        refunded_amount: this.finalTotal
       }
     }
-    this._cS.API_PUT(this._cS.getOrderId(this.orderId), body)
-      .subscribe(res => {
-        if (res) {
-          //   this._router.navigate(['/sales/orders']);
-          this.getInfo();
-          this._cS.displayToast(1, 'SuccessFully refunded order amount');
-        } else {
-        };
-      }, err => {
-        this._cS.displayToast(2, 'Get Error');
-      });
+    if (confirm('Are you sure you want to Refunded Amount of this record?')) {
+      this._cS.API_PUT(this._cS.getOrderId(this.orderId), body)
+        .subscribe(res => {
+          if (res) {
+            this.getInfo();
+            this._cS.displayToast(1, 'SuccessFully refunded order amount');
+          } else {
+          };
+        }, err => {
+          this._cS.displayToast(2, 'Get Error');
+        });
+    }
   }
 
 
@@ -100,15 +113,50 @@ export class OrderInfoComponent implements OnInit {
         id: +this.orderId
       }
     }
-    this._cS.API_PUT(this._cS.getOrderId(this.orderId), body)
-      .subscribe(res => {
-        if (res) {
-          this.getInfo();
-          this._cS.displayToast(1, 'SuccessFully Updated payment status of this order');
-        } else {
-        };
-      }, err => {
-      });
+    if (confirm('Are you sure you want to perform this action??')) {
+      this._cS.API_PUT(this._cS.getOrderId(this.orderId), body)
+        .subscribe(res => {
+          if (res) {
+            this.getInfo();
+            this._cS.displayToast(1, 'SuccessFully Updated payment status of this order');
+          } else {
+          };
+        }, err => {
+          this._cS.displayToast(err)
+        });
+    }
+  }
+  partialAmount: any;
+
+  partialRefundAmount() {
+    this.refundedAmount.show();
+    for (let i = 0; i < this.viewRecord.length; i++) {
+      this.partialAmount -= this.viewRecord[i].refunded_amount;
+    }
+  }
+  saveRefund() {
+    debugger;
+    this.getParameter();
+    const refunded = this.addrefund.get('refundedamount').value
+    var body = {
+      order: {
+        payment_status: 'Paid',
+        id: +this.orderId,
+        refunded_amount: refunded
+      }
+    }
+    if (confirm('Are you sure you want to Refunded Amount of this record?')) {
+      this._cS.API_PUT(this._cS.getOrderId(this.orderId), body)
+        .subscribe(res => {
+          if (res) {
+            this.getInfo();
+            this._cS.displayToast(1, 'SuccessFully refunded order amount');
+          } else {
+          };
+        }, err => {
+          this._cS.displayToast(2, 'Get Error');
+        });
+    }
   }
 
 
@@ -122,16 +170,18 @@ export class OrderInfoComponent implements OnInit {
       }
     }
 
-    this._cS.API_PUT(this._cS.getOrderId(this.orderId), body)
-      .subscribe(res => {
-        if (res) {
-          this.getInfo();
-          this._cS.displayToast(1,'SuccessFully edit order status');
-          this.cancleEdit();
-        } else {
-        };
-      }, err => {
-      });
+    if (confirm('Are you sure you want to change order status?')) {
+      this._cS.API_PUT(this._cS.getOrderId(this.orderId), body)
+        .subscribe(res => {
+          if (res) {
+            this.getInfo();
+            this._cS.displayToast(1, 'SuccessFully edit order status');
+            this.cancleEdit();
+          } else {
+          };
+        }, err => {
+        });
+    }
   }
 
   editCustomer(id, custid) {
@@ -144,6 +194,10 @@ export class OrderInfoComponent implements OnInit {
     this.lstOrderStatus = this._mD.orderStatus();
     this.orderstatusForm = this.fb.group({
       orderStatus: ['']
+    });
+
+    this.addrefund = this.fb.group({
+      refundedamount: ['']
     })
   }
 
