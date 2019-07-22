@@ -91,9 +91,10 @@ export class AttributeValuesComponent implements OnInit {
         is_pre_selected: formValue.isPreSelected,
         display_order: formValue.displayOrder,
         product_image_id: formValue.picture,
-        // id: this.filteredProduct.id
+        associated_product_name: this.associateProduct
       }
       this.lstAttribute.push(body);
+      console.log('this.lstAttribute:', this.lstAttribute)
       this._cS.getAttributeValues(this.lstAttribute);
       this.valuesModal.hide();
     }
