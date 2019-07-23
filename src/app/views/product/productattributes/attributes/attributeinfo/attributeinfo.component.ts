@@ -46,9 +46,9 @@ export class AttributeinfoComponent implements OnInit {
     const formValue = this.attrInfoForm.getRawValue();
     var body = {
       product_attribute_id: formValue.attribute,
-      text_prompt: formValue.textPrompt ? formValue.textPrompt : null,
+      text_prompt: formValue.textPrompt ? formValue.textPrompt : "",
       is_required: formValue.isReq ? formValue.isReq : false,
-      display_order: formValue.displayOrder ? formValue.displayOrder : null,
+      display_order: formValue.displayOrder ? formValue.displayOrder : 0,
       attribute_control_type_id: formValue.controlType,
     }
     this.getParameter();

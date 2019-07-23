@@ -147,7 +147,6 @@ export class EditBillingComponent implements OnInit {
     if (statebilling == undefined) {
       statebilling = this.otherCountry;
     }
-
     var body = {
       "order":
       {
@@ -165,9 +164,10 @@ export class EditBillingComponent implements OnInit {
           "zip_postal_code": +this.editbillingForm.value.pinno,
           "phone_number": +this.editbillingForm.value.mono,
           "fax_number": +this.editbillingForm.value.faxno,
-          "id": +this.billingId
+          "id": +this.billingId,
         },
-        "id": +this.orderId
+        id: +this.orderId,
+        shipping_method: this.editRecord.shipping_method
       }
     }
 
@@ -212,7 +212,8 @@ export class EditBillingComponent implements OnInit {
           "fax_number": this.editbillingForm.value.faxno,
           "id": this.shippingId
         },
-        id: +this.orderId
+        id: +this.orderId,
+        shipping_method: this.editRecord.shipping_method
       }
     }
 

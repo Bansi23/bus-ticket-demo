@@ -108,7 +108,7 @@ export class PicturesComponent implements OnInit {
     this.formValue.src = this.src;
     // this.b64toBlob(this.src);
     this.lstPicture.push(this.formValue);
-    this._cS.sendPictureToService(this.lstPicture);
+    // this._cS.sendPictureToService(this.lstPicture);
     this.prodPictureForm.reset();
   }
   //#endregion
