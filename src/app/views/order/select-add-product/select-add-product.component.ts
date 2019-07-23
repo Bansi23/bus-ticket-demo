@@ -70,11 +70,20 @@ export class SelectAddProductComponent implements OnInit {
       });
   }
 
-
+  attributelst: any = [];
   addProducttoOrder() {
+    debugger;
     for (let val in this.AddProduct.controls) {
       this.AddProduct.controls[val].markAsTouched();
     };
+    this.attributelst = [
+      { "value": this.AddProduct.value.inputtext },
+      { "value": this.AddProduct.value.radiolist },
+      { "value": this.AddProduct.value.checkboxes },
+      { "value": this.AddProduct.value.multilinetextbox },
+      { "value": this.AddProduct.value.imagesquares },
+    ]
+    console.log('this.attributelst', this.attributelst);
     if (this.AddProduct.valid) {
       this._cS.API_GET(this._cS.getOrderItem(this.orderid))
         .subscribe(response => {
@@ -96,10 +105,7 @@ export class SelectAddProductComponent implements OnInit {
                 isDownload_activated: this.addProduct.is_download,
                 product: this.addProduct,
                 product_id: this.productid,
-                product_attributes: {
-                  value: this.AddProduct.value.inputtext,
-                  //id: this.productAttributes.id
-                }
+                // product_attributes: this.attributelst
               }
             }
             this._cS.API_POST(this._cS.getOrderItem(this.orderid), body)
@@ -107,6 +113,7 @@ export class SelectAddProductComponent implements OnInit {
                 if (response) {
                   this._cS.displayToast(1, 'Successfully added this Product')
                   this._router.navigate(['/sales/viewrecord'], { queryParams: { id: this.id } });
+                 // this.orderItem.product_attributes.push(this.attributelst);
                 }
                 else {
                   this._cS.displayToast(2, 'API response error');

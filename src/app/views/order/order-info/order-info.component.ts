@@ -50,7 +50,11 @@ export class OrderInfoComponent implements OnInit {
               const element = this.viewRecord[i].order_items;
               this.finalTotal = element.map(o => o.unit_price_excl_tax).reduce((a, c) => a + c, 0);
               this.partialAmount = this.finalTotal;
+              if (element == '') {
+                this.finalTotal = this.viewRecord[i].order_subtotal_excl_tax;
+              }
             }
+
           }
           else {
             this._cS.displayToast(2, 'Not get response');
@@ -127,20 +131,21 @@ export class OrderInfoComponent implements OnInit {
     }
   }
   partialAmount: any;
-
+  totalrefundAmount: any;
   partialRefundAmount() {
-    this.refundedAmount.show();
+    this.refundedAmount.show()
     for (let i = 0; i < this.viewRecord.length; i++) {
-      this.partialAmount -= this.viewRecord[i].refunded_amount;
+      this.partialAmount = this.finalTotal - this.viewRecord[i].refunded_amount;
+      break;
     }
+    this.addrefund.reset();
   }
   saveRefund() {
-    debugger;
     this.getParameter();
     const refunded = this.addrefund.get('refundedamount').value
     var body = {
       order: {
-        payment_status: 'Paid',
+        payment_status: 'PartiallyRefunded',
         id: +this.orderId,
         refunded_amount: refunded
       }
@@ -150,6 +155,7 @@ export class OrderInfoComponent implements OnInit {
         .subscribe(res => {
           if (res) {
             this.getInfo();
+            this.refundedAmount.hide();
             this._cS.displayToast(1, 'SuccessFully refunded order amount');
           } else {
           };
