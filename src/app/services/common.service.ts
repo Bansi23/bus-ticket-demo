@@ -285,7 +285,7 @@ export class CommonService {
         if (res) {
           this.productList();
           this.lstProduct.push(res.products);
-          this.displayToast(1, 'Product create successfully');
+          this.displayToast(1, 'Product added successfully');
           this._router.navigate(['catalog/addProduct/productPicture'], { queryParams: { id: res.products[0].id } });
           localStorage.setItem('EditedRecord', JSON.stringify(res.products[0]));
         }
@@ -315,7 +315,6 @@ export class CommonService {
 
   attrInfo: any;
   getAttributeInfo(body) {
-    console.log('this.attrInfo:', this.attrInfo)
     this.attrInfo = body;
   }
 
@@ -334,9 +333,10 @@ export class CommonService {
     }
     if (this.attrInfo) {
       this.productObj.attributes.push(this.attrInfo);
-      console.log('this.productObj:', this.productObj)
     }
-
+    if (this.productObj.product_specification_attributes) {
+      delete this.productObj.product_specification_attributes;
+    }
     var body = {
       product:
         this.productObj
@@ -352,12 +352,13 @@ export class CommonService {
   }
 
   editProduct(body) {
-    console.log('body:', body)
     this.getParameter();
     this.API_PUT(this.URL_getProductById(this.productId), body)
       .subscribe(res => {
-        console.log('res:', res)
-        localStorage.setItem('EditedRecord', JSON.stringify(res.products[0]));
+        if (res) {
+          this.displayToast(1, 'The product details updated successfully');
+          localStorage.setItem('EditedRecord', JSON.stringify(res.products[0]));
+        }
       })
   }
 

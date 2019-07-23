@@ -44,17 +44,14 @@ export class AttributeinfoComponent implements OnInit {
   //#region attribute info add
   addInfo() {
     const formValue = this.attrInfoForm.getRawValue();
-
     var body = {
       product_attribute_id: formValue.attribute,
-      text_prompt: formValue.textPrompt,
-      is_required: formValue.isReq,
-      display_order: formValue.displayOrder,
+      text_prompt: formValue.textPrompt ? formValue.textPrompt : null,
+      is_required: formValue.isReq ? formValue.isReq : false,
+      display_order: formValue.displayOrder ? formValue.displayOrder : null,
       attribute_control_type_id: formValue.controlType,
-      // attribute_control_type_name : 
     }
     this.getParameter();
-
     this._cS.getAttributeInfo(body);
     if (this.productId) {
       this._router.navigate(['/catalog/addnew-attribute/value'], { queryParams: { id: this.productId } });

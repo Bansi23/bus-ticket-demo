@@ -8,6 +8,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 //import { QuillModule } from 'ngx-quill'
 import { from } from 'rxjs';
 import { ModalModule } from 'ngx-bootstrap/modal';
+// import { NgxEditorModule } from 'ngx-editor';
 
 @NgModule({
   declarations: [],
@@ -19,7 +20,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     ReactiveFormsModule,
     NgxPaginationModule,
     ModalModule.forRoot(),
-   // QuillModule
+    // NgxEditorModule
   ],
   exports: [
     TabsModule,
@@ -29,7 +30,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     MyDatePickerModule,
     NgxPaginationModule,
     ModalModule,
-  //  QuillModule
+    // NgxEditorModule
   ],
 })
 export class SharedModule { }

@@ -11,8 +11,8 @@
                     <tr *ngFor="let attr of lstAttr">
                         <td>{{attr.product_attribute_name}}</td>
                         <td>{{attr.text_prompt}}</td>
-                        <td class="fa"
-                            [ngClass]="{'fa-check text-success': attr.is_required ? 'fa-close text-danger' : !attr.is_required}">
+                        <td><span class="fa"
+                                [ngClass]="{'fa-check text-success': attr.is_required , 'fa-close text-danger' : !attr.is_required}"></span>
                         </td>
                         <td>{{attr.attribute_control_type_name}}</td>
                         <td>{{attr.display_order}}</td>
