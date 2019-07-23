@@ -55,6 +55,18 @@ export class SpecificationattributesComponent implements OnInit {
     var filter = this.attrOptions.filter(x => x.aId == value);
     this.lstAttrOptions = filter;
   }
+
+  displayValue(value) {
+    const optionValue = <HTMLElement>document.querySelector('.optionvalue');
+    const textValue = <HTMLElement>document.querySelector('.textValue');
+    if (value == 1) {
+      optionValue.style.display = "block";
+      textValue.style.display = "none";
+    } else {
+      optionValue.style.display = "none";
+      textValue.style.display = "block";
+    }
+  }
   //#endregion
 
   //#region get specification attribute list

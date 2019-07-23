@@ -24,15 +24,15 @@ export class ProductinfoComponent implements OnInit {
       fullDescription: [null],
       sku: [null],
       inventoryMethod: [null],
-      stockQuantity: [null],
+      stockQuantity: [null, Validators.pattern("^[1-9]\d{0,7}(?:\.\d{1,4})?|\.\d{1,4}$")],
       shippingEnable: [null],
-      weight: [null],
-      length: [null],
-      width: [null],
-      height: [null],
+      weight: [null, Validators.pattern("^[1-9]\d{0,7}(?:\.\d{1,4})?|\.\d{1,4}$")],
+      length: [null, Validators.pattern("^[1-9]\d{0,7}(?:\.\d{1,4})?|\.\d{1,4}$")],
+      width: [null, Validators.pattern("^[1-9]\d{0,7}(?:\.\d{1,4})?|\.\d{1,4}$")],
+      height: [null, Validators.pattern("^[1-9]\d{0,7}(?:\.\d{1,4})?|\.\d{1,4}$")],
       categories: [null],
-      price: [null, Validators.pattern("^[1-9]\d{0,7}(?:\.\d{1,4})?|\.\d{1,4}$")],
-      productCost: [null, Validators.pattern("^[1-9]\d{0,7}(?:\.\d{1,4})?|\.\d{1,4}$")],
+      price: [null, Validators.compose([Validators.required, Validators.pattern("^[1-9]\d{0,7}(?:\.\d{1,4})?|\.\d{1,4}$")])],
+      productCost: [null, Validators.compose([Validators.required, Validators.pattern("^[1-9]\d{0,7}(?:\.\d{1,4})?|\.\d{1,4}$")])],
       discount: [null],
       tax: [null],
       taxCategory: [null]
@@ -89,7 +89,7 @@ export class ProductinfoComponent implements OnInit {
   }
   //#endregion
 
-  //#region category multi select
+  //#region dropdownProductDiscount multi select
   dropdownProductDiscount = {
     singleSelection: false,
     text: "Select Discount",
@@ -200,6 +200,7 @@ export class ProductinfoComponent implements OnInit {
         }
       }
       if (this.productId) {
+        console.log('body:', body)
         this._cS.editProduct(body);
       } else {
         this._cS.sendForCreate(body);
@@ -270,7 +271,7 @@ export class ProductinfoComponent implements OnInit {
     this.productInfoForm_fb();
     this.bindStaticList();
     this.getCategoryList();
-    this.multiSelectedOptions();
+    //this.multiSelectedOptions();
     if (this.productId) {
       this.editProduct();
     }

@@ -43,8 +43,6 @@ import { ChartsModule } from 'ng2-charts';
 import { from } from 'rxjs';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { ToasterModule, ToasterService } from 'angular2-toaster';
-import { NgxEditorModule } from 'ngx-editor';
-
 @NgModule({
   imports: [
     BrowserModule,
@@ -63,7 +61,6 @@ import { NgxEditorModule } from 'ngx-editor';
     HttpClientJsonpModule,
     NgxSpinnerModule,
     ToasterModule.forRoot(),
-    NgxEditorModule
   ],
   declarations: [
     AppComponent,

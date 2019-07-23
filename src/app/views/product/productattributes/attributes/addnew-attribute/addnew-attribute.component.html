@@ -11,8 +11,8 @@
                 </div>
             </div>
             <div class="pull-right">
-                <button class="btn btn-primary text-white" (click)="addProduct()"><i class="fa fa-save">
-                        Save</i></button>&nbsp;
+                <!-- <button class="btn btn-primary text-white" (click)="addProduct()"><i class="fa fa-save">
+                        Save</i></button>&nbsp; -->
                 <button class="btn btn-primary text-white" (click)="saveAttribute()"><i class="fa fa-save"> Save and
                         Continue Edit</i></button>
             </div>
@@ -22,22 +22,12 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div ng-reflect-justified="true" class="tab-container tab-box-main">
-                            <ul class="nav nav-justified nav-tabs">
-                                <!-- <li class="nav-item" [routerLink]="['info']" [routerLinkActive]="'active'">
-                                    <a class="nav-link" [routerLink]="['info']" [routerLinkActive]="'active'">
-                                        <span></span>Info
-                                    </a>
-                                </li>
-                                <li class="nav-item" [routerLink]="['value']" [routerLinkActive]="'active'">
-                                    <a class="nav-link" [routerLink]="['value']" [routerLinkActive]="'active'">
-                                        <span></span>Values
-                                    </a>
-                                </li>-->
+                            <ul class="nav tab-container tab-box-main nav-justified nav-tabs ul-box">
                                 <li class="nav-item">
-                                    <button class="btn btn-link" (click)="goToInfo()">Info</button>
+                                    <button class="btn btn-link li-link" (click)="goToInfo()">Info</button>
                                 </li>
                                 <li class="nav-item">
-                                    <button class="btn btn-link" (click)="goToValue()">Values</button>
+                                    <button class="btn btn-link li-link" (click)="goToValue()">Values</button>
                                 </li>
                             </ul>
                             <div class="tab-content">
