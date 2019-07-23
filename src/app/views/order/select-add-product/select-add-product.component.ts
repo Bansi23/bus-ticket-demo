@@ -10,7 +10,6 @@ import { CommonService } from '../../../services/common.service';
 })
 export class SelectAddProductComponent implements OnInit {
 
-  id: any;
   AddProduct: FormGroup
   addProduct: any = [];
   orderid: any;
@@ -20,9 +19,9 @@ export class SelectAddProductComponent implements OnInit {
 
   backToSearchList() {
     this._route.queryParams.subscribe(params => {
-      this.id = params['id']
+      this.orderid = params['id']
     });
-    this._router.navigate(['/sales/addproduct'], { queryParams: { id: this.id } });
+    this._router.navigate(['/sales/addproduct'], { queryParams: { id: this.orderid } });
   }
   //#region form group
   fbAddProduct() {
@@ -45,7 +44,7 @@ export class SelectAddProductComponent implements OnInit {
 
   getParameter() {
     this._route.queryParams.subscribe(params => {
-      this.id = params['id']
+      this.orderid = params['id']
       this.productid = params['productid']
     });
   }
@@ -72,17 +71,17 @@ export class SelectAddProductComponent implements OnInit {
 
   attributelst: any = [];
   addProducttoOrder() {
+    this.getParameter();
     for (let val in this.AddProduct.controls) {
       this.AddProduct.controls[val].markAsTouched();
     };
-    this.attributelst = [
-      { "value": this.AddProduct.value.inputtext },
-      { "value": this.AddProduct.value.radiolist },
-      { "value": this.AddProduct.value.checkboxes },
-      { "value": this.AddProduct.value.multilinetextbox },
-      { "value": this.AddProduct.value.imagesquares },
-    ]
-    console.log('this.attributelst', this.attributelst);
+    // this.attributelst = [
+    //   { "value": this.AddProduct.value.inputtext },
+    //   { "value": this.AddProduct.value.radiolist },
+    //   { "value": this.AddProduct.value.checkboxes },
+    //   { "value": this.AddProduct.value.multilinetextbox },
+    //   { "value": this.AddProduct.value.imagesquares },
+    // ]
     if (this.AddProduct.valid) {
       this._cS.API_GET(this._cS.getOrderItem(this.orderid))
         .subscribe(response => {
@@ -104,15 +103,13 @@ export class SelectAddProductComponent implements OnInit {
                 isDownload_activated: this.addProduct.is_download,
                 product: this.addProduct,
                 product_id: this.productid,
-                // product_attributes: this.attributelst
               }
             }
             this._cS.API_POST(this._cS.getOrderItem(this.orderid), body)
               .subscribe(response => {
                 if (response) {
                   this._cS.displayToast(1, 'Successfully added this Product')
-                  this._router.navigate(['/sales/viewrecord'], { queryParams: { id: this.id } });
-                 // this.orderItem.product_attributes.push(this.attributelst);
+                  this._router.navigate(['/sales/viewrecord'], { queryParams: { id: this.orderid } });
                 }
                 else {
                   this._cS.displayToast(2, 'API response error');
@@ -121,11 +118,7 @@ export class SelectAddProductComponent implements OnInit {
           }
         });
     }
-    this.getProduct();
-    this._route.queryParams.subscribe(params => {
-      this.orderid = params['id']
-      this.productid = params['productid']
-    });
+    //this.getProduct();
   }
   constructor(private _router: Router, private _route: ActivatedRoute, private fb: FormBuilder, private _cS: CommonService) { }
 
