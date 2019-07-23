@@ -200,7 +200,8 @@ export class ProductinfoComponent implements OnInit {
         }
       }
       if (this.productId) {
-        console.log('body:', body)
+        this.productInfoForm.reset();
+        this._router.navigateByUrl('catalog/product');
         this._cS.editProduct(body);
       } else {
         this._cS.sendForCreate(body);
@@ -212,8 +213,6 @@ export class ProductinfoComponent implements OnInit {
   //#region saveProductDetails & save and countinu edit 
   saveProductDetails() {
     this.createProduct();
-    this.productInfoForm.reset();
-    this._router.navigateByUrl('catalog/product');
   }
 
   saveAndEditProduct() {

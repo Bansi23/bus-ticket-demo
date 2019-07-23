@@ -38,10 +38,10 @@ export class AttributeValuesComponent implements OnInit {
     this.attrValueForm = this.fb.group({
       valueType: [null],
       name: [null, Validators.required],
-      priceAdj: [null],
+      priceAdj: [null, Validators.pattern("^[1-9]\d{0,7}(?:\.\d{1,4})?|\.\d{1,4}$")],
       isPriceAdd: [null],
-      weightAdj: [null],
-      cost: [null],
+      weightAdj: [null, Validators.pattern("^[1-9]\d{0,7}(?:\.\d{1,4})?|\.\d{1,4}$")],
+      cost: [null, Validators.pattern("^[1-9]\d{0,7}(?:\.\d{1,4})?|\.\d{1,4}$")],
       isPreSelected: [null],
       displayOrder: [null],
       picture: [null],
@@ -126,6 +126,10 @@ export class AttributeValuesComponent implements OnInit {
     this._route.queryParams.subscribe(params => {
       this.productId = params['id']
     });
+  }
+
+  restrict(e) {
+    this._cS.restrict(e);
   }
   //#endregion
   constructor(private _mS: MockService,
