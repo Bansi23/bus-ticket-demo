@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { MockService } from '../../../../../services/mock.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { CommonService } from '../../../../../services/common.service';
 
 @Component({
@@ -15,9 +15,12 @@ export class AttributeValuesComponent implements OnInit {
   @ViewChild('associateModal', { static: false }) public associateModal: ModalDirective;
   lstAttribute: any = [];
   tableHeader: any = ['Attribute value type', 'Name', 'Associated product', 'Price adjustment', 'Weight adjustment', 'Is pre-selected', 'Picture', 'Display order', 'Action']
-
+  imageList: any = [];
   showValue() {
     this.valuesModal.show();
+    this.attrValueForm.patchValue({
+      valueType: 0,
+    })
   }
 
   //#region bind list
@@ -74,27 +77,33 @@ export class AttributeValuesComponent implements OnInit {
     this.associateModal.show();
   }
 
+  imageSrc: any;
   addAttributeValues() {
     for (let c in this.attrValueForm.controls) {
       this.attrValueForm.controls[c].markAsTouched();
     }
     if (this.attrValueForm.valid) {
       const formValue = this.attrValueForm.getRawValue();
+      for (let i = 0; i < this.imageList.length; i++) {
+        if (formValue.picture == this.imageList[i].id) {
+          this.imageSrc = this.imageList[i].src;
+        }
+      }
       var body = {
         type_id: formValue.valueType,
         associated_product_id: this.filteredProduct.id,
-        name: formValue.name,
-        price_adjustment: formValue.priceAdj,
-        weight_adjustment: formValue.weightAdj,
-        cost: formValue.cost,
-        quantity: formValue.pQuantity,
-        is_pre_selected: formValue.isPreSelected,
-        display_order: formValue.displayOrder,
-        product_image_id: formValue.picture,
-        // id: this.filteredProduct.id
+        name: formValue.name ? formValue.name : null,
+        price_adjustment: formValue.priceAdj ? formValue.priceAdj : null,
+        weight_adjustment: formValue.weightAdj ? formValue.weightAdj : null,
+        cost: formValue.cost ? formValue.cost : null,
+        quantity: formValue.pQuantity ? formValue.pQuantity : null,
+        is_pre_selected: formValue.isPreSelected ? formValue.isPreSelected : false,
+        display_order: formValue.displayOrder ? formValue.displayOrder : null,
+        product_image_id: formValue.picture ? formValue.picture : null,
       }
       this.lstAttribute.push(body);
       this._cS.getAttributeValues(this.lstAttribute);
+      this.attrValueForm.reset();
       this.valuesModal.hide();
     }
   }
@@ -111,18 +120,30 @@ export class AttributeValuesComponent implements OnInit {
     this.filteredProduct = this.lstProduct.find(x => x.id == productId);
     this.associateProduct = this.filteredProduct.name;
   }
+
+  productId: any;
+  getParameter() {
+    this._route.queryParams.subscribe(params => {
+      this.productId = params['id']
+    });
+  }
   //#endregion
   constructor(private _mS: MockService,
     private fb: FormBuilder,
     private _router: Router,
-    private _cS: CommonService) { }
+    private _cS: CommonService,
+    private _route: ActivatedRoute) { }
 
   ngOnInit() {
     this.attrValueForm_fb();
     this.getValueType();
-    this.attrValueForm.patchValue({
-      valueType: 0,
-    })
+    this.getParameter();
+    if (this.productId) {
+      const editedRecord = JSON.parse(localStorage.getItem('EditedRecord'));
+      if (editedRecord.images.length > 0) {
+        this.imageList = editedRecord.images;
+      }
+    }
   }
 
 }

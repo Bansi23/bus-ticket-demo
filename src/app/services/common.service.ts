@@ -5,9 +5,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { AppComponent } from '../app.component';
+import * as CryptoJS from 'crypto-js';
 
 //const internetMessage = 'Please check your internet connection !!';
 const baseUrl = environment.apiURL;
+const encrydecryKey = environment.encrydecryKey;
 const token = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYmYiOjE1NjE0NTQxNDUsImV4cCI6MTg3NjgxNDE0NSwiaXNzIjoiaHR0cDovL25vcC5zYXR2YS5zb2x1dGlvbnMiLCJhdWQiOlsiaHR0cDovL25vcC5zYXR2YS5zb2x1dGlvbnMvcmVzb3VyY2VzIiwibm9wX2FwaSJdLCJjbGllbnRfaWQiOiJhNTBkY2I0MS1lODgzLTQ5YWItOGM3NS02ZTU5MzI1MTIzNTciLCJzdWIiOiJhNTBkY2I0MS1lODgzLTQ5YWItOGM3NS02ZTU5MzI1MTIzNTcgIiwiYXV0aF90aW1lIjoxNTYxNDUzOTI0LCJpZHAiOiJsb2NhbCIsInNjb3BlIjpbIm5vcF9hcGkiLCJvZmZsaW5lX2FjY2VzcyJdLCJhbXIiOlsicHdkIl19.m0z531w-lClGHBgLo82xMeUHRny17jM0QMr3eDs4nZWB48EVTFhPFzve786FsxdsxiPqE5rytsMQWXA7ByXe9N4cZFNnl7wpE1dCjOvS02c8H0AfNVdMkiJOGILRmbpHRKuWj8O0IjhWlwdll8-7nhRCJ7x6GBqx1Aj6RdceUKuma0qRFuqIcCBOuoKovPRHQ5AQ6yPZd-DIZE0Wu5KmChnwCfwIjs3CmJsepClOCF16T5UcsEKZq8409GXw2I070MKVbRBNQBvNCjf6OOtLFhCXUCExZXx4BJSohHcX4bP-qyBhQI-ZPcCxIIhKikHsZJkVyklzAQ19cUtrnnrxzQ';
 const hd: HttpHeaders = new HttpHeaders({
   'Authorization': token,
@@ -18,6 +20,27 @@ const hd: HttpHeaders = new HttpHeaders({
   providedIn: 'root'
 })
 export class CommonService {
+
+
+  // #region Encrypt and Decrypt key
+  /** To encrypted the key. Ex : this.encryptedKey('123')
+   * @param encryKey Pass key that you want to encrypt.
+   */
+  encryptedKey(encryKey) {
+    try {
+      return CryptoJS.AES.encrypt(encryKey.trim(), encrydecryKey).toString();
+    } catch (error) { return null; }
+  };
+  /** To decrypted the key. Ex : this.decryptedKey('123')
+   * @param decryKey Pass the key that you want to decrypt.
+   */
+  decryptedKey(decryKey) {
+    try {
+      return CryptoJS.AES.decrypt(decryKey.trim(), encrydecryKey).toString(CryptoJS.enc.Utf8);
+    } catch (error) { return null; }
+  };
+  // #endregion
+
   // #region API METHODS
   /** Get API Method.
    * @param url - Just pass url after /api/. Predefine url will take from environment   
@@ -262,7 +285,7 @@ export class CommonService {
         if (res) {
           this.productList();
           this.lstProduct.push(res.products);
-          this.displayToast(1, 'Product create successfully');
+          this.displayToast(1, 'Product added successfully');
           this._router.navigate(['catalog/addProduct/productPicture'], { queryParams: { id: res.products[0].id } });
           localStorage.setItem('EditedRecord', JSON.stringify(res.products[0]));
         }
@@ -311,7 +334,9 @@ export class CommonService {
     if (this.attrInfo) {
       this.productObj.attributes.push(this.attrInfo);
     }
-
+    if (this.productObj.product_specification_attributes) {
+      delete this.productObj.product_specification_attributes;
+    }
     var body = {
       product:
         this.productObj
@@ -330,7 +355,10 @@ export class CommonService {
     this.getParameter();
     this.API_PUT(this.URL_getProductById(this.productId), body)
       .subscribe(res => {
-
+        if (res) {
+          this.displayToast(1, 'The product details updated successfully');
+          localStorage.setItem('EditedRecord', JSON.stringify(res.products[0]));
+        }
       })
   }
 

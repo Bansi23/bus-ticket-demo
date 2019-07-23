@@ -32,10 +32,14 @@ export class AddnewAttributeComponent implements OnInit {
   }
 
   goToValue() {
-    if (this.productId) {
-      this._router.navigate(['catalog/addnew-attribute/value'], { queryParams: { id: this.productId } });
+    if (this._cS.attrInfo) {
+      if (this.productId) {
+        this._router.navigate(['catalog/addnew-attribute/value'], { queryParams: { id: this.productId } });
+      } else {
+        this._router.navigate(['catalog/addnew-attribute/value']);
+      }
     } else {
-      this._router.navigate(['catalog/addnew-attribute/value']);
+      this._cS.displayToast(4, 'Please fill attribute info for add attribute value');
     }
   }
   addProduct() {
@@ -43,7 +47,11 @@ export class AddnewAttributeComponent implements OnInit {
   }
   //#endregion
   saveAttribute() {
-    this._cS.addAttribute();
+    if (this._cS.attrInfo) {
+      this._cS.addAttribute();
+    } else {
+      this._cS.displayToast(4, 'Please fill attribute info for add attribute');
+    }
   }
   constructor(private _router: Router,
     private _cS: CommonService,

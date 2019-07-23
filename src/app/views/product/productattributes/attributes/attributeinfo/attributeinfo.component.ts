@@ -44,19 +44,15 @@ export class AttributeinfoComponent implements OnInit {
   //#region attribute info add
   addInfo() {
     const formValue = this.attrInfoForm.getRawValue();
-    var controlName = this.lstControl.find(x => {
-
-    })
     var body = {
       product_attribute_id: formValue.attribute,
-      text_prompt: formValue.textPrompt,
-      is_required: formValue.isReq,
-      display_order: formValue.displayOrder,
+      text_prompt: formValue.textPrompt ? formValue.textPrompt : null,
+      is_required: formValue.isReq ? formValue.isReq : false,
+      display_order: formValue.displayOrder ? formValue.displayOrder : null,
       attribute_control_type_id: formValue.controlType,
-      // attribute_control_type_name : 
     }
-    this._cS.getAttributeInfo(body);
     this.getParameter();
+    this._cS.getAttributeInfo(body);
     if (this.productId) {
       this._router.navigate(['/catalog/addnew-attribute/value'], { queryParams: { id: this.productId } });
     } else {
@@ -65,9 +61,11 @@ export class AttributeinfoComponent implements OnInit {
   }
 
   productId: any;
+  attributeId: any;
   getParameter() {
     this._route.queryParams.subscribe(params => {
-      this.productId = params['id']
+      this.productId = params['id'];
+      this.attributeId = params['attributeId']
     });
   }
   //#endregion
@@ -78,7 +76,6 @@ export class AttributeinfoComponent implements OnInit {
     private _route: ActivatedRoute) { }
 
   ngOnInit() {
-
     this.attrInfoForm_fb();
     this.lstControl = this._mS.getControlTypes();
     this.getattributeList();

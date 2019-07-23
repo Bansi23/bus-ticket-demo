@@ -20,7 +20,7 @@ export class AddProductToOrderComponent implements OnInit {
   giftWrapping: any;
 
   @ViewChild('editItem', { static: true }) EditRecord: ModalDirective;
- // @ViewChild('deleteModal', { static: true }) deleteMedalRec: ModalDirective;
+  // @ViewChild('deleteModal', { static: true }) deleteMedalRec: ModalDirective;
 
   fbItemEdit() {
     this.itemForm = this.fb.group({
@@ -78,8 +78,15 @@ export class AddProductToOrderComponent implements OnInit {
           if (res) {
             this._cS.displayToast(1, 'SuccessFully Deleted Record');
             this.getItem();
+          } else {
+            this._cS.displayToast(2, 'This order item has an associated gift card record. Please delete it first');
+          };
+        }, err => {
+          if (err.status == 400) {
+            this._cS.displayToast(2, 'This order item has an associated gift card record. Please delete it first');
           }
-        })
+          //this._cS.displayToast(2, err.toString());
+        });
     }
   }
 

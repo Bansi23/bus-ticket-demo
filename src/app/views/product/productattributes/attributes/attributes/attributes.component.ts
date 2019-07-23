@@ -9,7 +9,7 @@ import { CommonService } from '../../../../../services/common.service';
 })
 export class AttributesComponent implements OnInit {
 
-  tableHeader: any = ['Attribute', 'Text prompt', 'Is Required', 'Control type', 'Display order', 'Condition', 'Action']
+  tableHeader: any = ['Attribute', 'Text prompt', 'Is Required', 'Control type', 'Display order', 'Action']
   pageIndex: number = 1;
   pageSize: number = 10;
   totalRecords: number;
@@ -30,7 +30,6 @@ export class AttributesComponent implements OnInit {
     var editedRecord = JSON.parse(localStorage.getItem('EditedRecord'));
     if (editedRecord.attributes.length > 0) {
       this.lstAttr = editedRecord.attributes;
-      console.log('this.lstAttr:', this.lstAttr)
       this.totalRecords = this.lstAttr.length;
     }
   }
@@ -43,8 +42,12 @@ export class AttributesComponent implements OnInit {
   }
   //#endregion  
 
-  getPictureList() {
-
+  reloadAttribute() {
+    this._cS.API_GET(this._cS.URL_getProductById(this.productId))
+      .subscribe(res => {
+        this.lstAttr = res.products[0].attributes;
+        this.totalRecords = this.lstAttr.length;
+      })
   }
   addAttributes() {
     this.getParameter();
@@ -54,6 +57,12 @@ export class AttributesComponent implements OnInit {
       this._router.navigate(['/catalog/addnew-attribute'])
     }
   }
+
+  //#region edit attribute
+  editAttribute(attrId) {
+    this._router.navigate(['/catalog/addnew-attribute'], { queryParams: { id: this.productId, attributeId: attrId } })
+  }
+  //#endregion
 
   constructor(private _router: Router,
     private _route: ActivatedRoute,
@@ -66,6 +75,7 @@ export class AttributesComponent implements OnInit {
       hideContent.style.display = 'none';
       showContenet.style.display = 'block';
       this.getAttributeList();
+      this.reloadAttribute();
     } else {
       if (showContenet) {
         showContenet.style.display = 'none';
