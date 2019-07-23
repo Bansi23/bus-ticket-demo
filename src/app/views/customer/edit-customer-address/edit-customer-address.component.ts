@@ -61,20 +61,18 @@ export class EditCustomerAddressComponent implements OnInit {
       this._cS.API_GET(this._cS.getParticularCustomer(this.customerId))
         .subscribe(response => {
           if (response) {
+            console.log('response:', response)
             this.valuesToPatchInForm = response.customers[0].shipping_address;
-
-            console.log("city", this.valuesToPatchInForm);
-
-
+            this.shippingId = response.customers[0].addresses[0].id;
+            console.log('this.shippingId:', this.shippingId)
+            
+            // console.log('this.valuesToPatchInForm:', this.valuesToPatchInForm)
             this.patchValuesInForm();
           }
         })
     }
-    console.log('this.customerId:', this.customerId)
-    console.log('this.addressId:', this.addressId)
   }
   patchValuesInForm() {
-
 
     this.editbillingForm.patchValue({
       fnm: this.valuesToPatchInForm.first_name,
@@ -83,7 +81,8 @@ export class EditCustomerAddressComponent implements OnInit {
       company: this.valuesToPatchInForm.company,
       mail: this.valuesToPatchInForm.email,
       country: this.valuesToPatchInForm.country_id,
-      state: this.valuesToPatchInForm.state_province_id,
+      // state: this.valuesToPatchInForm.state_province_id,
+      state : this.otherCountry.name,
       city: this.valuesToPatchInForm.city,
       addone: this.valuesToPatchInForm.address1,
       addtwo: this.valuesToPatchInForm.address2,
@@ -197,28 +196,38 @@ export class EditCustomerAddressComponent implements OnInit {
       statebilling = this.otherCountry;
     }
 
-    var body = {
-      "order":
-      {
-        "billing_address": {
-          "first_name": this.editbillingForm.value.fnm,
-          "last_name": this.editbillingForm.value.lnm,
-          "email": this.editbillingForm.value.mail,
-          "company": this.editbillingForm.value.company,
-          "country_id": +this.editbillingForm.value.country,
-          "country": countryname.state,
-          "state_province_id": +statebilling.id ? +statebilling.id : null,
-          "city": this.editbillingForm.value.city,
-          "address1": this.editbillingForm.value.addone,
-          "address2": this.editbillingForm.value.addtwo,
-          "zip_postal_code": +this.editbillingForm.value.pinno,
-          "phone_number": +this.editbillingForm.value.mono,
-          "fax_number": +this.editbillingForm.value.faxno,
-          "id": +this.billingId
-        },
-        "id": +this.orderId
-      }
+     
+
+ 
+
+  var body = {
+
+    "customer" : {
+
+      "address" : [
+        {
+          "first_name" : this.editbillingForm.value.fnm,
+          "last_name" :   this.editbillingForm.value.lnm,
+          "email" :  this.editbillingForm.value.mail,
+          "company" :  this.editbillingForm.value.company,
+          "country_id" : this.editbillingForm.value.country,
+          "country" : countryname.state,
+          "state_province_id" : this.otherCountry.id,
+          "city" : this.editbillingForm.value.city,
+          "address1" : this.editbillingForm.value.addone,
+          "address2" : this.editbillingForm.value.addtwo,
+          "zip_postal_code" : this.editbillingForm.value.pinno,
+          "phone_number" : this.editbillingForm.value.mono,
+          "fax_number" : this.editbillingForm.value.faxno,
+          "id" : this.shippingId
+         }
+      ],
+      "id":+this.customerId
     }
+  }
+
+  console.log('body:', body)
+
 
     this._cS.API_PUT(this._cS.getOrderId(this.orderId), body)
       .subscribe(res => {
@@ -256,35 +265,47 @@ export class EditCustomerAddressComponent implements OnInit {
   // }
 
   putDataToAPI() {
+ 
+    
+    var countryname = this.lstCountry.find((item) => item.state_id == this.editbillingForm.value.country);
+
 
 
     var body = {
-      order: {
-        shipping_address: {
-          "first_name": this.editbillingForm.value.fnm,
-          "last_name": this.editbillingForm.value.lnm,
-          "email": this.editbillingForm.value.mail,
-          "company": this.editbillingForm.value.company,
-          "country_id": this.editbillingForm.value.country,
-          "country": this.editbillingForm.value.state,
-          "state_province_id": this.editbillingForm.value.state,
-          "city": this.editbillingForm.value.city,
-          "address1": this.editbillingForm.value.addone,
-          "address2": this.editbillingForm.value.addtwo,
-          "zip_postal_code": this.editbillingForm.value.pinno,
-          "phone_number": this.editbillingForm.value.mono,
-          "fax_number": this.editbillingForm.value.faxno,
-          "id": this.shippingId
-        },
-        id: +this.orderId
+
+      "customer" : {
+  
+        "address" : [
+          {
+            "first_name" : this.editbillingForm.value.fnm,
+            "last_name" :   this.editbillingForm.value.lnm,
+            "email" :  this.editbillingForm.value.mail,
+            "company" :  this.editbillingForm.value.company,
+            "country_id" : this.editbillingForm.value.country,
+            "country" : countryname.state,
+            "state_province_id" : null,
+            "city" : this.editbillingForm.value.city,
+            "address1" : this.editbillingForm.value.addone,
+            "address2" : this.editbillingForm.value.addtwo,
+            "zip_postal_code" : this.editbillingForm.value.pinno,
+            "phone_number" : this.editbillingForm.value.mono,
+            "fax_number" : this.editbillingForm.value.faxno,
+            "id" : this.shippingId
+           }
+        ],
+        "id":+this.customerId
       }
     }
+
+    console.log('body:', body)
 
     this._cS.API_PUT(this._cS.getParticularCustomer(this.customerId), body)
       .subscribe(res => {
         if (res) {
+          console.log('res:', res)
           this._cS.displayToast(1, 'Record updated successfully');
-          this._router.navigate(['/sales/viewrecord'], { queryParams: { id: this.orderId } });
+          this._router.navigate(['/customers'])
+          // this._router.navigate(['/sales/viewrecord'], { queryParams: { id: this.orderId } });
         } else {
         };
       }, err => {

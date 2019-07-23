@@ -41,7 +41,7 @@ export class CustomerListComponent implements OnInit {
   getCustomerList() {
     this._cS.API_GET(this._cS.getCustomersList(this.pageSize, this.pageIndex))
       .subscribe(response => {
-        this.getCustomerCount();
+         this.getCustomerCount();
         this.lstcustomers = [];
         for (let i = 0; i < response.customers.length; i++) {
           const data = {
@@ -54,8 +54,7 @@ export class CustomerListComponent implements OnInit {
             lastActivity: response.customers[i].last_activity_date_utc
           }
           this.lstcustomers.push(data);
-          // console.log('data:', this.lstcustomers)
-        }
+         }
       })
   }
   getCustomerCount() {
