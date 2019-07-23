@@ -86,7 +86,7 @@
                         </div>
                         <div class="col-md-3">
                             <!-- <span> {{item.order_subtotal_excl_tax | number:'2.2-2'}} <b>excl tax</b></span> -->
-                            <span> {{finalTotal | number:'2.2-2'}}<b> excl tax</b></span>
+                            <span> ${{finalTotal | number:'2.2-2'}}<b> excl tax</b></span>
                         </div>
                     </div>
                     <div class="row mt-3">
@@ -94,7 +94,7 @@
                             <b> Order Shipping </b>
                         </div>
                         <div class="col-md-3">
-                            <span> {{item.order_shipping_excl_tax | number:'2.2-2'}} <b>excl tax</b></span>
+                            <span> ${{item.order_shipping_excl_tax | number:'2.2-2'}} <b>excl tax</b></span>
                         </div>
                     </div>
                     <div class="row mt-3">
@@ -102,7 +102,7 @@
                             <b>Order tax </b>
                         </div>
                         <div class="col-md-3">
-                            <span> {{item.order_tax | number:'2.2-2'}}</span>
+                            <span> ${{item.order_tax | number:'2.2-2'}}</span>
                         </div>
                     </div>
 
@@ -112,16 +112,16 @@
                         </div>
                         <!--  -->
                         <div class="col-md-3">
-                            <span> {{finalTotal | number:'2.2-2'}}</span>
+                            <span> ${{finalTotal | number:'2.2-2'}}</span>
                         </div>
                     </div>
 
-                    <div class="row mt-3" *ngIf="item.refunded_amount">
+                    <div class="row mt-3">
                         <div class="col-md-2">
                             <b>Refunded Amount</b>
                         </div>
                         <div class="col-md-3">
-                            <span> {{item.refunded_amount | number:'2.2-2'}}</span>
+                            <span> ${{item.refunded_amount | number:'2.2-2'}}</span>
                         </div>
                     </div>
 
@@ -148,9 +148,11 @@
                             <div *ngIf="item.payment_status =='Pending'">
                                 <button class="btn btn-primary" (click)="paidAmount()">Mark As Paid</button>
                             </div>
-                            <div *ngIf="item.payment_status =='Paid' || item.payment_status =='Partially refunded'">
-                                <button class="btn btn-primary mb-1" (click)="refundAmount()">Refund (Offline)</button>
-                                <button class="btn btn-primary"> Partial refund (Offline)</button>
+                            <div *ngIf="item.payment_status =='Paid' || item.payment_status =='PartiallyRefunded'">
+                                <button class="btn btn-primary mb-1" *ngIf="finalTotal == item.refunded_amount"
+                                    (click)="refundAmount()">Refund (Offline)</button>
+                                <button class="btn btn-primary" (click)="partialRefundAmount()"> Partial refund
+                                    (Offline) </button>
                             </div>
                         </div>
                     </div>
@@ -160,10 +162,49 @@
                             <b>Created on</b>
                         </div>
                         <div class="col-md-3">
-                            <span> {{item.created_on_utc}}</span>
+                            <span> {{item.created_on_utc  | date :'dd/MM/yyyy,h:mm:ss a'}}</span>
                         </div>
                     </div>
                 </div>
             </div>
             <!--/card-->
-            <ng-container>
+        </ng-container>
+    </div>
+</div>
+
+<div class="modal fade" #changeModal="bs-modal" bsModal tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                {{ 'partial refund amount'}}
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close()"
+                    [disabled]="refunded_Amount">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    <div class="card-header refunded-box pull-left">
+                        Partial refund
+                    </div>
+                    <div class="card-body">
+                        <form [formGroup]="addrefund">
+                            <div class="row">
+                                <div class="form-group col-sm-12">
+                                    <label class="pull-left">Amount to refund</label>
+                                    <input type="text" class="form-control" formControlName="refundedamount">
+                                    <span class="pull-left">Max amount is {{partialAmount}} USD</span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success btn-sm" (click)="saveRefund()">{{ 'Refund Amount' }}</button>
+                <button class="btn btn-danger float-left btn-sm" (click)="close()">Close </button>
+            </div>
+        </div>
+    </div>
+</div>

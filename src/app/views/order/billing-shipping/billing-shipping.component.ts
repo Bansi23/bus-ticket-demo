@@ -86,7 +86,7 @@ export class BillingShippingComponent implements OnInit {
                   this.displaybilling = this.otherCountry;
                 }
               });
-              if(this.viewRecord[i].shipping_address != null){
+              if (this.viewRecord[i].shipping_address != null) {
                 const countryIdShipping = this.viewRecord[i].shipping_address.country_id;
                 this._cS.API_GET(this._cS.getCountry(countryIdShipping)).subscribe(res => {
                   this.statelistshipping = res;
@@ -96,10 +96,10 @@ export class BillingShippingComponent implements OnInit {
                   }
                 });
               }
-              else{
-                
+              else {
+
               }
-        
+
             }
           }
         });
@@ -112,16 +112,12 @@ export class BillingShippingComponent implements OnInit {
       const city = this.viewRecord[i].shipping_address.city;
       const country = this.viewRecord[i].shipping_address.country;
       const addone = this.viewRecord[i].shipping_address.address1;
-      const addtwo = this.viewRecord[i].shipping_address.address2;
-      const addresstow = addtwo.replace(/\+/gi, '%2B');
       const address = addone.replace(/\+/gi, '%2B');
       const _city = city.replace(/\+/gi, '%2B');
-      if (addresstow) {
-        this.shippingAddress = baseUrl + `search/${pin}+${_city}+${country}+${address}+${addresstow}`;
-      }
-      else {
-        this.shippingAddress = baseUrl + `search/${pin}+${_city}+${country}+${address}`;
-      }
+
+      this.shippingAddress = baseUrl + `search/${pin}+${_city}+${country}+${address}`;
+
+
       window.open(this.shippingAddress, "_blank");
     }
   }
