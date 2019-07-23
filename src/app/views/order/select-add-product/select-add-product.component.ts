@@ -72,7 +72,6 @@ export class SelectAddProductComponent implements OnInit {
 
   attributelst: any = [];
   addProducttoOrder() {
-    debugger;
     for (let val in this.AddProduct.controls) {
       this.AddProduct.controls[val].markAsTouched();
     };
