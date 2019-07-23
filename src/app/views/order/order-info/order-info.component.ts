@@ -141,6 +141,9 @@ export class OrderInfoComponent implements OnInit {
     this.addrefund.reset();
   }
   saveRefund() {
+    for (let val in this.addrefund.controls) {
+      this.addrefund.controls[val].markAsTouched();
+    };
     this.getParameter();
     const refunded = this.addrefund.get('refundedamount').value
     var body = {
@@ -150,18 +153,20 @@ export class OrderInfoComponent implements OnInit {
         refunded_amount: refunded
       }
     }
-    if (confirm('Are you sure you want to Refunded Amount of this record?')) {
-      this._cS.API_PUT(this._cS.getOrderId(this.orderId), body)
-        .subscribe(res => {
-          if (res) {
-            this.getInfo();
-            this.refundedAmount.hide();
-            this._cS.displayToast(1, 'SuccessFully refunded order amount');
-          } else {
-          };
-        }, err => {
-          this._cS.displayToast(2, 'Get Error');
-        });
+    if (this.addrefund.valid) {
+      if (confirm('Are you sure you want to Refunded Amount of this record?')) {
+        this._cS.API_PUT(this._cS.getOrderId(this.orderId), body)
+          .subscribe(res => {
+            if (res) {
+              this.getInfo();
+              this.refundedAmount.hide();
+              this._cS.displayToast(1, 'SuccessFully refunded order amount');
+            } else {
+            };
+          }, err => {
+            this._cS.displayToast(2, 'Get Error');
+          });
+      }
     }
   }
 
@@ -203,7 +208,8 @@ export class OrderInfoComponent implements OnInit {
     });
 
     this.addrefund = this.fb.group({
-      refundedamount: ['']
+      refundedamount: [null, Validators.compose([Validators.required, Validators.pattern('[0-9]\\d{0,50}')])],
+
     })
   }
 

@@ -136,6 +136,7 @@ export class SearchOrderComponent implements OnInit {
     this.pageIndex = 1;
     this.pageSize = +value;
     this.GetRecord();
+    
   }
   searchRecord() {
     const paymentStatus = this.searchOrder.get('paymentstatus').value;
@@ -146,6 +147,7 @@ export class SearchOrderComponent implements OnInit {
         this.pageIndex = 1;
         if (res) {
           this.lstOrderData = res.orders;
+          this.totalRecord = this.lstOrderData.length
           this.finalTotal = this.lstOrderData.map(o => o.order_total).reduce((a, c) => a + c, 0);
         }
         else {

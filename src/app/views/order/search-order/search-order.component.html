@@ -92,7 +92,6 @@
                             <th>Customer</th>
                             <th>Created on </th>
                             <th>Order total </th>
-
                         </tr>
                     </thead>
                     <tbody>
@@ -117,13 +116,13 @@
                             <td>{{lstorder.created_on_utc | date :'dd/MM/yyyy,h:mm:ss a'}}</td>
                             <td>{{lstorder.order_total | number:'2.2-2'}}</td>
                         </tr>
-                        <tr>
+                        <tr *ngIf="lstOrderData.length > 0">
                             <td colspan="8"></td>
                             <td>{{finalTotal | number:'2.2-2'}}</td>
                             <td></td>
                         </tr>
                         <tr>
-                            <td colspan="9" *ngIf="(lstOrderData).length == 0" class="alert">No matching record Found
+                            <td colspan="9" *ngIf="(lstOrderData).length == 0" class="alert">No matching record found
                             </td>
                         </tr>
                     </tbody>
