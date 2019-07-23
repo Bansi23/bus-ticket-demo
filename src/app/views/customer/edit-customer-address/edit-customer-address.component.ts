@@ -61,13 +61,10 @@ export class EditCustomerAddressComponent implements OnInit {
       this._cS.API_GET(this._cS.getParticularCustomer(this.customerId))
         .subscribe(response => {
           if (response) {
-            console.log('response:', response)
-            this.valuesToPatchInForm = response.customers[0].shipping_address;
+             this.valuesToPatchInForm = response.customers[0].shipping_address;
             this.shippingId = response.customers[0].addresses[0].id;
-            console.log('this.shippingId:', this.shippingId)
-            
-            // console.log('this.valuesToPatchInForm:', this.valuesToPatchInForm)
-            this.patchValuesInForm();
+             
+             this.patchValuesInForm();
           }
         })
     }
@@ -226,8 +223,7 @@ export class EditCustomerAddressComponent implements OnInit {
     }
   }
 
-  console.log('body:', body)
-
+ 
 
     this._cS.API_PUT(this._cS.getOrderId(this.orderId), body)
       .subscribe(res => {
@@ -297,13 +293,11 @@ export class EditCustomerAddressComponent implements OnInit {
       }
     }
 
-    console.log('body:', body)
-
+ 
     this._cS.API_PUT(this._cS.getParticularCustomer(this.customerId), body)
       .subscribe(res => {
         if (res) {
-          console.log('res:', res)
-          this._cS.displayToast(1, 'Record updated successfully');
+           this._cS.displayToast(1, 'Record updated successfully');
           this._router.navigate(['/customers'])
           // this._router.navigate(['/sales/viewrecord'], { queryParams: { id: this.orderId } });
         } else {

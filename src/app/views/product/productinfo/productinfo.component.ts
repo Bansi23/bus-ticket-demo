@@ -200,7 +200,6 @@ export class ProductinfoComponent implements OnInit {
         }
       }
       if (this.productId) {
-        console.log('body:', body)
         this._cS.editProduct(body);
       } else {
         this._cS.sendForCreate(body);
