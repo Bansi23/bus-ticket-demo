@@ -18,7 +18,7 @@
                     <label for="fnm">First Name<span class="text-danger"
                             *ngIf="editbillingForm.controls.fnm.errors?.required">*</span></label>
                     <input type="text" class="form-control" formControlName="fnm">
-                    <span class="text-danger"
+                    <span class="text-danger" style="float: left"
                         *ngIf="editbillingForm.get('fnm').hasError('required') && editbillingForm.get('fnm').touched">
                         First Name is Required
                     </span>
@@ -62,7 +62,7 @@
                     <label for="mail">E-mail<span class="text-danger"
                             *ngIf="editbillingForm.controls.mail.errors?.required || editbillingForm.controls.mail.errors?.pattern">*</span></label>
                     <input type="email" class="form-control" formControlName="mail">
-                    <span class="text-danger"
+                    <span class="text-danger" 
                         *ngIf="editbillingForm.get('mail').hasError('required') && editbillingForm.get('mail').touched">
                         E-mail is Required
                     </span>
