@@ -64,8 +64,7 @@
                                                     </span>
                                                     <span class="text-danger"
                                                         *ngIf="addCustomerForm.get('custPassword').hasError('pattern') && addCustomerForm.get('custPassword').touched">
-                                                        Password should contain uppercase,lowercase letters and numbers.
-                                                    </span>
+                                                        Password must have lowercase, uppercase, numeric value, special character and minimum 8 character                                                     </span>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <label for="last name" class="pull-left">Last name</label>
@@ -190,7 +189,7 @@
                                             <div class="row">
                                                 <div class="col-sm-6">
                                                     <label for="active" class="pull-left">Active
-                                                        <input id="active" type="checkbox" formControlName="custActive">
+                                                        <input id="active" [(ngModel)]="chkIsActive" type="checkbox" formControlName="custActive">
                                                     </label>
                                                 </div>
                                             </div>
