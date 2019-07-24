@@ -15,7 +15,7 @@
                     <div class="form-group col-sm-6">
                         <label for="city">Payment Status</label>
                         <select class="form-control" formControlName="paymentstatus">
-                            <option value="All">All</option>
+                            <option value="">All</option>
                             <option *ngFor="let item of lstPaymentStatus">{{item.itemName}}
                             </option>
                         </select>
@@ -24,7 +24,7 @@
                     <div class="form-group col-sm-6">
                         <label for="city">Order Status</label>
                         <select class="form-control" formControlName="orderstatus">
-                            <option value="All">All</option>
+                            <option value="">All</option>
                             <option *ngFor="let item of lstOrderStatus">{{item.itemName}}
                             </option>
                         </select>
@@ -49,7 +49,7 @@
                     <div class="form-group col-sm-6">
                         <label>Shipping Status</label>
                         <select class="form-control" formControlName="shippingstatus">
-                            <option value="All">All</option>
+                            <option value="">All</option>
                             <option *ngFor="let item of lstShippingStatus">{{item.itemName}}
                             </option>
                         </select>

@@ -140,18 +140,41 @@ export class SearchOrderComponent implements OnInit {
         }
       });
   }
-  //#endregion
 
+  //#endregion
+  //#region common method
+  getSearchListRecord() {
+    const paymentStatus = this.searchOrder.get('paymentstatus').value;
+    const shippingStatus = this.searchOrder.get('shippingstatus').value;
+    const orderStatus = this.searchOrder.get('orderstatus').value;
+    if (paymentStatus == '' && shippingStatus == '' && orderStatus == '') {
+      this.GetRecord();
+    }
+    else if (paymentStatus != '' && shippingStatus == '' && orderStatus == '') {
+      this.searchRecord();
+    }
+    else if (paymentStatus == '' && shippingStatus != '' && orderStatus == '') {
+      this.searchRecord();
+    }
+    else if (paymentStatus == '' && shippingStatus == '' && orderStatus != '') {
+      this.searchRecord();
+    }
+    else {
+      this.searchRecord();
+    }
+  }
+  //#endregion
   //#region pagignation and select page size
+
   pageChanged(value) {
     this.pageIndex = +value;
-    this.GetRecord();
-  };
+    this.getSearchListRecord();
+  }
+
   selectedChanged(value) {
     this.pageIndex = 1;
     this.pageSize = +value;
-    // this.totalRecord = this.lstOrderData.length;
-    this.GetRecord();
+    this.getSearchListRecord();
   }
   //#endregion
 
@@ -165,7 +188,7 @@ export class SearchOrderComponent implements OnInit {
         this.pageIndex = 1;
         if (res) {
           this.lstOrderData = res.orders;
-          this.totalRecord = this.lstOrderData.length
+          this.totalRecord = this.lstOrderData.length;
           this.finalTotal = this.lstOrderData.map(o => o.order_total).reduce((a, c) => a + c, 0);
         }
         else {
