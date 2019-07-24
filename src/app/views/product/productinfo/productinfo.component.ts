@@ -178,10 +178,13 @@ export class ProductinfoComponent implements OnInit {
       this.productInfoForm.controls[c].markAsTouched();
     }
     if (this.productInfoForm.valid) {
+      debugger;
       const formValue = this.productInfoForm.getRawValue();
-      for (let i = 0; i < formValue.discount.length; i++) {
-        var discount = formValue.discount[i].id;
-        this.disc_ids.push(discount);
+      if (formValue.discount) {
+        for (let i = 0; i < formValue.discount.length; i++) {
+          var discount = formValue.discount[i].id;
+          this.disc_ids.push(discount);
+        }
       }
       var body = {
         product: {

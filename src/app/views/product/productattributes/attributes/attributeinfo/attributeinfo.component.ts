@@ -52,12 +52,17 @@ export class AttributeinfoComponent implements OnInit {
       attribute_control_type_id: formValue.controlType,
     }
     this.getParameter();
-    this._cS.getAttributeInfo(body);
     if (this.productId) {
-      this._router.navigate(['/catalog/addnew-attribute/value'], { queryParams: { id: this.productId } });
+      if (this.attributeId) {
+        body["id"] = +this.attributeId;
+        this._router.navigate(['/catalog/addnew-attribute/value'], { queryParams: { id: this.productId, attributeId: this.attributeId } });
+      } else {
+        this._router.navigate(['/catalog/addnew-attribute/value'], { queryParams: { id: this.productId } });
+      }
     } else {
       this._router.navigate(['/catalog/addnew-attribute/value']);
     }
+    this._cS.getAttributeInfo(body);
   }
 
   productId: any;
@@ -65,8 +70,23 @@ export class AttributeinfoComponent implements OnInit {
   getParameter() {
     this._route.queryParams.subscribe(params => {
       this.productId = params['id'];
-      this.attributeId = params['attributeId']
+      this.attributeId = params['attributeId'];
     });
+  }
+
+  editAttributeInfo() {
+    const editAttributeInfo = JSON.parse(localStorage.getItem('EditedRecord'));
+    for (let i = 0; i < editAttributeInfo.attributes.length; i++) {
+      if (this.attributeId == editAttributeInfo.attributes[i].id) {
+        this.attrInfoForm.patchValue({
+          attribute: editAttributeInfo.attributes[i].product_attribute_id,
+          textPrompt: editAttributeInfo.attributes[i].text_prompt,
+          isReq: editAttributeInfo.attributes[i].is_required,
+          controlType: editAttributeInfo.attributes[i].attribute_control_type_id,
+          displayOrder: editAttributeInfo.attributes[i].display_order
+        })
+      }
+    }
   }
   //#endregion
   constructor(private _cS: CommonService,
@@ -77,7 +97,11 @@ export class AttributeinfoComponent implements OnInit {
 
   ngOnInit() {
     this.attrInfoForm_fb();
+    this.getParameter();
     this.lstControl = this._mS.getControlTypes();
     this.getattributeList();
+    if (this.attributeId) {
+      this.editAttributeInfo();
+    }
   }
 }

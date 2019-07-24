@@ -8,7 +8,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let attr of lstAttr">
+                    <tr
+                        *ngFor="let attr of lstAttr | paginate: { itemsPerPage: pageSize, currentPage: pageIndex, totalItems: totalRecords }; let i=index;">
                         <td>{{attr.product_attribute_name}}</td>
                         <td>{{attr.text_prompt}}</td>
                         <td><span class="fa"

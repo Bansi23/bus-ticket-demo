@@ -283,6 +283,7 @@ export class CommonService {
     this.API_POST(this.getProductList(), body)
       .subscribe(res => {
         if (res) {
+          console.log('res:', res)
           this.productList();
           this.lstProduct.push(res.products);
           this.displayToast(1, 'Product added successfully');
@@ -323,6 +324,7 @@ export class CommonService {
   }
   productObj: any;
   addAttribute() {
+    this.getParameter();
     this.getAttributeInfo(this.attrInfo);
     this.getAttributeValues(this.attrValue);
     this.productObj = JSON.parse(localStorage.getItem('EditedRecord'));
@@ -332,9 +334,18 @@ export class CommonService {
       this.attrInfo;
     }
     if (this.attrInfo) {
-      this.productObj.attributes.push(this.attrInfo);
+      if (this.attributeId) {
+        for (let i = 0; i < this.productObj.attributes.length; i++) {
+          if (this.attributeId == this.productObj.attributes[i].id) {
+            this.productObj.attributes[i] = this.attrInfo;
+          }
+        }
+      } else {
+        this.productObj.attributes.push(this.attrInfo);
+      }
     }
-    if (this.productObj.product_specification_attributes) {
+    if (this.productObj.product_specification_attributes && this.productObj.images) {
+      delete this.productObj.images;
       delete this.productObj.product_specification_attributes;
     }
     var body = {
@@ -345,9 +356,11 @@ export class CommonService {
   }
 
   productId: any;
+  attributeId: any;
   getParameter() {
     this._route.queryParams.subscribe(params => {
-      this.productId = params['id']
+      this.productId = params['id'];
+      this.attributeId = params['attributeId'];
     });
   }
 

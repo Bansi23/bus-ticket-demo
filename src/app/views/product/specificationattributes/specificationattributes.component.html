@@ -10,7 +10,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let sp of lstSpecificAttr">
+                            <tr *ngFor="let sp of lstSpecificAttr | paginate: { itemsPerPage: pageSize, currentPage: pageIndex, totalItems: totalRecords }; let i=index;">
                                 <td>{{sp.attribute_type}}</td>
                                 <td>{{sp.attribute_type}}</td>
                                 <td>{{sp.specification_attribute_option.name}}</td>
@@ -71,7 +71,7 @@
                     <div class="pull-left">
                         <div class="row">
                             <strong>
-                                <h3>Add a new product specification attribute</h3>
+                                <h5>Add a new product specification attribute</h5>
                             </strong>
                         </div>
                     </div>

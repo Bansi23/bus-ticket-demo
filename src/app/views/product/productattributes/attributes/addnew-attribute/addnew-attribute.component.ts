@@ -17,24 +17,34 @@ export class AddnewAttributeComponent implements OnInit {
 
   //#region tabs routing on click
   productId: any;
+  attributeId: any;
   getParameter() {
     this._route.queryParams.subscribe(params => {
-      this.productId = params['id']
+      this.productId = params['id'];
+      this.attributeId = params['attributeId'];
     });
   }
 
   goToInfo() {
     if (this.productId) {
-      this._router.navigate(['catalog/addnew-attribute/info'], { queryParams: { id: this.productId } });
+      if (this.attributeId) {
+        this._router.navigate(['catalog/addnew-attribute/info'], { queryParams: { id: this.productId, attributeId: this.attributeId } });
+      } else {
+        this._router.navigate(['catalog/addnew-attribute/info'], { queryParams: { id: this.productId } });
+      }
     } else {
       this._router.navigate(['catalog/addnew-attribute/info']);
     }
   }
 
   goToValue() {
-    if (this._cS.attrInfo) {
+    if (this._cS.attrInfo || this.attributeId) {
       if (this.productId) {
-        this._router.navigate(['catalog/addnew-attribute/value'], { queryParams: { id: this.productId } });
+        if (this.attributeId) {
+          this._router.navigate(['catalog/addnew-attribute/value'], { queryParams: { id: this.productId, attributeId: this.attributeId } });
+        } else {
+          this._router.navigate(['catalog/addnew-attribute/value'], { queryParams: { id: this.productId } });
+        }
       } else {
         this._router.navigate(['catalog/addnew-attribute/value']);
       }
@@ -47,7 +57,7 @@ export class AddnewAttributeComponent implements OnInit {
   }
   //#endregion
   saveAttribute() {
-    if (this._cS.attrInfo) {
+    if (this._cS.attrInfo || this.attributeId) {
       this._cS.addAttribute();
     } else {
       this._cS.displayToast(4, 'Please fill attribute info for add attribute');

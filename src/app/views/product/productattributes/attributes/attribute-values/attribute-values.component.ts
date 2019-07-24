@@ -101,6 +101,10 @@ export class AttributeValuesComponent implements OnInit {
         display_order: formValue.displayOrder ? formValue.displayOrder : null,
         product_image_id: formValue.picture ? formValue.picture : null,
       }
+      if (this.attributeValueId) {
+        var attrValue = this.lstAttrValue.find(x => x.id == this.attributeValueId);
+        body['id'] = this.attributeValueId;
+      }
       this.lstAttribute.push(body);
       this._cS.getAttributeValues(this.lstAttribute);
       this.attrValueForm.reset();
@@ -121,10 +125,50 @@ export class AttributeValuesComponent implements OnInit {
     this.associateProduct = this.filteredProduct.name;
   }
 
+  lstAttrValue: any = [];
+  getAttrValue() {
+    const editedRecord = JSON.parse(localStorage.getItem('EditedRecord'));
+    for (let i = 0; i < editedRecord.attributes.length; i++) {
+      if (this.attributeId == editedRecord.attributes[i].id) {
+        this.lstAttrValue = editedRecord.attributes[i].attribute_values;
+      }
+    }
+  }
+
+  editAttrValue(attrValueId) {
+    this.attributeValueId = attrValueId;
+    this.valuesModal.show();
+    const editAttributeInfo = JSON.parse(localStorage.getItem('EditedRecord'));
+    for (let i = 0; i < editAttributeInfo.attributes.length; i++) {
+      for (let j = 0; j < editAttributeInfo.attributes[i].attribute_values.length; j++) {
+        if (attrValueId == editAttributeInfo.attributes[i].attribute_values[j].id) {
+          var attrValue = editAttributeInfo.attributes[i].attribute_values[j];
+          this.attrValueForm.patchValue({
+            valueType: attrValue.type_id,
+            name: attrValue.name,
+            priceAdj: attrValue.price_adjustment,
+            isPriceAdd: false,
+            weightAdj: attrValue.weight_adjustment,
+            cost: attrValue.cost,
+            isPreSelected: attrValue.is_pre_selected,
+            displayOrder: attrValue.display_order,
+            picture: attrValue.product_image_id,
+            iscustEnter: attrValue.name,
+            pQuantity: attrValue.quantity,
+          })
+        }
+      }
+    }
+  }
+
   productId: any;
+  attributeId: any;
+  attributeValueId: any;
   getParameter() {
     this._route.queryParams.subscribe(params => {
-      this.productId = params['id']
+      this.productId = params['id'];
+      this.attributeId = params['attributeId'];
+      this.attributeValueId = params['attrValueId']
     });
   }
 
@@ -142,6 +186,9 @@ export class AttributeValuesComponent implements OnInit {
     this.attrValueForm_fb();
     this.getValueType();
     this.getParameter();
+    if (this.attributeId) {
+      this.getAttrValue();
+    }
     if (this.productId) {
       const editedRecord = JSON.parse(localStorage.getItem('EditedRecord'));
       if (editedRecord.images.length > 0) {

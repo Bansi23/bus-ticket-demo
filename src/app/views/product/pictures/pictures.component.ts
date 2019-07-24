@@ -105,11 +105,13 @@ export class PicturesComponent implements OnInit {
 
   addPicture() {
     this.formValue = this.prodPictureForm.getRawValue()
-    this.formValue.src = this.src;
-    // this.b64toBlob(this.src);
-    this.lstPicture.push(this.formValue);
-    // this._cS.sendPictureToService(this.lstPicture);
-    this.prodPictureForm.reset();
+    if (this.formValue.src) {
+      this.formValue.src = this.src;
+      this.lstPicture.push(this.formValue);
+      this.prodPictureForm.reset();
+    } else {
+      this._cS.displayToast(4, 'Please select file to upload!');
+    }
   }
   //#endregion
   constructor(private fb: FormBuilder,
