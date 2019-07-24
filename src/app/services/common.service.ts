@@ -134,6 +134,10 @@ export class CommonService {
   getOrderId(id: number) {
     return baseUrl + `orders/${id}`;
   }
+
+  getOrderDetail() {
+    return baseUrl + `orders`;
+  }
   getOrderItem(orderId) {
     return baseUrl + `orders/${orderId}/items`;
   }

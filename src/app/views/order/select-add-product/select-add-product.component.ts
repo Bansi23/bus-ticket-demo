@@ -10,19 +10,16 @@ import { CommonService } from '../../../services/common.service';
 })
 export class SelectAddProductComponent implements OnInit {
 
+  //#region  property
   AddProduct: FormGroup
   addProduct: any = [];
   orderid: any;
   productid: any;
   orderItem: any = [];
   newArray: any = [];
+  productAttributes: any = [];
+  //#endregion
 
-  backToSearchList() {
-    this._route.queryParams.subscribe(params => {
-      this.orderid = params['id']
-    });
-    this._router.navigate(['/sales/addproduct'], { queryParams: { id: this.orderid } });
-  }
   //#region form group
   fbAddProduct() {
     this.AddProduct = this.fb.group({
@@ -42,13 +39,19 @@ export class SelectAddProductComponent implements OnInit {
   }
   //#endregion
 
+  //#region methods
+  backToSearchList() {
+    this.getParameter();
+    this._router.navigate(['/sales/addproduct'], { queryParams: { id: this.orderid } });
+  }
+
   getParameter() {
     this._route.queryParams.subscribe(params => {
       this.orderid = params['id']
       this.productid = params['productid']
     });
   }
-  productAttributes: any = [];
+
   getProduct() {
     this.getParameter();
     this._cS.API_GET(this._cS.URL_getProductById(this.productid))
@@ -68,8 +71,7 @@ export class SelectAddProductComponent implements OnInit {
         this._cS.displayToast(2, 'Connection Timeout');
       });
   }
-
-  attributelst: any = [];
+  //#endregion
   addProducttoOrder() {
     this.getParameter();
     for (let val in this.AddProduct.controls) {
@@ -118,8 +120,8 @@ export class SelectAddProductComponent implements OnInit {
           }
         });
     }
-    //this.getProduct();
   }
+
   constructor(private _router: Router, private _route: ActivatedRoute, private fb: FormBuilder, private _cS: CommonService) { }
 
   ngOnInit() {
