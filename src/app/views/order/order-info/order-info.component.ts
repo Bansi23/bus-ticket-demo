@@ -46,6 +46,7 @@ export class OrderInfoComponent implements OnInit {
   //#endregion
 
   //#region get specific record
+  profitTotal: any;
   getInfo() {
     this.getParameter();
     if (this.orderId) {
@@ -57,8 +58,13 @@ export class OrderInfoComponent implements OnInit {
               const element = this.viewRecord[i].order_items;
               this.finalTotal = element.map(o => o.unit_price_excl_tax).reduce((a, c) => a + c, 0);
               this.partialAmount = this.finalTotal;
+              //let TotalCostPrice = element.map(v => v["product"]["product_cost"]).reduce((a, c) => a + c, 0);
+              let TotalCostPrice = element.map(x => x.product.product_cost).reduce((a, c) => a + c, 0)
+              let TotalSellPrice = element.map(x => x.product.price).reduce((a, c) => a + c, 0)
+              this.profitTotal = +TotalSellPrice - +TotalCostPrice;
               if (element == '') {
                 this.finalTotal = this.viewRecord[i].order_subtotal_excl_tax;
+                this.profitTotal = '-';
               }
             }
           }
@@ -166,11 +172,11 @@ export class OrderInfoComponent implements OnInit {
     for (let i = 0; i < this.viewRecord.length; i++) {
       var refunded = this.addrefund.get('refundedamount').value
       var finalAmount = +this.viewRecord[i].refunded_amount + +refunded;
-      if(this.finalTotal == this.viewRecord[i].refunded_amount){
+      if (this.finalTotal == this.viewRecord[i].refunded_amount) {
         this.refundAmount();
       }
     }
-   
+
     if (refunded <= this.partialAmount) {
       var body = {
         order: {
