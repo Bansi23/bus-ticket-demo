@@ -7,6 +7,9 @@ import { FormBuilder, FormGroup, Validators, FormArray, AbstractControl, Form } 
 import { map } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment'
 import { IMyDpOptions } from 'mydatepicker';
+const emailPattern = environment.emailPattern;
+const passPatern = environment.passwordPattern;
+
 @Component({
   selector: 'app-add-edit',
   templateUrl: './add-edit.component.html',
@@ -36,6 +39,7 @@ export class AddEditComponent implements OnInit {
   isSaveAndEdit: boolean = false;
   storedId: number;
   isSaveClicked: boolean = false;
+  chkIsActive = true;
 
   dropdownOrderStatus = {
     singleSelection: false,
@@ -116,8 +120,8 @@ export class AddEditComponent implements OnInit {
   }
   initAddCustomerForm() {
     this.addCustomerForm = this.fb.group({
-      custEmail: ['', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')])],
-      custPassword: ['', Validators.compose([Validators.minLength(5), Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')])],
+      custEmail: ['', Validators.compose([Validators.required, Validators.pattern(emailPattern)])],
+      custPassword: ['', Validators.compose([Validators.required, Validators.pattern(passPatern)])],
       custRoles: ['', Validators.required],
       custManagerOfVendor: ['', Validators.required],
       // custGender: ['', Validators.required],
@@ -134,7 +138,7 @@ export class AddEditComponent implements OnInit {
   }
   initEidtCustomerForm(){
     this.addCustomerForm = this.fb.group({
-      custEmail: ['', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')])],
+      custEmail: ['', Validators.compose([Validators.required, Validators.pattern(emailPattern)])],
       // custPassword: ['', Validators.compose([Validators.minLength(5), Validators.required,Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')])],
       custRoles: ['', Validators.required],
       custManagerOfVendor: ['', Validators.required],
@@ -201,6 +205,7 @@ export class AddEditComponent implements OnInit {
     for (let i = 0; i < x.length; i++) {
       roles.push(x[i].id)
     }
+    console.log('roles:', roles)
     //NOTE -> This splice is temporary
     // We need to remove it in future.
 
@@ -221,8 +226,8 @@ export class AddEditComponent implements OnInit {
         date_of_birth: date,
         company: this.addCustomerForm.value.custCompanyName,
         admin_comment: this.addCustomerForm.value.custAdminComment,
-        is_tax_exempt: this.addCustomerForm.value.custIsTaxExempt,
-        subscribed_to_newsletter: this.addCustomerForm.value.custNewsletter,
+        is_tax_exempt: this.addCustomerForm.value.custIsTaxExempt ? this.addCustomerForm.value.custIsTaxExempt : false,
+        subscribed_to_newsletter: this.addCustomerForm.value.custNewsletter ? this.addCustomerForm.value.custNewsletter : false ,
         active: this.addCustomerForm.value.custActive
       }
     }
@@ -245,6 +250,7 @@ export class AddEditComponent implements OnInit {
             this._cS.displayToast(3, "Failed", "Record not updated!");
           }
         }, err => {
+          console.log('err:', err)
           this._cS.displayToast(2,err.error.errors["Dto.RoleIds"]);
            this._cS.Display_Loader(false);
            

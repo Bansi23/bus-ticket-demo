@@ -33,7 +33,7 @@ export class SearchOrderComponent implements OnInit {
   totalRecord: any;
   //#endregion
 
-  //dropdown static Data
+  //#region dropdown static Data
   dropdownOrderStatus = {
     singleSelection: false,
     text: "Select Order Status",
@@ -66,14 +66,15 @@ export class SearchOrderComponent implements OnInit {
     badgeShowLimit: 1,
     maxHeight: 200
   };
-
   //#endregion
 
+  //#region datepicker
   public myDatePickerOptions: IMyDpOptions = {
     dateFormat: 'dd/mm/yyyy',
     openSelectorOnInputClick: true,
     editableDateField: false
   };
+  //#endregion
 
   //#region form group
   fbSearchOrder() {
@@ -96,16 +97,16 @@ export class SearchOrderComponent implements OnInit {
   }
   //#endregion
 
+  //#region Get API order list
   GetRecord() {
     this._cS.Display_Loader(true);
     this._cS.API_GET(this._cS.getOrderList(this.pageSize, this.pageIndex))
       .subscribe(res => {
-        this._cS.Display_Loader(false);
+        setTimeout(() => {
+          this._cS.Display_Loader(false);
+        }, 1000);
         if (res) {
           this.lstOrderData = res.orders;
-          // this.searchOrder.get('paymentstatus').setValue('All');
-          // this.searchOrder.get('shippingstatus').setValue('All');
-          // this.searchOrder.get('orderstatus').setValue('All');
           this.finalTotal = this.lstOrderData.map(o => o.order_total).reduce((a, c) => a + c, 0);
         }
         else {
@@ -118,25 +119,66 @@ export class SearchOrderComponent implements OnInit {
         }
       });
   }
+  //#endregion
 
+  //#region Get API order count
   GetCountRecord() {
     this._cS.API_GET(this._cS.getCountItem())
       .subscribe(res => {
         if (res) {
           this.totalRecord = res.count;
         }
+        else {
+          err => {
+            if (err.status == 400) {
+              this._cS.displayToast(2, "Record not found");
+            }
+            else {
+              this._cS.displayToast(2, err);
+            }
+          }
+        }
       });
   }
 
+  //#endregion
+  //#region common method
+  getSearchListRecord() {
+    const paymentStatus = this.searchOrder.get('paymentstatus').value;
+    const shippingStatus = this.searchOrder.get('shippingstatus').value;
+    const orderStatus = this.searchOrder.get('orderstatus').value;
+    if (paymentStatus == '' && shippingStatus == '' && orderStatus == '') {
+      this.GetRecord();
+    }
+    else if (paymentStatus != '' && shippingStatus == '' && orderStatus == '') {
+      this.searchRecord();
+    }
+    else if (paymentStatus == '' && shippingStatus != '' && orderStatus == '') {
+      this.searchRecord();
+    }
+    else if (paymentStatus == '' && shippingStatus == '' && orderStatus != '') {
+      this.searchRecord();
+    }
+    else {
+      this.searchRecord();
+    }
+  }
+  //#endregion
+  //#region pagignation and select page size
+
   pageChanged(value) {
     this.pageIndex = +value;
-    this.GetRecord();
-  };
+    this.getSearchListRecord();
+  }
+
   selectedChanged(value) {
     this.pageIndex = 1;
     this.pageSize = +value;
-    this.GetRecord();
+    this.getSearchListRecord();
   }
+  //#endregion
+
+  //#region Get API search order
   searchRecord() {
     const paymentStatus = this.searchOrder.get('paymentstatus').value;
     const shippingStatus = this.searchOrder.get('shippingstatus').value;
@@ -146,6 +188,7 @@ export class SearchOrderComponent implements OnInit {
         this.pageIndex = 1;
         if (res) {
           this.lstOrderData = res.orders;
+          this.totalRecord = this.lstOrderData.length;
           this.finalTotal = this.lstOrderData.map(o => o.order_total).reduce((a, c) => a + c, 0);
         }
         else {
@@ -153,7 +196,9 @@ export class SearchOrderComponent implements OnInit {
         }
       });
   }
+  //#endregion
 
+  //#region select check box
   select_all() {
     for (let i = 0; i < this.lstOrderData.length; i++) {
       this.lstOrderData[i].select = this.selectAll;
@@ -164,29 +209,38 @@ export class SearchOrderComponent implements OnInit {
       return item.select == true;
     });
   }
+  //#endregion
+
 
   ViewData(index) {
     this._router.navigate(['/sales/viewrecord'], { queryParams: { id: index } });
   }
+
+  //#region Go through ID
   goDirectlyOrder() {
     const index = this.searchOrder.get('orderno').value;
-    const id = this.lstOrderData.find((item) => item.id == index);
-    if (id) {
-      this._router.navigate(['/sales/viewrecord'], { queryParams: { id: id.id } });
-    }
-    else {
-      this._cS.displayToast(2, 'This record is not found')
-    }
+    this._cS.API_GET(this._cS.getOrderId(index))
+      .subscribe(res => {
+        if (res) {
+          this._router.navigate(['/sales/viewrecord'], { queryParams: { id: index } });
+        }
+        else {
+          this._cS.displayToast(2, 'This record is not found')
+        }
+      });
   }
+  //#endregion
 
+  //#region static list moke data
   StaticList() {
     this.lstOrderStatus = this.__mD.orderStatus();
     this.lstPaymentStatus = this.__mD.paymentStatus();
     this.lstShippingStatus = this.__mD.shippingStatus();
-    this.lstvender = this.__mD.vender();
-    this.lstpaymentMethod = this.__mD.paymentMethod();
+    //this.lstvender = this.__mD.vender();
+    //this.lstpaymentMethod = this.__mD.paymentMethod();
     this.lstCountry = this.__mD.countryList();
   }
+  //#endregion
 
   constructor(private _cS: CommonService, private __mD: MockService, private fb: FormBuilder, private _router: Router) { }
 
@@ -195,6 +249,6 @@ export class SearchOrderComponent implements OnInit {
     this.StaticList();
     this.GetCountRecord();
     this.GetRecord();
-    this.lstOrderData.map(x => { x.select = '' });
+    this.lstOrderData.map(x => { x.select = false });
   }
 }

@@ -15,7 +15,7 @@
                     <div class="form-group col-sm-6">
                         <label for="city">Payment Status</label>
                         <select class="form-control" formControlName="paymentstatus">
-                            <option value="All">All</option>
+                            <option value="">All</option>
                             <option *ngFor="let item of lstPaymentStatus">{{item.itemName}}
                             </option>
                         </select>
@@ -24,7 +24,7 @@
                     <div class="form-group col-sm-6">
                         <label for="city">Order Status</label>
                         <select class="form-control" formControlName="orderstatus">
-                            <option value="All">All</option>
+                            <option value="">All</option>
                             <option *ngFor="let item of lstOrderStatus">{{item.itemName}}
                             </option>
                         </select>
@@ -49,7 +49,7 @@
                     <div class="form-group col-sm-6">
                         <label>Shipping Status</label>
                         <select class="form-control" formControlName="shippingstatus">
-                            <option value="All">All</option>
+                            <option value="">All</option>
                             <option *ngFor="let item of lstShippingStatus">{{item.itemName}}
                             </option>
                         </select>
@@ -92,7 +92,6 @@
                             <th>Customer</th>
                             <th>Created on </th>
                             <th>Order total </th>
-
                         </tr>
                     </thead>
                     <tbody>
@@ -117,13 +116,13 @@
                             <td>{{lstorder.created_on_utc | date :'dd/MM/yyyy,h:mm:ss a'}}</td>
                             <td>{{lstorder.order_total | number:'2.2-2'}}</td>
                         </tr>
-                        <tr>
+                        <tr *ngIf="lstOrderData.length > 0">
                             <td colspan="8"></td>
                             <td>{{finalTotal | number:'2.2-2'}}</td>
                             <td></td>
                         </tr>
                         <tr>
-                            <td colspan="9" *ngIf="(lstOrderData).length == 0" class="alert">No matching record Found
+                            <td colspan="9" *ngIf="(lstOrderData).length == 0" class="alert">No matching record found
                             </td>
                         </tr>
                     </tbody>

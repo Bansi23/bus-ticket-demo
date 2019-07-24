@@ -139,7 +139,7 @@
                             <b> Profit </b>
                         </div>
                         <div class="col-md-3">
-                            <span> ${{finalTotal | number:'2.2-2'}}</span>
+                            <span> ${{profitTotal | number:'2.2-2'}}</span>
                         </div>
                     </div>
                 </div>
@@ -209,6 +209,18 @@
                                 <div class="form-group col-sm-12">
                                     <label class="pull-left">Amount to refund</label>
                                     <input type="text" class="form-control" formControlName="refundedamount">
+                                    <span class="text-danger pull-left"
+                                        *ngIf="addrefund.get('refundedamount').hasError('pattern') && addrefund.get('refundedamount').touched ">
+                                        Enter Only pogitive digit
+                                    </span>
+                                    <span class="text-danger pull-left"
+                                        *ngIf="addrefund.get('refundedamount').hasError('required') && addrefund.get('refundedamount').touched ">
+                                        Required
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
                                     <span class="pull-left">Max amount is {{partialAmount}} USD</span>
                                 </div>
                             </div>
@@ -218,7 +230,7 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-success btn-sm" (click)="saveRefund()">{{ 'Refund Amount' }}</button>
-                <button class="btn btn-danger float-left btn-sm" (click)="close()">Close </button>
+                <!-- <button class="btn btn-danger float-left btn-sm" (click)="close()">Close </button> -->
             </div>
         </div>
     </div>
