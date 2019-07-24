@@ -111,12 +111,14 @@ export class AddEditComponent implements OnInit {
     };
 
     this.selectedRoles = [
-      { "id": 1, "role": "Administrator" },
-      { "id": 2, "role": "Forum Moderators" },
-      { "id": 3, "role": "Guests" },
-      { "id": 4, "role": "Vendors" }];
+      { "id": 1, "itemName": "Administrator" },
+      { "id": 2, "itemName": "Forum Moderators" },
+      { "id": 3, "itemName": "Guests" },
+      { "id": 4, "itemName": "Registered" },
+      { "id": 5, "itemName": "Vendors"}
+    ];
 
-  
+
   }
   initAddCustomerForm() {
     this.addCustomerForm = this.fb.group({
@@ -136,7 +138,7 @@ export class AddEditComponent implements OnInit {
       custActive: ['']
     })
   }
-  initEidtCustomerForm(){
+  initEidtCustomerForm() {
     this.addCustomerForm = this.fb.group({
       custEmail: ['', Validators.compose([Validators.required, Validators.pattern(emailPattern)])],
       // custPassword: ['', Validators.compose([Validators.minLength(5), Validators.required,Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')])],
@@ -155,7 +157,7 @@ export class AddEditComponent implements OnInit {
     })
   }
   setValuesInForm() {
-    
+
     this.addCustomerForm.patchValue({
       custEmail: this.customer[0].email,
       // custPassword : this.dataToSet.
@@ -205,8 +207,7 @@ export class AddEditComponent implements OnInit {
     for (let i = 0; i < x.length; i++) {
       roles.push(x[i].id)
     }
-    console.log('roles:', roles)
-    //NOTE -> This splice is temporary
+     //NOTE -> This splice is temporary
     // We need to remove it in future.
 
     // if(this.addCustomerForm.value.custGender == "male"){
@@ -227,49 +228,51 @@ export class AddEditComponent implements OnInit {
         company: this.addCustomerForm.value.custCompanyName,
         admin_comment: this.addCustomerForm.value.custAdminComment,
         is_tax_exempt: this.addCustomerForm.value.custIsTaxExempt ? this.addCustomerForm.value.custIsTaxExempt : false,
-        subscribed_to_newsletter: this.addCustomerForm.value.custNewsletter ? this.addCustomerForm.value.custNewsletter : false ,
+        subscribed_to_newsletter: this.addCustomerForm.value.custNewsletter ? this.addCustomerForm.value.custNewsletter : false,
         active: this.addCustomerForm.value.custActive
       }
     }
 
     if (this.count == 2) {
-      roles.splice(0, 1);
+        if(this.custId){
+
+          roles.splice(0, 1);
+        }
 
       this._cS.API_PUT(environment.apiURL + "/customers/" + this.storedId, body)
         .subscribe(response => {
 
           if (response) {
-             this.isChangePassword = false;
+            this.isChangePassword = false;
             if (this.isSaveClicked) {
-              this._cS.displayToast(1,"The customer has been updated successfully!")
+              this._cS.displayToast(1, "The customer has been updated successfully!")
 
               this.router.navigateByUrl('/customers');
             }
           } else {
-            
+
             this._cS.displayToast(3, "Failed", "Record not updated!");
           }
         }, err => {
-          console.log('err:', err)
-          this._cS.displayToast(2,err.error.errors["Dto.RoleIds"]);
-           this._cS.Display_Loader(false);
-           
+          
+          this._cS.displayToast(2, err.error.errors["Dto.RoleIds"]);
+          this._cS.Display_Loader(false);
+
         })
 
     } else {
-    
 
-      
       this._cS.API_POST(this._cS.getCustomerList(), body)
         .subscribe(response => {
           if (response) {
             if (this.isSaveAndEdit) {
               this.isChangePassword = true;
               this.storedId = response.customers[0].id;
+              this._cS.displayToast(1, "The new customer has been created successfully!")
               // alert("is save and edit")
             } else {
               this.storedId = response.customers[0].id;
-              this._cS.displayToast(1,"The new customer has been created successfully!")
+              this._cS.displayToast(1, "The new customer has been created successfully!")
 
               this.router.navigateByUrl('/customers');
             }
