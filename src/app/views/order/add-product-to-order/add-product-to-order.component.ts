@@ -10,7 +10,8 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
   styleUrls: ['./add-product-to-order.component.scss']
 })
 export class AddProductToOrderComponent implements OnInit {
-
+  
+  //#region proprerty
   orderId: any;
   viewRecord: any = [];
   orderRecord: any = [];
@@ -18,6 +19,7 @@ export class AddProductToOrderComponent implements OnInit {
   itemForm: FormGroup;
   orderlst: any = [];
   giftWrapping: any;
+  //#endregion
 
   @ViewChild('editItem', { static: true }) EditRecord: ModalDirective;
   // @ViewChild('deleteModal', { static: true }) deleteMedalRec: ModalDirective;
@@ -144,7 +146,6 @@ export class AddProductToOrderComponent implements OnInit {
   }
   close() {
     this.EditRecord.hide();
-    //this.deleteMedalRec.hide();
   }
 
   addProduct() {
