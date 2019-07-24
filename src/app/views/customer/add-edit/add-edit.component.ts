@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Routes, Router, ActivatedRoute } from '@angular/router';
-import { from } from 'rxjs';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MockService } from '../../../services/mock.service';
 import { CommonService } from '../../../services/common.service';
 import { FormBuilder, FormGroup, Validators, FormArray, AbstractControl, Form } from '@angular/forms';
-import { map } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment'
 import { IMyDpOptions } from 'mydatepicker';
 const emailPattern = environment.emailPattern;
@@ -116,7 +114,7 @@ export class AddEditComponent implements OnInit {
       { "id": 3, "role": "Guests" },
       { "id": 4, "role": "Vendors" }];
 
-  
+
   }
   initAddCustomerForm() {
     this.addCustomerForm = this.fb.group({
@@ -136,7 +134,7 @@ export class AddEditComponent implements OnInit {
       custActive: ['']
     })
   }
-  initEidtCustomerForm(){
+  initEidtCustomerForm() {
     this.addCustomerForm = this.fb.group({
       custEmail: ['', Validators.compose([Validators.required, Validators.pattern(emailPattern)])],
       // custPassword: ['', Validators.compose([Validators.minLength(5), Validators.required,Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')])],
@@ -155,7 +153,7 @@ export class AddEditComponent implements OnInit {
     })
   }
   setValuesInForm() {
-    
+
     this.addCustomerForm.patchValue({
       custEmail: this.customer[0].email,
       // custPassword : this.dataToSet.
@@ -227,7 +225,7 @@ export class AddEditComponent implements OnInit {
         company: this.addCustomerForm.value.custCompanyName,
         admin_comment: this.addCustomerForm.value.custAdminComment,
         is_tax_exempt: this.addCustomerForm.value.custIsTaxExempt ? this.addCustomerForm.value.custIsTaxExempt : false,
-        subscribed_to_newsletter: this.addCustomerForm.value.custNewsletter ? this.addCustomerForm.value.custNewsletter : false ,
+        subscribed_to_newsletter: this.addCustomerForm.value.custNewsletter ? this.addCustomerForm.value.custNewsletter : false,
         active: this.addCustomerForm.value.custActive
       }
     }
@@ -239,27 +237,27 @@ export class AddEditComponent implements OnInit {
         .subscribe(response => {
 
           if (response) {
-             this.isChangePassword = false;
+            this.isChangePassword = false;
             if (this.isSaveClicked) {
-              this._cS.displayToast(1,"The customer has been updated successfully!")
+              this._cS.displayToast(1, "The customer has been updated successfully!")
 
               this.router.navigateByUrl('/customers');
             }
           } else {
-            
+
             this._cS.displayToast(3, "Failed", "Record not updated!");
           }
         }, err => {
           console.log('err:', err)
-          this._cS.displayToast(2,err.error.errors["Dto.RoleIds"]);
-           this._cS.Display_Loader(false);
-           
+          this._cS.displayToast(2, err.error.errors["Dto.RoleIds"]);
+          this._cS.Display_Loader(false);
+
         })
 
     } else {
-    
 
-      
+
+
       this._cS.API_POST(this._cS.getCustomerList(), body)
         .subscribe(response => {
           if (response) {
@@ -269,7 +267,7 @@ export class AddEditComponent implements OnInit {
               // alert("is save and edit")
             } else {
               this.storedId = response.customers[0].id;
-              this._cS.displayToast(1,"The new customer has been created successfully!")
+              this._cS.displayToast(1, "The new customer has been created successfully!")
 
               this.router.navigateByUrl('/customers');
             }
