@@ -130,11 +130,13 @@ export class EditCustomerAddressComponent implements OnInit {
   onSelectCountry(country_id) {
     this._cS.API_GET(this._cS.getCountry(country_id)).subscribe(res => {
       this.statelist = res;
-      this.statebilling = this.statelist.find((item) => item.id == this.editRecord.billing_address.state_province_id);
+      this.statebilling = this.statelist.find((item) => item.id == this.editRecord.state_province_id);
       if (this.statebilling == undefined) {
+        
         this.statebilling = this.otherCountry;
       }
       else {
+        
         this.editbillingForm.patchValue({
           state: this.statebilling.name,
         });
@@ -142,53 +144,53 @@ export class EditCustomerAddressComponent implements OnInit {
     });
   }
 
-  editBilling() {
-    this.getParam();
-    this._cS.API_GET(this._cS.getCountry(this.editbillingForm.value.country)).subscribe(res => {
-      this.statelist = res;
-    });
-    var statebilling = this.statelist.find((item) => item.id == this.editbillingForm.value.state);
-    var countryname = this.lstCountry.find((item) => item.state_id == this.editbillingForm.value.country);
-    if (statebilling == undefined) {
-      statebilling = this.otherCountry;
-    }
-    var body = {
-      "order":
-      {
-        "billing_address": {
-          "first_name": this.editbillingForm.value.fnm,
-          "last_name": this.editbillingForm.value.lnm,
-          "email": this.editbillingForm.value.mail,
-          "company": this.editbillingForm.value.company,
-          "country_id": +this.editbillingForm.value.country,
-          "country": countryname.state,
-          "state_province_id": +statebilling.id ? +statebilling.id : null,
-          "city": this.editbillingForm.value.city,
-          "address1": this.editbillingForm.value.addone,
-          "address2": this.editbillingForm.value.addtwo,
-          "zip_postal_code": +this.editbillingForm.value.pinno,
-          "phone_number": +this.editbillingForm.value.mono,
-          "fax_number": +this.editbillingForm.value.faxno,
-          "id": +this.billingId,
-        },
-        id: +this.orderId,
-        shipping_method: this.editRecord.shipping_method
-      }
-    }
+  // editBilling() {
+  //   this.getParam();
+  //   this._cS.API_GET(this._cS.getCountry(this.editbillingForm.value.country)).subscribe(res => {
+  //     this.statelist = res;
+  //   });
+  //   var statebilling = this.statelist.find((item) => item.id == this.editbillingForm.value.state);
+  //   var countryname = this.lstCountry.find((item) => item.state_id == this.editbillingForm.value.country);
+  //   if (statebilling == undefined) {
+  //     statebilling = this.otherCountry;
+  //   }
+  //   var body = {
+  //     "order":
+  //     {
+  //       "billing_address": {
+  //         "first_name": this.editbillingForm.value.fnm,
+  //         "last_name": this.editbillingForm.value.lnm,
+  //         "email": this.editbillingForm.value.mail,
+  //         "company": this.editbillingForm.value.company,
+  //         "country_id": +this.editbillingForm.value.country,
+  //         "country": countryname.state,
+  //         "state_province_id": +statebilling.id ? +statebilling.id : null,
+  //         "city": this.editbillingForm.value.city,
+  //         "address1": this.editbillingForm.value.addone,
+  //         "address2": this.editbillingForm.value.addtwo,
+  //         "zip_postal_code": +this.editbillingForm.value.pinno,
+  //         "phone_number": +this.editbillingForm.value.mono,
+  //         "fax_number": +this.editbillingForm.value.faxno,
+  //         "id": +this.billingId,
+  //       },
+  //       id: +this.orderId,
+  //       shipping_method: this.editRecord.shipping_method
+  //     }
+  //   }
 
-    this._cS.API_PUT(this._cS.getOrderId(this.orderId), body)
-      .subscribe(res => {
-        if (res) {
-          this._cS.displayToast(1, 'Record updated successfully');
-          this._router.navigate(['/sales/viewrecord'], { queryParams: { id: this.orderId } });
-        } else {
-          this._cS.displayToast(2, 'Error in response');
-        };
-      }, err => {
-        this._cS.displayToast(2, 'Record not updated');
-      });
+  //   this._cS.API_PUT(this._cS.getOrderId(this.orderId), body)
+  //     .subscribe(res => {
+  //       if (res) {
+  //         this._cS.displayToast(1, 'Record updated successfully');
+  //         this._router.navigate(['/sales/viewrecord'], { queryParams: { id: this.orderId } });
+  //       } else {
+  //         this._cS.displayToast(2, 'Error in response');
+  //       };
+  //     }, err => {
+  //       this._cS.displayToast(2, 'Record not updated');
+  //     });
 
-  }
+  // }
 
   editShpping() {
     this.getParam();
@@ -201,8 +203,8 @@ export class EditCustomerAddressComponent implements OnInit {
       statebilling = this.otherCountry;
     }
     var body = {
-      order: {
-        shipping_address: {
+      customer: {
+        addresses: {
           "first_name": this.editbillingForm.value.fnm,
           "last_name": this.editbillingForm.value.lnm,
           "email": this.editbillingForm.value.mail,
@@ -216,21 +218,22 @@ export class EditCustomerAddressComponent implements OnInit {
           "zip_postal_code": this.editbillingForm.value.pinno,
           "phone_number": this.editbillingForm.value.mono,
           "fax_number": this.editbillingForm.value.faxno,
-          "id": this.shippingId
+          "id": this.addressId
         },
-        id: +this.orderId,
-        shipping_method: this.editRecord.shipping_method
+        id: +this.customerId,
+        // shipping_method: this.editRecord.shipping_method
       }
     }
 
-    this._cS.API_PUT(this._cS.getOrderId(this.orderId), body)
+    this._cS.API_PUT(this._cS.getParticularCustomer(this.customerId), body)
       .subscribe(res => {
         if (res) {
           this._cS.displayToast(1, 'Record updated successfully');
-          this._router.navigate(['/sales/viewrecord'], { queryParams: { id: this.orderId } });
+          this._router.navigate(['/customers']);
         } else {
         };
       }, err => {
+        console.log('err:', err)
         this._cS.displayToast(2, 'Record not updated');
       });
   }
