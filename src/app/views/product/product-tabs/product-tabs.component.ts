@@ -73,10 +73,12 @@ export class ProductTabsComponent implements OnInit {
   ngOnInit() {
     this.getParameter();
     var editedRecord = JSON.parse(localStorage.getItem('EditedRecord'));
-    if (this.productId != null) {
-      this.title = `Edit product details - ${editedRecord.name}`;
-    } else {
-      this.title = 'Add a new product';
+    if (editedRecord) {
+      if (this.productId != null) {
+        this.title = `Edit product details - ${editedRecord.name}`;
+      } else {
+        this.title = 'Add a new product';
+      }
     }
   }
 }
