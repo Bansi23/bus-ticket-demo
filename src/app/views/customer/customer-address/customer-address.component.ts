@@ -47,8 +47,8 @@ export class CustomerAddressComponent implements OnInit {
    
     this._cS.API_GET(this._cS.getPaticularCustomerOrder(this.custId))
       .subscribe(response => {
-         
-        this.temp = response.orders;
+        console.log('response:', response)
+         this.temp = response.orders; 
         this.custAddress = [];
         this.getTotalRecord();
         for (let i = 0; i < response.orders.length; i++) {
@@ -67,7 +67,8 @@ export class CustomerAddressComponent implements OnInit {
             customerId: this.temp[i].customer_id,
             addressId: this.temp[i].billing_address.id
           }
-          this.custAddress.push(data);
+
+           this.custAddress.push(data);
         }
       })
 
