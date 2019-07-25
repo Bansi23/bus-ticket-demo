@@ -66,6 +66,7 @@ export class EditCustomerAddressComponent implements OnInit {
       this.customerId = params['customerId']
       this.addressId = params['addressId']
 
+
     });
   }
 
@@ -82,19 +83,19 @@ export class EditCustomerAddressComponent implements OnInit {
       this._cS.API_GET(this._cS.getPaticularCustomerOrder(this.customerId))
         .subscribe(response => {
           if (response) {
-             this.editRecord = response.orders[0].billing_address;
-            
+            this.editRecord = response.orders[0].billing_address;
+
             this.lstCountry = this._mD.countryList();
-             if (this.customerId != null) {
+            if (this.customerId != null) {
               this._cS.API_GET(this._cS.getCountry(this.editRecord.country_id)).subscribe(res => {
                 this.statelist = res;
                 var statebilling = this.statelist.find((item) => item.id == this.editRecord.state_province_id);
                 const country = this.lstCountry.find((item) => item.state_id == this.editRecord.country_id);
                 if (statebilling == undefined) {
-                  statebilling = this.otherCountry; 
+                  statebilling = this.otherCountry;
                 }
-             
-                
+
+                this.addressId = this.editRecord.id;
                 this.editbillingForm.patchValue({
                   fnm: this.editRecord.first_name,
                   lnm: this.editRecord.last_name,
@@ -109,15 +110,15 @@ export class EditCustomerAddressComponent implements OnInit {
                   mono: this.editRecord.phone_number,
                   faxno: this.editRecord.fax_number,
                 });
-                
-          
+
+
               });
             }
 
 
           }
           else {
-            
+
             this._cS.displayToast(2, 'Error in response');
           }
         })
@@ -132,11 +133,11 @@ export class EditCustomerAddressComponent implements OnInit {
       this.statelist = res;
       this.statebilling = this.statelist.find((item) => item.id == this.editRecord.state_province_id);
       if (this.statebilling == undefined) {
-        
+
         this.statebilling = this.otherCountry;
       }
       else {
-        
+
         this.editbillingForm.patchValue({
           state: this.statebilling.name,
         });
@@ -202,27 +203,34 @@ export class EditCustomerAddressComponent implements OnInit {
     if (statebilling == undefined) {
       statebilling = this.otherCountry;
     }
+    console.log('this.addressId:', this.addressId)
     var body = {
-      customer: {
-        addresses: {
-          "first_name": this.editbillingForm.value.fnm,
-          "last_name": this.editbillingForm.value.lnm,
-          "email": this.editbillingForm.value.mail,
-          "company": this.editbillingForm.value.company,
-          "country_id": this.editbillingForm.value.country,
-          "country": countryname.state,
-          "state_province_id": +statebilling.id ? +statebilling.id : null,
-          "city": this.editbillingForm.value.city,
-          "address1": this.editbillingForm.value.addone,
-          "address2": this.editbillingForm.value.addtwo,
-          "zip_postal_code": this.editbillingForm.value.pinno,
-          "phone_number": this.editbillingForm.value.mono,
-          "fax_number": this.editbillingForm.value.faxno,
-          "id": this.addressId
-        },
-        id: +this.customerId,
-        // shipping_method: this.editRecord.shipping_method
+
+      "customer": {
+        "addresses": [
+          {
+            "first_name": this.editbillingForm.value.fnm,
+            "last_name": this.editbillingForm.value.lnm,
+            "email": this.editbillingForm.value.mail,
+            "company": this.editbillingForm.value.company,
+            "country_id": this.editbillingForm.value.country,
+            "country": countryname.state,
+            "state_province_id": +statebilling.id ? +statebilling.id : null,
+            "city": this.editbillingForm.value.city,
+            "address1": this.editbillingForm.value.addone,
+            "address2": this.editbillingForm.value.addtwo,
+            "zip_postal_code": this.editbillingForm.value.pinno,
+            "phone_number": this.editbillingForm.value.mono,
+            "fax_number": this.editbillingForm.value.faxno,
+            "id": this.addressId 
+            
+          }
+        ],
+
+        "id" : this.customerId
       }
+
+
     }
 
     this._cS.API_PUT(this._cS.getParticularCustomer(this.customerId), body)
