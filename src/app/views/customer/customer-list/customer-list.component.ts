@@ -11,7 +11,7 @@ import { CommonService } from '../../../services/common.service';
 export class CustomerListComponent implements OnInit {
   lstcustomers = [];
   lstCustomerRoles = [];
-  totalRecords: number;
+  totalRecords: number;                   
   pageIndex: number = 1;
   pageSize: number = 10;
   constructor(private router: Router, private _mS: MockService, private _cS: CommonService) { }
