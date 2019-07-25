@@ -107,6 +107,7 @@ export class SearchOrderComponent implements OnInit {
         }, 1000);
         if (res) {
           this.lstOrderData = res.orders;
+          this.GetCountRecord();
           this.finalTotal = this.lstOrderData.map(o => o.order_total).reduce((a, c) => a + c, 0);
         }
         else {
@@ -236,8 +237,6 @@ export class SearchOrderComponent implements OnInit {
     this.lstOrderStatus = this.__mD.orderStatus();
     this.lstPaymentStatus = this.__mD.paymentStatus();
     this.lstShippingStatus = this.__mD.shippingStatus();
-    //this.lstvender = this.__mD.vender();
-    //this.lstpaymentMethod = this.__mD.paymentMethod();
     this.lstCountry = this.__mD.countryList();
   }
   //#endregion
@@ -245,10 +244,9 @@ export class SearchOrderComponent implements OnInit {
   constructor(private _cS: CommonService, private __mD: MockService, private fb: FormBuilder, private _router: Router) { }
 
   ngOnInit() {
+    this.GetRecord();
     this.fbSearchOrder();
     this.StaticList();
-    this.GetCountRecord();
-    this.GetRecord();
     this.lstOrderData.map(x => { x.select = false });
   }
 }

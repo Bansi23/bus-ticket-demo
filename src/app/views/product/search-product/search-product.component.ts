@@ -55,7 +55,6 @@ export class SearchProductComponent implements OnInit {
     if (this.lstProduct.length > 0) {
       const sku = this.searchProdFrom.getRawValue().sku;
       var skuMatch = this.lstProduct.find(x => x.sku == sku);
-      console.log('skuMatch:', skuMatch)
       if (skuMatch) {
         localStorage.setItem('EditedRecord', JSON.stringify(skuMatch));
         this._router.navigate(['/catalog/addProduct'], { queryParams: { id: skuMatch.id } })

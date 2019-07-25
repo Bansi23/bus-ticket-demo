@@ -287,7 +287,6 @@ export class CommonService {
     this.API_POST(this.getProductList(), body)
       .subscribe(res => {
         if (res) {
-          console.log('res:', res)
           this.productList();
           this.lstProduct.push(res.products);
           this.displayToast(1, 'Product added successfully');
