@@ -23,12 +23,12 @@ export class SelectAddProductComponent implements OnInit {
   //#region form group
   fbAddProduct() {
     this.AddProduct = this.fb.group({
-      priceIncl: ['', Validators.compose([Validators.required, Validators.pattern('^[0-9]\d{0,7}(?:\.\d{1,4})?|\.\d{1,4}$')])],
-      priceExcl: [null, Validators.compose([Validators.required, Validators.pattern('^[0-9]\d{0,7}(?:\.\d{1,4})?|\.\d{1,4}$')])],
-      quantity: [1, Validators.compose([Validators.required, Validators.pattern('^[0-9]\d{0,7}(?:\.\d{1,4})?|\.\d{1,4}$')])],
-      totalIncl: [null, Validators.compose([Validators.required, Validators.pattern('^[0-9]\d{0,7}(?:\.\d{1,4})?|\.\d{1,4}$')])],
-      totalExcl: [null, Validators.compose([Validators.required, Validators.pattern('^[0-9]\d{0,7}(?:\.\d{1,4})?|\.\d{1,4}$')])],
-      inputtext: ['', Validators.required],
+      priceIncl: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]\\d{0,50}')])],
+      priceExcl: [null, Validators.compose([Validators.required, Validators.pattern('[0-9]\\d{0,50}')])],
+      quantity: [1, Validators.compose([Validators.required, Validators.pattern('[0-9]\\d{0,50}')])],
+      totalIncl: [null, Validators.compose([Validators.required, Validators.pattern('[0-9]\\d{0,50}')])],
+      totalExcl: [null, Validators.compose([Validators.required, Validators.pattern('[0-9]\\d{0,50}')])],
+      inputtext: [''],
       droplist: [''],
       radiolist: [''],
       imagesquares: [''],
@@ -77,13 +77,6 @@ export class SelectAddProductComponent implements OnInit {
     for (let val in this.AddProduct.controls) {
       this.AddProduct.controls[val].markAsTouched();
     };
-    // this.attributelst = [
-    //   { "value": this.AddProduct.value.inputtext },
-    //   { "value": this.AddProduct.value.radiolist },
-    //   { "value": this.AddProduct.value.checkboxes },
-    //   { "value": this.AddProduct.value.multilinetextbox },
-    //   { "value": this.AddProduct.value.imagesquares },
-    // ]
     if (this.AddProduct.valid) {
       this._cS.API_GET(this._cS.getOrderItem(this.orderid))
         .subscribe(response => {
@@ -119,6 +112,9 @@ export class SelectAddProductComponent implements OnInit {
               })
           }
         });
+    }
+    else {
+      this._cS.displayToast(2, 'Invalid data')
     }
   }
 
