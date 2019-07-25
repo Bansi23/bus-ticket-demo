@@ -14,7 +14,7 @@
     <div class="card-body">
         <form [formGroup]="editbillingForm">
             <div class="row">
-                <div class="form-group col-sm-8">
+                <div class="form-group col-sm-6">
                     <label for="fnm">First Name<span class="text-danger"
                             *ngIf="editbillingForm.controls.fnm.errors?.required">*</span></label>
                     <input type="text" class="form-control" formControlName="fnm">
@@ -22,12 +22,8 @@
                         *ngIf="editbillingForm.get('fnm').hasError('required') && editbillingForm.get('fnm').touched">
                         First Name is Required
                     </span>
-
                 </div>
-            </div>
-
-            <div class="row">
-                <div class="form-group col-sm-8">
+                <div class="form-group col-sm-6">
                     <label for="lnm">Last Name<span class="text-danger"
                             *ngIf="editbillingForm.controls.lnm.errors?.required">*</span></label>
                     <input type="text" class="form-control" formControlName="lnm">
@@ -39,7 +35,7 @@
             </div>
 
             <div class="row">
-                <div class="form-group col-sm-8">
+                <div class="form-group col-sm-6">
                     <label for="mail">E-mail<span class="text-danger"
                             *ngIf="editbillingForm.controls.mail.errors?.required || editbillingForm.controls.mail.errors?.pattern">*</span></label>
                     <input type="email" class="form-control" formControlName="mail">
@@ -52,17 +48,15 @@
                         Enter Valid E-mail
                     </span>
                 </div>
-            </div>
-
-            <div class="row">
-                <div class="form-group col-sm-8">
+                <div class="form-group col-sm-6">
                     <label>Company</label>
                     <input type="text" class="form-control" formControlName="company">
                 </div>
             </div>
 
+
             <div class="row">
-                <div class="form-group col-sm-8">
+                <div class="form-group col-sm-6">
                     <label for="mail">Country<span class="text-danger"
                             *ngIf="editbillingForm.controls.country.errors?.required">*</span></label>
                     <select formControlName="country" class="form-control"
@@ -75,10 +69,7 @@
                         Country is Required
                     </span>
                 </div>
-            </div>
-
-            <div class="row">
-                <div class="form-group col-sm-8">
+                <div class="form-group col-sm-6">
                     <label for="mail">State<span class="text-danger"
                             *ngIf="editbillingForm.controls.state.errors?.required">*</span></label>
                     <select class="form-control" formControlName="state">
@@ -94,7 +85,7 @@
             </div>
 
             <div class="row">
-                <div class="form-group col-sm-8">
+                <div class="form-group col-sm-6">
                     <label for="mail">City<span class="text-danger"
                             *ngIf="editbillingForm.controls.city.errors?.required">*</span></label>
                     <input type="text" class="form-control" formControlName="city">
@@ -103,29 +94,9 @@
                         City is Required
                     </span>
                 </div>
-            </div>
 
-            <div class="row">
-                <div class="form-group col-sm-8">
-                    <label for="mail">Address 1<span class="text-danger"
-                            *ngIf="editbillingForm.controls.addone.errors?.required">*</span></label>
-                    <input type="text" class="form-control" formControlName="addone">
-                    <span class="text-danger"
-                        *ngIf="editbillingForm.get('addone').hasError('required') && editbillingForm.get('addone').touched">
-                        Address is Required
-                    </span>
-                </div>
-            </div>
 
-            <div class="row">
-                <div class="form-group col-sm-8">
-                    <label>Address 2</label>
-                    <input type="text" class="form-control" formControlName="addtwo">
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="form-group col-sm-8">
+                <div class="form-group col-sm-6">
                     <label for="pinno">ZIP/ Postal Code<span class="text-danger"
                             *ngIf="editbillingForm.controls.pinno.errors?.required || editbillingForm.controls.pinno.errors?.pattern">*</span></label>
                     <input type="text" class="form-control" formControlName="pinno">
@@ -141,7 +112,24 @@
             </div>
 
             <div class="row">
-                <div class="form-group col-sm-8">
+                <div class="form-group col-sm-6">
+                    <label for="mail">Address 1<span class="text-danger"
+                            *ngIf="editbillingForm.controls.addone.errors?.required">*</span></label>
+                    <input type="text" class="form-control" formControlName="addone">
+                    <span class="text-danger"
+                        *ngIf="editbillingForm.get('addone').hasError('required') && editbillingForm.get('addone').touched">
+                        Address is Required
+                    </span>
+                </div>
+
+                <div class="form-group col-sm-6">
+                    <label>Address 2</label>
+                    <input type="text" class="form-control" formControlName="addtwo">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-6">
                     <label for="mono">Mobile No.<span class="text-danger"
                             *ngIf="editbillingForm.controls.mono.errors?.required ||editbillingForm.controls.mono.errors?.pattern">*</span></label>
                     <input type="text" class="form-control" formControlName="mono">
@@ -154,18 +142,14 @@
                         Enter valid mobile number
                     </span>
                 </div>
-            </div>
-
-
-            <div class="row">
-                <div class="form-group col-sm-8">
+                <div class="form-group col-sm-6">
                     <label for="faxno">Fax No.<span class="text-danger"
                             *ngIf="editbillingForm.controls.faxno.errors?.pattern">*</span></label>
                     <input type="text" class="form-control" formControlName="faxno">
                     <!-- <span class="text-danger"
-                        *ngIf="editbillingForm.get('faxno').hasError('pattern') && editbillingForm.get('faxno').touched">
-                        Enter valid Fax number
-                    </span> -->
+                            *ngIf="editbillingForm.get('faxno').hasError('pattern') && editbillingForm.get('faxno').touched">
+                            Enter valid Fax number
+                        </span> -->
                 </div>
             </div>
         </form>
