@@ -56,8 +56,8 @@ export class MockService {
     return [
       { "id": 1, "itemName": "Administrator" },
       { "id": 2, "itemName": "Forum Moderators" },
-      { "id": 3, "itemName": "Guests" },
-      { "id": 4, "itemName": "Registered" },
+      { "id": 4, "itemName": "Guests" },
+      { "id": 3, "itemName": "Registered" },
       { "id": 5, "itemName": "Vendors" }
     ]
   }
