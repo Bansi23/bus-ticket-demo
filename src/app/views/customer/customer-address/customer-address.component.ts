@@ -74,7 +74,7 @@ export class CustomerAddressComponent implements OnInit {
             this.custAddress.push(data);
           }
         } else {
-          this._cS.displayToast(3, "No address found");
+          // this._cS.displayToast(3, "No address found");
           this.totalRecords = 0;
         }
 
