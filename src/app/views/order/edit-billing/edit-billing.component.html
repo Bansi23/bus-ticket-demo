@@ -22,6 +22,10 @@
                         *ngIf="editbillingForm.get('fnm').hasError('required') && editbillingForm.get('fnm').touched">
                         First Name is Required
                     </span>
+                    <span class="text-danger"
+                        *ngIf="editbillingForm.get('fnm').hasError('pattern') && editbillingForm.get('fnm').touched">
+                        Enter valid First name
+                    </span>
                 </div>
                 <div class="form-group col-sm-6">
                     <label for="lnm">Last Name<span class="text-danger"
@@ -30,6 +34,10 @@
                     <span class="text-danger"
                         *ngIf="editbillingForm.get('lnm').hasError('required') && editbillingForm.get('lnm').touched">
                         Last Name is Required
+                    </span>
+                    <span class="text-danger"
+                        *ngIf="editbillingForm.get('lnm').hasError('pattern') && editbillingForm.get('lnm').touched">
+                        Enter valid Last name
                     </span>
                 </div>
             </div>
@@ -120,6 +128,11 @@
                         *ngIf="editbillingForm.get('addone').hasError('required') && editbillingForm.get('addone').touched">
                         Address is Required
                     </span>
+
+                    <span class="text-danger"
+                        *ngIf="editbillingForm.get('addone').hasError('pattern') && editbillingForm.get('addone').touched">
+                        Enter valid Address
+                    </span>
                 </div>
 
                 <div class="form-group col-sm-6">
@@ -143,8 +156,7 @@
                     </span>
                 </div>
                 <div class="form-group col-sm-6">
-                    <label for="faxno">Fax No.<span class="text-danger"
-                            *ngIf="editbillingForm.controls.faxno.errors?.pattern">*</span></label>
+                    <label for="faxno">Fax No.</label>
                     <input type="text" class="form-control" formControlName="faxno">
                     <!-- <span class="text-danger"
                             *ngIf="editbillingForm.get('faxno').hasError('pattern') && editbillingForm.get('faxno').touched">
