@@ -222,8 +222,8 @@ export class EditCustomerAddressComponent implements OnInit {
             "zip_postal_code": this.editbillingForm.value.pinno,
             "phone_number": this.editbillingForm.value.mono,
             "fax_number": this.editbillingForm.value.faxno,
-            // "id": this.addressId 
-            "id" : 73
+            "id": this.addressId 
+            
           }
         ],
 
