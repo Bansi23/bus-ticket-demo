@@ -65,21 +65,21 @@
                             </div> -->
                             <div class="row">
                                 <div class="form-group col-sm-6">
-                                    <label>Product Name</label>
+                                    <label class="pull-left">Product Name</label>
                                     <input type="text" readonly class="form-control" formControlName="productName">
                                 </div>
 
                                 <div class="form-group col-sm-6">
-                                    <label>Quantity</label>
+                                    <label class="pull-left">Quantity</label>
                                     <input type="text" class="form-control" formControlName="quantity">
-                                    <span class="text-danger"
+                                    <span class="text-danger pull-left"
                                         *ngIf="itemForm.get('quantity').hasError('pattern') && itemForm.get('quantity').touched ">
                                         Enter Only pogitive digit
                                     </span>
 
-                                    <span class="text-danger"
+                                    <span class="text-danger pull-left"
                                         *ngIf="itemForm.get('quantity').hasError('required') && itemForm.get('quantity').touched ">
-                                        Required
+                                        Required Quantity
                                     </span>
                                 </div>
                             </div>
@@ -87,89 +87,89 @@
 
                             <div class="row">
                                 <div class="form-group col-sm-6">
-                                    <label>Incl txt(Price)</label>
+                                    <label class="pull-left">Incl txt(Price)</label>
                                     <input type="text" class="form-control" formControlName="unitinclprice">
-                                    <span class="text-danger"
+                                    <span class="text-danger pull-left"
                                         *ngIf="itemForm.get('unitinclprice').hasError('pattern') && itemForm.get('unitinclprice').touched ">
                                         Enter Only pogitive digit
                                     </span>
 
-                                    <span class="text-danger"
+                                    <span class="text-danger pull-left"
                                         *ngIf="itemForm.get('unitinclprice').hasError('required') && itemForm.get('unitinclprice').touched ">
-                                        Required
+                                        Required Incl txt price
                                     </span>
 
                                 </div>
                                 <div class="form-group col-sm-6">
-                                    <label>Excl tex(Price)</label>
+                                    <label class="pull-left">Excl tex(Price)</label>
                                     <input type="text" class="form-control" formControlName="unitexclprice">
-                                    <span class="text-danger"
+                                    <span class="text-danger pull-left"
                                         *ngIf="itemForm.get('unitexclprice').hasError('pattern') && itemForm.get('unitexclprice').touched ">
                                         Enter Only pogitive digit
                                     </span>
 
-                                    <span class="text-danger"
+                                    <span class="text-danger pull-left"
                                         *ngIf="itemForm.get('unitexclprice').hasError('required') && itemForm.get('unitexclprice').touched ">
-                                        Required
+                                        Required Excl txt price
                                     </span>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="form-group col-sm-6">
-                                    <label>Incl tex(Discount)</label>
+                                    <label class="pull-left">Incl tex(Discount)</label>
                                     <input type="text" class="form-control" formControlName="incldiscount">
-                                    <span class="text-danger"
+                                    <span class="text-danger pull-left"
                                         *ngIf="itemForm.get('incldiscount').hasError('pattern') && itemForm.get('incldiscount').touched ">
                                         Enter Only pogitive digit
                                     </span>
 
-                                    <span class="text-danger"
+                                    <span class="text-danger pull-left"
                                         *ngIf="itemForm.get('incldiscount').hasError('required') && itemForm.get('incldiscount').touched ">
-                                        Required
+                                        Required Incl txt discount
                                     </span>
                                 </div>
 
                                 <div class="form-group col-sm-6">
-                                    <label>Excl tex(Discount)</label>
+                                    <label class="pull-left">Excl tex(Discount)</label>
                                     <input type="text" class="form-control" formControlName="excldiscount">
-                                    <span class="text-danger"
+                                    <span class="text-danger pull-left"
                                         *ngIf="itemForm.get('excldiscount').hasError('pattern') && itemForm.get('excldiscount').touched ">
                                         Enter Only pogitive digit
                                     </span>
 
-                                    <span class="text-danger"
+                                    <span class="text-danger pull-left"
                                         *ngIf="itemForm.get('excldiscount').hasError('required') && itemForm.get('excldiscount').touched ">
-                                        Required
+                                        Required Excl txt discount
                                     </span>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="form-group col-sm-6">
-                                    <label>Incl txt(Total)</label>
+                                    <label class="pull-left">Incl txt(Total)</label>
                                     <input type="text" class="form-control" formControlName="incltotal">
-                                    <span class="text-danger"
+                                    <span class="text-danger pull-left"
                                         *ngIf="itemForm.get('incltotal').hasError('pattern') && itemForm.get('incltotal').touched ">
                                         Enter Only pogitive digit
                                     </span>
 
-                                    <span class="text-danger"
+                                    <span class="text-danger pull-left"
                                         *ngIf="itemForm.get('incltotal').hasError('required') && itemForm.get('incltotal').touched ">
-                                        Required
+                                        Required incl txt total
                                     </span>
                                 </div>
                                 <div class="form-group col-sm-6">
-                                    <label>Excl tex(Total)</label>
+                                    <label class="pull-left">Excl tex(Total)</label>
                                     <input type="text" class="form-control" formControlName="excltotal">
-                                    <span class="text-danger"
+                                    <span class="text-danger pull-left"
                                         *ngIf="itemForm.get('excltotal').hasError('pattern') && itemForm.get('excltotal').touched ">
                                         Enter Only pogitive digit
                                     </span>
 
-                                    <span class="text-danger"
+                                    <span class="text-danger pull-left"
                                         *ngIf="itemForm.get('excltotal').hasError('required') && itemForm.get('excltotal').touched ">
-                                        Required
+                                        Required excl txt total
                                     </span>
                                 </div>
                             </div>
