@@ -18,6 +18,8 @@ export class AttributeValuesComponent implements OnInit {
   imageList: any = [];
   showValue() {
     this.valuesModal.show();
+    this.attrValueForm.reset();
+    this.changeValueType(0)
     this.attrValueForm.patchValue({
       valueType: 0,
     })
@@ -92,6 +94,7 @@ export class AttributeValuesComponent implements OnInit {
       var body = {
         type_id: formValue.valueType,
         associated_product_id: this.filteredProduct.id,
+        associated_product_name : this.filteredProduct.name,
         name: formValue.name ? formValue.name : null,
         price_adjustment: formValue.priceAdj ? formValue.priceAdj : null,
         weight_adjustment: formValue.weightAdj ? formValue.weightAdj : null,
@@ -106,6 +109,7 @@ export class AttributeValuesComponent implements OnInit {
         body['id'] = this.attributeValueId;
       }
       this.lstAttrValue.push(body);
+      console.log('this.lstAttrValue:', this.lstAttrValue)
       this._cS.getAttributeValues(this.lstAttrValue);
       this.attrValueForm.reset();
       this.valuesModal.hide();
@@ -143,6 +147,7 @@ export class AttributeValuesComponent implements OnInit {
       for (let j = 0; j < editAttributeInfo.attributes[i].attribute_values.length; j++) {
         if (attrValueId == editAttributeInfo.attributes[i].attribute_values[j].id) {
           var attrValue = editAttributeInfo.attributes[i].attribute_values[j];
+          this.changeValueType(attrValue.type_id);
           this.attrValueForm.patchValue({
             valueType: attrValue.type_id,
             name: attrValue.name,

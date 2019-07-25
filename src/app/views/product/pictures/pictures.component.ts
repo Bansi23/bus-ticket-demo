@@ -54,15 +54,17 @@ export class PicturesComponent implements OnInit {
     });
   }
   editPicture(i) {
-    this.prodPictureForm.patchValue({
-      position: this.lstPicture[i].position,
-    })
+    // this.prodPictureForm.patchValue({
+    //   position: this.lstPicture[i].position,
+    // })
+    this._cS.displayToast(3, 'Under development due to api issue!');
   }
 
   deletePicture(picId) {
-    if (confirm("Are you sure want to delete this image?")) {
-      this.lstPicture.splice(picId, 1);
-    }
+    // if (confirm("Are you sure want to delete this image?")) {
+    //   this.lstPicture.splice(picId, 1);
+    // }
+    this._cS.displayToast(3, 'Under development due to api issue!');
   }
   //#endregion
 
@@ -104,14 +106,16 @@ export class PicturesComponent implements OnInit {
   }
 
   addPicture() {
-    this.formValue = this.prodPictureForm.getRawValue()
-    if (this.formValue.src) {
-      this.formValue.src = this.src;
-      this.lstPicture.push(this.formValue);
-      this.prodPictureForm.reset();
-    } else {
-      this._cS.displayToast(4, 'Please select file to upload!');
-    }
+    this._cS.displayToast(3, 'Under development due to api issue!');
+    this.prodPictureForm.reset();
+    // this.formValue = this.prodPictureForm.getRawValue()
+    // if (this.formValue.src) {
+    //   this.formValue.src = this.src;
+    //   this.lstPicture.push(this.formValue);
+    //   this.prodPictureForm.reset();
+    // } else {
+    //   this._cS.displayToast(4, 'Please select file to upload!');
+    // }
   }
   //#endregion
   constructor(private fb: FormBuilder,

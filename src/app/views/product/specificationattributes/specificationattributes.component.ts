@@ -77,6 +77,7 @@ export class SpecificationattributesComponent implements OnInit {
     });
   }
   addAttribute() {
+    this._cS.displayToast(3, 'Under development due to api issue!');
     const formValue = this.specificationForm.getRawValue();
     //   var body = {
     //     "id": 42,
@@ -104,6 +105,14 @@ export class SpecificationattributesComponent implements OnInit {
       this.lstSpecificAttr = editedRecord.product_specification_attributes;
       this.totalRecords = this.lstSpecificAttr.length;
     }
+  }
+
+  editSpecification() {
+    this._cS.displayToast(3, 'Under development due to api issue!');
+  }
+
+  deleteSpecification() {
+    this._cS.displayToast(3, 'Under development due to api issue!');
   }
   //#endregion
   constructor(private fb: FormBuilder,
