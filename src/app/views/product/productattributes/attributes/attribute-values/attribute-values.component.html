@@ -9,12 +9,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let val of lstAttribute">
-                            <td><span *ngIf="val.type_id == 0">Simple</span>
+                        <tr *ngFor="let val of lstAttrValue">
+                            <td>
+                                <span *ngIf="val.type_id == 0">Simple</span>
                                 <span *ngIf="val.type_id == 1">Associated to product</span>
                             </td>
                             <td>{{val.name}}</td>
-                            <td>{{filteredProduct.name}}</td>
+                            <td>{{val.associated_product_id}}</td>
                             <td>{{val.price_adjustment}}</td>
                             <td>{{val.weight_adjustment}}</td>
                             <td class="fa"
@@ -25,10 +26,10 @@
                                         alt="product" /></span></td>
                             <td>{{val.display_order}}</td>
                             <td>
-                                <button class="btn btn-success" (click)="editPicture(i)"><i
+                                <button class="btn btn-success" (click)="editAttrValue(val.id)"><i
                                         class="fa fa-edit"></i></button>
-                                <button class="btn btn-danger left-margin" (click)="deletePicture(i)"><i
-                                        class="fa fa-trash"></i></button>
+                                <!-- <button class="btn btn-danger left-margin" (click)="deletePicture(i)"><i
+                                        class="fa fa-trash"></i></button> -->
                             </td>
                         </tr>
                     </tbody>

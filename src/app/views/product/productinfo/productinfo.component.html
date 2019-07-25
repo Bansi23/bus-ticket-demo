@@ -68,7 +68,7 @@
                                 </div>
                                 <span class="text-danger"
                                     *ngIf="productInfoForm.controls['price'].hasError('required') && (productInfoForm.controls['price'].dirty || productInfoForm.controls['price'].touched)">
-                                    Price is must required</span>
+                                    Price is required</span>
                                 <span class="text-danger"
                                     *ngIf="productInfoForm.controls['price'].hasError('pattern') && (productInfoForm.controls['price'].dirty || productInfoForm.controls['price'].touched)">
                                     Enter valid price</span>
@@ -86,7 +86,7 @@
                                 </div>
                                 <span class="text-danger"
                                     *ngIf="productInfoForm.controls['productCost'].hasError('required') && (productInfoForm.controls['productCost'].dirty || productInfoForm.controls['productCost'].touched)">
-                                    Cost price is must required</span>
+                                    Cost price is required</span>
                                 <span class="text-danger"
                                     *ngIf="productInfoForm.controls['productCost'].hasError('pattern') && (productInfoForm.controls['productCost'].dirty || productInfoForm.controls['productCost'].touched)">
                                     Enter valid cost price</span>

@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Routes, Router, ActivatedRoute } from '@angular/router';
-import { from } from 'rxjs';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MockService } from '../../../services/mock.service';
 import { CommonService } from '../../../services/common.service';
 import { FormBuilder, FormGroup, Validators, FormArray, AbstractControl, Form } from '@angular/forms';
-import { map } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment'
 import { IMyDpOptions } from 'mydatepicker';
 const emailPattern = environment.emailPattern;
@@ -16,6 +14,7 @@ const passPatern = environment.passwordPattern;
   styleUrls: ['./add-edit.component.scss']
 })
 export class AddEditComponent implements OnInit {
+  //#region property
   lstCustomerRoles = [];
   selectedcustomerRoles: any = [];
   lstManagerOfVendor = [];
@@ -41,6 +40,8 @@ export class AddEditComponent implements OnInit {
   isSaveClicked: boolean = false;
   chkIsActive = true;
 
+  //#endregion
+
   dropdownOrderStatus = {
     singleSelection: false,
     text: "Select customer role",
@@ -57,69 +58,7 @@ export class AddEditComponent implements OnInit {
     openSelectorOnInputClick: true,
     editableDateField: false
   };
-  constructor(private _mS: MockService, private _cS: CommonService, private router: Router, private fb: FormBuilder, private route: ActivatedRoute) { }
-
-  ngOnInit() {
-    this.lstCustomerRoles = this._mS.customerRoles();
-    this.lstManagerOfVendor = this._mS.getManagerOfVendor();
-
-    this.route
-      .queryParams
-      .subscribe(params => {
-        this.custId = params['id']
-      });
-
-    if (this.custId) {
-      this.initEidtCustomerForm();
-      this.count += 1;
-
-      this.storedId = this.custId;
-      this.isChangePassword = true;
-      this._cS.API_GET(this._cS.getParticularCustomer(this.custId))
-        .subscribe(response => {
-          this.customer = response.customers;
-
-          // if(this.customer[0].gender == "M"){
-          //   alert()
-          //   this.patchGender = "male"
-          // }else if(this.customer[0].gender == "F"){
-          //   this.patchGender = "female"
-          // }else{
-          //   alert("No gender")
-          // }
-          // this.patchDate = new Date(this.customer[0].date_of_birth).getDate() + "/" + new Date(this.customer[0].date_of_birth).getMonth()+1 + "/" + new Date(this.customer[0].date_of_birth).getFullYear();
-
-          // if(this.customer[0].addresses.length){
-          //   this.companyName = this.customer[0].addresses[0].company
-          // }else{
-          //   this.customer = "";
-          // }
-          // console.log("company",this.customer[0].addresses[0].company);
-
-          this.setValuesInForm();
-        })
-    } else {
-      this.initAddCustomerForm();
-
-      this._cS.Display_Loader(false);
-    }
-    this.settings = {
-      text: "Customer roles",
-      selectAllText: 'Select All',
-      unSelectAllText: 'UnSelect All',
-      classes: "myclass custom-class"
-    };
-
-    this.selectedRoles = [
-      { "id": 1, "itemName": "Administrator" },
-      { "id": 2, "itemName": "Forum Moderators" },
-      { "id": 4, "itemName": "Guests" },
-      { "id": 3, "itemName": "Registered" },
-      { "id": 5, "itemName": "Vendors" }
-    ];
-
-
-  }
+  //#region group
   initAddCustomerForm() {
     this.addCustomerForm = this.fb.group({
       custEmail: ['', Validators.compose([Validators.required, Validators.pattern(emailPattern)])],
@@ -156,8 +95,9 @@ export class AddEditComponent implements OnInit {
       custActive: ['']
     })
   }
-  setValuesInForm() {
+  //#endregion
 
+  setValuesInForm() {
     this.addCustomerForm.patchValue({
       custEmail: this.customer[0].email,
       // custPassword : this.dataToSet.
@@ -178,14 +118,11 @@ export class AddEditComponent implements OnInit {
     this.createdOn = this.customer[0].created_on_utc;
     this.lastActivity = this.customer[0].last_activity_date_utc;
   }
-  filteredOrder: any;
-  filteredPayment: any;
-  filteredShipping: any;
   onItemRoleSelect(item?: any) {
-    this.ctRoles = this.addCustomerForm.value.custRoles;
-    const selectedData = this.selectedcustomerRoles.map((x: { itemName: any; }) => { return x.itemName });
-    this.filteredOrder = this.lstCustomerRoles.filter(
-      function (e) { return this.indexOf(e.order_status) != -1; }, selectedData);
+    // this.ctRoles = this.addCustomerForm.value.custRoles;
+    // const selectedData = this.selectedcustomerRoles.map((x: { itemName: any; }) => { return x.itemName });
+    // this.filteredOrder = this.lstCustomerRoles.filter(
+    //   function (e) { return this.indexOf(e.order_status) != -1; }, selectedData);
   }
 
   saveAddEditForm() {
@@ -254,14 +191,13 @@ export class AddEditComponent implements OnInit {
             this._cS.displayToast(3, "Failed", "Record not updated!");
           }
         }, err => {
-          
+          console.log('err:', err)
           this._cS.displayToast(2, err.error.errors["Dto.RoleIds"]);
           this._cS.Display_Loader(false);
 
         })
 
     } else {
-
       this._cS.API_POST(this._cS.getCustomerList(), body)
         .subscribe(response => {
           if (response) {
@@ -287,7 +223,40 @@ export class AddEditComponent implements OnInit {
   }
   saveAndEditForm() {
     this.isSaveAndEdit = true;
-    // this.count = 1;
     this.saveAddEditForm();
+  }
+  getRecord() {
+    this.route.queryParams
+      .subscribe(params => {
+        this.custId = params['id']
+      });
+
+    if (this.custId) {
+      this.initEidtCustomerForm();
+      this.count += 1;
+
+      this.storedId = this.custId;
+      this.isChangePassword = true;
+      this._cS.API_GET(this._cS.getParticularCustomer(this.custId))
+        .subscribe(response => {
+          this.customer = response.customers;
+          this.setValuesInForm();
+        });
+    } else {
+      this.initAddCustomerForm();
+      this._cS.Display_Loader(false);
+    }
+  }
+  constructor(private _mS: MockService, private _cS: CommonService, private router: Router, private fb: FormBuilder, private route: ActivatedRoute) { }
+
+  ngOnInit() {
+    this.lstCustomerRoles = this._mS.customerRoles();
+    this.lstManagerOfVendor = this._mS.getManagerOfVendor();
+    this.getRecord();
+    const id = this.lstCustomerRoles.find((item) => item.id == 4);
+    this.lstCustomerRoles.map(x => {
+      this.selectedcustomerRoles.push(id);
+    });
+    this.addCustomerForm.get('custRoles').setValue(this.selectedcustomerRoles);
   }
 }
