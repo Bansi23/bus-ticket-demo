@@ -10,7 +10,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
   styleUrls: ['./add-product-to-order.component.scss']
 })
 export class AddProductToOrderComponent implements OnInit {
-  
+
   //#region proprerty
   orderId: any;
   viewRecord: any = [];
@@ -120,13 +120,22 @@ export class AddProductToOrderComponent implements OnInit {
         }
       })
   }
+  lstProduct: any = [];
   GotoProduct(id) {
-    if (id) {
-      this._router.navigate(['/catalog/addProduct'], { queryParams: { id: id } });
-    }
-    else {
-      this._router.navigate(['/catalog/product']);
-    }
+    this._cS.API_GET(this._cS.URL_getProductById(id))
+      .subscribe(res => {
+        if (res) {
+          this.lstProduct = res.product;
+          if (id) {
+            this._router.navigate(['/catalog/addProduct'], { queryParams: { id: id } });
+          }
+        }
+      }, err => {
+        if (err.status == 404) {
+          this._cS.displayToast(2, 'This order item was deleted in product so can not editable in product.');
+          this._cS.Display_Loader(false);
+        }
+      });
   }
 
   editRecord(row) {

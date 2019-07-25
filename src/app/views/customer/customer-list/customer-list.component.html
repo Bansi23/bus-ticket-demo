@@ -24,8 +24,8 @@
                 <td>{{c.email}}</td>
                 <td>{{c.name}}</td>
                 <td>
-                    <span *ngFor="let cr of c.customerRole; let i=index">
-                        {{lstCustomerRoles[i].itemName}},
+                    <span *ngFor="let cr of c.customerRole; let j=index">
+                        {{lstCustomerRoles[cr].itemName}},
                     </span>
                 </td>
                 <!-- <td></td> -->

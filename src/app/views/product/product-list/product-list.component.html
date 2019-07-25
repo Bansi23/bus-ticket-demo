@@ -29,12 +29,10 @@
                                         [ngClass]="{'fa-check text-success': prod.published ? 'fa-close text-danger' : !prod.published}"></span>
                                 </td>
                                 <td>
-                                    <div class="row">
-                                        <button class="btn btn-success" (click)="editProduct(prod.id)"><i
-                                                class="fa fa-edit"></i></button>
-                                        <button class="btn btn-danger left-margin" (click)="deleteProduct(prod.id)"><i
-                                                class="fa fa-trash"></i></button>
-                                    </div>
+                                    <button class="btn btn-success btn-sm col-sm-10" (click)="editProduct(prod.id)"><i
+                                            class="fa fa-edit"></i></button>
+                                    <button class="btn btn-danger btn-sm col-sm-10" (click)="deleteProduct(prod.id)"><i
+                                            class="fa fa-trash"></i></button>
                                 </td>
                             </tr>
                             <tr class="top-mrging">
