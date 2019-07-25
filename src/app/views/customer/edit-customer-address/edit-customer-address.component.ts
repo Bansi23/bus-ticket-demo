@@ -80,11 +80,10 @@ export class EditCustomerAddressComponent implements OnInit {
   getRecord() {
     this.getParam();
     if (this.customerId) {
-      this._cS.API_GET(this._cS.getPaticularCustomerOrder(this.customerId))
+      this._cS.API_GET(this._cS.getParticularCustomer(this.customerId))
         .subscribe(response => {
           if (response) {
-            this.editRecord = response.orders[0].billing_address;
-
+            this.editRecord = response.customers[0].addresses[0];
             this.lstCountry = this._mD.countryList();
             if (this.customerId != null) {
               this._cS.API_GET(this._cS.getCountry(this.editRecord.country_id)).subscribe(res => {
@@ -203,7 +202,7 @@ export class EditCustomerAddressComponent implements OnInit {
     if (statebilling == undefined) {
       statebilling = this.otherCountry;
     }
-    console.log('this.addressId:', this.addressId)
+    
     var body = {
 
       "customer": {

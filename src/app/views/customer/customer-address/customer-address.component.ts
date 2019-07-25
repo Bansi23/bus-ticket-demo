@@ -44,39 +44,38 @@ export class CustomerAddressComponent implements OnInit {
     this.totalRecords = this.temp.length
   }
   getCustomerOrderAddress() {
-   
-    this._cS.API_GET(this._cS.getPaticularCustomerOrder(this.custId))
+
+    this._cS.API_GET(this._cS.getParticularCustomer(this.custId))
       .subscribe(response => {
-        console.log('response:', response)
-         this.temp = response.orders; 
+        this.temp = response.customers;
         this.custAddress = [];
         this.getTotalRecord();
-        for (let i = 0; i < response.orders.length; i++) {
+        for (let i = 0; i < response.customers.length; i++) {
           const data = {
-            firstName: this.temp[i].billing_address.first_name,
-            lastName: this.temp[i].billing_address.last_name,
-            email: this.temp[i].billing_address.email,
-            phoneNo: this.temp[i].billing_address.phone_number,
-            faxNo: this.temp[i].billing_address.fax_number,
-            address: new Array(this.temp[i].billing_address.company,
-              this.temp[i].billing_address.address1,
-              this.temp[i].billing_address.address2,
-              this.temp[i].billing_address.city,
-              this.temp[i].billing_address.zip_postal_code,
-              this.temp[i].billing_address.country),
-            customerId: this.temp[i].customer_id,
-            addressId: this.temp[i].billing_address.id
+            firstName: this.temp[i].addresses[0].first_name,
+            lastName: this.temp[i].addresses[0].last_name,
+            email: this.temp[i].addresses[0].email,
+            phoneNo: this.temp[i].addresses[0].phone_number,
+            faxNo: this.temp[i].addresses[0].fax_number,
+            address: new Array(this.temp[i].addresses[0].company,
+              this.temp[i].addresses[0].address1,
+              this.temp[i].addresses[0].address2,
+              this.temp[i].addresses[0].city,
+              this.temp[i].addresses[0].zip_postal_code,
+              this.temp[i].addresses[0].country),
+            customerId: this.temp[0].id,
+            addressId: this.temp[0].addresses[0].id
           }
+          this.custAddress.push(data);
 
-           this.custAddress.push(data);
         }
       })
 
   }
   navigateToEditAddress(customerId, addressId) {
-    
+
     // this.router.navigate(['/sales/editbilling'], { queryParams: { customerId: customerId, addressId: addressId } });
-    this.router.navigate(['/customers/editCustomerAddress'], { queryParams : { customerId : customerId, addressId : addressId}});
+    this.router.navigate(['/customers/editCustomerAddress'], { queryParams: { customerId: customerId, addressId: addressId } });
   }
 
 }
