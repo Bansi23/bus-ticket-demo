@@ -41,7 +41,6 @@ export class CustomerListComponent implements OnInit {
   getCustomerList() {
     this._cS.API_GET(this._cS.getCustomersList(this.pageSize, this.pageIndex))
       .subscribe(response => {
-        console.log('response:', response)
          this.getCustomerCount();
         this.lstcustomers = [];
         
