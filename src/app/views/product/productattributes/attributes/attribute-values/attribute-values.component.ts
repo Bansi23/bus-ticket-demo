@@ -109,7 +109,6 @@ export class AttributeValuesComponent implements OnInit {
         body['id'] = this.attributeValueId;
       }
       this.lstAttrValue.push(body);
-      console.log('this.lstAttrValue:', this.lstAttrValue)
       this._cS.getAttributeValues(this.lstAttrValue);
       this.attrValueForm.reset();
       this.valuesModal.hide();

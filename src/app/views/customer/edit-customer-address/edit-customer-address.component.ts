@@ -233,7 +233,6 @@ export class EditCustomerAddressComponent implements OnInit {
         } else {
         };
       }, err => {
-        console.log('err:', err)
         this._cS.displayToast(2, 'Record not updated');
       });
   }
