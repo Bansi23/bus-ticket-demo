@@ -91,5 +91,4 @@ export class ProductListComponent implements OnInit {
     this.getTotalRecord();
     this.lstProduct.map(x => { x.select = false });
   }
-
 }

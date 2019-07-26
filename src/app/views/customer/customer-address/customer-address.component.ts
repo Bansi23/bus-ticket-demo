@@ -18,7 +18,6 @@ export class CustomerAddressComponent implements OnInit {
   constructor(private router: Router, private _mS: MockService, private _cS: CommonService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-
     this.route
       .queryParams
       .subscribe(params => {
@@ -44,10 +43,9 @@ export class CustomerAddressComponent implements OnInit {
     this.totalRecords = this.temp.length
   }
   getCustomerOrderAddress() {
-   
     this._cS.API_GET(this._cS.getPaticularCustomerOrder(this.custId))
       .subscribe(response => {
-        console.log('response:', response)
+        console.log('custAddress:', response)
          this.temp = response.orders; 
         this.custAddress = [];
         this.getTotalRecord();

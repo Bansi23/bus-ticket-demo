@@ -29,9 +29,9 @@
                                         [ngClass]="{'fa-check text-success': prod.published ? 'fa-close text-danger' : !prod.published}"></span>
                                 </td>
                                 <td>
-                                    <button class="btn btn-success btn-sm col-sm-10" (click)="editProduct(prod.id)"><i
+                                    <button class="btn btn-success" (click)="editProduct(prod.id)"><i
                                             class="fa fa-edit"></i></button>
-                                    <button class="btn btn-danger btn-sm col-sm-10" (click)="deleteProduct(prod.id)"><i
+                                    <button class="btn btn-danger" (click)="deleteProduct(prod.id)"><i
                                             class="fa fa-trash"></i></button>
                                 </td>
                             </tr>
@@ -44,7 +44,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="row">
+                <div class="row" *ngIf="(lstProduct).length > 0">
                     <div class="col-md-3 col-12">
                         <div class="total-count--table">
                             <span>Total number of records : {{ totalRecords}}</span>
@@ -52,7 +52,7 @@
                                     class="fa fa-refresh"></i></button>
                         </div>
                     </div>
-                    <div class="col-md-6 col-12" *ngIf="(lstProduct).length > 0">
+                    <div class="col-md-6 col-12">
                         <div class="text-right pagignation-page">
                             <pagination-controls class="pagination-sm pagination-box"
                                 (pageChange)="pageChanged($event)">
