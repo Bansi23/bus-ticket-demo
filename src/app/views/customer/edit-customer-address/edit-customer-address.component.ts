@@ -93,7 +93,6 @@ export class EditCustomerAddressComponent implements OnInit {
                 if (statebilling == undefined) {
                   statebilling = this.otherCountry;
                 }
-
                 this.addressId = this.editRecord.id;
                 this.editbillingForm.patchValue({
                   fnm: this.editRecord.first_name,
@@ -109,8 +108,6 @@ export class EditCustomerAddressComponent implements OnInit {
                   mono: this.editRecord.phone_number,
                   faxno: this.editRecord.fax_number,
                 });
-
-
               });
             }
 
@@ -202,7 +199,7 @@ export class EditCustomerAddressComponent implements OnInit {
     if (statebilling == undefined) {
       statebilling = this.otherCountry;
     }
-    
+
     var body = {
 
       "customer": {
@@ -221,18 +218,15 @@ export class EditCustomerAddressComponent implements OnInit {
             "zip_postal_code": this.editbillingForm.value.pinno,
             "phone_number": this.editbillingForm.value.mono,
             "fax_number": this.editbillingForm.value.faxno,
-            // "id": this.addressId  
-            "id" : 76
-            
+            "id": +this.addressId
+
           }
         ],
 
-        "id" : this.customerId
+        "id": +this.customerId
       }
 
-
     }
-
     this._cS.API_PUT(this._cS.getParticularCustomer(this.customerId), body)
       .subscribe(res => {
         if (res) {

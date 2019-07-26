@@ -83,6 +83,7 @@ export class CommonService {
       return throwError(err);
     })));
   };
+
   /** Put API Method.
   * @param Url - Just pass url after /api/. Predefine url will take from environment
   * @param Body - Pass body parameter in json. Ex : { id : 1, name : ABC, occupation : Angular Developer}
@@ -341,6 +342,7 @@ export class CommonService {
         for (let i = 0; i < this.productObj.attributes.length; i++) {
           if (this.attributeId == this.productObj.attributes[i].id) {
             this.productObj.attributes[i] = this.attrInfo;
+            console.log(' this.productObj:',  this.productObj)
           }
         }
       } else {

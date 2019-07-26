@@ -29,9 +29,15 @@
                                         [ngClass]="{'fa-check text-success': prod.published ? 'fa-close text-danger' : !prod.published}"></span>
                                 </td>
                                 <td>
+<<<<<<< HEAD
                                     <button class="btn btn-success btn-sm col-sm-9" (click)="editProduct(prod.id)"><i
                                             class="fa fa-pencil"></i></button>
                                     <button class="btn btn-danger btn-sm col-sm-9" (click)="deleteProduct(prod.id)"><i
+=======
+                                    <button class="btn btn-success" (click)="editProduct(prod.id)"><i
+                                            class="fa fa-edit"></i></button>
+                                    <button class="btn btn-danger" (click)="deleteProduct(prod.id)"><i
+>>>>>>> 701170a113682ed1603da7814309465ca4f249e4
                                             class="fa fa-trash"></i></button>
                                 </td>
                             </tr>
@@ -52,7 +58,7 @@
                                     class="fa fa-refresh"></i></button>
                         </div>
                     </div>
-                    <div class="col-md-6 col-12" *ngIf="(lstProduct).length > 0">
+                    <div class="col-md-6 col-12">
                         <div class="text-right pagignation-page">
                             <pagination-controls class="pagination-sm pagination-box"
                                 (pageChange)="pageChanged($event)">

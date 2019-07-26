@@ -55,7 +55,7 @@ export class AttributeValuesComponent implements OnInit {
   changeValueType(ev) {
     var assProduct = <HTMLElement>document.querySelector('.associateType');
     var simple = <HTMLElement>document.querySelector('.simpleType');
-    if (ev == 1) {
+    if (ev == 10) {
       if (assProduct) {
         assProduct.style.display = 'block';
         simple.style.display = 'none';
@@ -94,7 +94,6 @@ export class AttributeValuesComponent implements OnInit {
       var body = {
         type_id: formValue.valueType,
         associated_product_id: this.filteredProduct.id,
-        associated_product_name : this.filteredProduct.name,
         name: formValue.name ? formValue.name : null,
         price_adjustment: formValue.priceAdj ? formValue.priceAdj : null,
         weight_adjustment: formValue.weightAdj ? formValue.weightAdj : null,
@@ -105,10 +104,15 @@ export class AttributeValuesComponent implements OnInit {
         product_image_id: formValue.picture ? formValue.picture : null,
       }
       if (this.attributeValueId) {
-        var attrValue = this.lstAttrValue.find(x => x.id == this.attributeValueId);
-        body['id'] = this.attributeValueId;
+        for (let i = 0; i < this.lstAttrValue.length; i++) {
+          if (this.attributeValueId == this.lstAttrValue[i].id) {
+            body['id'] = this.attributeValueId;
+            this.lstAttrValue[i] = body;
+          }
+        }
+      } else {
+        this.lstAttrValue.push(body);
       }
-      this.lstAttrValue.push(body);
       this._cS.getAttributeValues(this.lstAttrValue);
       this.attrValueForm.reset();
       this.valuesModal.hide();
@@ -146,6 +150,7 @@ export class AttributeValuesComponent implements OnInit {
       for (let j = 0; j < editAttributeInfo.attributes[i].attribute_values.length; j++) {
         if (attrValueId == editAttributeInfo.attributes[i].attribute_values[j].id) {
           var attrValue = editAttributeInfo.attributes[i].attribute_values[j];
+          console.log('attrValue:', attrValue)
           this.changeValueType(attrValue.type_id);
           this.attrValueForm.patchValue({
             valueType: attrValue.type_id,

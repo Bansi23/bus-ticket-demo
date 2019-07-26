@@ -866,24 +866,44 @@ export class MockService {
   }
 
   getControlTypes() {
-    return [
-      { id: 1, name: 'Drop-down list' },
-      { id: 2, name: 'Radio button list' },
-      { id: 3, name: 'Checkboxes' },
-      { id: 4, name: 'Textbox' },
-      { id: 5, name: 'Multiline textbox' },
-      { id: 6, name: 'Date picker' },
-      { id: 7, name: 'File upload' },
-      { id: 8, name: 'Color squares' },
-      { id: 9, name: 'Image squares' },
-      { id: 10, name: 'Read-only checkboxes' },
+    return [{
+      "id": "1",
+      "name": "Drop-down list"
+    }, {
+      "id": "2",
+      "name": "Radio button list"
+    }, {
+      "id": "3",
+      "name": "Checkboxes"
+    }, {
+      "id": "4",
+      "name": "Textbox"
+    }, {
+      "id": "10",
+      "name": "Multiline textbox"
+    }, {
+      "id": "20",
+      "name": "Date picker"
+    }, {
+      "id": "30",
+      "name": "File upload"
+    }, {
+      "id": "40",
+      "name": "Color squares"
+    }, {
+      "id": "45",
+      "name": "Image squares"
+    }, {
+      "id": "50",
+      "name": "Read-only checkboxes"
+    }
     ]
   }
 
   getAttributeValueType() {
     return [
       { id: 0, name: 'Simple' },
-      { id: 1, name: 'Associated to product' }
+      { id: 10, name: 'Associated to product' }
     ]
   }
 

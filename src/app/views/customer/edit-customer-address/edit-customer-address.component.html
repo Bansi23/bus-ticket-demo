@@ -132,12 +132,14 @@
                 <div class="form-group col-sm-6">
                     <label for="mail">State<span class="text-danger"
                             *ngIf="editbillingForm.controls.state.errors?.required">*</span></label>
+                     <!-- <select class="form-control" formControlName="state">
+                        <option *ngFor="let state of statelist" [value]="state?.id">
+                            {{state.name}}</option>
+                    </select> -->
                     <select class="form-control" formControlName="state">
-                        <!-- <option *ngFor="let state of statelist" [value]="state?.id">
-                            {{state.name}}</option> -->
-                            <option value="0">{{otherCountry.name}}</option>
+                        <option *ngFor="let state of statelist" [value]="state?.id">
+                            {{state.name}}</option>
                     </select>
-
                     <span class="text-danger"
                         *ngIf="editbillingForm.get('state').hasError('required') && editbillingForm.get('state').touched">
                         State is Required
