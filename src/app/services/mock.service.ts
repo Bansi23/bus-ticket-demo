@@ -853,15 +853,15 @@ export class MockService {
   getDiscountList() {
     return [
       { id: 1, itemName: 'Sample discount with coupon code' },
-      { id: 2, itemName: 'test for discount' },
+      { id: 3, itemName: 'test for discount' },
     ]
   }
 
   getInvantoryMethods() {
     return [
-      { id: 1, name: "Don't track inventory" },
-      { id: 2, name: 'Track inventory' },
-      { id: 3, name: 'Track inventory by product attributes' },
+      { id: 0, name: "Don't track inventory" },
+      { id: 1, name: 'Track inventory' },
+      { id: 2, name: 'Track inventory by product attributes' },
     ]
   }
 
