@@ -98,7 +98,7 @@
                     <tbody>
                         <tr
                             *ngFor="let lstorder of lstOrderData| paginate: { itemsPerPage:pageSize , currentPage: pageIndex , totalItems: totalRecord}; let i = index">
-                            <td><button class="btn btn-color btn-sm" (click)="ViewData(lstorder.id)"> <i
+                            <td><button class="btn btn-color btn-sm col-sm-12" (click)="ViewData(lstorder.id)"> <i
                                         class="fa fa-eye"></i></button></td>
                             <td> <input type="checkbox" [(ngModel)]="lstorder.select" (change)="checkIfAllSelected()">
                             </td>
