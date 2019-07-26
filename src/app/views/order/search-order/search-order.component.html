@@ -115,11 +115,11 @@
                             <td>{{lstorder.customer.first_name}}{{lstorder.customer.last_name}}{{lstorder.customer.email}}
                             </td>
                             <td>{{lstorder.created_on_utc | date :'dd/MM/yyyy,h:mm:ss a'}}</td>
-                            <td>{{lstorder.order_total | number:'2.2-2'}}</td>
+                            <td><span class="pull-right">{{lstorder.order_total | number:'2.2-2'}}</span></td>
                         </tr>
                         <tr *ngIf="lstOrderData.length > 0">
                             <td colspan="8"></td>
-                            <td>{{finalTotal | number:'2.2-2'}}</td>
+                            <td><span class="pull-right">{{finalTotal | number:'2.2-2'}}</span></td>
                             <td></td>
                         </tr>
                         <tr>
