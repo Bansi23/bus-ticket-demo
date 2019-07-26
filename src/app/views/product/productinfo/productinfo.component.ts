@@ -80,7 +80,7 @@ export class ProductinfoComponent implements OnInit {
   changeInventory(value) {
     const stockQuan = <HTMLElement>document.querySelector('.stockQuan');
     if (stockQuan) {
-      if (value == "2") {
+      if (value == "1") {
         stockQuan.style.display = 'block';
       } else {
         stockQuan.style.display = 'none';

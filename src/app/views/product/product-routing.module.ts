@@ -32,11 +32,11 @@ const routes: Routes = [
       },
       {
         path: 'addnew-attribute', component: AddnewAttributeComponent, data: { title: 'Add New Attribute' },
-        children: [
-          { path: '', redirectTo: 'info', pathMatch: 'full' },
-          { path: 'info', component: AttributeinfoComponent },
-          { path: 'value', component: AttributeValuesComponent },
-        ]
+        // children: [
+        //   { path: '', redirectTo: 'info', pathMatch: 'full' },
+        //   { path: 'info', component: AttributeinfoComponent },
+        //   { path: 'value', component: AttributeValuesComponent },
+        // ]
       },
     ]
   }
