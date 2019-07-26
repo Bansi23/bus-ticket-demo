@@ -191,6 +191,7 @@ export class AddEditComponent implements OnInit {
             this._cS.displayToast(3, "Failed", "Record not updated!");
           }
         }, err => {
+          console.log('err:', err)
           this._cS.displayToast(2, err.error.errors["Dto.RoleIds"]);
           this._cS.Display_Loader(false);
 
