@@ -16,7 +16,7 @@
                 </table>
             </div>
             <div class="row">
-                <button class="btn btn-primary left-margin" (click)="showCombination()"><i class="fa fa-plus">Add
+                <button class="btn btn-primary left-margin btn-sm" (click)="showCombination()"><i class="fa fa-plus">Add
                         combination</i></button>
                 <!-- <button class="btn btn-info left-margin">Generate all possible combinations</button>
                 <button class="btn btn-info left-margin">Generate several combinations</button> -->
@@ -30,17 +30,17 @@
     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Add a new value</h4>
+            <div class="modal-header header-box">
+                {{'Add a new value'}}
                 <button type="button" class="close" (click)="combinationModal.hide()" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true" class="text-white">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
 
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary"><i class="fa fa-save">Save</i></button>
+                <button class="btn btn-info btn-sm"><i class="fa fa-save">Save</i></button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

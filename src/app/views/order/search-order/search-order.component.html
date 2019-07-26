@@ -69,7 +69,8 @@
                     </div>
                 </div>
             </form>
-            <button class="btn btn-info  text-white pull-left" (click)="searchRecord()"><i class="fa fa-search"></i>
+            <button class="btn btn-info btn-sm text-white pull-right " (click)="searchRecord()"><i
+                    class="fa fa-search"></i>
                 Search</button>
         </div>
     </div>
@@ -129,13 +130,14 @@
                 </table>
             </div>
             <div class="row" *ngIf="totalRecord">
-                <div class="col-md-2 col-sm-12">
+                <div class="col-md-4 col-sm-12">
                     <div class="total-count--table">
                         <span> Total Number of Records :{{totalRecord}}</span>
-                        <button class="btn btn-primary" (click)="GetRecord()"><i class="fa fa-refresh"></i></button>
+                        <button class="btn btn-primary btn-sm" (click)="GetRecord()"><i
+                                class="fa fa-refresh"></i></button>
                     </div>
                 </div>
-                <div class="col-md-8 col-sm-12" *ngIf="(lstOrderData).length > 0">
+                <div class="col-md-6 col-sm-12" *ngIf="(lstOrderData).length > 0">
                     <div class="text-right">
                         <pagination-controls class="pagination-sm pagination-box" (pageChange)="pageChanged($event)">
                         </pagination-controls>

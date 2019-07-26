@@ -24,9 +24,9 @@
                                 </td>
                                 <td>{{sp.display_order}}</td>
                                 <td>
-                                    <button class="btn btn-success" (click)="editSpecification(sp.id)"><i
+                                    <button class="btn btn-success btn-sm" (click)="editSpecification(sp.id)"><i
                                             class="fa fa-edit"></i></button>
-                                    <button class="btn btn-danger left-margin" (click)="deleteSpecification(sp.id)"><i
+                                    <button class="btn btn-danger left-margin btn-sm" (click)="deleteSpecification(sp.id)"><i
                                             class="fa fa-trash"></i></button>
                                 </td>
                             </tr>
@@ -37,7 +37,7 @@
                     <div class="col-md-4 col-12">
                         <div class="total-count--table">
                             <span>Total number of records : {{ totalRecords}}</span>
-                            <button class="btn btn-primary" (click)="getSpecificAttrList()"><i
+                            <button class="btn btn-primary btn-sm" (click)="getSpecificAttrList()"><i
                                     class="fa fa-refresh"></i></button>
                         </div>
                     </div>
@@ -131,7 +131,7 @@
                                 </div>
                             </div>
                             <div class="row pull-right">
-                                <button class="btn btn-primary" (click)="addAttribute()"><i class="fa fa-plus">Add
+                                <button class="btn btn-primary btn-sm" (click)="addAttribute()"><i class="fa fa-plus">Add
                                         Attribute</i></button>
                             </div>
                         </div>
