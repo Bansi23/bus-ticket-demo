@@ -34,20 +34,22 @@ export class EditCustomerAddressComponent implements OnInit {
   //#region form group
   fbEditAddress() {
     this.editbillingForm = this.fb.group({
-      fnm: ['', Validators.required],
-      lnm: ['', Validators.required],
+      fnm: ['', Validators.compose([Validators.required, Validators.pattern('.*\\S.*[a-zA-z ]')])],
+      lnm: ['', Validators.compose([Validators.required, Validators.pattern('.*\\S.*[a-zA-z ]')])],
       mono: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]\\d{0,15}')])],
       company: [''],
       mail: ['', Validators.compose([Validators.required, Validators.pattern(emailPattern)])],
       country: ['', Validators.required],
       state: ['', Validators.required],
       city: ['', Validators.required],
-      addone: ['', Validators.required],
+      addone:['', Validators.compose([Validators.required, Validators.pattern('.*\\S.*[a-zA-z0-9 ]')])],
       addtwo: [''],
       pinno: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]\\d{0,15}')])],
       faxno: [''],
     });
   }
+
+
   getParameter() {
     this._route.queryParams.subscribe(params => {
       this.orderId = params['id']

@@ -22,6 +22,10 @@
                         *ngIf="editbillingForm.get('fnm').hasError('required') && editbillingForm.get('fnm').touched">
                         First name is required
                     </span>
+                    <span class="text-danger"
+                    *ngIf="editbillingForm.get('fnm').hasError('pattern') && editbillingForm.get('fnm').touched">
+                    Enter valid first name
+                </span>
                 </div>
 
                 <div class="form-group col-sm-6">
@@ -44,6 +48,11 @@
                         *ngIf="editbillingForm.get('lnm').hasError('required') && editbillingForm.get('lnm').touched">
                         Last name is required
                     </span>
+
+                    <span class="text-danger"
+                    *ngIf="editbillingForm.get('lnm').hasError('pattern') && editbillingForm.get('lnm').touched">
+                    Enter valid last name
+                </span>
                 </div>
 
                 <div class="form-group col-sm-6">
@@ -54,6 +63,10 @@
                             *ngIf="editbillingForm.get('addone').hasError('required') && editbillingForm.get('addone').touched">
                             Address is required
                         </span>
+                        <span class="text-danger"
+                        *ngIf="editbillingForm.get('addone').hasError('pattern') && editbillingForm.get('addone').touched">
+                        Enter valid address
+                    </span>
                     </div>
             </div>
 
