@@ -8,7 +8,7 @@ import { CommonService } from '../../../../../services/common.service';
   styleUrls: ['./addnew-attribute.component.scss']
 })
 export class AddnewAttributeComponent implements OnInit {
-
+  title: any = 'Add a new attribute';
   backToList() {
     if (this.productId) {
       this._router.navigate(['/catalog/addProduct'], { queryParams: { id: this.productId } });
@@ -69,6 +69,11 @@ export class AddnewAttributeComponent implements OnInit {
 
   ngOnInit() {
     this.getParameter();
+    if (this.attributeId) {
+      this.title = "Edit product attribute";
+    }else{
+      this.title = "Add a new attribute";
+    }
   }
 
 }

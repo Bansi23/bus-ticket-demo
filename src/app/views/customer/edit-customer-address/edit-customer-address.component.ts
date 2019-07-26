@@ -93,7 +93,6 @@ export class EditCustomerAddressComponent implements OnInit {
                 if (statebilling == undefined) {
                   statebilling = this.otherCountry;
                 }
-
                 this.addressId = this.editRecord.id;
                 this.editbillingForm.patchValue({
                   fnm: this.editRecord.first_name,
@@ -109,8 +108,6 @@ export class EditCustomerAddressComponent implements OnInit {
                   mono: this.editRecord.phone_number,
                   faxno: this.editRecord.fax_number,
                 });
-
-
               });
             }
 
