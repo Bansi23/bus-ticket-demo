@@ -30,8 +30,8 @@
                     </td>
                     <!-- <td></td> -->
                     <td><i class="fa fa-check text-success"></i></td>
-                    <td>{{c.createdOn | date : 'medium'}}</td>
-                    <td>{{c.lastActivity | date : 'medium'}}</td>
+                    <td>{{c.createdOn | date :'dd/MM/yyyy,h:mm:ss a'}}</td>
+                    <td>{{c.lastActivity | date :'dd/MM/yyyy,h:mm:ss a'}}</td>
                     <td>
 
                         <button class="btn btn-success btn-md col-sm-12" (click)="navigateToEditCustomer(c)"><i
