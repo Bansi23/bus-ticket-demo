@@ -29,9 +29,9 @@
                             <td>{{item?.discount_amount_excl_tax | number:'2.2-2'}}excl tax</td>
                             <td>{{item?.price_excl_tax | number:'2.2-2'}}excl tax</td>
                             <td>
-                                <button class="btn btn-info" (click)="editRecord(item)"><i
+                                <button class="btn btn-success btn-sm col-sm-8" (click)="editRecord(item)"><i
                                         class="fa fa-pencil"></i></button>
-                                <button class="btn btn-danger mb-1" (click)="DeleteRecord(item.id)"><i
+                                <button class="btn btn-danger btn-sm col-sm-8" (click)="DeleteRecord(item.id)"><i
                                         class="fa fa-trash"></i></button>
                             </td>
                         </tr>
@@ -47,11 +47,11 @@
                 aria-labelledby="mySmallModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">{{ 'Edit Record'}}</h5>
+                        <div class="modal-header header-box">
+                            {{ 'Edit Record'}}
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"
                                 (click)="close()">
-                                <span aria-hidden="true">&times;</span>
+                                <span aria-hidden="true" class="text-white">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
@@ -175,8 +175,8 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button class="btn btn-success float-left btn-sm" (click)="saveRecord()"> <i
-                                    class="fa fa-floppy-o">
+                            <button class="btn btn-info float-left btn-sm" (click)="saveRecord()"> <i
+                                    class="fa fa-save">
                                     Save </i></button>
                             <!-- <button class="btn btn-danger float-left btn-sm" (click)="close()"> <i class="fa fa-close">
                                     Close </i></button> -->

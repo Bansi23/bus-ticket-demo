@@ -21,9 +21,9 @@
                                         height="150px" alt="product" /></td>
                                 <td>{{pic.position}}</td>
                                 <td>
-                                    <button class="btn btn-success" (click)="editPicture(i)"><i
+                                    <button class="btn btn-success btn-sm" (click)="editPicture(i)"><i
                                             class="fa fa-edit"></i></button>
-                                    <button class="btn btn-danger left-margin" (click)="deletePicture(i)"><i
+                                    <button class="btn btn-danger left-margin btn-sm" (click)="deletePicture(i)"><i
                                             class="fa fa-trash"></i></button>
                                 </td>
                             </tr>
@@ -33,7 +33,7 @@
                         <div class="col-md-4 col-12">
                             <div class="total-count--table">
                                 <span>Total number of records : {{ totalRecords}}</span>
-                                <button class="btn btn-primary" (click)="getPictureList()"><i
+                                <button class="btn btn-primary btn-sm" (click)="getPictureList()"><i
                                         class="fa fa-refresh"></i></button>
                             </div>
                         </div>
@@ -95,7 +95,7 @@
                             </div>
                         </div>
                         <div class="row pull-right">
-                            <button class="btn btn-primary" (click)="addPicture()"><i class="fa fa-plus">Add Product
+                            <button class="btn btn-primary btn-sm" (click)="addPicture()"><i class="fa fa-plus">Add Product
                                     Picture</i></button>
                         </div>
                     </div>
