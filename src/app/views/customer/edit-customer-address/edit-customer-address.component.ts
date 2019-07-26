@@ -221,18 +221,15 @@ export class EditCustomerAddressComponent implements OnInit {
             "zip_postal_code": this.editbillingForm.value.pinno,
             "phone_number": this.editbillingForm.value.mono,
             "fax_number": this.editbillingForm.value.faxno,
-            // "id": this.addressId  
-            "id" : 76
-            
+            "id": +this.addressId  
+             
           }
         ],
 
-        "id" : this.customerId
+        "id" : +this.customerId
       }
-
-
+      
     }
-
     this._cS.API_PUT(this._cS.getParticularCustomer(this.customerId), body)
       .subscribe(res => {
         if (res) {
