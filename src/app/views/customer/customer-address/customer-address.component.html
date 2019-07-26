@@ -40,15 +40,13 @@
                         <td>
                             <button class="btn btn-danger btn-sm">
                                 <i class="fa fa-trash"></i>
-
                             </button>
                         </td>
-
                     </tr>
                 </tbody>
             </table>
             <div class="row">
-                <div class="col-md-3 col-12">
+                <div class="col-md-4 col-12">
                     <div class="total-count--table">
                         <span>Total number of records : {{ totalRecords}}</span>
                         <button class="btn btn-primary" (click)="getCustomerOrderAddress()"><i
@@ -61,7 +59,7 @@
                         </pagination-controls>
                     </div>
                 </div>
-                <div class="col-md-3 col-12" *ngIf="custAddress.length > 0">
+                <div class="col-md-2 col-12" *ngIf="custAddress.length > 0">
                     <div class="text-left pagignation-select">
                         <select class="form-control" [(ngModel)]="pageSize"
                             (change)="changePageSize($event.target.value)">

@@ -43,17 +43,9 @@ export class CustomerAddressComponent implements OnInit {
     this.totalRecords = this.temp.length
   }
   getCustomerOrderAddress() {
-<<<<<<< HEAD
-    this._cS.API_GET(this._cS.getPaticularCustomerOrder(this.custId))
-      .subscribe(response => {
-        console.log('custAddress:', response)
-         this.temp = response.orders; 
-=======
-
     this._cS.API_GET(this._cS.getParticularCustomer(this.custId))
       .subscribe(response => {
         this.temp = response.customers;
->>>>>>> 9156cc6c3eb392005caacdbc34ecd98b51041c68
         this.custAddress = [];
         this.getTotalRecord();
         if (this.temp[0].addresses.length) {
