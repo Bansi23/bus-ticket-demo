@@ -26,56 +26,62 @@
                                         <form [formGroup]="addCustomerForm">
                                             <div class="row mb-2">
                                                 <div class="col-sm-6">
-                                                    <label for="email" class="pull-left">Email</label>
-                                                    <input type="email" formControlName="custEmail"
-                                                        class="form-control">
-                                                    <span class="text-danger pull-left"
-                                                        *ngIf="addCustomerForm.get('custEmail').hasError('required') && addCustomerForm.get('custEmail').touched">
-                                                        Email address is required
-                                                    </span>
-                                                    <span class="text-danger pull-left"
-                                                        *ngIf="addCustomerForm.get('custEmail').hasError('pattern') && addCustomerForm.get('custEmail').touched">
-                                                        Enter valid email address
-                                                    </span>
+                                                        <label for="first name" class="pull-left">First name</label>
+                                                        <input formControlName="custFirstName" type="text"
+                                                            class="form-control">
+                                                        <span class="text-danger pull-left"
+                                                            *ngIf="addCustomerForm.get('custFirstName').hasError('required') && addCustomerForm.get('custFirstName').touched">
+                                                            First name is required
+                                                        </span>
+                                                  
                                                 </div>
                                                 <div class="col-sm-6">
-                                                    <label for="first name" class="pull-left">First name</label>
-                                                    <input formControlName="custFirstName" type="text"
-                                                        class="form-control">
-                                                    <span class="text-danger pull-left"
-                                                        *ngIf="addCustomerForm.get('custFirstName').hasError('required') && addCustomerForm.get('custFirstName').touched">
-                                                        First name is required
-                                                    </span>
+                                                        <label for="last name" class="pull-left">Last name</label>
+                                                        <input formControlName="custLastName" type="text"
+                                                            class="form-control">
+                                                        <span class="text-danger  pull-left"
+                                                            *ngIf="addCustomerForm.get('custLastName').hasError('required') && addCustomerForm.get('custLastName').touched">
+                                                            Last name is required
+                                                        </span>
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
                                                 <div class="col-sm-6">
-                                                    <label for="password" class="pull-left">Password</label>
-                                                    <input type="password" formControlName="custPassword"
-                                                        class="form-control">
-                                                    <span class="text-danger pull-left"
-                                                        *ngIf="addCustomerForm.get('custPassword').hasError('required') && addCustomerForm.get('custPassword').touched">
-                                                        Password is required
-                                                    </span>
-                                                    <span class="text-danger pull-left pull-left"
-                                                        *ngIf="addCustomerForm.get('custPassword').hasError('pattern') && addCustomerForm.get('custPassword').touched">
-                                                        Password must have lowercase, uppercase, numeric value, special
-                                                        character and minimum 8 character</span>
-                                                    <br>
-                                                    <div class="pull-right" *ngIf="isChangePassword">
-                                                        <button type="button" class="btn btn-info btn-sm"
-                                                            (click)="changePassword()">Change password</button>
-                                                    </div>
+                                                        <label for="email" class="pull-left">Email</label>
+                                                        <input type="email" formControlName="custEmail"
+                                                            class="form-control">
+                                                        <span class="text-danger pull-left"
+                                                            *ngIf="addCustomerForm.get('custEmail').hasError('required') && addCustomerForm.get('custEmail').touched">
+                                                            Email address is required
+                                                        </span>
+                                                        <span class="text-danger pull-left"
+                                                            *ngIf="addCustomerForm.get('custEmail').hasError('pattern') && addCustomerForm.get('custEmail').touched">
+                                                            Enter valid email address
+                                                        </span>
+
+                                                   
 
                                                 </div>
                                                 <div class="col-sm-6 mb-2">
-                                                    <label for="last name" class="pull-left">Last name</label>
-                                                    <input formControlName="custLastName" type="text"
-                                                        class="form-control">
-                                                    <span class="text-danger  pull-left"
-                                                        *ngIf="addCustomerForm.get('custLastName').hasError('required') && addCustomerForm.get('custLastName').touched">
-                                                        Last name is required
-                                                    </span>
+                                                        <label for="password" class="pull-left">Password</label>
+                                                        <input type="password" formControlName="custPassword"
+                                                            class="form-control">
+                                                        <span class="text-danger pull-left"
+                                                            *ngIf="addCustomerForm.get('custPassword').hasError('required') && addCustomerForm.get('custPassword').touched">
+                                                            Password is required
+                                                        </span>
+                                                        <span class="text-danger pull-left pull-left"
+                                                            *ngIf="addCustomerForm.get('custPassword').hasError('pattern') && addCustomerForm.get('custPassword').touched">
+                                                            Password must have lowercase, uppercase, numeric value, special
+                                                            character and minimum 8 character</span>
+                                                        <br>
+                                                        <div class="pull-right" *ngIf="isChangePassword">
+                                                            <button type="button" class="btn btn-info"
+                                                                (click)="changePassword()">Change password</button>
+                                                        </div>
+
+
+                                                    
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -222,26 +228,23 @@
                                         <form [formGroup]="addCustomerForm">
                                             <div class="row mb-2">
                                                 <div class="col-sm-6">
-                                                    <label for="email" class="pull-left">Email</label>
-                                                    <input type="email" formControlName="custEmail"
-                                                        class="form-control">
-                                                    <span class="text-danger pull-left"
-                                                        *ngIf="addCustomerForm.get('custEmail').hasError('required') && addCustomerForm.get('custEmail').touched">
-                                                        Email address is required
-                                                    </span>
-                                                    <span class="text-danger pull-left"
-                                                        *ngIf="addCustomerForm.get('custEmail').hasError('pattern') && addCustomerForm.get('custEmail').touched">
-                                                        Enter valid email address
-                                                    </span>
+                                                        <label for="first name" class="pull-left">First name</label>
+                                                        <input formControlName="custFirstName" type="text"
+                                                            class="form-control">
+                                                        <span class="text-danger pull-left"
+                                                            *ngIf="addCustomerForm.get('custFirstName').hasError('required') && addCustomerForm.get('custFirstName').touched">
+                                                            First name is required
+                                                        </span>
                                                 </div>
                                                 <div class="col-sm-6">
-                                                    <label for="first name" class="pull-left">First name</label>
-                                                    <input formControlName="custFirstName" type="text"
-                                                        class="form-control">
-                                                    <span class="text-danger pull-left"
-                                                        *ngIf="addCustomerForm.get('custFirstName').hasError('required') && addCustomerForm.get('custFirstName').touched">
-                                                        First name is required
-                                                    </span>
+                                                        <label for="last name" class="pull-left">Last name</label>
+                                                        <input formControlName="custLastName" type="text"
+                                                            class="form-control">
+                                                        <span class="text-danger pull-left"
+                                                            *ngIf="addCustomerForm.get('custLastName').hasError('required') && addCustomerForm.get('custLastName').touched">
+                                                            Last name is required
+                                                        </span>
+                                                   
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -264,13 +267,18 @@
                                                 </span>
                                             </div> -->
                                                 <div class="col-sm-6">
-                                                    <label for="last name" class="pull-left">Last name</label>
-                                                    <input formControlName="custLastName" type="text"
-                                                        class="form-control">
-                                                    <span class="text-danger pull-left"
-                                                        *ngIf="addCustomerForm.get('custLastName').hasError('required') && addCustomerForm.get('custLastName').touched">
-                                                        Last name is required
-                                                    </span>
+                                                        <label for="email" class="pull-left">Email</label>
+                                                        <input type="email" formControlName="custEmail"
+                                                            class="form-control">
+                                                        <span class="text-danger pull-left"
+                                                            *ngIf="addCustomerForm.get('custEmail').hasError('required') && addCustomerForm.get('custEmail').touched">
+                                                            Email address is required
+                                                        </span>
+                                                        <span class="text-danger pull-left"
+                                                            *ngIf="addCustomerForm.get('custEmail').hasError('pattern') && addCustomerForm.get('custEmail').touched">
+                                                            Enter valid email address
+                                                        </span>
+                                                    
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
