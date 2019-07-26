@@ -34,20 +34,22 @@ export class EditCustomerAddressComponent implements OnInit {
   //#region form group
   fbEditAddress() {
     this.editbillingForm = this.fb.group({
-      fnm: ['', Validators.required],
-      lnm: ['', Validators.required],
+      fnm: ['', Validators.compose([Validators.required, Validators.pattern('.*\\S.*[a-zA-z ]')])],
+      lnm: ['', Validators.compose([Validators.required, Validators.pattern('.*\\S.*[a-zA-z ]')])],
       mono: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]\\d{0,15}')])],
       company: [''],
       mail: ['', Validators.compose([Validators.required, Validators.pattern(emailPattern)])],
       country: ['', Validators.required],
       state: ['', Validators.required],
       city: ['', Validators.required],
-      addone: ['', Validators.required],
+      addone:['', Validators.compose([Validators.required, Validators.pattern('.*\\S.*[a-zA-z0-9 ]')])],
       addtwo: [''],
       pinno: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]\\d{0,15}')])],
       faxno: [''],
     });
   }
+  
+
   getParameter() {
     this._route.queryParams.subscribe(params => {
       this.orderId = params['id']
@@ -199,7 +201,7 @@ export class EditCustomerAddressComponent implements OnInit {
     if (statebilling == undefined) {
       statebilling = this.otherCountry;
     }
-    
+
     var body = {
 
       "customer": {
@@ -218,14 +220,14 @@ export class EditCustomerAddressComponent implements OnInit {
             "zip_postal_code": this.editbillingForm.value.pinno,
             "phone_number": this.editbillingForm.value.mono,
             "fax_number": this.editbillingForm.value.faxno,
-            "id": +this.addressId  
-             
+            "id": +this.addressId
+
           }
         ],
 
-        "id" : +this.customerId
+        "id": +this.customerId
       }
-      
+
     }
     this._cS.API_PUT(this._cS.getParticularCustomer(this.customerId), body)
       .subscribe(res => {

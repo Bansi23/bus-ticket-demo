@@ -9,7 +9,7 @@ import { CommonService } from '../../../services/common.service';
   styleUrls: ['./customer-list.component.scss']
 })
 export class CustomerListComponent implements OnInit {
-  lstcustomers = [];
+  lstcustomers : any = [];
   lstCustomerRoles = [];
   totalRecords: number;                   
   pageIndex: number = 1;

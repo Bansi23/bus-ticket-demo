@@ -69,7 +69,8 @@
                     </div>
                 </div>
             </form>
-            <button class="btn btn-info  text-white pull-left" (click)="searchRecord()"><i class="fa fa-search"></i>
+            <button class="btn btn-info btn-sm text-white pull-right " (click)="searchRecord()"><i
+                    class="fa fa-search"></i>
                 Search</button>
         </div>
     </div>
@@ -86,7 +87,7 @@
                             <th>View</th>
                             <th><input type="checkbox" [(ngModel)]="selectAll" (change)="select_all()"></th>
                             <th>Order#</th>
-                            <th>Order Status</th>
+                            <th>Order status</th>
                             <th>Payment status</th>
                             <th>Shipping Status</th>
                             <th>Customer</th>
@@ -97,7 +98,7 @@
                     <tbody>
                         <tr
                             *ngFor="let lstorder of lstOrderData| paginate: { itemsPerPage:pageSize , currentPage: pageIndex , totalItems: totalRecord}; let i = index">
-                            <td><button class="btn btn-color btn-sm" (click)="ViewData(lstorder.id)"> <i
+                            <td><button class="btn btn-color btn-sm col-sm-12" (click)="ViewData(lstorder.id)"> <i
                                         class="fa fa-eye"></i></button></td>
                             <td> <input type="checkbox" [(ngModel)]="lstorder.select" (change)="checkIfAllSelected()">
                             </td>
@@ -114,11 +115,11 @@
                             <td>{{lstorder.customer.first_name}}{{lstorder.customer.last_name}}{{lstorder.customer.email}}
                             </td>
                             <td>{{lstorder.created_on_utc | date :'dd/MM/yyyy,h:mm:ss a'}}</td>
-                            <td>{{lstorder.order_total | number:'2.2-2'}}</td>
+                            <td><span class="pull-right">{{lstorder.order_total | number:'2.2-2'}}</span></td>
                         </tr>
                         <tr *ngIf="lstOrderData.length > 0">
                             <td colspan="8"></td>
-                            <td>{{finalTotal | number:'2.2-2'}}</td>
+                            <td><span class="pull-right">{{finalTotal | number:'2.2-2'}}</span></td>
                             <td></td>
                         </tr>
                         <tr>
@@ -129,13 +130,14 @@
                 </table>
             </div>
             <div class="row" *ngIf="totalRecord">
-                <div class="col-md-2 col-sm-12">
+                <div class="col-md-4 col-sm-12">
                     <div class="total-count--table">
                         <span> Total Number of Records :{{totalRecord}}</span>
-                        <button class="btn btn-primary" (click)="GetRecord()"><i class="fa fa-refresh"></i></button>
+                        <button class="btn btn-primary btn-sm" (click)="GetRecord()"><i
+                                class="fa fa-refresh"></i></button>
                     </div>
                 </div>
-                <div class="col-md-8 col-sm-12" *ngIf="(lstOrderData).length > 0">
+                <div class="col-md-6 col-sm-12" *ngIf="(lstOrderData).length > 0">
                     <div class="text-right">
                         <pagination-controls class="pagination-sm pagination-box" (pageChange)="pageChanged($event)">
                         </pagination-controls>

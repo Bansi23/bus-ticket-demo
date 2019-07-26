@@ -19,7 +19,7 @@
                         <td>{{attr.display_order}}</td>
                         <!-- <td></td> -->
                         <td>
-                            <button class="btn btn-success" (click)="editAttribute(attr.id)"><i
+                            <button class="btn btn-success btn-sm" (click)="editAttribute(attr.id)"><i
                                     class="fa fa-edit"></i></button>
                         </td>
                     </tr>
@@ -31,7 +31,7 @@
         <div class="col-md-4 col-12">
             <div class="total-count--table">
                 <span>Total number of records : {{ totalRecords}}</span>
-                <button class="btn btn-primary" (click)="reloadAttribute()"><i class="fa fa-refresh"></i></button>
+                <button class="btn btn-primary btn-sm" (click)="reloadAttribute()"><i class="fa fa-refresh"></i></button>
             </div>
         </div>
         <div class="col-md-5 col-12" *ngIf="lstAttr.length > 0">
@@ -54,7 +54,7 @@
         </div>
     </div>
     <div class="row">
-        <button class="btn btn-primary left-margin" (click)="addAttributes()"><i class="fa fa-plus">Add a new
+        <button class="btn btn-primary left-margin btn-sm" (click)="addAttributes()"><i class="fa fa-plus">Add a new
                 attribute</i></button>
     </div>
 </div>

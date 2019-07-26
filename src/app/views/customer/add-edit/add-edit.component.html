@@ -9,9 +9,9 @@
                     class="fa fa-arrow-circle-o-left"> back to
                     customer list</i></button>
             <div class="pull-right">
-                <button type="button" class="btn btn-primary" (click)="saveAddEditForm()">
+                <button type="button" class="btn btn-info btn-sm" (click)="saveAddEditForm()">
                     <i class="fa fa-save"></i> Save</button>
-                <button type="button" class="btn btn-primary" (click)="saveAndEditForm()">
+                <button type="button" class="btn btn-info btn-sm" (click)="saveAndEditForm()">
                     <i class="fa fa-save"></i> Save and continue edit</button>
             </div>
         </div>
@@ -26,6 +26,27 @@
                                         <form [formGroup]="addCustomerForm">
                                             <div class="row mb-2">
                                                 <div class="col-sm-6">
+                                                    <label for="first name" class="pull-left">First name</label>
+                                                    <input formControlName="custFirstName" type="text"
+                                                        class="form-control">
+                                                    <span class="text-danger pull-left"
+                                                        *ngIf="addCustomerForm.get('custFirstName').hasError('required') && addCustomerForm.get('custFirstName').touched">
+                                                        First name is required
+                                                    </span>
+
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <label for="last name" class="pull-left">Last name</label>
+                                                    <input formControlName="custLastName" type="text"
+                                                        class="form-control">
+                                                    <span class="text-danger  pull-left"
+                                                        *ngIf="addCustomerForm.get('custLastName').hasError('required') && addCustomerForm.get('custLastName').touched">
+                                                        Last name is required
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-2">
+                                                <div class="col-sm-6">
                                                     <label for="email" class="pull-left">Email</label>
                                                     <input type="email" formControlName="custEmail"
                                                         class="form-control">
@@ -37,19 +58,11 @@
                                                         *ngIf="addCustomerForm.get('custEmail').hasError('pattern') && addCustomerForm.get('custEmail').touched">
                                                         Enter valid email address
                                                     </span>
+
+
+
                                                 </div>
-                                                <div class="col-sm-6">
-                                                    <label for="first name" class="pull-left">First name</label>
-                                                    <input formControlName="custFirstName" type="text"
-                                                        class="form-control">
-                                                    <span class="text-danger pull-left"
-                                                        *ngIf="addCustomerForm.get('custFirstName').hasError('required') && addCustomerForm.get('custFirstName').touched">
-                                                        First name is required
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="row mb-2">
-                                                <div class="col-sm-6">
+                                                <div class="col-sm-6 mb-2">
                                                     <label for="password" class="pull-left">Password</label>
                                                     <input type="password" formControlName="custPassword"
                                                         class="form-control">
@@ -67,15 +80,8 @@
                                                             (click)="changePassword()">Change password</button>
                                                     </div>
 
-                                                </div>
-                                                <div class="col-sm-6 mb-2">
-                                                    <label for="last name" class="pull-left">Last name</label>
-                                                    <input formControlName="custLastName" type="text"
-                                                        class="form-control">
-                                                    <span class="text-danger  pull-left"
-                                                        *ngIf="addCustomerForm.get('custLastName').hasError('required') && addCustomerForm.get('custLastName').touched">
-                                                        Last name is required
-                                                    </span>
+
+
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -202,14 +208,16 @@
                                             <div class="row mb-2" *ngIf="isChangePassword">
                                                 <div class="col-sm-6">
                                                     <label for="createdOn" class="pull-left">Created on &nbsp;</label>
-                                                    <label class="pull-left">{{createdOn | date : 'short'}}</label>
+                                                    <label
+                                                        class="pull-left">{{createdOn | date :'dd/MM/yyyy,h:mm:ss a'}}</label>
                                                 </div>
                                             </div>
                                             <div class="row mb-2" *ngIf="isChangePassword">
                                                 <div class="col-sm-6">
                                                     <label for="lastActivity" class="pull-left">Last activity
                                                         &nbsp;</label>
-                                                    <label class="pull-left">{{lastActivity | date : 'short'}}</label>
+                                                    <label
+                                                        class="pull-left">{{lastActivity | date :'dd/MM/yyyy,h:mm:ss a'}}</label>
                                                 </div>
                                             </div>
 
@@ -222,19 +230,6 @@
                                         <form [formGroup]="addCustomerForm">
                                             <div class="row mb-2">
                                                 <div class="col-sm-6">
-                                                    <label for="email" class="pull-left">Email</label>
-                                                    <input type="email" formControlName="custEmail"
-                                                        class="form-control">
-                                                    <span class="text-danger pull-left"
-                                                        *ngIf="addCustomerForm.get('custEmail').hasError('required') && addCustomerForm.get('custEmail').touched">
-                                                        Email address is required
-                                                    </span>
-                                                    <span class="text-danger pull-left"
-                                                        *ngIf="addCustomerForm.get('custEmail').hasError('pattern') && addCustomerForm.get('custEmail').touched">
-                                                        Enter valid email address
-                                                    </span>
-                                                </div>
-                                                <div class="col-sm-6">
                                                     <label for="first name" class="pull-left">First name</label>
                                                     <input formControlName="custFirstName" type="text"
                                                         class="form-control">
@@ -242,6 +237,16 @@
                                                         *ngIf="addCustomerForm.get('custFirstName').hasError('required') && addCustomerForm.get('custFirstName').touched">
                                                         First name is required
                                                     </span>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <label for="last name" class="pull-left">Last name</label>
+                                                    <input formControlName="custLastName" type="text"
+                                                        class="form-control">
+                                                    <span class="text-danger pull-left"
+                                                        *ngIf="addCustomerForm.get('custLastName').hasError('required') && addCustomerForm.get('custLastName').touched">
+                                                        Last name is required
+                                                    </span>
+
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -264,13 +269,18 @@
                                                 </span>
                                             </div> -->
                                                 <div class="col-sm-6">
-                                                    <label for="last name" class="pull-left">Last name</label>
-                                                    <input formControlName="custLastName" type="text"
+                                                    <label for="email" class="pull-left">Email</label>
+                                                    <input type="email" formControlName="custEmail"
                                                         class="form-control">
                                                     <span class="text-danger pull-left"
-                                                        *ngIf="addCustomerForm.get('custLastName').hasError('required') && addCustomerForm.get('custLastName').touched">
-                                                        Last name is required
+                                                        *ngIf="addCustomerForm.get('custEmail').hasError('required') && addCustomerForm.get('custEmail').touched">
+                                                        Email address is required
                                                     </span>
+                                                    <span class="text-danger pull-left"
+                                                        *ngIf="addCustomerForm.get('custEmail').hasError('pattern') && addCustomerForm.get('custEmail').touched">
+                                                        Enter valid email address
+                                                    </span>
+
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -344,7 +354,7 @@
                                             <br>
 
                                             <div class="row mb-2">
-                                                <div class="col-sm-6">
+                                                <!-- <div class="col-sm-6">
                                                     <label for="manager of vendor" class="pull-left">Manager of
                                                         vendor</label>
                                                     <select formControlName="custManagerOfVendor" class="form-control">
@@ -359,7 +369,7 @@
                                                     </span><br>
                                                     <span>Note: if you have a vendor associated with this customer, then
                                                         also ensure it is in "Vendors" customer role.</span>
-                                                </div>
+                                                </div> -->
 
                                             </div>
                                             <div class="row mb-2">

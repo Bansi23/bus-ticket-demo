@@ -30,7 +30,7 @@
                         </td>
                         <td>{{o.paymentStatus}}</td>
                         <td>{{o.shippingStatus}}</td>
-                        <td>{{o.createdOn}}</td>
+                        <td>{{o.createdOn | date :'dd/MM/yyyy,h:mm:ss a'}}</td>
                         <td>
                             <button class="btn bg-white btn-sm" (click)="navigateToOrders(o.orderId)">
                                 <i class="fa fa-eye"></i>
@@ -50,7 +50,7 @@
                 <div class="col-md-3 col-12">
                     <div class="total-count--table">
                         <span>Total number of records : {{ totalRecords}}</span>
-                        <button class="btn btn-primary" (click)="getCustomerOrders()"><i
+                        <button class="btn btn-primary btn-sm" (click)="getCustomerOrders()"><i
                                 class="fa fa-refresh"></i></button>
                     </div>
                 </div>

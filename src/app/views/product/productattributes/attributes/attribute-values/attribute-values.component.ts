@@ -113,7 +113,7 @@ export class AttributeValuesComponent implements OnInit {
       } else {
         this.lstAttrValue.push(body);
       }
-      this._cS.getAttributeValues(this.lstAttrValue);
+      // this._cS.getAttributeValues(this.lstAttrValue);
       this.attrValueForm.reset();
       this.valuesModal.hide();
     }

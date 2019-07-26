@@ -28,27 +28,24 @@
                         <td>{{ad.faxNo}}</td>
                         <td>
                             <span *ngFor="let a of ad.address">
-
                                 {{a}} <br>
                             </span>
                         </td>
                         <td>
-                            <button class="btn btn-success" (click)="navigateToEditAddress(ad.customerId,ad.addressId)">
+                            <button class="btn btn-success btn-sm col-sm-12 mt-1" (click)="navigateToEditAddress(ad.customerId,ad.addressId)">
                                 <i class="fa fa-edit"></i>
                             </button>
                         </td>
                         <td>
-                            <button class="btn btn-danger">
+                            <button class="btn btn-danger btn-sm col-sm-12 mt-1">
                                 <i class="fa fa-trash"></i>
-
                             </button>
                         </td>
-
                     </tr>
                 </tbody>
             </table>
             <div class="row">
-                <div class="col-md-3 col-12">
+                <div class="col-md-4 col-12">
                     <div class="total-count--table">
                         <span>Total number of records : {{ totalRecords}}</span>
                         <button class="btn btn-primary" (click)="getCustomerOrderAddress()"><i
@@ -61,7 +58,7 @@
                         </pagination-controls>
                     </div>
                 </div>
-                <div class="col-md-3 col-12" *ngIf="custAddress.length > 0">
+                <div class="col-md-2 col-12" *ngIf="custAddress.length > 0">
                     <div class="text-left pagignation-select">
                         <select class="form-control" [(ngModel)]="pageSize"
                             (change)="changePageSize($event.target.value)">

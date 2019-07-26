@@ -82,7 +82,7 @@ export class AddEditComponent implements OnInit {
       custEmail: ['', Validators.compose([Validators.required, Validators.pattern(emailPattern)])],
       // custPassword: ['', Validators.compose([Validators.minLength(5), Validators.required,Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')])],
       custRoles: ['', Validators.required],
-      custManagerOfVendor: ['', Validators.required],
+      // custManagerOfVendor: ['', Validators.required],
       // custGender: ['', Validators.required],
       custFirstName: ['', Validators.required],
       custLastName: ['', Validators.required],
@@ -191,6 +191,7 @@ export class AddEditComponent implements OnInit {
             this._cS.displayToast(3, "Failed", "Record not updated!");
           }
         }, err => {
+          // console.log('err:', err)
           this._cS.displayToast(2, err.error.errors["Dto.RoleIds"]);
           this._cS.Display_Loader(false);
 
@@ -238,6 +239,7 @@ export class AddEditComponent implements OnInit {
       this.isChangePassword = true;
       this._cS.API_GET(this._cS.getParticularCustomer(this.custId))
         .subscribe(response => {
+          console.log('response:', response)
           this.customer = response.customers;
           this.setValuesInForm();
         });

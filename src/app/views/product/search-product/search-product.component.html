@@ -2,16 +2,13 @@
     <div class="col-sm-12">
         <div class="card">
             <div class="card-header">
-                <div class="pull-left">
-                    <strong>
-                        <h3>Product</h3>
-                    </strong>
-                </div>
-                <div class="pull-right">
-                    <button class="btn btn-primary text-white" (click)="addProduct()"><i class="fa fa-plus">Add
-                            New</i></button>&nbsp;
-                    <!-- <button class="btn btn-danger text-white" (click)="deleteSelected()"><i class="fa fa-trash">Delete (selected)</i></button> -->
-                </div>
+                <strong class="pull-left">
+                    Product
+                </strong>
+                <button class="btn btn-primary text-white pull-right btn-sm" (click)="addProduct()"><i class="fa fa-plus">Add
+                        New</i></button>&nbsp;
+                <!-- <button class="btn btn-danger text-white" (click)="deleteSelected()"><i class="fa fa-trash">Delete (selected)</i></button> -->
+
             </div>
             <div class="card-body">
                 <!-- <div class="row">
@@ -83,10 +80,9 @@
                     <div class="form-group col-sm-6">
                         <label>Go directly to product SKU</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" formControlName="sku" placeholder="SKU">
+                            <input type="text" class="form-control" formControlName="sku">
                             <span class="input-group-append">
-                                <button type="button" class="btn btn-primary"
-                                    (click)="goToEditProduct()">Go</button>
+                                <button type="button" class="btn btn-primary" (click)="goToEditProduct()">Go</button>
                             </span>
                         </div>
                     </div>
@@ -95,8 +91,8 @@
                 <!-- <div class="row">
                    
                 </div> -->
-                <button class="btn btn-info text-center text-white center-block pull-right" (click)="searchList()"><i
-                        class="fa fa-search">Search</i></button>
+                        <button class="btn btn-info btn-sm text-white pull-right " (click)="searchList()"><i class="fa fa-search"></i>
+                            Search</button>
             </div>
         </div>
     </div>

@@ -42,7 +42,7 @@ export class CustomerAddressComponent implements OnInit {
   getTotalRecord() {
     this.totalRecords = this.temp.length
   }
-  getCustomerOrderAddress() { 
+  getCustomerOrderAddress() {
     this._cS.API_GET(this._cS.getParticularCustomer(this.custId))
       .subscribe(response => {
         this.temp = response.customers;

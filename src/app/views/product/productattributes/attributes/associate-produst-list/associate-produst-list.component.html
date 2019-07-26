@@ -45,7 +45,7 @@
                         <tr
                             *ngFor="let prod of lstProduct | paginate: { itemsPerPage: pageSize, currentPage: pageIndex, totalItems: totalRecords }; let i=index;">
                             <td>
-                                <button class="btn btn-info" (click)="selectProduct(prod.id)">Select</button>
+                                <button class="btn btn-info btn-sm" (click)="selectProduct(prod.id)">Select</button>
                             </td>
                             <td>{{prod.name}}</td>
                             <td class="fa"
@@ -59,7 +59,7 @@
                 <div class="col-md-5 col-12">
                     <div class="total-count--table">
                         <span>Total number of records : {{ totalRecords}}</span>
-                        <button class="btn btn-primary" (click)="getProductList()"><i
+                        <button class="btn btn-primary btn-sm" (click)="getProductList()"><i
                                 class="fa fa-refresh"></i></button>
                     </div>
                 </div>

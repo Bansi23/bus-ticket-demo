@@ -7,7 +7,7 @@
             [disabled]="!editbillingForm.valid " (click)="editBilling()"><i class="fa fa-save">
                 &nbsp;</i>Save</button> -->
 
-        <button class="btn btn-primary text-center text-white pull-right"   (click)="editShpping()"
+        <button class="btn btn-info text-center text-white pull-right btn-sm"   (click)="editShpping()"
              ><i class="fa fa-save">
                 &nbsp;</i>Save</button>
     </div>
@@ -15,13 +15,17 @@
         <form [formGroup]="editbillingForm">
              <div class="row">
                 <div class="form-group col-sm-6">
-                    <label for="fnm">First Name<span class="text-danger"
+                    <label for="fnm">First name<span class="text-danger"
                             *ngIf="editbillingForm.controls.fnm.errors?.required">*</span></label>
                     <input type="text" class="form-control" formControlName="fnm">
                     <span class="text-danger" style="float: left"
                         *ngIf="editbillingForm.get('fnm').hasError('required') && editbillingForm.get('fnm').touched">
-                        First Name is Required
+                        First name is required
                     </span>
+                    <span class="text-danger"
+                    *ngIf="editbillingForm.get('fnm').hasError('pattern') && editbillingForm.get('fnm').touched">
+                    Enter valid first name
+                </span>
                 </div>
 
                 <div class="form-group col-sm-6">
@@ -30,20 +34,25 @@
                         <input type="text" class="form-control" formControlName="city">
                         <span class="text-danger"
                             *ngIf="editbillingForm.get('city').hasError('required') && editbillingForm.get('city').touched">
-                            City is Required
+                            City is required
                         </span>
                     </div>
             </div>
 
             <div class="row">
                 <div class="form-group col-sm-6">
-                    <label for="lnm">Last Name<span class="text-danger"
+                    <label for="lnm">Last name<span class="text-danger"
                             *ngIf="editbillingForm.controls.lnm.errors?.required">*</span></label>
                     <input type="text" class="form-control" formControlName="lnm">
                     <span class="text-danger"
                         *ngIf="editbillingForm.get('lnm').hasError('required') && editbillingForm.get('lnm').touched">
-                        Last Name is Required
+                        Last name is required
                     </span>
+
+                    <span class="text-danger"
+                    *ngIf="editbillingForm.get('lnm').hasError('pattern') && editbillingForm.get('lnm').touched">
+                    Enter valid last name
+                </span>
                 </div>
 
                 <div class="form-group col-sm-6">
@@ -52,8 +61,12 @@
                         <input type="text" class="form-control" formControlName="addone">
                         <span class="text-danger"
                             *ngIf="editbillingForm.get('addone').hasError('required') && editbillingForm.get('addone').touched">
-                            Address is Required
+                            Address is required
                         </span>
+                        <span class="text-danger"
+                        *ngIf="editbillingForm.get('addone').hasError('pattern') && editbillingForm.get('addone').touched">
+                        Enter valid address
+                    </span>
                     </div>
             </div>
 
@@ -64,11 +77,11 @@
                     <input type="email" class="form-control" formControlName="mail">
                     <span class="text-danger" 
                         *ngIf="editbillingForm.get('mail').hasError('required') && editbillingForm.get('mail').touched">
-                        E-mail is Required
+                        E-mail is required
                     </span>
                     <span class="text-danger"
                         *ngIf="editbillingForm.get('mail').hasError('pattern') && editbillingForm.get('mail').touched">
-                        Enter Valid E-mail
+                        Enter valid E-mail
                     </span>
                 </div>
                 <div class="form-group col-sm-6">
@@ -84,16 +97,16 @@
                 </div>
 
                 <div class="form-group col-sm-6">
-                        <label for="pinno">ZIP/ Postal Code<span class="text-danger"
+                        <label for="pinno">ZIP/ Postal code<span class="text-danger"
                                 *ngIf="editbillingForm.controls.pinno.errors?.required || editbillingForm.controls.pinno.errors?.pattern">*</span></label>
                         <input type="text" class="form-control" formControlName="pinno">
                         <span class="text-danger"
                             *ngIf="editbillingForm.get('pinno').hasError('required') && editbillingForm.get('pinno').touched">
-                            Pin No is Required
+                            PIN number is required
                         </span>
                         <span class="text-danger"
                             *ngIf="editbillingForm.get('pinno').hasError('pattern') && editbillingForm.get('pinno').touched">
-                            Enter valid pin no number
+                            Enter valid PIN number
                         </span>
                     </div>
             </div>
@@ -109,7 +122,7 @@
                     </select>
                     <span class="text-danger"
                         *ngIf="editbillingForm.get('country').hasError('required') && editbillingForm.get('country').touched">
-                        Country is Required
+                        Country is required
                     </span>
                 </div>
 
@@ -119,7 +132,7 @@
                         <input type="text" class="form-control" formControlName="mono">
                         <span class="text-danger"
                             *ngIf="editbillingForm.get('mono').hasError('required') && editbillingForm.get('mono').touched">
-                            Mobile No is Required
+                            Mobile number is required
                         </span>
                         <span class="text-danger"
                             *ngIf="editbillingForm.get('mono').hasError('pattern') && editbillingForm.get('mono').touched">
@@ -142,7 +155,7 @@
                     </select>
                     <span class="text-danger"
                         *ngIf="editbillingForm.get('state').hasError('required') && editbillingForm.get('state').touched">
-                        State is Required
+                        State is required
                     </span>
                 </div>
                 <div class="form-group col-sm-6">
