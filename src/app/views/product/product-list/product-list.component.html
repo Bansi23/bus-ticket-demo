@@ -29,9 +29,9 @@
                                         [ngClass]="{'fa-check text-success': prod.published ? 'fa-close text-danger' : !prod.published}"></span>
                                 </td>
                                 <td>
-                                    <button class="btn btn-success btn-sm col-sm-9" (click)="editProduct(prod.id)"><i
+                                    <button class="btn btn-success btn-sm col-sm-12 mt-1" (click)="editProduct(prod.id)"><i
                                             class="fa fa-pencil"></i></button>
-                                    <button class="btn btn-danger btn-sm col-sm-9" (click)="deleteProduct(prod.id)"><i
+                                    <button class="btn btn-danger btn-sm col-sm-12 mt-1" (click)="deleteProduct(prod.id)"><i
                                             class="fa fa-trash"></i></button>
                                 </td>
                             </tr>
