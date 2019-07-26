@@ -99,6 +99,14 @@ export class AddEditComponent implements OnInit {
 
   setValuesInForm() {
     console.log('this.customer[0].role_ids:', this.customer[0].role_ids)
+    this.selectedcustomerRoles = this.customer[0].role_ids;
+    console.log('this.lstCustomerRoles:', this.lstCustomerRoles)
+    // const id = this.lstCustomerRoles.find((item) => item.id == 3);
+    // this.lstCustomerRoles.map(x => {
+    //   this.selectedcustomerRoles.push(id);
+    // });
+
+
     this.addCustomerForm.patchValue({
       custEmail: this.customer[0].email,
       // custPassword : this.dataToSet.
@@ -210,14 +218,15 @@ export class AddEditComponent implements OnInit {
               this._cS.displayToast(1, "The new customer has been created successfully!")
               this.router.navigateByUrl('/customers');
             }
+            this.count = 2;
           }
         }, err =>{
-          // console.log('err:', err.error.errors['Dto.RoleIds'])
+           // console.log('err:', err.error.errors['Dto.RoleIds']) 
           this._cS.displayToast(3,err.error.errors['Dto.RoleIds'])
           this._cS.Display_Loader(false);
           // this._cS.displayToast(2)
         })
-      this.count = 2;
+     
     }
   }
   changePassword() {
