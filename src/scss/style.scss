@@ -59,11 +59,11 @@ input[type="number"]::-webkit-outer-spin-button {
   color: #fff;
   border: 1px solid #23b7e5;
 }
-.tab-box-main .nav-tabs > .nav-item > .nav-link {
+.tab-box-main .nav-tabs > .nav-item > .nav-link.active {
   background-color: #3dbee7;
   color: #fff;
 }
-.tab-box-main .nav-link.active {
+.tab-box-main .nav-link {
   background-color: #fff !important;
   color: #111 !important;
 }
