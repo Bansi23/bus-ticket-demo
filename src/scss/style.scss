@@ -88,12 +88,16 @@ li.nav-item {
   border-radius: 0px !important;
 }
 
-.li-link:active,
-.li-link:focus {
+// .li-link:active,
+// .li-link:focus {
+//   background-color: #23b7e5;
+//   color: #fff;
+// }
+
+button.btn.btn-link.li-link.active {
   background-color: #23b7e5;
   color: #fff;
 }
-
 .ul-box .btn-link:hover,
 .ul-box .btn-link:focus,
 .ul-box .btn-link:active {

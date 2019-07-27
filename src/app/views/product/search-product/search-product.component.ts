@@ -61,6 +61,8 @@ export class SearchProductComponent implements OnInit {
       } else {
         this._cS.displayToast(3, 'Please enter valid sku');
       }
+    } else {
+      this._cS.displayToast(3, 'Under development due to api issue!');
     }
   }
   //#region search form
@@ -81,7 +83,7 @@ export class SearchProductComponent implements OnInit {
   }
 
   searchList() {
-
+    this._cS.displayToast(3, 'Under development due to api issue!');
   }
   //#endregion
 

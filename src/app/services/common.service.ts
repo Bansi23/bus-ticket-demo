@@ -16,11 +16,13 @@ const hd: HttpHeaders = new HttpHeaders({
   'Content-Type': 'application/json',
   'Accept': ' application/json, text/javascript'
 });
+
+// var count = 0;
+
 @Injectable({
   providedIn: 'root'
 })
 export class CommonService {
-
 
   // #region Encrypt and Decrypt key
   /** To encrypted the key. Ex : this.encryptedKey('123')
@@ -46,11 +48,19 @@ export class CommonService {
    * @param url - Just pass url after /api/. Predefine url will take from environment   
   */
   API_GET(url: string): Observable<any> {
+    // count++;
+    // if (count > 0) {
+    //   this.Display_Loader(true);
+    // } else {
+    //   this.Display_Loader(false);
+    // }
+    // count--;
     this.Display_Loader(true);
     return this._httpClient.get(`${url}`, { headers: hd }).pipe(map(res => {
       this.Display_Loader(false);
       setTimeout(() => {
       }, 500);
+
       return res;
     }, catchError(err => {
       this.Display_Loader(false);
@@ -105,8 +115,6 @@ export class CommonService {
       return throwError(err);
     })));
   };
-
-
 
   /** Delete API Method.
    * @param Url - Just pass url after /api/. Predefine url will take from environment

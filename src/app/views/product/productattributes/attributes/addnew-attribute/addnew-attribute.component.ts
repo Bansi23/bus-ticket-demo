@@ -288,7 +288,6 @@ export class AddnewAttributeComponent implements OnInit {
   isEditable: boolean = true;
 
   getAttributeInfo(body) {
-    debugger;
     this.attrInfo = body;
     if (this.attrValue) {
       this.attrInfo.attribute_values = this.attrValue;

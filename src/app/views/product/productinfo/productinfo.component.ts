@@ -212,9 +212,14 @@ export class ProductinfoComponent implements OnInit {
 
   //#region saveProductDetails & save and countinu edit 
   saveProductDetails() {
-    this.createProduct();
-    this.productInfoForm.reset();
-    this._router.navigateByUrl('catalog/product');
+    for (let c in this.productInfoForm.controls) {
+      this.productInfoForm.controls[c].markAsTouched();
+    }
+    if (this.productInfoForm.valid) {
+      this.createProduct();
+      this.productInfoForm.reset();
+      this._router.navigateByUrl('catalog/product');
+    }
   }
 
   saveAndEditProduct() {
