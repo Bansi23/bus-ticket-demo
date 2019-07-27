@@ -98,6 +98,13 @@ export class AddEditComponent implements OnInit {
   //#endregion
 
   setValuesInForm() {
+    this.selectedcustomerRoles = this.customer[0].role_ids;
+    // const id = this.lstCustomerRoles.find((item) => item.id == 3);
+    // this.lstCustomerRoles.map(x => {
+    //   this.selectedcustomerRoles.push(id);
+    // });
+
+
     this.addCustomerForm.patchValue({
       custEmail: this.customer[0].email,
       // custPassword : this.dataToSet.
@@ -144,7 +151,7 @@ export class AddEditComponent implements OnInit {
     for (let i = 0; i < x.length; i++) {
       roles.push(x[i].id)
     }
-     //NOTE -> This splice is temporary
+    //NOTE -> This splice is temporary
     // We need to remove it in future.
 
     // if(this.addCustomerForm.value.custGender == "male"){
@@ -171,32 +178,27 @@ export class AddEditComponent implements OnInit {
     }
 
     if (this.count == 2) {
-        if(this.custId){
+      if (this.custId) {
 
-          roles.splice(0, 1);
-        }
+        roles.splice(0, 1);
+      }
 
       this._cS.API_PUT(environment.apiURL + "/customers/" + this.storedId, body)
         .subscribe(response => {
-
           if (response) {
             this.isChangePassword = false;
             if (this.isSaveClicked) {
               this._cS.displayToast(1, "The customer has been updated successfully!")
-
               this.router.navigateByUrl('/customers');
             }
           } else {
-
             this._cS.displayToast(3, "Failed", "Record not updated!");
           }
         }, err => {
           // console.log('err:', err)
           this._cS.displayToast(2, err.error.errors["Dto.RoleIds"]);
           this._cS.Display_Loader(false);
-
         })
-
     } else {
       this._cS.API_POST(this._cS.getCustomerList(), body)
         .subscribe(response => {
@@ -209,15 +211,18 @@ export class AddEditComponent implements OnInit {
             } else {
               this.storedId = response.customers[0].id;
               this._cS.displayToast(1, "The new customer has been created successfully!")
-
               this.router.navigateByUrl('/customers');
             }
+            this.count = 2;
           }
+        }, err => {
+          // console.log('err:', err.error.errors['Dto.RoleIds']) 
+          this._cS.displayToast(3, err.error.errors['Dto.RoleIds'])
+          this._cS.Display_Loader(false);
+          // this._cS.displayToast(2)
         })
-      this.count = 2;
     }
   }
-
   changePassword() {
     this.changePassword = this.addCustomerForm.value.custPassword;
   }
@@ -239,7 +244,6 @@ export class AddEditComponent implements OnInit {
       this.isChangePassword = true;
       this._cS.API_GET(this._cS.getParticularCustomer(this.custId))
         .subscribe(response => {
-          console.log('response:', response)
           this.customer = response.customers;
           this.setValuesInForm();
         });
@@ -254,7 +258,7 @@ export class AddEditComponent implements OnInit {
     this.lstCustomerRoles = this._mS.customerRoles();
     this.lstManagerOfVendor = this._mS.getManagerOfVendor();
     this.getRecord();
-    const id = this.lstCustomerRoles.find((item) => item.id == 4);
+    const id = this.lstCustomerRoles.find((item) => item.id == 3);
     this.lstCustomerRoles.map(x => {
       this.selectedcustomerRoles.push(id);
     });

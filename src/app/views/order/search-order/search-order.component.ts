@@ -99,14 +99,35 @@ export class SearchOrderComponent implements OnInit {
 
   //#region Get API order list
   GetRecord() {
-    this._cS.Display_Loader(true);
+    // const paymentStatus = this.searchOrder.get('paymentstatus').value;
+    // const shippingStatus = this.searchOrder.get('shippingstatus').value;
+    // const orderStatus = this.searchOrder.get('orderstatus').value;
+    // this._cS.Display_Loader(true);
+    // this._cS.API_GET(this._cS.getsearchRecord(paymentStatus, orderStatus, shippingStatus, this.pageSize, this.pageIndex))
+    //   .subscribe(res => {
+    //     // this.pageIndex = 1;
+    //     if (res) {
+    //       this.lstOrderData = res.orders;
+    //       // this.totalRecord = this.lstOrderData.length;
+    //       this.finalTotal = this.lstOrderData.map(o => o.order_total).reduce((a, c) => a + c, 0);
+    //     }
+    //     else {
+    //       err => {
+    //         if (err.status == 400) {
+    //           this._cS.displayToast(2, "Record not found");
+    //           this._router.navigate(['/sales/order']);
+    //         }
+    //       }
+    //     }
+    //   });
+
+
     this._cS.API_GET(this._cS.getOrderList(this.pageSize, this.pageIndex))
       .subscribe(res => {
-        setTimeout(() => {
-          this._cS.Display_Loader(false);
-        }, 1000);
+       // this.pageIndex = 1;
         if (res) {
           this.lstOrderData = res.orders;
+          //this.totalRecord = this.lstOrderData.length;
           this.GetCountRecord();
           this.finalTotal = this.lstOrderData.map(o => o.order_total).reduce((a, c) => a + c, 0);
         }
@@ -170,12 +191,15 @@ export class SearchOrderComponent implements OnInit {
   pageChanged(value) {
     this.pageIndex = +value;
     this.getSearchListRecord();
+    //this.GetRecord();
   }
+
 
   selectedChanged(value) {
     this.pageIndex = 1;
     this.pageSize = +value;
     this.getSearchListRecord();
+    //this.GetRecord();
   }
   //#endregion
 
@@ -244,9 +268,10 @@ export class SearchOrderComponent implements OnInit {
   constructor(private _cS: CommonService, private __mD: MockService, private fb: FormBuilder, private _router: Router) { }
 
   ngOnInit() {
-    this.GetRecord();
     this.fbSearchOrder();
+    this.GetRecord();
     this.StaticList();
+    // this.GetCountRecord();
     this.lstOrderData.map(x => { x.select = false });
   }
 }

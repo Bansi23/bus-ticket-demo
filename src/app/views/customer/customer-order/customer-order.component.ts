@@ -65,7 +65,6 @@ export class CustomerOrderComponent implements OnInit {
           }
           this.lstOrders.push(data);
         }
-
         // this.lstOrders.push(this.lstTempOrders[0].id);
         // this.lstOrders.push(this.lstTempOrders[0].order_total);
         // this.lstOrders.push(this.lstTempOrders[0].order_status); 

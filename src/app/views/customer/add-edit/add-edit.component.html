@@ -94,7 +94,6 @@
                                                         (onDeSelect)="onItemRoleSelect($event)"
                                                         (onSelectAll)="onItemRoleSelect($event)"
                                                         (onDeSelectAll)="onItemRoleSelect($event)">
-
                                                         <ng-container
                                                             *ngIf="lstCustomerRoles.length == selectedcustomerRoles.length">
                                                             <c-badge>
@@ -223,9 +222,6 @@
 
                                         </form>
                                     </div>
-
-
-
                                     <div class="card-body" *ngIf="isChangePassword">
                                         <form [formGroup]="addCustomerForm">
                                             <div class="row mb-2">

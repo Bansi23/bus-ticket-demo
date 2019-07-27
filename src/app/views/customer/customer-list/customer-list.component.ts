@@ -41,8 +41,8 @@ export class CustomerListComponent implements OnInit {
   getCustomerList() {
     this._cS.API_GET(this._cS.getCustomersList(this.pageSize, this.pageIndex))
       .subscribe(response => {
-         console.log('response:', response)
-         this.getCustomerCount();
+        console.log('response:', response)
+          this.getCustomerCount();
         this.lstcustomers = [];
         for (let i = 0; i < response.customers.length; i++) {
           const data = {
@@ -57,7 +57,6 @@ export class CustomerListComponent implements OnInit {
           this.lstcustomers.push(data);
          }
       })
-
   }
   getCustomerCount() {
     this._cS.API_GET(this._cS.getCustomerTotalRecord())
@@ -66,8 +65,6 @@ export class CustomerListComponent implements OnInit {
           this.totalRecords = response.count;
         }
       })
-
-
   }
   getTotalRecord() {
     this._cS.API_GET(this._cS.getCustomerTotalRecord())
@@ -77,5 +74,4 @@ export class CustomerListComponent implements OnInit {
         this.getCustomerList();
       })
   }
-
 }

@@ -29,9 +29,9 @@
                             <td>{{item?.discount_amount_excl_tax | number:'2.2-2'}}excl tax</td>
                             <td>{{item?.price_excl_tax | number:'2.2-2'}}excl tax</td>
                             <td>
-                                <button class="btn btn-success btn-sm col-sm-8 mt-1" (click)="editRecord(item)"><i
+                                <button class="btn btn-success btn-sm mt-1" (click)="editRecord(item)"><i
                                         class="fa fa-pencil"></i></button>
-                                <button class="btn btn-danger btn-sm col-sm-8 mt-1" (click)="DeleteRecord(item.id)"><i
+                                <button class="btn btn-danger btn-sm  mt-1" (click)="DeleteRecord(item.id)"><i
                                         class="fa fa-trash"></i></button>
                             </td>
                         </tr>
