@@ -9,9 +9,9 @@
                         </div>
                         <div class="col-md-6">
                             <b> {{item.order_status}}</b>
-                            <button class="btn btn-danger" *ngIf="item.order_status !='Cancelled'"
+                            <button class="btn btn-danger btn-sm" *ngIf="item.order_status !='Cancelled'"
                                 (click)="CancleOrder()">Cancle Order</button>
-                            <button class="btn btn-primary " *ngIf="isOrder" (click)="changeStatus()">Change
+                            <button class="btn btn-blue btn-sm" *ngIf="isOrder" (click)="changeStatus()">Change
                                 Status</button>
                         </div>
                         <div class="offset-md-3 col-md-10 mt-1" *ngIf="!isOrder">
@@ -31,8 +31,10 @@
                                             activation/deactivation, etc) should be done manually in this case.</p>
                                     </div>
                                     <div class="col-md-4">
-                                        <button class="btn btn-primary" (click)="saveOrderStatus()">Save</button>
-                                        <button class="btn btn-danger" (click)="cancleEdit()">Cancle</button>
+                                        <button class="btn btn-info btn-sm" (click)="saveOrderStatus()"><i
+                                                class="fa fa-save"> Save</i></button>
+                                        <button class="btn btn-danger btn-sm" (click)="cancleEdit()"><i
+                                                class="fa fa-close"> Cancle</i></button>
                                     </div>
                                 </div>
                             </form>
@@ -134,7 +136,7 @@
                         </div>
                     </div>
 
-                    <div class="row mt-3">
+                    <div class="row mt-3" *ngIf="profitTotal">
                         <div class="col-md-3">
                             <b> Profit </b>
                         </div>
@@ -155,18 +157,18 @@
                         <div class="col-md-9">
                             <span> {{item.payment_status}} </span>
                             <div *ngIf="item.payment_status =='Pending'">
-                                <button class="btn btn-info" (click)="paidAmount()">Mark As Paid</button>
+                                <button class="btn btn-info btn-sm" (click)="paidAmount()">Mark As Paid</button>
                             </div>
                             <div *ngIf="item.payment_status =='Paid'">
-                                <button class="btn btn-info mb-1" (click)="refundAmount()"
+                                <button class="btn btn-info mb-1 btn-sm" (click)="refundAmount()"
                                     *ngIf="item.refunded_amount == 0">Refund (Offline)</button>
-                                <button class="btn btn-info" (click)="partialRefundAmount()"> Partial refund
+                                <button class="btn btn-info btn-sm" (click)="partialRefundAmount()"> Partial refund
                                     (Offline) </button>
                             </div>
 
                             <div *ngIf="item.payment_status =='PartiallyRefunded'">
-                                <button class="btn btn-info" (click)="paidAmount()">Mark As Paid</button>
-                                <button class="btn btn-info" (click)="partialRefundAmount()"> Partial refund
+                                <button class="btn btn-info btn-sm" (click)="paidAmount()">Mark As Paid</button>
+                                <button class="btn btn-info btn-sm" (click)="partialRefundAmount()"> Partial refund
                                     (Offline) </button>
                             </div>
                         </div>
@@ -229,7 +231,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-success btn-sm" (click)="saveRefund()">{{ 'Refund Amount' }}</button>
+                <button class="btn btn-info btn-sm" (click)="saveRefund()">{{ 'Refund Amount' }}</button>
                 <!-- <button class="btn btn-danger float-left btn-sm" (click)="close()">Close </button> -->
             </div>
         </div>
