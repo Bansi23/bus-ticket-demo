@@ -81,7 +81,7 @@ export class SearchProductComponent implements OnInit {
   }
 
   searchList() {
-
+    this._cS.displayToast(3, 'Under development due to api issue!');
   }
   //#endregion
 

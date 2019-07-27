@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Renderer } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CommonService } from '../../../services/common.service';
 import { TabDirective } from 'ngx-bootstrap/tabs/public_api';
@@ -23,6 +23,7 @@ export class ProductTabsComponent implements OnInit {
 
   //#region tabs routing
   goToInfo() {
+    this.render.setElementClass(event.target, "active", true);
     this.getParameter();
     if (this.productId) {
       this._router.navigate(['catalog/addProduct/productInfo'], { queryParams: { id: this.productId } });
@@ -32,6 +33,7 @@ export class ProductTabsComponent implements OnInit {
   }
 
   goToPicture() {
+    this.render.setElementClass(event.target, "active", true);
     this.getParameter();
     if (this.productId) {
       this._router.navigate(['catalog/addProduct/productPicture'], { queryParams: { id: this.productId } });
@@ -41,6 +43,7 @@ export class ProductTabsComponent implements OnInit {
   }
 
   goToAttribute() {
+    this.render.setElementClass(event.target, "active", true);
     this.getParameter();
     if (this.productId) {
       this._router.navigate(['catalog/addProduct/productAttributes'], { queryParams: { id: this.productId } });
@@ -50,6 +53,7 @@ export class ProductTabsComponent implements OnInit {
   }
 
   goToSpecification() {
+    this.render.setElementClass(event.target, "active", true);
     this.getParameter();
     if (this.productId) {
       this._router.navigate(['catalog/addProduct/productSpecificationAttr'], { queryParams: { id: this.productId } });
@@ -68,6 +72,7 @@ export class ProductTabsComponent implements OnInit {
   constructor(private _router: Router,
     private _route: ActivatedRoute,
     private _cS: CommonService,
+    private render: Renderer
   ) { }
 
   ngOnInit() {
