@@ -151,21 +151,20 @@ export class CommonService {
 
   // http://nop.satva.solutions/api/orders?PaymentStatus=Refunded&Status=Pending
 
-  getsearchRecord(PaymentStatus?, orderStatus?, shippingStatus?) {
+  getsearchRecord(PaymentStatus, orderStatus, shippingStatus) {
     let strURLParam = "orders?";
-    if(PaymentStatus)
-    {
+    if (PaymentStatus) {
       strURLParam += `PaymentStatus=${PaymentStatus}&`
     }
-    if(orderStatus){
+    if (orderStatus) {
       strURLParam += `&Status=${orderStatus}`
     }
 
-    if(shippingStatus){
+    if (shippingStatus) {
       strURLParam += `&Status=${orderStatus}`
     }
-
-    return baseUrl + strURLParam + "&Limit=10&Page=1"  //`orders?PaymentStatus=${PaymentStatus}&Status=${orderStatus}&ShippingStatus=${shippingStatus}&Limit=20&Page=1`;
+    return baseUrl + strURLParam
+    //`orders?PaymentStatus=${PaymentStatus}&Status=${orderStatus}&ShippingStatus=${shippingStatus}&Limit=20&Page=1`;
   }
   getOrder() {
     return baseUrl + `orders`;
@@ -355,7 +354,7 @@ export class CommonService {
         for (let i = 0; i < this.productObj.attributes.length; i++) {
           if (this.attributeId == this.productObj.attributes[i].id) {
             this.productObj.attributes[i] = this.attrInfo;
-            console.log(' this.productObj:',  this.productObj)
+            console.log(' this.productObj:', this.productObj)
           }
         }
       } else {
