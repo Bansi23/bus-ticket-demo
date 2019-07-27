@@ -98,9 +98,7 @@ export class AddEditComponent implements OnInit {
   //#endregion
 
   setValuesInForm() {
-    console.log('this.customer[0].role_ids:', this.customer[0].role_ids)
     this.selectedcustomerRoles = this.customer[0].role_ids;
-    console.log('this.lstCustomerRoles:', this.lstCustomerRoles)
     // const id = this.lstCustomerRoles.find((item) => item.id == 3);
     // this.lstCustomerRoles.map(x => {
     //   this.selectedcustomerRoles.push(id);
@@ -128,7 +126,6 @@ export class AddEditComponent implements OnInit {
     this.lastActivity = this.customer[0].last_activity_date_utc;
   }
   onItemRoleSelect(item?: any) {
-    console.log('item:', item)
     // this.ctRoles = this.addCustomerForm.value.custRoles;
     // const selectedData = this.selectedcustomerRoles.map((x: { itemName: any; }) => { return x.itemName });
     // this.filteredOrder = this.lstCustomerRoles.filter(
@@ -154,7 +151,7 @@ export class AddEditComponent implements OnInit {
     for (let i = 0; i < x.length; i++) {
       roles.push(x[i].id)
     }
-     //NOTE -> This splice is temporary
+    //NOTE -> This splice is temporary
     // We need to remove it in future.
 
     // if(this.addCustomerForm.value.custGender == "male"){
@@ -165,7 +162,7 @@ export class AddEditComponent implements OnInit {
     let body = {
       customer: {
         email: this.addCustomerForm.value.custEmail,
-        password: this.addCustomerForm.value.custPassword,  
+        password: this.addCustomerForm.value.custPassword,
         role_ids: roles,
         managerOfVendor: this.addCustomerForm.value.custManagerOfVendor,
         // gender: this.gender,
@@ -181,19 +178,17 @@ export class AddEditComponent implements OnInit {
     }
 
     if (this.count == 2) {
-        if(this.custId){
+      if (this.custId) {
 
-          roles.splice(0, 1);
-        }
+        roles.splice(0, 1);
+      }
 
       this._cS.API_PUT(environment.apiURL + "/customers/" + this.storedId, body)
         .subscribe(response => {
-
           if (response) {
             this.isChangePassword = false;
             if (this.isSaveClicked) {
               this._cS.displayToast(1, "The customer has been updated successfully!")
-
               this.router.navigateByUrl('/customers');
             }
           } else {
@@ -220,13 +215,12 @@ export class AddEditComponent implements OnInit {
             }
             this.count = 2;
           }
-        }, err =>{
-           // console.log('err:', err.error.errors['Dto.RoleIds']) 
-          this._cS.displayToast(3,err.error.errors['Dto.RoleIds'])
+        }, err => {
+          // console.log('err:', err.error.errors['Dto.RoleIds']) 
+          this._cS.displayToast(3, err.error.errors['Dto.RoleIds'])
           this._cS.Display_Loader(false);
           // this._cS.displayToast(2)
         })
-     
     }
   }
   changePassword() {
@@ -250,7 +244,6 @@ export class AddEditComponent implements OnInit {
       this.isChangePassword = true;
       this._cS.API_GET(this._cS.getParticularCustomer(this.custId))
         .subscribe(response => {
-          console.log('response:', response)
           this.customer = response.customers;
           this.setValuesInForm();
         });
@@ -269,7 +262,6 @@ export class AddEditComponent implements OnInit {
     this.lstCustomerRoles.map(x => {
       this.selectedcustomerRoles.push(id);
     });
-    console.log('this.lstCustomerRoles:', this.lstCustomerRoles)
     this.addCustomerForm.get('custRoles').setValue(this.selectedcustomerRoles);
   }
 }
