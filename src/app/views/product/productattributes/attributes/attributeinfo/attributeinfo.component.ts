@@ -62,7 +62,7 @@ export class AttributeinfoComponent implements OnInit {
     } else {
       this._router.navigate(['/catalog/addnew-attribute/value']);
     }
-    this._cS.getAttributeInfo(body);
+    // this._cS.getAttributeInfo(body);
   }
 
   productId: any;

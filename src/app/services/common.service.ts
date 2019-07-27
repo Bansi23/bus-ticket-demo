@@ -325,52 +325,6 @@ export class CommonService {
       })
   }
 
-  attrValue: any;
-  getAttributeValues(body) {
-    this.attrValue = body;
-  }
-
-  attrInfo: any;
-  getAttributeInfo(body) {
-    this.attrInfo = body;
-  }
-
-  getAttrSpecification(body) {
-    this.editProduct(body);
-  }
-  productObj: any;
-  addAttribute() {
-    this.getParameter();
-    this.getAttributeInfo(this.attrInfo);
-    this.getAttributeValues(this.attrValue);
-    this.productObj = JSON.parse(localStorage.getItem('EditedRecord'));
-    if (this.attrValue) {
-      this.attrInfo.attribute_values = this.attrValue;
-    } else {
-      this.attrInfo;
-    }
-    if (this.attrInfo) {
-      if (this.attributeId) {
-        for (let i = 0; i < this.productObj.attributes.length; i++) {
-          if (this.attributeId == this.productObj.attributes[i].id) {
-            this.productObj.attributes[i] = this.attrInfo;
-            console.log(' this.productObj:', this.productObj)
-          }
-        }
-      } else {
-        this.productObj.attributes.push(this.attrInfo);
-      }
-    }
-    if (this.productObj.product_specification_attributes && this.productObj.images) {
-      delete this.productObj.images;
-      delete this.productObj.product_specification_attributes;
-    }
-    var body = {
-      product:
-        this.productObj
-    }
-    this.editProduct(body);
-  }
 
   productId: any;
   attributeId: any;

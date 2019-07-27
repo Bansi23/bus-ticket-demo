@@ -94,7 +94,6 @@
                                                         (onDeSelect)="onItemRoleSelect($event)"
                                                         (onSelectAll)="onItemRoleSelect($event)"
                                                         (onDeSelectAll)="onItemRoleSelect($event)">
-
                                                         <ng-container
                                                             *ngIf="lstCustomerRoles.length == selectedcustomerRoles.length">
                                                             <c-badge>
@@ -223,9 +222,6 @@
 
                                         </form>
                                     </div>
-
-
-
                                     <div class="card-body" *ngIf="isChangePassword">
                                         <form [formGroup]="addCustomerForm">
                                             <div class="row mb-2">
@@ -354,7 +350,7 @@
                                             <br>
 
                                             <div class="row mb-2">
-                                                <div class="col-sm-6">
+                                                <!-- <div class="col-sm-6">
                                                     <label for="manager of vendor" class="pull-left">Manager of
                                                         vendor</label>
                                                     <select formControlName="custManagerOfVendor" class="form-control">
@@ -369,7 +365,7 @@
                                                     </span><br>
                                                     <span>Note: if you have a vendor associated with this customer, then
                                                         also ensure it is in "Vendors" customer role.</span>
-                                                </div>
+                                                </div> -->
 
                                             </div>
                                             <div class="row mb-2">

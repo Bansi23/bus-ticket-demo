@@ -13,8 +13,8 @@
                         <th>Phone number</th>
                         <th>Fax number</th>
                         <th>Address</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
+                        <th>Action</th>
+                        <!-- <th>Delete</th> -->
 
                     </tr>
                 </thead>
@@ -32,12 +32,11 @@
                             </span>
                         </td>
                         <td>
-                            <button class="btn btn-success btn-sm" (click)="navigateToEditAddress(ad.customerId,ad.addressId)">
+                            <button class="btn btn-success btn-sm mt-1" (click)="navigateToEditAddress(ad.customerId,ad.addressId)">
                                 <i class="fa fa-edit"></i>
                             </button>
-                        </td>
-                        <td>
-                            <button class="btn btn-danger btn-sm">
+                       
+                            <button class="btn btn-danger btn-sm mt-1">
                                 <i class="fa fa-trash"></i>
                             </button>
                         </td>
