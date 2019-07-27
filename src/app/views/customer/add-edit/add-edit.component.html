@@ -26,7 +26,7 @@
                                         <form [formGroup]="addCustomerForm">
                                             <div class="row mb-2">
                                                 <div class="col-sm-6">
-                                                    <label for="first name" class="pull-left">First name</label>
+                                                    <label for="first name" class="pull-left">First Name</label>
                                                     <input formControlName="custFirstName" type="text"
                                                         class="form-control">
                                                     <span class="text-danger pull-left"
@@ -36,7 +36,7 @@
 
                                                 </div>
                                                 <div class="col-sm-6">
-                                                    <label for="last name" class="pull-left">Last name</label>
+                                                    <label for="last name" class="pull-left">Last Name</label>
                                                     <input formControlName="custLastName" type="text"
                                                         class="form-control">
                                                     <span class="text-danger  pull-left"
@@ -77,7 +77,7 @@
                                                     <br>
                                                     <div class="pull-right" *ngIf="isChangePassword">
                                                         <button type="button" class="btn btn-info"
-                                                            (click)="changePassword()">Change password</button>
+                                                            (click)="changePassword()">Change Password</button>
                                                     </div>
 
 
@@ -86,7 +86,7 @@
                                             </div>
                                             <div class="row mb-2">
                                                 <div class="col-sm-6 mb-2">
-                                                    <label for="customer roles" class="pull-left">Customer roles</label>
+                                                    <label for="customer roles" class="pull-left">Customer Roles</label>
                                                     <angular2-multiselect [data]="lstCustomerRoles"
                                                         formControlName="custRoles" class="form-control"
                                                         [settings]="dropdownOrderStatus"
@@ -111,7 +111,7 @@
                                                     </span>
                                                 </div>
                                                 <div class="col-sm-6">
-                                                    <label for="date of birth" class="pull-left">Date of birth</label>
+                                                    <label for="date of birth" class="pull-left">Date Of Birth</label>
                                                     <my-date-picker formControlName="custDob"
                                                         [options]="myDatePickerOptions">
                                                     </my-date-picker>
@@ -138,7 +138,7 @@
                                                         also ensure it is in "Vendors" customer role.</span>
                                                 </div> -->
                                                 <div class="col-sm-6">
-                                                    <label for="company name" class="pull-left">Company name</label>
+                                                    <label for="company name" class="pull-left">Company Name</label>
                                                     <input type="text" formControlName="custCompanyName"
                                                         class="form-control">
                                                     <!-- <span class="text-danger pull-left" *ngIf="addCustomerForm.get('custCompanyName').hasError('required') && addCustomerForm.get('custCompanyName').touched">
@@ -146,7 +146,7 @@
                                                             </span> -->
                                                 </div>
                                                 <div class="col-sm-6">
-                                                    <label for="admin comment" class="pull-left">Admin comment</label>
+                                                    <label for="admin comment" class="pull-left">Admin Comment</label>
                                                     <textarea formControlName="custAdminComment"
                                                         class="form-control"></textarea>
                                                 </div>
@@ -156,17 +156,17 @@
 
                                             <div class="row mb-2">
                                                 <div class="col-sm-6">
-                                                    <label for="manager of vendor" class="pull-left">Manager of
-                                                        vendor</label>
+                                                    <label for="manager of vendor" class="pull-left">Manager Of
+                                                        Vendor</label>
                                                     <select formControlName="custManagerOfVendor" class="form-control">
-                                                        <option value="">Select manager of vendor</option>
+                                                        <option value="">Select Manager Of Vendor</option>
                                                         <option value="{{m.id}}" *ngFor="let m of lstManagerOfVendor">
                                                             {{m.text}}
                                                         </option>
                                                     </select>
                                                     <span class="text-danger pull-left"
                                                         *ngIf="addCustomerForm.get('custManagerOfVendor').hasError('required') && addCustomerForm.get('custManagerOfVendor').touched">
-                                                        Select manager of vendor
+                                                        Select Manager Of Vendor
                                                     </span><br>
                                                     <span>Note: if you have a vendor associated with this customer, then
                                                         also ensure it is in "Vendors" customer role.</span>
@@ -175,7 +175,7 @@
                                             </div>
                                             <div class="row mb-2">
                                                 <div class="col-sm-6">
-                                                    <label for="custIsExempt" class="pull-left">Is tax exempt?
+                                                    <label for="custIsExempt" class="pull-left">Is Tax Exempt?
                                                         <input type="checkbox" id="custIsExempt"
                                                             formControlName="custIsTaxExempt">
                                                     </label>
@@ -206,14 +206,14 @@
                                             </div>
                                             <div class="row mb-2" *ngIf="isChangePassword">
                                                 <div class="col-sm-6">
-                                                    <label for="createdOn" class="pull-left">Created on &nbsp;</label>
+                                                    <label for="createdOn" class="pull-left">Created On &nbsp;</label>
                                                     <label
                                                         class="pull-left">{{createdOn | date :'dd/MM/yyyy,h:mm:ss a'}}</label>
                                                 </div>
                                             </div>
                                             <div class="row mb-2" *ngIf="isChangePassword">
                                                 <div class="col-sm-6">
-                                                    <label for="lastActivity" class="pull-left">Last activity
+                                                    <label for="lastActivity" class="pull-left">Last Activity
                                                         &nbsp;</label>
                                                     <label
                                                         class="pull-left">{{lastActivity | date :'dd/MM/yyyy,h:mm:ss a'}}</label>
@@ -226,7 +226,7 @@
                                         <form [formGroup]="addCustomerForm">
                                             <div class="row mb-2">
                                                 <div class="col-sm-6">
-                                                    <label for="first name" class="pull-left">First name</label>
+                                                    <label for="first name" class="pull-left">First Name</label>
                                                     <input formControlName="custFirstName" type="text"
                                                         class="form-control">
                                                     <span class="text-danger pull-left"
@@ -235,7 +235,7 @@
                                                     </span>
                                                 </div>
                                                 <div class="col-sm-6">
-                                                    <label for="last name" class="pull-left">Last name</label>
+                                                    <label for="last name" class="pull-left">Last Name</label>
                                                     <input formControlName="custLastName" type="text"
                                                         class="form-control">
                                                     <span class="text-danger pull-left"
@@ -281,7 +281,7 @@
                                             </div>
                                             <div class="row mb-2">
                                                 <div class="col-sm-6">
-                                                    <label for="customer roles" class="pull-left">Customer roles</label>
+                                                    <label for="customer roles" class="pull-left">Customer Roles</label>
                                                     <angular2-multiselect [data]="lstCustomerRoles"
                                                         formControlName="custRoles" class="form-control"
                                                         [settings]="dropdownOrderStatus"
@@ -306,7 +306,7 @@
                                                     </span>
                                                 </div>
                                                 <div class="col-sm-6">
-                                                    <label for="date of birth" class="pull-left">Date of birth</label>
+                                                    <label for="date of birth" class="pull-left">Date Of Birth</label>
                                                     <my-date-picker formControlName="custDob"
                                                         [options]="myDatePickerOptions">
                                                     </my-date-picker>
@@ -333,7 +333,7 @@
                                                     also ensure it is in "Vendors" customer role.</span>
                                             </div> -->
                                                 <div class="col-sm-6">
-                                                    <label for="company name" class="pull-left">Company name</label>
+                                                    <label for="company name" class="pull-left">Company Name</label>
                                                     <input type="text" formControlName="custCompanyName"
                                                         class="form-control">
                                                     <!-- <span class="text-danger pull-left" *ngIf="addCustomerForm.get('custCompanyName').hasError('required') && addCustomerForm.get('custCompanyName').touched">
@@ -341,7 +341,7 @@
                                                         </span> -->
                                                 </div>
                                                 <div class="col-sm-6">
-                                                    <label for="admin comment" class="pull-left">Admin comment</label>
+                                                    <label for="admin comment" class="pull-left">Admin Comment</label>
                                                     <textarea formControlName="custAdminComment"
                                                         class="form-control"></textarea>
                                                 </div>
@@ -370,7 +370,7 @@
                                             </div>
                                             <div class="row mb-2">
                                                 <div class="col-sm-6">
-                                                    <label for="custIsExempt" class="pull-left">Is tax exempt?
+                                                    <label for="custIsExempt" class="pull-left">Is Tax Exempt?
                                                         <input type="checkbox" id="custIsExempt"
                                                             formControlName="custIsTaxExempt">
                                                     </label>
@@ -400,13 +400,13 @@
                                             </div>
                                             <div class="row mb-2" *ngIf="isChangePassword">
                                                 <div class="col-sm-6">
-                                                    <label for="createdOn" class="pull-left">Created on &nbsp;</label>
+                                                    <label for="createdOn" class="pull-left">Created On &nbsp;</label>
                                                     <label class="pull-left">{{createdOn | date : 'short'}}</label>
                                                 </div>
                                             </div>
                                             <div class="row mb-2" *ngIf="isChangePassword">
                                                 <div class="col-sm-6">
-                                                    <label for="lastActivity" class="pull-left">Last activity
+                                                    <label for="lastActivity" class="pull-left">Last Activity
                                                         &nbsp;</label>
                                                     <label class="pull-left">{{lastActivity | date : 'short'}}</label>
                                                 </div>
