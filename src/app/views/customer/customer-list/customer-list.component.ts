@@ -23,8 +23,7 @@ export class CustomerListComponent implements OnInit {
 
   pageChanged(value) {
     this.pageIndex = +value;
-    console.log('this.pageIndex:', this.pageIndex)
-    this.getCustomerList();
+     this.getCustomerList();
   };
 
   changePageSize(value) {
