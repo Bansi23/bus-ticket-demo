@@ -87,24 +87,16 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>View</th>
                             <th><input type="checkbox" [(ngModel)]="selectAll" (change)="select_all()"></th>
-                            <th>Order#</th>
-                            <th>Order status</th>
-                            <th>Payment status</th>
-                            <th>Shipping Status</th>
-                            <th>Customer</th>
-                            <th>Created on </th>
-                            <th>Order total </th>
+                            <th *ngFor="let h of tableHeader">{{h | titlecase}}</th>
                         </tr>
                     </thead>
                     <tbody>
+                        
                         <tr
                             *ngFor="let lstorder of lstOrderData| paginate: { itemsPerPage:pageSize , currentPage: pageIndex , totalItems: totalRecord}; let i = index">
-                            <td><button class="btn btn-color btn-sm col-sm-12" (click)="ViewData(lstorder.id)"> <i
-                                        class="fa fa-eye"></i></button></td>
-                            <td> <input type="checkbox" [(ngModel)]="lstorder.select" (change)="checkIfAllSelected()">
-                            </td>
+                            <td> <input type="checkbox" [(ngModel)]="lstorder.select" (change)="checkIfAllSelected()"></td>
+                            <td><button class="btn btn-color btn-sm col-sm-12" (click)="ViewData(lstorder.id)"> <i class="fa fa-eye"></i></button></td>
                             <td>{{lstorder.id}}</td>
                             <td><span [ngClass]="{
                                 'badge-info': lstorder.order_status == 'Processing',
