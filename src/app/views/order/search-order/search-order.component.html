@@ -13,7 +13,7 @@
                     </div> -->
 
                     <div class="form-group col-sm-6">
-                        <label for="city">Payment Status</label>
+                        <label for="city">Payment status</label>
                         <select class="form-control" formControlName="paymentstatus">
                             <option value="">All</option>
                             <option *ngFor="let item of lstPaymentStatus">{{item.itemName}}
@@ -22,7 +22,7 @@
                     </div>
 
                     <div class="form-group col-sm-6">
-                        <label for="city">Order Status</label>
+                        <label for="city">Order status</label>
                         <select class="form-control" formControlName="orderstatus">
                             <option value="">All</option>
                             <option *ngFor="let item of lstOrderStatus">{{item.itemName}}
@@ -47,7 +47,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group col-sm-6">
-                        <label>Shipping Status</label>
+                        <label>Shipping status</label>
                         <select class="form-control" formControlName="shippingstatus">
                             <option value="">All</option>
                             <option *ngFor="let item of lstShippingStatus">{{item.itemName}}
@@ -55,7 +55,7 @@
                         </select>
                     </div>
                     <div class="form-group col-sm-6">
-                        <label>Go directly to Order #</label>
+                        <label>Go directly to order #</label>
                         <div class="input-group">
                             <input type="text" class="form-control" formControlName="orderno">
                             <span class="input-group-append">
