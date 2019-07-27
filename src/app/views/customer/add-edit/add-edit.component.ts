@@ -176,10 +176,8 @@ export class AddEditComponent implements OnInit {
 
     if (this.count == 2) {
       if (this.custId) {
-
         roles.splice(0, 1);
       }
-
       this._cS.API_PUT(environment.apiURL + "/customers/" + this.storedId, body)
         .subscribe(response => {
           if (response) {

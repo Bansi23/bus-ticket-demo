@@ -43,7 +43,7 @@ export class SearchProductComponent implements OnInit {
   lstProduct: any = [];
 
   getProductList() {
-    this._cS.API_GET(this._cS.getProductList())
+    this._cS.API_GET(this._cS.URL_getProductList())
       .subscribe(res => {
         if (res) {
           this.lstProduct = res.products;
@@ -52,18 +52,18 @@ export class SearchProductComponent implements OnInit {
   }
 
   goToEditProduct() {
-    if (this.lstProduct.length > 0) {
-      const sku = this.searchProdFrom.getRawValue().sku;
-      var skuMatch = this.lstProduct.find(x => x.sku == sku);
-      if (skuMatch) {
-        localStorage.setItem('EditedRecord', JSON.stringify(skuMatch));
-        this._router.navigate(['/catalog/addProduct'], { queryParams: { id: skuMatch.id } })
-      } else {
-        this._cS.displayToast(3, 'Please enter valid sku');
-      }
-    } else {
-      this._cS.displayToast(3, 'Under development due to api issue!');
-    }
+    // if (this.lstProduct.length > 0) {
+    //   const sku = this.searchProdFrom.getRawValue().sku;
+    //   var skuMatch = this.lstProduct.find(x => x.sku == sku);
+    //   if (skuMatch) {
+    //     localStorage.setItem('EditedRecord', JSON.stringify(skuMatch));
+    //     this._router.navigate(['/catalog/addProduct'], { queryParams: { id: skuMatch.id } })
+    //   } else {
+    //     this._cS.displayToast(3, 'Please enter valid sku');
+    //   }
+    // } else {
+    this._cS.displayToast(3, 'Under development due to api issue!');
+    //  }
   }
   //#region search form
   searchProdFrom: FormGroup;
@@ -118,6 +118,6 @@ export class SearchProductComponent implements OnInit {
     this.bindStaticList();
     this.getCategoryList();
     this.getManufacturerList();
-    this.getProductList();
+    //  this.getProductList();
   }
 }

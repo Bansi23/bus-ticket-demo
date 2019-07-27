@@ -251,7 +251,7 @@ export class ProductinfoComponent implements OnInit {
             // categories: editedRecord.categories ? editedRecord.categories : '',
             price: editedRecord.price ? editedRecord.price : 0,
             productCost: editedRecord.product_cost ? editedRecord.product_cost : 0,
-            discount: editedRecord.discount_ids ? editedRecord.discount_ids : 0,
+            // discount: editedRecord.discount_ids ? editedRecord.discount_ids : 0,
             tax: editedRecord.is_tax_exempt ? editedRecord.is_tax_exempt : true,
           })
         }

@@ -30,6 +30,11 @@
                                             class="fa fa-trash"></i></button>
                                 </td>
                             </tr>
+                            <tr class="top-mrging">
+                                <td colspan="7" *ngIf="(lstSpecificAttr).length == 0" role="alert" class="alert">No
+                                    record Found
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -131,7 +136,8 @@
                                 </div>
                             </div>
                             <div class="row pull-right">
-                                <button class="btn btn-primary btn-sm" (click)="addAttribute()"><i class="fa fa-plus">Add
+                                <button class="btn btn-primary btn-sm" (click)="addAttribute()"><i
+                                        class="fa fa-plus">Add
                                         Attribute</i></button>
                             </div>
                         </div>
