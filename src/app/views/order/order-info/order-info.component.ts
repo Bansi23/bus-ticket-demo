@@ -64,7 +64,7 @@ export class OrderInfoComponent implements OnInit {
               this.profitTotal = +TotalSellPrice - +TotalCostPrice;
               if (element == '') {
                 this.finalTotal = this.viewRecord[i].order_subtotal_excl_tax;
-                this.profitTotal = '-';
+               // this.profitTotal = '-';
               }
             }
           }

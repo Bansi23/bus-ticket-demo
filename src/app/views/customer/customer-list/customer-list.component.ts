@@ -9,9 +9,9 @@ import { CommonService } from '../../../services/common.service';
   styleUrls: ['./customer-list.component.scss']
 })
 export class CustomerListComponent implements OnInit {
-  lstcustomers : any = [];
+  lstcustomers: any = [];
   lstCustomerRoles = [];
-  totalRecords: number;                   
+  totalRecords: number;
   pageIndex: number = 1;
   pageSize: number = 10;
   constructor(private router: Router, private _mS: MockService, private _cS: CommonService) { }
@@ -23,6 +23,7 @@ export class CustomerListComponent implements OnInit {
 
   pageChanged(value) {
     this.pageIndex = +value;
+    console.log('this.pageIndex:', this.pageIndex)
     this.getCustomerList();
   };
 
@@ -54,7 +55,7 @@ export class CustomerListComponent implements OnInit {
             lastActivity: response.customers[i].last_activity_date_utc
           }
           this.lstcustomers.push(data);
-         }
+        }
       })
   }
   getCustomerCount() {
