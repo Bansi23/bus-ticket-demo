@@ -7,11 +7,11 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>First name</th>
-                        <th>Last name</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
                         <th>Email</th>
-                        <th>Phone number</th>
-                        <th>Fax number</th>
+                        <th>Phone Number</th>
+                        <th>Fax Number</th>
                         <th>Address</th>
                         <th>Action</th>
                         <!-- <th>Delete</th> -->
@@ -41,6 +41,12 @@
                             </button>
                         </td>
                     </tr>
+
+                    <tr class="top-mrging">
+                        <td colspan="9" *ngIf="(custAddress).length == 0" role="alert" class="alert-warning">
+                        <strong>No record found</strong>
+                        </td>
+                        </tr>
                 </tbody>
             </table>
             <div class="row">
