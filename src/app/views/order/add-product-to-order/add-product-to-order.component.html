@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-header">
-        <strong>Product List</strong>
+        <strong class=" pull-left">Product List</strong>
     </div>
     <div class="card-body">
         <form [formGroup]="itemForm">
@@ -8,13 +8,7 @@
                 <table class="table table-grid table-striped table-bordered">
                     <thead>
                         <tr>
-                            <th>Picture</th>
-                            <th>Product name</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
-                            <th>Discount</th>
-                            <th>Total</th>
-                            <th>Action</th>
+                            <th *ngFor="let h of tableHeader">{{h | titlecase}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -65,7 +59,7 @@
                             </div> -->
                             <div class="row">
                                 <div class="form-group col-sm-6">
-                                    <label class="pull-left">Product Name</label>
+                                    <label class="pull-left">Product name</label>
                                     <input type="text" readonly class="form-control" formControlName="productName">
                                 </div>
 
@@ -214,7 +208,8 @@
         </div>
         <div class="row">
             <div class="col-md-12 pull-left">
-                <button class="btn btn-primary pull-left" (click)="addProduct()">ADD PRODUCT</button>
+                <button class="btn btn-primary pull-left btn-sm" (click)="addProduct()"><i class="fa fa-plus"> ADD
+                        PRODUCT</i></button>
             </div>
         </div>
     </div>

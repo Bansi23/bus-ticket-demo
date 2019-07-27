@@ -17,7 +17,7 @@
             <tbody>
                 <tr
                     *ngFor="let lstproduct of lstProductData| paginate: { itemsPerPage:pageSize , currentPage: pageIndex , totalItems: countProduct}; let i = index">
-                    <td><button class="btn btn-info text-white" (click)="SelectProduct(lstproduct.id)">Select</button>
+                    <td><button class="btn btn-info text-white btn-sm" (click)="SelectProduct(lstproduct.id)">Select</button>
                     </td>
                     <td>{{lstproduct.id}}</td>
                     <td>{{lstproduct.name}}</td>

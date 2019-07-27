@@ -22,7 +22,7 @@ export class AddProductToOrderComponent implements OnInit {
   //#endregion
 
   @ViewChild('editItem', { static: true }) EditRecord: ModalDirective;
-  // @ViewChild('deleteModal', { static: true }) deleteMedalRec: ModalDirective;
+  tableHeader: any = ['Picture', 'Product name', 'Price', 'Quantity', 'Discount', 'Total', 'Action'];
 
   fbItemEdit() {
     this.itemForm = this.fb.group({

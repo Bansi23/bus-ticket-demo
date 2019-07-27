@@ -41,13 +41,19 @@
                             </button>
                         </td>
                     </tr>
+
+                    <tr class="top-mrging">
+                        <td colspan="9" *ngIf="(custAddress).length == 0" role="alert" class="alert-warning">
+                        <strong>No address found</strong>
+                        </td>
+                        </tr>
                 </tbody>
             </table>
             <div class="row">
                 <div class="col-md-4 col-12">
                     <div class="total-count--table">
                         <span>Total number of records : {{ totalRecords}}</span>
-                        <button class="btn btn-primary" (click)="getCustomerOrderAddress()"><i
+                        <button class="btn btn-primary btn-sm" (click)="getCustomerOrderAddress()"><i
                                 class="fa fa-refresh"></i></button>
                     </div>
                 </div>
