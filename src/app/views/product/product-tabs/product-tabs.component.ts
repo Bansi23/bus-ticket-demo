@@ -81,7 +81,7 @@ export class ProductTabsComponent implements OnInit {
 
   ngOnInit() {
     this.getParameter();
-    this.isActivetab = false;
+    this.goToInfo();
     var editedRecord = JSON.parse(localStorage.getItem('EditedRecord'));
     if (editedRecord) {
       if (this.productId != null) {

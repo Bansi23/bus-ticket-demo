@@ -223,7 +223,7 @@ export class CommonService {
   // #endregion
 
   //#region product module api Urls
-  URL_getProductList(PageSize, PageIndex) {
+  URL_getProductList(PageSize?, PageIndex?) {
     return baseUrl + `products?Limit=${PageSize}&Page=${PageIndex}`;
   }
 
