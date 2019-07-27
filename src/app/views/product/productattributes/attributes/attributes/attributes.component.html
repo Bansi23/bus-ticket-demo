@@ -23,6 +23,11 @@
                                     class="fa fa-edit"></i></button>
                         </td>
                     </tr>
+                    <tr class="top-mrging">
+                        <td colspan="9" *ngIf="(lstAttr).length == 0" role="alert" class="alert-warning">
+                            <strong>No record Found</strong>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -31,7 +36,8 @@
         <div class="col-md-4 col-12">
             <div class="total-count--table">
                 <span>Total number of records : {{ totalRecords}}</span>
-                <button class="btn btn-primary btn-sm" (click)="reloadAttribute()"><i class="fa fa-refresh"></i></button>
+                <button class="btn btn-primary btn-sm" (click)="reloadAttribute()"><i
+                        class="fa fa-refresh"></i></button>
             </div>
         </div>
         <div class="col-md-5 col-12" *ngIf="lstAttr.length > 0">
