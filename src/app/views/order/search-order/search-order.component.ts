@@ -5,6 +5,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { IMyDpOptions } from 'mydatepicker';
 import { environment } from '../../../../environments/environment';
 import { Router } from '@angular/router';
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 const emailPattern = environment.emailPattern;
 @Component({
@@ -76,6 +78,7 @@ export class SearchOrderComponent implements OnInit {
   };
   //#endregion
 
+  tableHeader: any = ['View', 'Order#', 'Order status', 'Payment status', 'Shipping Status', 'Customer', 'Created on', 'Order total',];
   //#region form group
   fbSearchOrder() {
     this.searchOrder = this.fb.group({
@@ -124,7 +127,7 @@ export class SearchOrderComponent implements OnInit {
 
     this._cS.API_GET(this._cS.getOrderList(this.pageSize, this.pageIndex))
       .subscribe(res => {
-       // this.pageIndex = 1;
+        // this.pageIndex = 1;
         if (res) {
           this.lstOrderData = res.orders;
           //this.totalRecord = this.lstOrderData.length;
@@ -247,10 +250,22 @@ export class SearchOrderComponent implements OnInit {
     this._cS.API_GET(this._cS.getOrderId(index))
       .subscribe(res => {
         if (res) {
-          this._router.navigate(['/sales/viewrecord'], { queryParams: { id: index } });
+          if (index != '') {
+            this._router.navigate(['/sales/viewrecord'], { queryParams: { id: index } });
+          }
+          else if(index == ''){
+            this._cS.displayToast(2, 'please enter order number');
+            this._cS.Display_Loader(false);
+          }
         }
-        else {
-          this._cS.displayToast(2, 'This record is not found')
+      }, err => {
+        if (err.status == 404) {
+          this._cS.displayToast(2, 'This record is not found.');
+          this._cS.Display_Loader(false);
+        }
+        if (err.status == 400) {
+          this._cS.displayToast(2, 'Valid only digit')
+          this._cS.Display_Loader(false);
         }
       });
   }
