@@ -10,7 +10,7 @@ import { TabDirective } from 'ngx-bootstrap/tabs/public_api';
 })
 export class ProductTabsComponent implements OnInit {
   title: any = 'Add a new product';
-
+  isActivetab: boolean;
   backToList() {
     this._router.navigateByUrl('/catalog/product');
     localStorage.removeItem('EditedRecord');
@@ -21,9 +21,13 @@ export class ProductTabsComponent implements OnInit {
     this.tabId = e.id;
   }
 
+  getActiveTab(route) {
+
+  }
+
   //#region tabs routing
   goToInfo() {
-    this.render.setElementClass(event.target, "active", true);
+    this.tabId = 1;
     this.getParameter();
     if (this.productId) {
       this._router.navigate(['catalog/addProduct/productInfo'], { queryParams: { id: this.productId } });
@@ -33,7 +37,7 @@ export class ProductTabsComponent implements OnInit {
   }
 
   goToPicture() {
-    this.render.setElementClass(event.target, "active", true);
+    this.tabId = 2;
     this.getParameter();
     if (this.productId) {
       this._router.navigate(['catalog/addProduct/productPicture'], { queryParams: { id: this.productId } });
@@ -43,7 +47,7 @@ export class ProductTabsComponent implements OnInit {
   }
 
   goToAttribute() {
-    this.render.setElementClass(event.target, "active", true);
+    this.tabId = 3;
     this.getParameter();
     if (this.productId) {
       this._router.navigate(['catalog/addProduct/productAttributes'], { queryParams: { id: this.productId } });
@@ -53,7 +57,7 @@ export class ProductTabsComponent implements OnInit {
   }
 
   goToSpecification() {
-    this.render.setElementClass(event.target, "active", true);
+    this.tabId = 4;
     this.getParameter();
     if (this.productId) {
       this._router.navigate(['catalog/addProduct/productSpecificationAttr'], { queryParams: { id: this.productId } });
@@ -77,6 +81,7 @@ export class ProductTabsComponent implements OnInit {
 
   ngOnInit() {
     this.getParameter();
+    this.isActivetab = false;
     var editedRecord = JSON.parse(localStorage.getItem('EditedRecord'));
     if (editedRecord) {
       if (this.productId != null) {

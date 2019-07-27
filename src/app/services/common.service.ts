@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, throwError, forkJoin } from 'rxjs';
-import { map, catchError, count } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from '../../environments/environment';
@@ -17,7 +17,7 @@ const hd: HttpHeaders = new HttpHeaders({
   'Accept': ' application/json, text/javascript'
 });
 
-// var count = 0;
+var count = 0;
 
 @Injectable({
   providedIn: 'root'
@@ -48,23 +48,22 @@ export class CommonService {
    * @param url - Just pass url after /api/. Predefine url will take from environment   
   */
   API_GET(url: string): Observable<any> {
-    // count++;
-    // if (count > 0) {
-    //   this.Display_Loader(true);
-    // } else {
-    //   this.Display_Loader(false);
-    // }
-    // count--;
-    this.Display_Loader(true);
+    count++;
+    if (count > 0) {
+      this.Display_Loader(true);
+    } else {
+      this.Display_Loader(false);
+    }
+    count--;
     return this._httpClient.get(`${url}`, { headers: hd }).pipe(map(res => {
       this.Display_Loader(false);
       setTimeout(() => {
       }, 500);
-
       return res;
     }, catchError(err => {
       this.Display_Loader(false);
       if (err.status == 401) {
+
       }
       else if (err.status == 400) {
       }

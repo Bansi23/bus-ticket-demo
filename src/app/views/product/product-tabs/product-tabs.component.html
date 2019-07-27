@@ -25,17 +25,22 @@
                         <div ng-reflect-justified="true" class="tab-container tab-box-main">
                             <ul class="nav tab-container tab-box-main nav-justified nav-tabs ul-box">
                                 <li class="nav-item">
-                                    <button class="btn btn-link li-link" (click)="goToInfo()">Product Info</button>
+                                    <button class="btn btn-link li-link" [class.active]="tabId==1"
+                                        (click)="goToInfo()">Product
+                                        Info</button>
                                 </li>
                                 <li class="nav-item">
-                                    <button class="btn btn-link li-link" (click)="goToPicture()">Pictures</button>
+                                    <button class="btn btn-link li-link" [class.active]="tabId==2"
+                                        (click)="goToPicture()">Pictures</button>
                                 </li>
                                 <li class="nav-item">
-                                    <button class="btn btn-link li-link" (click)="goToAttribute()">Product
+                                    <button class="btn btn-link li-link" [class.active]="tabId==3"
+                                        (click)="goToAttribute()">Product
                                         Attributes</button>
                                 </li>
                                 <li class="nav-item">
-                                    <button class="btn btn-link li-link" (click)="goToSpecification()">Specification
+                                    <button class="btn btn-link li-link" [class.active]="tabId==4"
+                                        (click)="goToSpecification()">Specification
                                         Attributes</button>
                                 </li>
                             </ul>
