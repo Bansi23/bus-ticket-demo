@@ -17,8 +17,8 @@ export class CustomerListComponent implements OnInit {
   constructor(private router: Router, private _mS: MockService, private _cS: CommonService) { }
 
   ngOnInit() {
-    this.getCustomerList();
     this.lstCustomerRoles = this._mS.customerRoles();
+    this.getCustomerList();
   }
 
   pageChanged(value) {

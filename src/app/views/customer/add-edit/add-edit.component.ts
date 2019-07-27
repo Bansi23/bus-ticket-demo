@@ -98,17 +98,13 @@ export class AddEditComponent implements OnInit {
   //#endregion
 
   setValuesInForm() {
-    this.selectedcustomerRoles = this.customer[0].role_ids;
-    // const id = this.lstCustomerRoles.find((item) => item.id == 3);
-    // this.lstCustomerRoles.map(x => {
-    //   this.selectedcustomerRoles.push(id);
-    // });
-
-
+    //this.selectedcustomerRoles = this.customer[0].role_ids
+    // const id = this.lstCustomerRoles.filter((item) => item.id == this.customer[0].role_ids);
+    this.selectedcustomerRoles.push(this.customer[0].role_ids)
     this.addCustomerForm.patchValue({
       custEmail: this.customer[0].email,
       // custPassword : this.dataToSet.
-      custRoles: this.customer[0].role_ids,
+      custRoles: this.selectedcustomerRoles,
       //manager of vendor
       // custGender: this.patchGender,
       custFirstName: this.customer[0].first_name,
@@ -119,11 +115,12 @@ export class AddEditComponent implements OnInit {
       custIsTaxExempt: this.customer[0].is_tax_exempt,
       custNewsletter: this.customer[0].subscribed_to_newsletter,
       custActive: this.customer[0].active
+    });
 
-    })
 
     this.createdOn = this.customer[0].created_on_utc;
     this.lastActivity = this.customer[0].last_activity_date_utc;
+
   }
   onItemRoleSelect(item?: any) {
     // this.ctRoles = this.addCustomerForm.value.custRoles;
@@ -207,7 +204,6 @@ export class AddEditComponent implements OnInit {
               this.isChangePassword = true;
               this.storedId = response.customers[0].id;
               this._cS.displayToast(1, "The new customer has been created successfully!")
-              // alert("is save and edit")
             } else {
               this.storedId = response.customers[0].id;
               this._cS.displayToast(1, "The new customer has been created successfully!")
@@ -259,9 +255,7 @@ export class AddEditComponent implements OnInit {
     this.lstManagerOfVendor = this._mS.getManagerOfVendor();
     this.getRecord();
     const id = this.lstCustomerRoles.find((item) => item.id == 3);
-    this.lstCustomerRoles.map(x => {
-      this.selectedcustomerRoles.push(id);
-    });
+    this.selectedcustomerRoles.push(id);
     this.addCustomerForm.get('custRoles').setValue(this.selectedcustomerRoles);
   }
 }
