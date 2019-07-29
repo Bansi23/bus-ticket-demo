@@ -120,7 +120,6 @@ export class AddEditComponent implements OnInit {
       custActive: this.customer[0].active
     });
 
-
     this.createdOn = this.customer[0].created_on_utc;
     this.lastActivity = this.customer[0].last_activity_date_utc;
 
