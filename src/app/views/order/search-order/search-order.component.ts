@@ -130,7 +130,6 @@ export class SearchOrderComponent implements OnInit {
         // this.pageIndex = 1;
         if (res) {
           this.lstOrderData = res.orders;
-          //this.totalRecord = this.lstOrderData.length;
           this.GetCountRecord();
           this.finalTotal = this.lstOrderData.map(o => o.order_total).reduce((a, c) => a + c, 0);
         }

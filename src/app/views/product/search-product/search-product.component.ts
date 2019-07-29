@@ -43,7 +43,7 @@ export class SearchProductComponent implements OnInit {
   lstProduct: any = [];
 
   getProductList() {
-    this._cS.API_GET(this._cS.getProductList())
+    this._cS.API_GET(this._cS.URL_getProductList())
       .subscribe(res => {
         if (res) {
           this.lstProduct = res.products;
@@ -118,6 +118,6 @@ export class SearchProductComponent implements OnInit {
     this.bindStaticList();
     this.getCategoryList();
     this.getManufacturerList();
-    this.getProductList();
+    //  this.getProductList();
   }
 }

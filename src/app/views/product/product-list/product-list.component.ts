@@ -30,7 +30,9 @@ export class ProductListComponent implements OnInit {
   getProductList() {
     this._cS.API_GET(this._cS.URL_getProductList(this.pageSize, this.pageIndex))
       .subscribe(res => {
-        this.lstProduct = res.products;
+        if (res) {
+          this.lstProduct = res.products;
+        }
       });
   }
 
@@ -39,7 +41,7 @@ export class ProductListComponent implements OnInit {
       .subscribe(res => {
         if (res) {
           this.totalRecords = res.count;
-          this.getProductList();
+          this.getProductList()
         }
       })
   }
