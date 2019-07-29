@@ -145,8 +145,7 @@ export class AddEditComponent implements OnInit {
 
   saveCustomerData() {
     let l = this.addCustomerForm.value.custDob;
-    console.log('l:', l)
-    let date = this._cS.formatAMPM();
+     let date = this._cS.formatAMPM();
     var x = this.addCustomerForm.value.custRoles;
     let roles = [];
     for (let i = 0; i < x.length; i++) {
@@ -177,8 +176,6 @@ export class AddEditComponent implements OnInit {
         active: this.addCustomerForm.value.custActive
       }
     }
-    console.log('body:', body)
-
     if (this.count == 2) {
       if (this.custId) {
         roles.splice(0, 1);
@@ -244,7 +241,6 @@ export class AddEditComponent implements OnInit {
       this._cS.API_GET(this._cS.getParticularCustomer(this.custId))
         .subscribe(response => {
           this.customer = response.customers;
-          console.log('this.customer:', this.customer)
           this.setValuesInForm();
         });
     } else {
