@@ -1,56 +1,29 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
-import { NgxSpinnerService } from "ngx-spinner";
-import { ToasterConfig, ToasterService } from 'angular2-toaster';
+import { Component, HostBinding, OnInit } from '@angular/core';
+declare var $: any;
+
+import { SettingsService } from './core/settings/settings.service';
 
 @Component({
-  // tslint:disable-next-line
-  selector: 'body',
-  template: `<router-outlet></router-outlet> 
-      <ngx-spinner
-    bdOpacity = 0.9
-    size = "medium"
-    color = "#17a2b8"
-    type = "line-scale-pulse-out"
-    [fullScreen] = "true"
-    >
-    </ngx-spinner>
-    <toaster-container [toasterconfig]="config"></toaster-container>`
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  constructor(private router: Router,
-    private spinner: NgxSpinnerService,
-    private toasterService: ToasterService
 
-  ) { }
+    @HostBinding('class.layout-fixed') get isFixed() { return this.settings.getLayoutSetting('isFixed'); };
+    @HostBinding('class.aside-collapsed') get isCollapsed() { return this.settings.getLayoutSetting('isCollapsed'); };
+    @HostBinding('class.layout-boxed') get isBoxed() { return this.settings.getLayoutSetting('isBoxed'); };
+    @HostBinding('class.layout-fs') get useFullLayout() { return this.settings.getLayoutSetting('useFullLayout'); };
+    @HostBinding('class.hidden-footer') get hiddenFooter() { return this.settings.getLayoutSetting('hiddenFooter'); };
+    @HostBinding('class.layout-h') get horizontal() { return this.settings.getLayoutSetting('horizontal'); };
+    @HostBinding('class.aside-float') get isFloat() { return this.settings.getLayoutSetting('isFloat'); };
+    @HostBinding('class.offsidebar-open') get offsidebarOpen() { return this.settings.getLayoutSetting('offsidebarOpen'); };
+    @HostBinding('class.aside-toggled') get asideToggled() { return this.settings.getLayoutSetting('asideToggled'); };
+    @HostBinding('class.aside-collapsed-text') get isCollapsedText() { return this.settings.getLayoutSetting('isCollapsedText'); };
 
-  //#region loader
-  Display_Loader(value: boolean) {
-    value ?
-      document.querySelector('body').classList.add('noscroll') :
-      document.querySelector('body').classList.remove('noscroll');
-    value ? this.spinner.show() : this.spinner.hide();
-  };
-  //#endregion
+    constructor(public settings: SettingsService) { }
 
-  // #region Toaster
-  config: ToasterConfig = new ToasterConfig({
-    showCloseButton: true, tapToDismiss: false,
-    timeout: 3000, animation: 'flyRight',
-    limit: 5, preventDuplicates: false,
-    newestOnTop: true, positionClass: 'toast-top-right'
-  });
-  popToast(Type?, Title?, Message?) {
-    this.toasterService.pop(Type, Title, Message);
-  };
-  // #endregion
-
-  ngOnInit() {
-    this.router.events.subscribe((evt) => {
-      if (!(evt instanceof NavigationEnd)) {
-        return;
-      }
-      window.scrollTo(0, 0);
-    });
-  }
+    ngOnInit() {
+        $(document).on('click', '[href="#"]', e => e.preventDefault());
+    }
 }

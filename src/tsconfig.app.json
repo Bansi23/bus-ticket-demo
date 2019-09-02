@@ -3,20 +3,13 @@
   "compilerOptions": {
     "outDir": "../out-tsc/app",
     "baseUrl": "./",
-    "module": "esnext",
-    "target": "es5",
-    "types": [],
-    "paths": {
-      "@angular/*": [
-        "../node_modules/@angular/*"
-      ]
-    }
-  },
-  "angularCompilerOptions": {
-    "enableIvy": false
+    "module": "es2015",
+    "types": [
+        "node"
+    ]
   },
   "exclude": [
-    "test.ts",
+    "src/test.ts",
     "**/*.spec.ts"
   ]
 }

@@ -1,0 +1,67 @@
+/* You can add global styles to this file, and also import other style files */
+
+//== Vendor
+@import "~@fortawesome/fontawesome-free-webfonts/css/fa-brands.css";
+@import "~@fortawesome/fontawesome-free-webfonts/css/fa-regular.css";
+@import "~@fortawesome/fontawesome-free-webfonts/css/fa-solid.css";
+@import "~@fortawesome/fontawesome-free-webfonts/css/fontawesome.css";
+@import "~simple-line-icons/css/simple-line-icons.css";
+@import "~weather-icons/css/weather-icons.css";
+@import "~weather-icons/css/weather-icons-wind.css";
+
+@import "~spinkit/css/spinkit.css";
+@import "~loaders.css/loaders.css";
+
+@import "~angular2-toaster/toaster.css";
+
+@import "~ng2-dnd/bundles/style.css";
+
+@import "~ag-grid/dist/styles/ag-grid.css";
+@import "~ag-grid/dist/styles/theme-fresh.css";
+
+@import "~ika.jvectormap/jquery-jvectormap-1.2.2.css";
+
+@import "~jqcloud2/dist/jqcloud.css";
+
+@import "~summernote/dist/summernote.css";
+
+@import "~fullcalendar/dist/fullcalendar.min.css";
+
+@import "~codemirror/lib/codemirror.css";
+
+@import "~sweetalert/dist/sweetalert.css";
+
+//== Bootstrap
+@import "./app/shared/styles/bootstrap.scss";
+//== Application
+@import "./app/shared/styles/app.scss";
+
+@import "../node_modules/ngx-bootstrap/datepicker/bs-datepicker.scss";
+
+.bs-datepicker-head {
+  background-color: #1797be !important;
+}
+.bs-datepicker-body table td {
+  span.selected,
+  &.selected span,
+  span[class*="select-"]:after,
+  &[class*="select-"] span:after {
+    background-color: #1797be !important;
+  }
+  &.week span {
+    color: #1797be !important;
+  }
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+.no-border {
+  border: 0;
+  box-shadow: none; /* You may want to include this as bootstrap applies these styles too */
+}

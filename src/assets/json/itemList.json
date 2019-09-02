@@ -1,0 +1,50 @@
+{
+   "itemId": 1,
+   "itemName": "Refrigrator",
+   "rate": 15000,
+},
+{
+   "itemId": 2,
+   "itemName": "Cooler",
+   "rate": 8000,
+},
+{
+   "itemId": 3,
+   "itemName": "Compact",
+   "rate": 500,
+},
+{
+   "itemId": 4,
+   "itemName": "Designer Top",
+   "rate": 600,
+},
+{
+   "itemId": 5,
+   "itemName": "Shirt",
+   "rate": 800,
+},
+{
+   "itemId": 6,
+   "itemName": "Hand Bag",
+   "rate": 1000,
+},
+{
+   "itemId": 7,
+   "itemName": "Samsung Mobile",
+   "rate": 15000,
+},
+{
+   "itemId": 8,
+   "itemName": "Shoes",
+   "rate": 600,
+},
+{
+   "itemId": 9,
+   "itemName": "Slipper",
+   "rate": 200,
+},
+{
+   "itemId": 10,
+   "itemName": "Speaker",
+   "rate": 15000,
+},

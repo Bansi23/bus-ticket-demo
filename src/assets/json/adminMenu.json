@@ -1,0 +1,46 @@
+[
+{
+    "text": "Users",
+    "link": "/users",
+    "icon": "icon-user",
+    "submenu": [
+        {
+            "text": "User Registration",
+            "link": "/users/registration"
+        },
+        {
+            "text": "User List",
+            "link": "/users/list"
+        }
+    ]
+},
+{
+    "text": "Dashboard",
+    "link": "/dashboard",
+    "icon": "icon-speedometer"
+},
+{
+    "text": "SyncLog",
+    "link": "/synclog",
+    "icon": "fa fas fa-sync"
+},
+{
+    "text": "Subscription",
+    "link": "/subscription",
+    "icon": "fa fas fa-subscript"
+},
+ {
+    "text": "Configuration",
+    "link": "/configuration",
+    "icon": "fa icon-settings"
+},
+{
+    "text": "System Status",
+    "link": "/systemstatus",
+    "icon": "fas fa-cogs"
+},
+{
+    "text": "Main Navigation",
+    "heading": true
+}
+]

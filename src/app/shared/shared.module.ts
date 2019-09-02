@@ -1,10 +1,10 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { MyDatePickerModule } from 'mydatepicker';
-import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgxPaginationModule } from 'ngx-pagination';
+import { RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { ToasterModule, ToasterService } from 'angular2-toaster/angular2-toaster';
+
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
@@ -22,67 +22,96 @@ import { PopoverModule } from 'ngx-bootstrap/popover';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { DatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-//import { QuillModule } from 'ngx-quill'
-import { from } from 'rxjs';
 
-// import { NgxEditorModule } from 'ngx-editor';
+import { FlotDirective } from './directives/flot/flot.directive';
+import { SparklineDirective } from './directives/sparkline/sparkline.directive';
+import { EasypiechartDirective } from './directives/easypiechart/easypiechart.directive';
+import { ColorsService } from './colors/colors.service';
+import { CheckallDirective } from './directives/checkall/checkall.directive';
+import { VectormapDirective } from './directives/vectormap/vectormap.directive';
+import { NowDirective } from './directives/now/now.directive';
+import { ScrollableDirective } from './directives/scrollable/scrollable.directive';
+import { JqcloudDirective } from './directives/jqcloud/jqcloud.directive';
 
+// https://angular.io/styleguide#!#04-10
 @NgModule({
-  declarations: [],
-  imports: [
-    CommonModule,
-
-    AngularMultiSelectModule,
-    FormsModule,
-    ReactiveFormsModule,
-    NgxPaginationModule,
-    AccordionModule.forRoot(),
-    AlertModule.forRoot(),
-    ButtonsModule.forRoot(),
-    CarouselModule.forRoot(),
-    CollapseModule.forRoot(),
-    DatepickerModule.forRoot(),
-    BsDatepickerModule.forRoot(),
-    BsDropdownModule.forRoot(),
-    ModalModule.forRoot(),
-    PaginationModule.forRoot(),
-    ProgressbarModule.forRoot(),
-    RatingModule.forRoot(),
-    TabsModule.forRoot(),
-    TimepickerModule.forRoot(),
-    TooltipModule.forRoot(),
-    PopoverModule.forRoot(),
-    TypeaheadModule.forRoot(),
-   
-    // NgxEditorModule
-  ],
-  exports: [
-   
-    AngularMultiSelectModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MyDatePickerModule,
-    NgxPaginationModule,
-    AccordionModule,
-    AlertModule,
-    ButtonsModule,
-    CarouselModule,
-    CollapseModule,
-    DatepickerModule,
-    BsDatepickerModule,
-    BsDropdownModule,
-    ModalModule,
-    PaginationModule,
-    ProgressbarModule,
-    RatingModule,
-    TabsModule,
-    TimepickerModule,
-    TooltipModule,
-    PopoverModule,
-    TypeaheadModule,
-
-  
-    // NgxEditorModule
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        TranslateModule,
+        AccordionModule.forRoot(),
+        AlertModule.forRoot(),
+        ButtonsModule.forRoot(),
+        CarouselModule.forRoot(),
+        CollapseModule.forRoot(),
+        DatepickerModule.forRoot(),
+        BsDatepickerModule.forRoot(),
+        BsDropdownModule.forRoot(),
+        ModalModule.forRoot(),
+        PaginationModule.forRoot(),
+        ProgressbarModule.forRoot(),
+        RatingModule.forRoot(),
+        TabsModule.forRoot(),
+        TimepickerModule.forRoot(),
+        TooltipModule.forRoot(),
+        PopoverModule.forRoot(),
+        TypeaheadModule.forRoot(),
+        ToasterModule,
+    ],
+    providers: [
+        ColorsService, ToasterService
+    ],
+    declarations: [
+        FlotDirective,
+        SparklineDirective,
+        EasypiechartDirective,
+        CheckallDirective,
+        VectormapDirective,
+        NowDirective,
+        ScrollableDirective,
+        JqcloudDirective
+    ],
+    exports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        TranslateModule,
+        RouterModule,
+        AccordionModule,
+        AlertModule,
+        ButtonsModule,
+        CarouselModule,
+        CollapseModule,
+        DatepickerModule,
+        BsDatepickerModule,
+        BsDropdownModule,
+        ModalModule,
+        PaginationModule,
+        ProgressbarModule,
+        RatingModule,
+        TabsModule,
+        TimepickerModule,
+        TooltipModule,
+        PopoverModule,
+        TypeaheadModule,
+        ToasterModule,
+        FlotDirective,
+        SparklineDirective,
+        EasypiechartDirective,
+        CheckallDirective,
+        VectormapDirective,
+        NowDirective,
+        ScrollableDirective,
+        JqcloudDirective
+    ]
 })
-export class SharedModule { }
+
+// https://github.com/ocombe/ng2-translate/issues/209
+export class SharedModule {
+    static forRoot(): ModuleWithProviders {
+        return {
+            ngModule: SharedModule
+        };
+    }
+}

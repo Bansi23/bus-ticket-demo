@@ -17,19 +17,13 @@ export class MockService {
       { "id": 8, "name": "Atkot(800)", "Price": 800 },
       { "id": 9, "name": "Jasadan(450)", "Price": 450 },
       { "id": 10, "name": "Gondal(850)", "Price": 850 },
-      { "id": 11, "name": "Saputara(1800)", "Price": 1800 },
-      { "id": 12, "name": "Surat(300)", "Price": 300 },
-      { "id": 13, "name": "Gandhinagar(100)", "Price": 100 },
-      { "id": 14, "name": "Vadiya(600)", "Price": 600 },
-      { "id": 15, "name": "Babra(800)", "Price": 800 },
-      { "id": 16, "name": "Unna(1000)", "Price": 1000 },
     ]
   }
 
   getSeatsCol1() {
     const finalArray = [];
-    for (let i = 0; i < 40; i++) {
-      finalArray.push({ id: i + 1, text: i + 1 });
+    for (let i = 0; i < 52; i++) {
+      finalArray.push({id: i + 1, text: i + 1 });
     };
     return finalArray;
   }

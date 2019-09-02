@@ -1,0 +1,215 @@
+<div class="row">
+    <div class="col col-md-12 col-lg-12">
+        <h4 style="text-align: center">Welcome to Bus-ticket-demo!</h4>
+    </div>
+</div>
+<div class="mx-5 my-5">
+    <form [formGroup]="searchBus">
+        <div class="card card-default">
+            <div class="card-header">
+                <div class="card-title"><i class="fa fa-bus"></i>&nbsp; Select bus root</div>
+            </div>
+            <div class="card-body">
+                <div class="_container">
+                    <div class="row justify-content-center pb-5 pt-3">
+                        <div class="col-md-5 mt-3">
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label>Leaving from</label>
+                                    <select class="form-control" formControlName="leaving"
+                                        (change)="onSelectLeaving($event.target.value)">
+                                        <option value="">Select Leaving</option>
+                                        <option value="1">Ahemdabaad</option>
+                                    </select>
+                                    <span class="text-danger"
+                                        *ngIf="searchBus.get('leaving').hasError('required') && searchBus.get('leaving').touched ">Required
+                                        leaving place
+                                    </span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Going To</label>
+                                    <select class="form-control" formControlName="going" (change)="onSelectGoing()">
+                                        <option value="">Select Going</option>
+                                        <option *ngFor="let i of lstGoing" [ngValue]="i">{{i.name}}</option>
+                                    </select>
+                                    <span class="text-danger"
+                                        *ngIf="searchBus.get('going').hasError('required') && searchBus.get('going').touched ">Required
+                                        going place
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <label>Departing On</label>
+                                    <input type="text" class="form-control date" autocomplete="off" bsDatepicker
+                                        #dp="bsDatepicker" formControlName="deptdate" name="dp-basic"
+                                        placeholder="Select Date" readonly [minDate]="newSDate"
+                                        (ngModelChange)="onDateSelected($event)">
+                                    <span class="text-danger"
+                                        *ngIf="searchBus.get('deptdate').hasError('required') && searchBus.get('deptdate').touched ">Required
+                                        Departing Date
+                                    </span>
+                                </div>
+                            </div>
+
+                            <button class="btn mt-3 btn-search btn-sm btn-block" (click)="busSearch()"><i
+                                    class="fa fa-search"></i>
+                                Search Bus</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- *ngIf="isBookedbus" -->
+        <div class="card card-default" *ngIf="isBookedbus">
+            <div class="card-header">
+                <div class="card-title"><i class="fa fa-ticket"></i>&nbsp;&nbsp; Select bus ticket</div>
+            </div>
+            <div class="card-body">
+                <div class="row pb-5 pt-3">
+                    <div class="col col-md-3 col-sm-3 col-lg-3">
+                        <div class="border-box">
+                            <div class="row my-2">
+
+                                <label class="container">
+                                    <input type="checkbox" [disabled]="conseat">
+                                    <div class="center checkmark text-white pull-right" tooltip= "conductor seat"  placement="top">{{' '}}
+                                    </div>
+                                </label>
+
+                                <div *ngFor="let i of lstseatCol1 ; let index=index">
+                                    <label class="container" (change)="changeCheckbox1(i.id, $event.target.checked)">
+                                        <input type="checkbox" [disabled]="i.checked" [checked]="i.click">
+                                        <div class="center checkmark text-white">{{i.text}}
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class=" col col-md-6 col-sm-6 col-lg-6">
+                        <div class="mx-5">
+                            <div class="col-md-12">
+                                <button class="btn btn-selected"></button>
+                                <span>Selected</span>
+                            </div>
+
+                            <div class="col-md-12">
+                                <button class="btn btn-available"></button>
+                                <span>Available</span>
+                            </div>
+
+                            <div class="col-md-12">
+                                <button class="btn btn-sold"></button>
+                                <span>Sold</span>
+                            </div>
+
+                            <br>
+                            <div class="col-md-12">
+                                <span>Selected Total seat: {{itemRows?.length}}</span>
+                            </div>
+                            <div class="col-md-12">
+                                <span *ngIf="itemRows?.length * total?.Price">Total Amount :
+                                    {{itemRows?.length * total?.Price}}</span>
+                            </div>
+                            <div class="col-md-12">
+                                <button class="btn btn-info btn-sm  mt-3 mb-5 " [disabled]="!itemRows?.length != 0"
+                                    (click)="processToBook()">Process
+                                    To Book</button>
+                            </div>
+                        </div>
+                        <div *ngIf="isbookingProcess">
+                            <div formArrayName="itemRows">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                            <tr *ngFor="let itemrow of itemRows.controls; let i=index"
+                                                [formGroupName]="i">
+                                                <td>{{i+1}}</td>
+                                                <td> <input type="text" class="form-control" placeholder="Enter name"
+                                                        formControlName="name" value="aa">
+
+                                                    <span class="text-danger"
+                                                        *ngIf="itemrow.get('name').hasError('required') && itemrow.get('name').touched ">
+                                                        Required name number
+                                                    </span></td>
+                                                <td> <input type="text" class="form-control"
+                                                        placeholder="Enter mobile no." formControlName="mobileno"
+                                                        maxlength="10" value="1234567890">
+                                                    <span class="text-danger"
+                                                        *ngIf="itemrow.get('mobileno').hasError('required') && itemrow.get('mobileno').touched ">
+                                                        Required Mobile number
+                                                    </span>
+                                                    <span class="text-danger"
+                                                        *ngIf="itemrow.get('mobileno').hasError('pattern') && itemrow.get('mobileno').touched ">
+                                                        Enter valid number
+                                                    </span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <button class="btn mt-3 btn-search btn-sm pull-right" [disabled]="!searchBus.valid"
+                                (click)="bookBus()">Book
+                                Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="card card-default">
+    <div class="card-header">
+        <div class="card-title"><i class="fa fa-book"></i>&nbsp;&nbsp;Added seats</div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="table table-responsive col-lg-10 offset-lg-1">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <ng-container *ngFor="let booking of lstBookData  let i = index">
+                                <tr (click)="toggleCollapse(i)">
+                                    <td><i [ngClass]="!booking.id ? 'fa fa-minus' : 'fa fa-plus'"></i></td>
+                                    <td> Order No.: {{booking.orderno }}</td>
+                                </tr>
+                                <tr *ngIf="!booking.id">
+                                    <td></td>
+                                    <td>
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th *ngFor="let header of tableHeader">
+                                                        {{header | titlecase}}
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let seat of booking.itemRows; let i = index">
+                                                    <td>{{seat.index }}</td>
+                                                    <td>{{seat.name | titlecase}}</td>
+                                                    <td>{{seat.mobileno}}</td>
+                                                    <td>{{booking.deptdate }}</td>
+                                                    <td>{{seat.Seatid}}</td>
+                                                    <td [attr.rowspan]="booking.itemRows.length" *ngIf="i==0">
+                                                        {{booking.going.Price   * booking.itemRows.length}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        </tbody>
+                        <span *ngIf="lstBookData?.length == 0 ">
+                            <span colspan="7">No record Found</span>
+                        </span>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

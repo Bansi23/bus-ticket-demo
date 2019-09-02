@@ -1,0 +1,98 @@
+.btn-search {
+  background: #1797be;
+  border-color: #1797be;
+  color: #fff;
+}
+.date {
+  cursor: pointer;
+  background-color: #ffffff !important;
+  opacity: 1;
+}
+.border-box {
+  border-style: double;
+  width: 140px !important;
+  padding: 26px;
+}
+.btn-secondary {
+  background-color: #e0e1e2 !important;
+}
+
+.container {
+  display: block;
+  /* padding-left: 35px; */
+  margin-bottom: 12px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 28px;
+  background-color: #969696;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.center {
+  text-align: center;
+}
+
+/* When the checkbox is checked, add a green background */
+.container input:checked ~ .checkmark {
+  background-color: #3b755f;
+  cursor: pointer !important;
+}
+
+.container input[type="checkbox"]:disabled ~ .checkmark {
+  background-color: #b43939 !important;
+  cursor: not-allowed !important;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.btn-selected {
+  background: #3b755f !important;
+}
+.btn-available {
+  background: #969696 !important;
+}
+.btn-sold {
+  background-color: #b43939 !important;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
